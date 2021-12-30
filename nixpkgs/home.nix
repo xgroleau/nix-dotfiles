@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, nixpkgs, ... }:
 
 {
   # Home Manager needs a bit of information about you and the
@@ -6,19 +6,19 @@
   home.username = "xavier";
   home.homeDirectory = "/home/xavier";
 
+  # User config
+  home.keyboard = { layout = "fr-ca"; };
+
+  nixpkgs.config.allowUnfree = true;
+  home.enableNixpkgsReleaseCheck = true;
+
   home.packages = with pkgs; [
     # Nix dev tools
     nixfmt
     rnix-lsp
   ];
 
-  imports = [
-    ./config/alacritty.nix
-    ./config/dunst.nix
-    ./config/picom.nix
-    ./config/redshift.nix
-    ./config/rofi.nix
-  ];
+  imports = [ ./modules/desktop ./modules/shell ./modules/editors ];
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage

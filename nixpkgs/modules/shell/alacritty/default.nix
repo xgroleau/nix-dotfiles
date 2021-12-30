@@ -1,6 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
+  # Dependency
   programs.tmux.enable = true;
 
   programs.alacritty = {
