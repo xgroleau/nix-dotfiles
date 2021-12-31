@@ -61,13 +61,13 @@ in {
     };
 
     envExtra = ''
-            # Local environment
-            [[ ! -f ${zshenvLocal} ]] || source ${zshenvLocal}
-      # '';
+      # Local environment
+      [[ ! -f ${zshenvLocal} ]] || source ${zshenvLocal}
+    '';
 
     initExtra = ''
       # Functions
-      fpath=(${./zshfn} "\$\{fpath[@]\}")
+      fpath=(${./zshfn} "''${fpath[@]}")
       autoload Uz ${./zshfn}/*(.:t)
 
       # Local environment
