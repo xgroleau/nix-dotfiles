@@ -4,7 +4,7 @@ let
   zshrcLocal = config.home.homeDirectory + "/.zshrc.local";
   zshenvLocal = config.home.homeDirectory + "/.zshenv.local";
 in {
-  #environment.pathsToLink = [ "/share/zsh" ];
+  environment.pathsToLink = [ "/share/zsh" ];
   programs.zsh = {
     enable = true;
 
@@ -59,16 +59,16 @@ in {
     };
 
     envExtra = ''
-      # Local environment
-      [[ ! -f ${zshenvLocal} ]] || source ${zshenvLocal}
-    '';
+            # Local environment
+            [[ ! -f ${zshenvLocal} ]] || source ${zshenvLocal}
+      # '';
 
     initExtra = ''
       # Functions
       fpath=(${./zshfn} "\$\{fpath[@]\}")
       autoload Uz ${./zshfn}/*(.:t)
 
-      # Loccal environment
+      # Local environment
       [[ ! -f ${zshrcLocal} ]] || source ${zshrcLocal}
     '';
 

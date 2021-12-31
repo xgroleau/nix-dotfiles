@@ -13,7 +13,4 @@ let
       });
     };
   };
-in {
-  home.packages = [ doom-emacs ];
-  home.sessionPath = [ (config.home.homeDirectory + "/.emacs.d/bin") ];
-}
+in { home.packages = [ doom-emacs ]; }
