@@ -4,9 +4,11 @@ let
   zshrcLocal = config.home.homeDirectory + "/.zshrc.local";
   zshenvLocal = config.home.homeDirectory + "/.zshenv.local";
 in {
-  environment.pathsToLink = [ "/share/zsh" ];
+  # environment.pathsToLink = [ "/share/zsh" ];
   programs.zsh = {
     enable = true;
+
+    dotDir = ".config/zsh";
 
     # plugins
     enableAutosuggestions = true;
@@ -15,7 +17,7 @@ in {
     autocd = true;
     oh-my-zsh = {
       enable = true;
-      plugins = [ "git" "sudo" "colored-man-pages" ];
+      plugins = [ "colored-man-pages" "command-not-found" "git" "sudo" ];
     };
     plugins = [
       {

@@ -2,5 +2,5 @@
 
 {
   programs.tmux = { enable = true; };
-  xdg.configFile.tmux.source = ./tmux;
+  xdg.configFile."tmux/tmux.conf".source = ./tmux/tmux.conf;
 }
