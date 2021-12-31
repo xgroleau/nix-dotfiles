@@ -1,5 +1,5 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = [ ./dunst ./picom ./redshift ./rofi ];
+  imports = [ ./dunst ./i3 ./picom ./redshift ./rofi ];
 }
