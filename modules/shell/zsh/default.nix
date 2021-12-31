@@ -4,7 +4,7 @@ let
   zshrcLocal = config.home.homeDirectory + "/.zshrc.local";
   zshenvLocal = config.home.homeDirectory + "/.zshenv.local";
 in {
-  environments.pathsToLink = [ "/share/zsh" ];
+  #environment.pathsToLink = [ "/share/zsh" ];
   programs.zsh = {
     enable = true;
 
@@ -13,7 +13,6 @@ in {
     enableCompletion = true;
     enableSyntaxHighlighting = true;
     autocd = true;
-    cdpath = true;
     oh-my-zsh = {
       enable = true;
       plugins = [ "git" "sudo" "colored-man-pages" ];
@@ -31,12 +30,12 @@ in {
       }
       {
         name = "alias-tips";
-        src = pkgs.fetchFomGithub {
+        src = pkgs.fetchFromGitHub {
           owner = "djui";
           repo = "alias-tips";
           rev = "45e4e97ba4ec30c7e23296a75427964fc27fb029";
-          sha256 =
-            "5CFF043D2ACDB6C8B5AFFD63372748C26392ED298842C0B8355CD8D30682FEDA";
+          sha256 = "1br0gl5jishbgi7whq4kachlcw6gjqwrvdwgk8l39hcg6gwkh4ji";
+
         };
         file = "alias-tips.plugin.zsh";
       }
@@ -60,10 +59,16 @@ in {
     };
 
     envExtra = ''
+      # Local environment
       [[ ! -f ${zshenvLocal} ]] || source ${zshenvLocal}
     '';
 
     initExtra = ''
+      # Functions
+      fpath=(${./zshfn} "\$\{fpath[@]\}")
+      autoload Uz ${./zshfn}/*(.:t)
+
+      # Loccal environment
       [[ ! -f ${zshrcLocal} ]] || source ${zshrcLocal}
     '';
 

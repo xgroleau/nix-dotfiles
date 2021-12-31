@@ -54,10 +54,10 @@
 
       #launch
       env = { TERM = "xterm-256color"; };
-      shell = {
-        program = /bin/zsh;
-        args = [ "-l" "-c" "tmux attach || tmux" ];
-      };
+      # shell = {
+      #   program = /bin/zsh;
+      #   args = [ "-l" "-c" "tmux attach || tmux" ];
+      # };
     };
   };
 }

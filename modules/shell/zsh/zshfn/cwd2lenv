@@ -1,0 +1,3 @@
+CURR_DIR=$(pwd)
+echo "PATH=$CURR_DIR:\$PATH" >> $HOME/.zshenv.local
+source $HOME/.zshenv.local

@@ -1,5 +1,5 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = [ ./alacritty ./tmux ];
+  imports = [ ./alacritty ./tmux ./zsh ];
 }
