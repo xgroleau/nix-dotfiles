@@ -4,10 +4,8 @@ let
   zshrcLocal = config.home.homeDirectory + "/.zshrc.local";
   zshenvLocal = config.home.homeDirectory + "/.zshenv.local";
 in {
-  # environment.pathsToLink = [ "/share/zsh" ];
   programs.zsh = {
     enable = true;
-
     dotDir = ".config/zsh";
 
     # plugins

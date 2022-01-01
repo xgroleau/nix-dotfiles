@@ -3,6 +3,7 @@
 {
 
   home.packages = with pkgs; [ fira-code ];
+  xdg.configFile.rofi.source = ./rofi;
 
   programs.rofi = {
     enable = true;
@@ -22,6 +23,6 @@
       # display-calc = "Calc";
       # display-window = "Window";
     };
-
   };
+  
 }
