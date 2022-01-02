@@ -3,7 +3,7 @@
 {
 
   home.packages = with pkgs; [ fira-code ];
-  xdg.configFile.rofi.source = ./rofi;
+  xdg.configFile."rofi/themes".source = ./themes;
 
   programs.rofi = {
     enable = true;

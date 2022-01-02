@@ -8,6 +8,7 @@
 
   # User config
   home.keyboard = { layout = "fr-ca"; };
+  targets.genericLinux.enable = true;
 
   nixpkgs.config.allowUnfree = true;
   home.enableNixpkgsReleaseCheck = true;
