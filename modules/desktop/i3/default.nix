@@ -6,10 +6,11 @@
     brightnessctl
     playerctl
 
-    # for font
-    fira-code
   ];
-  xsession.windowManager.i3 = { enable = true; };
+  xsession = {
+    enable = true;
+    windowManager.i3 = { enable = true; };
+  };
 
   xdg.configFile.i3.source = ./i3;
 }

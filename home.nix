@@ -7,7 +7,11 @@
   home.homeDirectory = "/home/xavier";
 
   # User config
-  home.keyboard = { layout = "fr-ca"; };
+  home.keyboard = {
+    layout = "fr-ca";
+    options = [ "caps:swapescape" ];
+  };
+  home.language.base = "en-ca";
   targets.genericLinux.enable = true;
 
   nixpkgs.config.allowUnfree = true;
