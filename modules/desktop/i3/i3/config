@@ -17,7 +17,7 @@ set $transparent #00000001 #idk why but it doesn't work with a  transparency of 
 set $focus_on i3-msg border pixel 2
 set $focus_off i3-msg border pixel 0
 
-font pango:FiraCode NF 10
+font pango:FiraCode 10
 #font pango:DejaVu Sans Mono 8
 
 # Use pactl to adjust volume in PulseAudio.

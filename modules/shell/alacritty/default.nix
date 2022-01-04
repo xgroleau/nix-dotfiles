@@ -13,17 +13,17 @@
         size = 10;
 
         normal = {
-          family = "FiraCode NF";
+          family = "FiraCode";
           style = "Regular";
         };
 
         bold = {
-          family = "FiraCode NF";
+          family = "FiraCode";
           style = "Bold";
         };
 
         italic = {
-          family = "FiraCode NF";
+          family = "FiraCode";
           style = "Light,Regular";
         };
 

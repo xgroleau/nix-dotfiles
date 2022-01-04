@@ -20,7 +20,7 @@
         separator_color = "frame";
         sort = "yes";
         idle_threshold = 120;
-        font = "FireCode NF 10 ";
+        font = "FiraCode 10 ";
         line_height = 0;
         markup = "full";
         format = "<span foreground='#aea79f'><b>%s %p</b></span>\\n%b";
