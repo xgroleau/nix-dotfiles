@@ -23,7 +23,8 @@
     rnix-lsp
   ];
 
-  imports = [ ./modules/desktop ./modules/shell ./modules/editors ];
+  imports =
+    [ ./modules/desktop ./modules/shell ./modules/editors ./modules/dev ];
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
