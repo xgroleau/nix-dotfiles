@@ -5,5 +5,8 @@
      enable = true;
      enableZshIntegration = true;
    };
-   home.packages = with pkgs; [ ripgrep fd ];
+   home.packages = with pkgs; [
+     bpytop 
+     fd
+     ripgrep ];
  }

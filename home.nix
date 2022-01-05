@@ -3,29 +3,22 @@
 {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
-  home.username = "xgroleau";
-  home.homeDirectory = "/home/xgroleau";
+  home.username = builtins.getEnv "USER";
+  home.homeDirectory = builtins.getEnv "HOME";
 
   # User config
   home.keyboard = {
-    layout = "fr-ca";
+    layout = "ca";
     options = [ "caps:swapescape" ];
   };
-  home.language.base = "en-ca";
+  home.language.base = "en_CA.UTF-8";
 
   targets.genericLinux.enable = true;
-  fonts.fontconfig.enable = true;
   nixpkgs.config.allowUnfree = true;
   home.enableNixpkgsReleaseCheck = true;
 
-  home.packages = with pkgs; [
-    # Nix dev tools
-    nixfmt
-    rnix-lsp
-  ];
-
   imports =
-    [ ./modules/desktop ./modules/shell ./modules/editors];
+    [ ./modules/desktop ./modules/dev ./modules/shell ./modules/editors];
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage

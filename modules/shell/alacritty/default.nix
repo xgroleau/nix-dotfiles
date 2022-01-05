@@ -52,7 +52,7 @@
         multiplier = 3;
       };
 
-      #launch
+      #launch TODO: fix
       env = { TERM = "xterm-256color"; };
       # shell = {
       #   program = /bin/zsh;

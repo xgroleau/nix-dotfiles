@@ -1,6 +1,5 @@
 { config, lib, pkgs, ... }:
 
 {
-
-  imports = [ ./cc.nix ./common.nix ./python.nix ];
+  imports = [ ./cc.nix ./common.nix ./nix.nix ./python.nix ];
 }

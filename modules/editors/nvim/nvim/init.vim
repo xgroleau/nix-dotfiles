@@ -84,7 +84,6 @@ call plug#begin()
 	set wildmode=list:longest
 	if has('mouse') | set mouse=a | endif
 	set backspace=indent,eol,start
-	set shell=/bin/zsh
 	set wildchar=<TAB>
 	set wildmenu
 	set clipboard^=unnamed,unnamedplus

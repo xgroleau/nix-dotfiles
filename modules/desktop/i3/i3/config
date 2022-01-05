@@ -49,11 +49,11 @@ bindsym $mod+Shift+q kill
 bindsym $mod+m exec code
 bindsym $mod+n exec which rofi >> $HOME/wich-rofi
 
-bindsym $mod+space exec --no-startup-id rofi -show >> $HOME/rofi-exec
+bindsym $mod+space exec --no-startup-id rofi -show
 bindsym $mod+w exec --no-startup-id rofi -show window -modi window 
-bindsym $mod+c exec --no-startup-id $HOME/.config/rofi/scripts/calc
+bindsym $mod+c exec --no-startup-id rofi -show calc -modi calc
 bindsym $mod+p exec --no-startup-id $HOME/.config/i3scripts/power_menu
-bindsym $mod+semicolon exec --no-startup-id $HOME/.config/rofi/scripts/emoji_selector
+bindsym $mod+semicolon exec --no-startup-id rofi -show emoji -modi emoji
 
 #start snipping tool
 bindsym $mod+Shift+s exec flameshot gui
@@ -275,7 +275,6 @@ exec --no-startup-id unclutter
 exec --no-startup-id nm-applet
 exec --no-startup-id $HOME/.screenlayout/screenlayout.sh
 exec --no-startup-id dunst -conf $HOME/.config/dunst/dunstrc
-exec --no-startup-id feh --bg-fill $HOME/.config/i3/wallpaper.jpg
 exec --no-startup-id picom --config $HOME/.config/picom/picom.conf
 exec --no-startup-id redshift -c $HOME/.config/redshift.conf
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+# exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork TODO: fix
