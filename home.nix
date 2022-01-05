@@ -3,8 +3,8 @@
 {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
-  home.username = "xavier";
-  home.homeDirectory = "/home/xavier";
+  home.username = "xgroleau";
+  home.homeDirectory = "/home/xgroleau";
 
   # User config
   home.keyboard = {
@@ -24,7 +24,7 @@
   ];
 
   imports =
-    [ ./modules/desktop ./modules/shell ./modules/editors ./modules/dev ];
+    [ ./modules/desktop ./modules/shell ./modules/editors];
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage

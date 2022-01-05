@@ -1,5 +1,5 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = [ ./emacs ./nvim ];
+  imports = [ ./emacs ./nvim ./vscode ];
 }

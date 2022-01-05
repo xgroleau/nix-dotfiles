@@ -6,5 +6,5 @@
       # for font
       fira-code
     ];
-  imports = [ ./dunst ./i3 ./picom ./redshift ./rofi ];
+  imports = [ ./dunst ./flameshot ./i3 ./picom ./redshift ./rofi ];
 }
