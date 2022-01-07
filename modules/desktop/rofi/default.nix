@@ -7,7 +7,7 @@
 
   programs.rofi = {
     enable = true;
-    font = "FiraCode 12";
+    font = "FiraCode NF 12";
     theme = "slate";
     plugins = [
       pkgs.rofi-emoji

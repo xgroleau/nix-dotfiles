@@ -12,8 +12,9 @@
     options = [ "caps:swapescape" ];
   };
   home.language.base = "en-ca";
-  targets.genericLinux.enable = true;
 
+  targets.genericLinux.enable = true;
+  fonts.fontconfig.enable = true;
   nixpkgs.config.allowUnfree = true;
   home.enableNixpkgsReleaseCheck = true;
 

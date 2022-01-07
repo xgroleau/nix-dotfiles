@@ -4,7 +4,7 @@
   home.packages = with pkgs;
     [
       # for font
-      fira-code
+      (nerdfonts.override { fonts = ["FiraCode"]; })
     ];
   imports = [ ./dunst ./flameshot ./i3 ./picom ./redshift ./rofi ];
 }
