@@ -10,5 +10,5 @@
       # for font
       (nerdfonts.override { fonts = ["FiraCode"]; })
     ];
-  imports = [ ./dunst ./flameshot ./i3 ./picom ./random-background ./redshift ./rofi ];
+  imports = [ ./dunst ./flameshot ./i3 ./picom ./polybar ./random-background ./redshift ./rofi ];
 }

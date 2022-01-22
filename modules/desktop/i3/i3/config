@@ -271,10 +271,10 @@ no_focus [class="plasmashell" window_type="notification"]
 exec_always --no-startup-id setxkbmap -option "caps:swapescape"
 
 #exec at startup
-exec --no-startup-id unclutter
-exec --no-startup-id nm-applet
+# exec --no-startup-id unclutter
+# exec --no-startup-id nm-applet
 exec --no-startup-id $HOME/.screenlayout/screenlayout.sh
-exec --no-startup-id dunst -conf $HOME/.config/dunst/dunstrc
-exec --no-startup-id picom --config $HOME/.config/picom/picom.conf
-exec --no-startup-id redshift -c $HOME/.config/redshift.conf
+# exec --no-startup-id dunst -conf $HOME/.config/dunst/dunstrc
+# exec --no-startup-id picom --config $HOME/.config/picom/picom.conf
+# exec --no-startup-id redshift -c $HOME/.config/redshift.conf
 # exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork TODO: fix

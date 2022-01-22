@@ -1,6 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
+  ome.packages = with pkgs; [ randr ];
   services.redshift = {
     enable = true;
     provider = "manual";
