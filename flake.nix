@@ -36,7 +36,6 @@
       devShell = pkgs.mkShell {
         buildInputs = with pkgs; [
           git
-          nix-zsh-completions
           nixfmt
           home-manager.defaultPackage.${system}
         ];
