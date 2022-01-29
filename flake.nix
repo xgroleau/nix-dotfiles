@@ -16,6 +16,8 @@
   let 
     system = "x86_64-linux";
     pkgs = nixpkgs;
+    lib = nixpkgs.lib.extend
+        (self: super: { my = import ./lib { inherit pkgs; lib = self; }; });
   in{
     homeConfigurations = {
       # eachDefaultSystem doesn't work for now.
@@ -29,7 +31,7 @@
     };
   }
 
-    # Set up a "dev shell" that will work on all architectures
+  # Dev shell for all architectures
   // (flake-utils.lib.eachDefaultSystem (system:
       let pkgs = import nixpkgs { inherit system; };
       in {
