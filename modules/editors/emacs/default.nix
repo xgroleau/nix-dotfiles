@@ -15,6 +15,12 @@ in {
       enable = true;
     };
     xdg.configFile.doom.source = ./config;
+
+    home.packages = with pkgs; [
+      # lang nix
+      nixfmt
+      rnix-lsp
+    ];
   };
 
 }
