@@ -1,8 +1,19 @@
 { config, lib, pkgs, ... }:
 
-{
-  programs.firefox = {
-    enable = true;
-    package = pkgs.firefox.override { enableTridactylNative = true; };
+with lib;
+with lib.my;
+let
+  cfg = config.modules.appplications.firefox;
+in {
+
+  options.modules.appplications.firefox = with types; {
+    enable = mkBoolOpt false;
+  };
+
+  config = {
+    programs.firefox = {
+      enable = true;
+      package = pkgs.firefox.override { enableTridactylNative = true; };
+    };
   };
 }
