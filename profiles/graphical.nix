@@ -1,6 +1,6 @@
 { config }:
 
-# Module includes most dependencies for development and work
+# Module includes common dependencies for development and work with GUI apps
 {
   config = {
     imports = [ ./minimal ];
