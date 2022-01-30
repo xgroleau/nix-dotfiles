@@ -17,7 +17,7 @@
     system = flake-utils.lib.system.x86_64-linux;
     pkgs = nixpkgs;
     lib = nixpkgs.lib.extend
-        (self: super: { my = import ./lib/option.nix { inherit pkgs; lib = self; }; });
+        (self: super: { my = import ./lib/option.nix { inherit pkgs; lib = self; }; } // home-manager.lib);
   in{
 
     homeConfigurations = {
@@ -31,7 +31,7 @@
             inherit lib;
           };
           configuration = {
-            imports = [ ./home.nix ];
+            imports = [ ./home.nix ./profiles/minimal.nix ];
           };
       };
     };

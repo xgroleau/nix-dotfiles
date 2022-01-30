@@ -3,10 +3,10 @@
 with lib;
 with lib.my;
 let
-  cfg = config.modules.editor.emacs;
+  cfg = config.modules.editors.emacs;
 in {
 
-  options.modules.editor.emacs = with types; {
+  options.modules.editors.emacs = with types; {
     enable = mkBoolOpt false;
   };
 
@@ -22,5 +22,4 @@ in {
       rnix-lsp
     ];
   };
-
 }

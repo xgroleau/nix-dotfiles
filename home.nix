@@ -13,10 +13,5 @@
   nixpkgs.config.allowUnfree = true;
   home.enableNixpkgsReleaseCheck = true;
 
-  imports =
-  [ ./modules/desktop ./modules/dev ./modules/shell ./modules/editors];
-
-
-  # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
+  imports = [ ./modules/desktop ./modules/dev ./modules/shell ./modules/editors];
 }
