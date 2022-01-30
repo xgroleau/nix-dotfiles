@@ -1,22 +1,16 @@
 { config, lib, pkgs, ... }:
 
-
 with lib;
 with lib.my;
-let
-  cfg = config.modules.editors.vscode;
+let cfg = config.modules.editors.vscode;
 in {
 
-  options.modules.editors.vscode = with types; {
-    enable = mkBoolOpt false;
-  };
+  options.modules.editors.vscode = with types; { enable = mkBoolOpt false; };
 
-    config = mkIf cfg.enable {
-      programs.vscode = {
+  config = mkIf cfg.enable {
+    programs.vscode = {
       enable = true;
-      extensions = with pkgs; [ 
-        vscode-extensions.bbenoist.Nix
-        ];
+      extensions = with pkgs; [ vscode-extensions.bbenoist.Nix ];
     };
   };
 }

@@ -4,8 +4,6 @@
 {
   config = {
     imports = [ ./graphical ];
-    modules = {
-        desktop.active = "i3";
-    };
+    modules = { desktop.active = "i3"; };
   };
 }

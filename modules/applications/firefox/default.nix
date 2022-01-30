@@ -2,8 +2,7 @@
 
 with lib;
 with lib.my;
-let
-  cfg = config.modules.appplications.firefox;
+let cfg = config.modules.appplications.firefox;
 in {
 
   options.modules.appplications.firefox = with types; {

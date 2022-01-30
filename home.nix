@@ -13,5 +13,6 @@
   nixpkgs.config.allowUnfree = true;
   home.enableNixpkgsReleaseCheck = true;
 
-  imports = [ ./modules/desktop ./modules/dev ./modules/shell ./modules/editors];
+  imports =
+    [ ./modules/desktop ./modules/dev ./modules/shell ./modules/editors ];
 }

@@ -2,13 +2,10 @@
 
 with lib;
 with lib.my;
-let
-  cfg = config.modules.dev.python;
+let cfg = config.modules.dev.python;
 in {
 
-  options.modules.dev.python = with types; {
-    enable = mkBoolOpt false;
-  };
+  options.modules.dev.python = with types; { enable = mkBoolOpt false; };
 
   config = {
     home.packages = with pkgs; [

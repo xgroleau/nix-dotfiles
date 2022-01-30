@@ -1,28 +1,16 @@
- { config, options, lib, pkgs, ... }:
+{ config, options, lib, pkgs, ... }:
 
 with lib;
 with lib.my;
-let
-  cfg = config.modules.dev.common;
+let cfg = config.modules.dev.common;
 in {
 
-  options.modules.dev.common = with types; {
-    enable = mkBoolOpt false;
-  };
+  options.modules.dev.common = with types; { enable = mkBoolOpt false; };
 
   config = mkIf cfg.enable {
 
-    programs.git = {
-      enable = true;
-    };
+    programs.git = { enable = true; };
 
-    home.packages = with pkgs; [
-      bpytop
-      bat
-      fd
-      fzf
-      tldr
-      ripgrep 
-    ];
+    home.packages = with pkgs; [ bpytop bat fd fzf tldr ripgrep ];
   };
- }
+}

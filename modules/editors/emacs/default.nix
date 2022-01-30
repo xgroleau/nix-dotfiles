@@ -2,18 +2,13 @@
 
 with lib;
 with lib.my;
-let
-  cfg = config.modules.editors.emacs;
+let cfg = config.modules.editors.emacs;
 in {
 
-  options.modules.editors.emacs = with types; {
-    enable = mkBoolOpt false;
-  };
+  options.modules.editors.emacs = with types; { enable = mkBoolOpt false; };
 
   config = {
-    programs.emacs = mkIf cfg.enable {
-      enable = true;
-    };
+    programs.emacs = mkIf cfg.enable { enable = true; };
     xdg.configFile.doom.source = ./config;
 
     home.packages = with pkgs; [

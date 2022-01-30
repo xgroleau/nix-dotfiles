@@ -2,13 +2,10 @@
 
 with lib;
 with lib.my;
-let
-  cfg = config.modules.editors.nvim;
+let cfg = config.modules.editors.nvim;
 in {
 
-  options.modules.editors.nvim = with types; {
-    enable = mkBoolOpt false;
-  };
+  options.modules.editors.nvim = with types; { enable = mkBoolOpt false; };
 
   config = {
     programs.neovim = { enable = true; };

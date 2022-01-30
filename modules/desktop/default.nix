@@ -1,8 +1,7 @@
 { config, lib, pkgs, ... }:
 
 with lib;
-with lib.my;
-{
+with lib.my; {
 
   options.modules.desktop = with types; {
     active = mkOption {
@@ -13,7 +12,6 @@ with lib.my;
       '';
     };
   };
-
 
   imports = [ ./i3 ];
 

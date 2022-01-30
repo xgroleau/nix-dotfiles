@@ -1,6 +1,5 @@
 { config, lib, pkgs, ... }:
 
-
 with lib;
 with lib.my;
 let cfg = config.modules.desktop;
@@ -21,12 +20,11 @@ in {
       windowManager.i3.enable = true;
     };
 
-    home.packages = with pkgs;
-      [
-        brightnessctl
-        (nerdfonts.override { fonts = ["FiraCode"]; })
-        playerctl
-      ];
+    home.packages = with pkgs; [
+      brightnessctl
+      (nerdfonts.override { fonts = [ "FiraCode" ]; })
+      playerctl
+    ];
 
     services = {
       dunst.enable = true;
