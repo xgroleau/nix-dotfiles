@@ -14,6 +14,9 @@ in {
     programs.firefox = {
       enable = true;
       package = pkgs.firefox.override { enableTridactylNative = true; };
+      configFile.i3.source = ./config/i3;
     };
+
+    xdg.configFile.tridactyl.source = ./config;
   };
 }

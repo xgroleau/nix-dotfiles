@@ -13,10 +13,11 @@ in {
   };
 
   config = mkIf cfg.enable {
+    xdg.configFile.zsh.source = ./config;
     programs.zsh =  {
       enable = true;
       dotDir = ".config/zsh";
-      programs.zsh.envExtra = "source $HOME/zsh/zshenv";
-      xdg.configFile.zsh.source = ./config;
+      envExtra = "source $HOME/zsh/zshenv";
+    };
   };
 }
