@@ -15,7 +15,7 @@ with lib.my;
   };
 
 
-  imports = [ ./temp ];
+  imports = [ ./i3 ];
 
   config = {
     fonts.fontconfig.enable = true;

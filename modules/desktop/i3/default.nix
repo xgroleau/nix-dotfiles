@@ -5,7 +5,7 @@ with lib;
 with lib.my;
 let cfg = config.modules.desktop;
 in {
-  config = mkIf (cfg.active == "temp") {
+  config = mkIf (cfg.active == "i3") {
     fonts.fontconfig.enable = true;
     xdg = {
       enable = true;

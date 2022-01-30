@@ -1,5 +1,6 @@
-{ config, lib, pkgs, ... }:
+{ config }:
 
+# Module includes bare minimum. Only TUI applications
 {
   config.modules = {
     dev.common.enable = true;
