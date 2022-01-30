@@ -11,13 +11,18 @@ in {
   };
 
   config = mkIf cfg.enable {
-    programs.fzf = {
+
+    programs.git = {
       enable = true;
-      enableZshIntegration = true;
     };
+
     home.packages = with pkgs; [
-      bpytop 
+      bpytop
+      bat
       fd
-      ripgrep ];
+      fzf
+      tldr
+      ripgrep 
+    ];
   };
  }

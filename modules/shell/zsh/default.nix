@@ -4,8 +4,6 @@ with lib;
 with lib.my;
 let
   cfg = config.modules.shell.zsh;
-  zshrcLocal = config.home.homeDirectory + "/.zshrc.local";
-  zshenvLocal = config.home.homeDirectory + "/.zshenv.local";
 in {
 
   options.modules.shell.zsh = with types; {
@@ -16,8 +14,13 @@ in {
     xdg.configFile.zsh.source = ./config;
     programs.zsh =  {
       enable = true;
-      dotDir = ".config/zsh";
-      envExtra = "source $HOME/zsh/zshenv";
+      envExtra = "source $HOME/.config/zsh/zshenv";
+      initExtra = "source $HOME/.config/zsh/zshrc";
     };
+    home.packages = with pkgs; [
+      nix-zsh-completions
+      python37
+      git
+    ];
   };
 }

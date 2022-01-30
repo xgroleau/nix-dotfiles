@@ -3,10 +3,10 @@
 with lib;
 with lib.my;
 let
-  cfg = config.modules.editor.nvim;
+  cfg = config.modules.editors.nvim;
 in {
 
-  options.modules.editor.nvim = with types; {
+  options.modules.editors.nvim = with types; {
     enable = mkBoolOpt false;
   };
 

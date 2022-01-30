@@ -4,10 +4,10 @@
 with lib;
 with lib.my;
 let
-  cfg = config.modules.editor.vscode;
+  cfg = config.modules.editors.vscode;
 in {
 
-  options.modules.editor.vscode = with types; {
+  options.modules.editors.vscode = with types; {
     enable = mkBoolOpt false;
   };
 

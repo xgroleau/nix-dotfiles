@@ -32,9 +32,9 @@ HIST_STAMPS="dd/mm/yyyy"
 
 #-- Configuration --
 # Aliases
-source ~/.aliases
+source ~/.config/zsh/aliases
 # Functions
-fpath=(~/.zshfn "${fpath[@]}")
+fpath=(~/.config/zsh/zshfn "${fpath[@]}")
 autoload Uz ~/.config/zsh/zshfn/*(.:t)
 
 #-- Local configuration --
@@ -42,4 +42,4 @@ autoload Uz ~/.config/zsh/zshfn/*(.:t)
 [[ ! -f ~/.zshrc.local ]] || source ~/.zshrc.local
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+[[ ! -f ~/.config/zsh/p10k.zsh ]] || source ~/.config/zsh/p10k.zsh
