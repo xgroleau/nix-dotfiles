@@ -12,7 +12,11 @@ in {
   config = {
     programs.firefox = {
       enable = true;
-      #package = pkgs.firefox.override { enableTridactylNative = true; };
+      package = pkgs.firefox.override { 
+        cfg = { 
+          enableTridactylNative = true; 
+        };
+      };
     };
 
     xdg.configFile.tridactyl.source = ./config;

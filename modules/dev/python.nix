@@ -9,13 +9,12 @@ in {
 
   config = {
     home.packages = with pkgs; [
-      python37
-      #python37Packages.pip
-      #python37Packages.ipython
-      #python37Packages.black
-      #python37Packages.setuptools
-      #python37Packages.pylint
-      #python37Packages.poetry
+      python38
+      python38Packages.pip
+      python38Packages.black
+      python38Packages.setuptools
+      python38Packages.pylint
+      python38Packages.poetry
     ];
     home.sessionVariables = {
       IPYTHONDIR = "$XDG_CONFIG_HOME/ipython";

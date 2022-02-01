@@ -10,7 +10,10 @@ in {
   config = mkIf cfg.enable {
     programs.vscode = {
       enable = true;
-      #extensions = [ pkgs.vscode-extensions.bbenoist.Nix ];
+      extensions = with pkgs.vscode-extensions; [ 
+        bbenoist.nix
+        brettm12345.nixfmt-vscode
+      ];
     };
   };
 }

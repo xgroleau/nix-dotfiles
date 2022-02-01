@@ -1,5 +1,5 @@
 configuration {
-	modi: "drun";
+	modi: "drun,window,emoji,calc,combi";
 	show-icons: true;
 	font: "FiraCode NF 12";
 	sort: true;
@@ -7,6 +7,7 @@ configuration {
 	display-drun: "Run";
 	display-calc: "Calc";
 	display-window: "Window";
+	display-emoji: "😀";
 }
 
 @theme "themes/paper.rasi"
