@@ -1,0 +1,12 @@
+configuration {
+	modi: "drun";
+	show-icons: true;
+	font: "FiraCode NF 12";
+	sort: true;
+	matching: "fuzzy";
+	display-drun: "Run";
+	display-calc: "Calc";
+	display-window: "Window";
+}
+
+@theme "themes/paper.rasi"

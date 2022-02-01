@@ -41,5 +41,5 @@ autoload Uz ~/.config/zsh/zshfn/*(.:t)
 # Loading local configuration
 [[ ! -f ~/.zshrc.local ]] || source ~/.zshrc.local
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.config/zsh/p10k.zsh ]] || source ~/.config/zsh/p10k.zsh
+# To customize prompt, run `p10k configure`.
+[[ ! -f ~/.config/zsh/p10k ]] || source ~/.config/zsh/p10k

@@ -49,7 +49,7 @@ bindsym $mod+Shift+q kill
 bindsym $mod+m exec code
 bindsym $mod+n exec which rofi >> $HOME/wich-rofi
 
-bindsym $mod+space exec --no-startup-id rofi -show
+bindsym $mod+space exec --no-startup-id rofi -show drun -modi drun
 bindsym $mod+w exec --no-startup-id rofi -show window -modi window 
 bindsym $mod+c exec --no-startup-id rofi -show calc -modi calc
 bindsym $mod+p exec --no-startup-id $HOME/.config/i3scripts/power_menu
@@ -210,26 +210,6 @@ client.focused_inactive $active     $active     $text_inactive
 client.unfocused        $inactive   $inactive   $text_inactive
 client.urgent           $urgent     $urgent     $text_inactive
 
-
-# bar
-bar {
-    status_command i3blocks -c ~/.config/i3blocks/config
-    tray_output none
-
-    position top
-    colors {
-        background  $inactive
-        separator   $text_inactive
-        statusline  $text_inactive
-
-        #                   border      background  text
-        focused_workspace   $focus      $focus      $text_active
-        active_workspace    $active     $active     $text_inactive
-        inactive_workspace  $inactive   $inactive   $text_inactive
-        urgent_workspace    $urgent     $urgent     $text_inactive
-    }
- }
-
 bar {
     id bar-tray
     i3bar_command i3bar --transparency
@@ -267,14 +247,6 @@ for_window [class="(?i)*nextcloud*"] floating disable
 for_window [class="plasmashell" window_type="notification"] floating enable, border none, move right 700px, move down 450px
 no_focus [class="plasmashell" window_type="notification"] 
 
-# swap caps lock and escape
-exec_always --no-startup-id setxkbmap -option "caps:swapescape"
-
 #exec at startup
-# exec --no-startup-id unclutter
-# exec --no-startup-id nm-applet
-exec --no-startup-id $HOME/.screenlayout/screenlayout.sh
-# exec --no-startup-id dunst -conf $HOME/.config/dunst/dunstrc
-# exec --no-startup-id picom --config $HOME/.config/picom/picom.conf
-# exec --no-startup-id redshift -c $HOME/.config/redshift.conf
+# exec --no-startup-id $HOME/.screenlayout/screenlayout.sh
 # exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork TODO: fix
