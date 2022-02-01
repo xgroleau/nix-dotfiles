@@ -1,4 +1,4 @@
-{ config }:
+{ config , ...}:
 
 # Module includes bare minimum. Only TUI applications
 {

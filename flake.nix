@@ -33,7 +33,7 @@
           username = "xgroleau";
           stateVersion = "22.05";
           extraSpecialArgs = { inherit lib; };
-          configuration = { imports = [ ./home.nix ./profiles/minimal.nix ]; };
+          configuration = { imports = [ ./home.nix ./profiles/desktop.nix ]; };
         };
       };
     }

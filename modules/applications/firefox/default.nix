@@ -5,7 +5,7 @@ with lib.my;
 let cfg = config.modules.appplications.firefox;
 in {
 
-  options.modules.appplications.firefox = with types; {
+  options.modules.applications.firefox = with types; {
     enable = mkBoolOpt false;
   };
 

@@ -14,5 +14,5 @@
   home.enableNixpkgsReleaseCheck = true;
 
   imports =
-    [ ./modules/desktop ./modules/dev ./modules/shell ./modules/editors ];
+    [ ./modules/desktop ./modules/dev ./modules/shell ./modules/editors ./modules/applications ];
 }

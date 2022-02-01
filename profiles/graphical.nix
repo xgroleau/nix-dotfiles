@@ -1,9 +1,9 @@
-{ config }:
+{ config , ...}:
 
 # Module includes common dependencies for development and work with GUI apps
 {
+  imports = [ ./minimal.nix ];
   config = {
-    imports = [ ./minimal ];
     modules = {
       applications.firefox.enable = true;
       dev.cc.enable = true;
