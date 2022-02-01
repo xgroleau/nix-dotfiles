@@ -11,6 +11,9 @@ in {
 
     programs.git = { enable = true; };
 
+    programs.direnv.enable = true;
+    programs.direnv.nix-direnv.enable = true;
+
     home.packages = with pkgs; [ bpytop bat fd fzf tldr ripgrep ];
   };
 }

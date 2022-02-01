@@ -23,8 +23,11 @@
             lib = self;
           };
         } // home-manager.lib);
-    in {
 
+        profiles = import ./profiles;
+    in {
+      inherit profiles;
+      
       homeConfigurations = {
         # eachDefaultSystem doesn't work for now.
         xgroleau = home-manager.lib.homeManagerConfiguration {
@@ -33,7 +36,7 @@
           username = "xgroleau";
           stateVersion = "22.05";
           extraSpecialArgs = { inherit lib; };
-          configuration = { imports = [ ./home.nix ./profiles/desktop.nix ]; };
+          configuration = { imports = [ ./home.nix profiles.desktop ]; };
         };
       };
     }
