@@ -5,16 +5,20 @@ with lib.my.option;
 let cfg = config.modules.dev.python;
 in {
 
-  options.modules.dev.python = with types; { enable = mkBoolOpt false; };
+  options.modules.dev.python = with types; { 
+    enable = mkBoolOpt false;
+    package = mkOpt package pkgs.python38;
+    pythonPackages = mkOpt attrs pkgs.python38Packages;
+  };
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
-      python38
-      python38Packages.pip
-      python38Packages.black
-      python38Packages.setuptools
-      python38Packages.pylint
-      python38Packages.poetry
+      cfg.package
+      cfg.pythonPackages.pip
+      cfg.pythonPackages.black
+      cfg.pythonPackages.setuptools
+      cfg.pythonPackages.pylint
+      cfg.pythonPackages.poetry
     ];
     home.sessionVariables = {
       IPYTHONDIR = "$XDG_CONFIG_HOME/ipython";
