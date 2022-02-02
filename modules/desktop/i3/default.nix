@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 with lib;
-with lib.my;
+with lib.my.option;
 let cfg = config.modules.desktop;
 in {
   config = mkIf (cfg.active == "i3") {

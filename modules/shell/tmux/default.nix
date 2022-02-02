@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 with lib;
-with lib.my;
+with lib.my.option;
 let cfg = config.modules.shell.tmux;
 in {
   options.modules.shell.tmux = with types; { enable = mkBoolOpt false; };

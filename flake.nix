@@ -18,8 +18,8 @@
       pkgs = nixpkgs;
       lib = nixpkgs.lib.extend (self: super:
         {
-          my = import ./lib/option.nix {
-            inherit pkgs;
+          my = import ./lib {
+            inherit pkgs home-manager;
             lib = self;
           };
         } // home-manager.lib);
@@ -30,13 +30,10 @@
 
       homeConfigurations = {
         # eachDefaultSystem doesn't work for now.
-        xgroleau = home-manager.lib.homeManagerConfiguration {
+        xgroleau = lib.my.core.homeConfigurationFromProfile {
           inherit system;
-          homeDirectory = "/home/xgroleau";
           username = "xgroleau";
-          stateVersion = "22.05";
-          extraSpecialArgs = { inherit lib; };
-          configuration = { imports = [ ./home.nix profiles.desktop ]; };
+          profile = profiles.desktop;
         };
       };
     }

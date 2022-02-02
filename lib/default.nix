@@ -1,7 +1,6 @@
-{ lib, pkgs, ... }:
+{ lib, pkgs, home-manager, ... }:
 
-let
-  inherit (lib) makeExtensible attrValues foldr;
-
-  mylib = makeExtensible (self: import ./option.nix);
-in mylib.extend (self: super: foldr (a: b: a // b) { } (attrValues super))
+{
+  core = import ./core.nix { inherit lib pkgs home-manager; };
+  option = import ./option.nix { inherit lib pkgs home-manager; };
+}

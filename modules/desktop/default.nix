@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 with lib;
-with lib.my; {
+with lib.my.option; {
 
   options.modules.desktop = with types; {
     active = mkOption {

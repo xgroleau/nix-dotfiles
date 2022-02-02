@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 with lib;
-with lib.my;
+with lib.my.option;
 let cfg = config.modules.shell.alacritty;
 in {
   options.modules.shell.alacritty = with types; { enable = mkBoolOpt false; };

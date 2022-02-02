@@ -1,7 +1,7 @@
 { config, options, lib, pkgs, ... }:
 
 with lib;
-with lib.my;
+with lib.my.option;
 let cfg = config.modules.dev.cc;
 in {
 
