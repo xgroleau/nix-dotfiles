@@ -9,7 +9,7 @@
   home.language.base = "en_CA.UTF-8";
 
   targets.genericLinux.enable = true;
-  systemd.user.startServices = "sd-switch";
+  systemd.user.startServices = true;
   nixpkgs.config.allowUnfree = true;
   home.enableNixpkgsReleaseCheck = true;
 

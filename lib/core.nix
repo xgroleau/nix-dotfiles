@@ -1,13 +1,21 @@
-{ lib, home-manager, ... }:
+{ lib, pkgs, home-manager, ... }:
 
-let hmLibArg = { lib = (lib // home-manager.lib); };
+let
+
+myHmLib = pkgs.lib.extend (self: super:
+  {
+    my = import ./. {
+      inherit pkgs home-manager;
+      lib = self;
+    };
+  } // home-manager.lib);
 in {
   nixosConfigurationFromProfile = { user, extraModules ? [ ]
     , extraSpecialArgs ? { }, extraConfig ? { }, profile ? { ... }: { } }:
     home-manager.nixosModules.home-manager {
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
-      home-manager.extraSpecialArgs = (hmLibArg // extraSpecialArgs);
+      home-manager.extraSpecialArgs = ({lib = myHmLib;} // extraSpecialArgs);
       home-manager.users.${user} = { ... }: {
         imports = [ ../home.nix profile ] ++ extraModules;
         config = extraConfig;
@@ -19,7 +27,7 @@ in {
     , extraSpecialArgs ? { }, extraConfig ? { }, profile ? { ... }: { } }:
     home-manager.lib.homeManagerConfiguration {
       inherit system username homeDirectory extraModules;
-      extraSpecialArgs = (hmLibArg // extraSpecialArgs);
+      extraSpecialArgs = ({lib = myHmLib;} // extraSpecialArgs);
       configuration = {
         imports = [ ../home.nix profile ] ++ extraModules;
         config = extraConfig;

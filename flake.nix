@@ -16,21 +16,18 @@
     let
       system = flake-utils.lib.system.x86_64-linux;
       pkgs = nixpkgs;
-      lib = nixpkgs.lib.extend (self: super:
-        {
-          my = import ./lib {
+      utils = import ./lib {
             inherit pkgs home-manager;
             lib = self;
           };
-        } // home-manager.lib);
 
       profiles = import ./profiles;
     in {
-      inherit profiles;
+      inherit profiles utils;
 
       homeConfigurations = {
         # eachDefaultSystem doesn't work for now.
-        xgroleau = lib.my.core.homeConfigurationFromProfile {
+        xgroleau = utils.core.homeConfigurationFromProfile {
           inherit system;
           username = "xgroleau";
           profile = profiles.desktop;
