@@ -5,7 +5,7 @@ with lib.my.option;
 let cfg = config.modules.dev.common;
 in {
 
-  options.modules.dev.common = with types; { 
+  options.modules.dev.common = with types; {
     enable = mkBoolOpt false;
     gitUser = mkOpt types.str "xgroleau";
     gitEmail = mkOpt types.str "xavgroleau@gmail.com";
@@ -13,10 +13,10 @@ in {
 
   config = mkIf cfg.enable {
 
-    programs.git = { 
+    programs.git = {
       enable = true;
-        userName = cfg.gitUser;
-        userEmail = cfg.gitEmail;
+      userName = cfg.gitUser;
+      userEmail = cfg.gitEmail;
     };
 
     programs.direnv.enable = true;
