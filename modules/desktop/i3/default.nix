@@ -11,7 +11,7 @@ in {
       brightnessctl
       flameshot
       (nerdfonts.override { fonts = [ "FiraCode" ]; })
-      (rofi.override { plugins = [ rofi-emoji rofi-calc rofi-power-menu]; })
+      (rofi.override { plugins = [ rofi-emoji rofi-calc rofi-power-menu ]; })
       playerctl
     ];
 
@@ -66,12 +66,10 @@ in {
       configFile.picom.source = ./config/picom;
       configFile.rofi.source = ./config/rofi;
     };
-    
+
     xsession = {
       enable = true;
-      windowManager.i3 = {
-        enable = true;
-      };
+      windowManager.i3 = { enable = true; };
     };
   };
 }

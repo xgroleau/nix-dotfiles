@@ -14,6 +14,6 @@ in {
       envExtra = "source $HOME/.config/zsh/zshenv";
       initExtra = "source $HOME/.config/zsh/zshrc";
     };
-    home.packages = with pkgs; [ nix-zsh-completions python37 git ];
+    home.packages = with pkgs; [ nix-zsh-completions python38 git ];
   };
 }

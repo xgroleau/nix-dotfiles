@@ -7,7 +7,7 @@ in {
 
   options.modules.dev.python = with types; { enable = mkBoolOpt false; };
 
-  config = {
+  config = mkIf cfg.enable {
     home.packages = with pkgs; [
       python38
       python38Packages.pip

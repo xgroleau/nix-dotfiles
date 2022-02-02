@@ -24,10 +24,10 @@
           };
         } // home-manager.lib);
 
-        profiles = import ./profiles;
+      profiles = import ./profiles;
     in {
       inherit profiles;
-      
+
       homeConfigurations = {
         # eachDefaultSystem doesn't work for now.
         xgroleau = home-manager.lib.homeManagerConfiguration {
