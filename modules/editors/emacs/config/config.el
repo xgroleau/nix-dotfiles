@@ -8,8 +8,8 @@
       user-mail-address "xavgroleau@gmail.com"
 
       ;; Font settings
-      doom-font (font-spec :family "FiraCode NF" :size 14)
-      doom-big-font (font-spec :family "FiraCode NF" :size 20)
+      doom-font (font-spec :family "FiraCode Nerd Font" :size 14)
+      doom-big-font (font-spec :family "FiraCode Nerd Font" :size 20)
 
       doom-theme 'doom-gruvbox
 

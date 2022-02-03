@@ -17,7 +17,7 @@ set $transparent #00000001 #idk why but it doesn't work with a  transparency of 
 set $focus_on i3-msg border pixel 2
 set $focus_off i3-msg border pixel 0
 
-font pango:FiraCode NF 10
+font pango:FiraCode Nerd Font 10
 #font pango:DejaVu Sans Mono 8
 
 # Use pactl to adjust volume in PulseAudio.
@@ -52,7 +52,7 @@ bindsym $mod+n exec which rofi >> $HOME/wich-rofi
 bindsym $mod+space exec --no-startup-id rofi -show drun -modi drun
 bindsym $mod+w exec --no-startup-id rofi -show window -modi window 
 bindsym $mod+c exec --no-startup-id rofi -show calc -modi calc
-bindsym $mod+p exec --no-startup-id $HOME/.config/i3scripts/power_menu
+bindsym $mod+p exec --no-startup-id rofi -show p:rofi-power-menu
 bindsym $mod+semicolon exec --no-startup-id rofi -show emoji -modi emoji
 
 #start snipping tool

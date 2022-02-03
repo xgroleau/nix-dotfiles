@@ -11,7 +11,8 @@ in {
       brightnessctl
       flameshot
       (nerdfonts.override { fonts = [ "FiraCode" ]; })
-      (rofi.override { plugins = [ rofi-emoji rofi-calc rofi-power-menu ]; })
+      (rofi.override { plugins = [ rofi-emoji rofi-calc ]; })
+      rofi-power-menu
       playerctl
     ];
 
@@ -23,7 +24,14 @@ in {
 
       network-manager-applet.enable = true;
 
-      picom.enable = true;
+      picom = {
+        enable = true;
+        blur = true;
+        inactiveOpacity = "0.95";
+        shadow = true;
+        shadowOffsets = [ (-5) (-5) ];
+        shadowOpacity = "1";
+      };
 
       polybar = {
         enable = true;
@@ -63,7 +71,6 @@ in {
     xdg = {
       enable = true;
       configFile.i3.source = ./config/i3;
-      configFile.picom.source = ./config/picom;
       configFile.rofi.source = ./config/rofi;
     };
 

@@ -2,7 +2,7 @@
 
 with lib;
 with lib.my.option;
-let cfg = config.modules.appplications.gitkraken;
+let cfg = config.modules.applications.gitkraken;
 in {
 
   options.modules.applications.gitkraken = with types; {

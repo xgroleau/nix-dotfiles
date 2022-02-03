@@ -50,7 +50,7 @@ call plug#begin()
 	set title
 	set laststatus=2
 	set t_Co=256
-	set guifont=FiraCode NF
+	set guifont=FiraCode Nerd Font
 
 	"" Airline
 	let g:airline_powerline_fonts = 1

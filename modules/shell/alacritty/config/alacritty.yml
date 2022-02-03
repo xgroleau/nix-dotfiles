@@ -4,15 +4,15 @@ font:
     size: 10
 
     normal:
-        family: FiraCode NF
+        family: FiraCode Nerd Font
         style: Regular
 
     bold:
-        family: FiraCode NF
+        family: FiraCode Nerd Font
         style: Bold
 
     italic:
-        family: FiraCode NF
+        family: FiraCode Nerd Font
         style: Light,Regular
 
 #styling
@@ -39,8 +39,8 @@ scrolling:
 env:
     TERM: xterm-256color
 shell:
-    program: /bin/zsh
+    program: tmux
     args:
-    - -l
-    - -c
-    - "tmux attach || tmux"
+    - new
+    - -A
+    - -s main
