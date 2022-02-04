@@ -2,21 +2,21 @@
 
 let
 
-myHmLib = pkgs.lib.extend (self: super:
-  {
-    my = import ./. {
-      inherit pkgs home-manager;
-      lib = self;
-    };
-  } // home-manager.lib);
+  myHmLib = pkgs.lib.extend (self: super:
+    {
+      my = import ./. {
+        inherit pkgs home-manager;
+        lib = self;
+      };
+    } // home-manager.lib);
 in {
   nixosConfigurationFromProfile = { user, extraModules ? [ ]
-    , extraSpecialArgs ? { }, extraConfig ? { }, profile ? { ... }: { } }:
+    , extraSpecialArgs ? { }, extraConfig ? { }, profile ? { _ }: { } }:
     home-manager.nixosModules.home-manager {
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
-      home-manager.extraSpecialArgs = ({lib = myHmLib;} // extraSpecialArgs);
-      home-manager.users.${user} = { ... }: {
+      home-manager.extraSpecialArgs = { lib = myHmLib; } // extraSpecialArgs;
+      home-manager.users.${user} = { _ }: {
         imports = [ ../home.nix profile ] ++ extraModules;
         config = extraConfig;
       };
@@ -24,10 +24,10 @@ in {
 
   homeConfigurationFromProfile = { system, username
     , homeDirectory ? "/home/${username}", extraModules ? [ ]
-    , extraSpecialArgs ? { }, extraConfig ? { }, profile ? { ... }: { } }:
+    , extraSpecialArgs ? { }, extraConfig ? { }, profile ? { _ }: { } }:
     home-manager.lib.homeManagerConfiguration {
       inherit system username homeDirectory extraModules;
-      extraSpecialArgs = ({lib = myHmLib;} // extraSpecialArgs);
+      extraSpecialArgs = { lib = myHmLib; } // extraSpecialArgs;
       configuration = {
         imports = [ ../home.nix profile ] ++ extraModules;
         config = extraConfig;

@@ -8,6 +8,7 @@ in {
     fonts.fontconfig.enable = true;
 
     home.packages = with pkgs; [
+      arandr
       brightnessctl
       flameshot
       (nerdfonts.override { fonts = [ "FiraCode" ]; })
@@ -31,13 +32,17 @@ in {
         shadow = true;
         shadowOffsets = [ (-5) (-5) ];
         shadowOpacity = "1";
+        extraOptions = "xinerama-shadow-crop = true;";
       };
 
       polybar = {
         enable = true;
         package = pkgs.polybarFull;
         config = ./config/polybar/config.ini;
-        script = "polybar main &";
+        script = ''
+          for m in $(polybar --list-monitors | ${pkgs.coreutils}/bin/cut -d":" -f1); do
+            MONITOR=$m polybar --reload main &
+          done'';
       };
 
       random-background = {

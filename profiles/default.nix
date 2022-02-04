@@ -1,6 +1,6 @@
 # Some modules for common presets for profile
 rec {
-  minimal = { ... }: {
+  minimal = { _ }: {
     config.modules = {
       dev.common.enable = true;
       editors.nvim.enable = true;
@@ -10,7 +10,7 @@ rec {
     };
   };
 
-  graphical = { ... }: {
+  graphical = { _ }: {
     imports = [ minimal ];
     config = {
       modules = {
@@ -25,7 +25,7 @@ rec {
     };
   };
 
-  desktop = { ... }: {
+  desktop = { _ }: {
     imports = [ graphical ];
     config = { modules = { desktop.active = "i3"; }; };
   };

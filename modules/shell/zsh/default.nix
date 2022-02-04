@@ -2,7 +2,7 @@
 
 with lib;
 with lib.my.option;
-let 
+let
   cfg = config.modules.shell.zsh;
   pythonCfg = config.modules.dev.python;
 in {

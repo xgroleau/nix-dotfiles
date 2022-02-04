@@ -9,7 +9,5 @@ in {
     enable = mkBoolOpt false;
   };
 
-  config = mkIf cfg.enable {
-    home.packages = with pkgs; [ gitkraken ];
-  };
+  config = mkIf cfg.enable { home.packages = with pkgs; [ gitkraken ]; };
 }

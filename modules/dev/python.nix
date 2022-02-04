@@ -5,7 +5,7 @@ with lib.my.option;
 let cfg = config.modules.dev.python;
 in {
 
-  options.modules.dev.python = with types; { 
+  options.modules.dev.python = with types; {
     enable = mkBoolOpt false;
     package = mkOpt package pkgs.python38;
     pythonPackages = mkOpt attrs pkgs.python38Packages;
