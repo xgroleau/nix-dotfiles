@@ -16,6 +16,7 @@ rec {
       modules = {
         applications.firefox.enable = true;
         applications.gitkraken.enable = true;
+        applications.discord.enable = true;
         dev.cc.enable = true;
         dev.python.enable = true;
         editors.vscode.enable = true;
