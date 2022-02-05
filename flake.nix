@@ -47,7 +47,7 @@
             runtimeInputs = with pkgs; [ nixfmt statix ];
             text = ''
               nixfmt --check ${./.}/**/*.nix && \
-              statix check ${./.} --format errfmt
+              statix check ${./.}
             '';
 
           };
@@ -57,6 +57,7 @@
             runtimeInputs = with pkgs; [ nixfmt ];
             text = ''
               nixfmt ./**/*.nix
+              statix fix ${./.}
             '';
           };
         };
