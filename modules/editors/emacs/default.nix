@@ -8,13 +8,23 @@ in {
   options.modules.editors.emacs = with types; { enable = mkBoolOpt false; };
 
   config = {
-    programs.emacs = mkIf cfg.enable { enable = true; };
     xdg.configFile.doom.source = ./config;
 
     home.packages = with pkgs; [
+      # Emacs
+      ((emacsPackagesNgGen emacs).emacsWithPackages (epkgs: [ epkgs.vterm ]))
+
+      # tools
+      fd
+      imagemagick
+
       # lang nix
       nixfmt
       rnix-lsp
+
+      # term
+      libtool
+      libvterm
     ];
   };
 }
