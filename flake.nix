@@ -41,21 +41,31 @@
     // (flake-utils.lib.eachDefaultSystem (system:
       let pkgs = import nixpkgs { inherit system; };
       in {
-        #checks = {
-        #  fmt = pkgs.runCommand "nixfmt" { } ''
-        #    ${pkgs.nixfmt}/bin/nixfmt --check ${./.}/**/*.nix
-        #  '';
+        apps = {
+          checks = pkgs.writeShellApplication {
+            name = "checks";
+            runtimeInputs = with pkgs; [ nixfmt statix ];
+            text = ''
+              nixfmt --check ${./.}/**/*.nix && \
+              statix check ${./.} --format errfmt
+            '';
 
-        #  statix = pkgs.runCommand "statix" { } ''
-        #    ${pkgs.statix}/bin/statix check ${./.} --format errfmt | tee output
-        #    [[ "$(cat output)" == "" ]]
-        #  '';
-        #};
+          };
+
+          fmt = pkgs.writeShellApplication {
+            name = "fmt";
+            runtimeInputs = with pkgs; [ nixfmt ];
+            text = ''
+              nixfmt ./**/*.nix
+            '';
+          };
+        };
 
         devShell = pkgs.mkShell {
           buildInputs = with pkgs; [
             git
             nixfmt
+            statix
             home-manager.defaultPackage.${system}
           ];
         };
