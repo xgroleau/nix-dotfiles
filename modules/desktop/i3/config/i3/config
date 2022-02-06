@@ -41,12 +41,6 @@ bindsym $mod+Shift+s exec flameshot gui
 bindsym $mod+Shift+d exec ~/.emacs.d/bin/doom everywhere
 
 # Notifications
-[shortcuts]
-    close = mod1+space
-    close_all = mod1+shift+space
-    history = mod1+period
-    context = mod1+shift+period
-
 bindsym $alt+space exec dunstctl close
 bindsym $alt+shift+space exec dunstctl close-all
 bindsym $alt+. exec dunstctl history
