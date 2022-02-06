@@ -17,12 +17,16 @@ in {
       playerctl
     ];
 
+    programs.autorandr.enable = true;
+
     services = {
+
       dunst = {
         enable = true;
         configFile = ./config/dunst/dunstrc;
       };
 
+      gnome-keyring.enable = true;
       network-manager-applet.enable = true;
 
       picom = {
@@ -70,11 +74,13 @@ in {
         };
       };
 
+      screen-locker = { enable = true; };
       unclutter.enable = true;
     };
 
     xdg = {
       enable = true;
+      configFile.autorandr.source = ./config/autorandr;
       configFile.i3.source = ./config/i3;
       configFile.rofi.source = ./config/rofi;
     };

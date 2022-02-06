@@ -10,7 +10,7 @@ rec {
     };
   };
 
-  graphical = _: {
+  graphical = { ... }: {
     imports = [ minimal ];
     config = {
       modules = {

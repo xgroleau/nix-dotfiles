@@ -250,4 +250,6 @@ no_focus [class="plasmashell" window_type="notification"]
 
 #exec at startup
 # exec --no-startup-id $HOME/.screenlayout/screenlayout.sh
-# exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork TODO: fix
+
+# Restart polybar so it can connect to workspaces
+exec --no-startup-id systemctl --user restart polybar.service
