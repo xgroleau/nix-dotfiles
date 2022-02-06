@@ -21,6 +21,8 @@ in {
 
     services = {
 
+      betterlockscreen.enable = true;
+
       dunst = {
         enable = true;
         configFile = ./config/dunst/dunstrc;
@@ -74,7 +76,6 @@ in {
         };
       };
 
-      screen-locker = { enable = true; };
       unclutter.enable = true;
     };
 
