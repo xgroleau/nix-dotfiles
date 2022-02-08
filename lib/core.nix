@@ -11,19 +11,31 @@ let
     } // home-manager.lib);
 
 in {
+  # Returns a module with the home-manager configuration and the profile
   nixosConfigurationFromProfile = { user, extraModules ? [ ]
     , extraSpecialArgs ? { }, extraConfig ? { }, profile ? { _ }: { }, ... }:
 
-    home-manager.nixosModules.home-manager {
-      home-manager.useGlobalPkgs = true;
-      home-manager.useUserPackages = true;
-      home-manager.extraSpecialArgs = { lib = myHmLib; } // extraSpecialArgs;
-      home-manager.users.${user} = { ... }: {
-        imports = [ ../home.nix profile ] ++ extraModules;
-        config = extraConfig;
+    _: {
+      config = {
+        imports = [
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = {
+              lib = myHmLib;
+            } // extraSpecialArgs;
+
+            home-manager.users.${user} = { ... }: {
+              imports = [ ../home.nix profile ] ++ extraModules;
+              config = extraConfig;
+            };
+          }
+        ];
       };
     };
 
+  # Calls homeManagerConfiguration with the profile
   homeConfigurationFromProfile = { system, username
     , homeDirectory ? "/home/${username}", extraModules ? [ ]
     , extraSpecialArgs ? { }, extraConfig ? { }, profile ? { _ }: { }, ... }:
