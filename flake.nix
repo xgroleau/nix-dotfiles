@@ -26,7 +26,8 @@
       inherit (nixpkgs.lib) listToAttrs mapAttrs;
       inherit (utils.core) homeConfigurationFromProfile;
     in {
-      inherit profiles utils;
+      inherit profiles;
+      utils = utils.core;
 
       # Generate a configuration for each profiles
       homeConfigurations = nixpkgs.lib.mapAttrs (profileName: profileConfig:
@@ -41,17 +42,17 @@
     // (flake-utils.lib.eachDefaultSystem (system:
       let pkgs = import nixpkgs { inherit system; };
       in {
+        checks = {
+          fmt = pkgs.runCommand "fmt" {
+            buildInputs = with pkgs; [ nixfmt statix ];
+          } ''
+            ${pkgs.nixfmt}/bin/nixfmt --check ${./.}/**/*.nix && \
+            ${pkgs.statix}/bin/statix check ${./.}
+          '';
+
+        };
+
         apps = {
-          checks = pkgs.writeShellApplication {
-            name = "checks";
-            runtimeInputs = with pkgs; [ nixfmt statix ];
-            text = ''
-              nixfmt --check ${./.}/**/*.nix && \
-              statix check ${./.}
-            '';
-
-          };
-
           fmt = pkgs.writeShellApplication {
             name = "fmt";
             runtimeInputs = with pkgs; [ nixfmt ];
