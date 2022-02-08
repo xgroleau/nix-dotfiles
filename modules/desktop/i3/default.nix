@@ -21,7 +21,10 @@ in {
 
     services = {
 
-      betterlockscreen.enable = true;
+      betterlockscreen = {
+        enable = true;
+        arguments = [ "-u ${./config/wallpapers} " ];
+      };
 
       dunst = {
         enable = true;
