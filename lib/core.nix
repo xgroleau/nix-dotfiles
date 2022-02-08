@@ -12,27 +12,25 @@ let
 
 in {
   # Returns a module with the home-manager configuration and the profile
-  nixosConfigurationFromProfile = { user, extraModules ? [ ]
+  nixosConfigurationFromProfile = { username, extraModules ? [ ]
     , extraSpecialArgs ? { }, extraConfig ? { }, profile ? { _ }: { }, ... }:
 
     _: {
-      config = {
-        imports = [
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {
-              lib = myHmLib;
-            } // extraSpecialArgs;
+      imports = [
+        home-manager.nixosModules.home-manager
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.extraSpecialArgs = {
+            lib = myHmLib;
+          } // extraSpecialArgs;
 
-            home-manager.users.${user} = { ... }: {
-              imports = [ ../home.nix profile ] ++ extraModules;
-              config = extraConfig;
-            };
-          }
-        ];
-      };
+          home-manager.users.${username} = { ... }: {
+            imports = [ ../home.nix profile ] ++ extraModules;
+            config = extraConfig;
+          };
+        }
+      ];
     };
 
   # Calls homeManagerConfiguration with the profile
