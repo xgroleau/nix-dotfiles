@@ -12,19 +12,23 @@ let
 in {
   nixosConfigurationFromProfile = { user, extraModules ? [ ]
     , extraSpecialArgs ? { }, extraConfig ? { }, profile ? { _ }: { }, ... }:
-    home-manager.nixosModules.home-manager {
-      home-manager.useGlobalPkgs = true;
-      home-manager.useUserPackages = true;
-      home-manager.extraSpecialArgs = { lib = myHmLib; } // extraSpecialArgs;
-      home-manager.users.${user} = { _ }: {
-        imports = [ ../home.nix profile ] ++ extraModules;
-        config = extraConfig;
+
+    home-manager.nixosModules.home-manager ({ _ }: {
+      config = {
+        home-manager.useGlobalPkgs = true;
+        home-manager.useUserPackages = true;
+        home-manager.extraSpecialArgs = { lib = myHmLib; } // extraSpecialArgs;
+        home-manager.users.${user} = { _ }: {
+          imports = [ ../home.nix profile ] ++ extraModules;
+          config = extraConfig;
+        };
       };
-    };
+    });
 
   homeConfigurationFromProfile = { system, username
     , homeDirectory ? "/home/${username}", extraModules ? [ ]
     , extraSpecialArgs ? { }, extraConfig ? { }, profile ? { _ }: { }, ... }:
+
     home-manager.lib.homeManagerConfiguration {
       inherit system username homeDirectory extraModules;
       extraSpecialArgs = { lib = myHmLib; } // extraSpecialArgs;
