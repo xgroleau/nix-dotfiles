@@ -9,6 +9,7 @@ let
         lib = self;
       };
     } // home-manager.lib);
+
 in {
   nixosConfigurationFromProfile = { user, extraModules ? [ ]
     , extraSpecialArgs ? { }, extraConfig ? { }, profile ? { _ }: { }, ... }:
@@ -17,7 +18,7 @@ in {
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
       home-manager.extraSpecialArgs = { lib = myHmLib; } // extraSpecialArgs;
-      home-manager.users.${user} = { _ }: {
+      home-manager.users.${user} = { ... }: {
         imports = [ ../home.nix profile ] ++ extraModules;
         config = extraConfig;
       };
