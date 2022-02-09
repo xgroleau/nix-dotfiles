@@ -42,16 +42,6 @@
     // (flake-utils.lib.eachDefaultSystem (system:
       let pkgs = import nixpkgs { inherit system; };
       in {
-        checks = {
-          fmt = pkgs.runCommand "fmt" {
-            buildInputs = with pkgs; [ nixfmt statix ];
-          } ''
-            ${pkgs.nixfmt}/bin/nixfmt --check ${./.}/**/*.nix && \
-            ${pkgs.statix}/bin/statix check ${./.}
-          '';
-
-        };
-
         apps = {
           fmt = pkgs.writeShellApplication {
             name = "fmt";
@@ -61,6 +51,16 @@
               statix fix ${./.}
             '';
           };
+        };
+
+        checks = {
+          fmt = pkgs.runCommand "fmt" {
+            buildInputs = with pkgs; [ nixfmt statix ];
+          } ''
+            ${pkgs.nixfmt}/bin/nixfmt --check ${./.}/**/*.nix && \
+            ${pkgs.statix}/bin/statix check ${./.}
+          '';
+
         };
 
         devShell = pkgs.mkShell {
