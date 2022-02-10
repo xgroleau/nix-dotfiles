@@ -27,7 +27,7 @@ in {
             lib = myHmLib;
           } // extraSpecialArgs;
 
-          home-manager.users.${username} = { ... }: {
+          home-manager.users.${username} = _: {
             imports = [ ../home.nix profile ] ++ extraModules;
             config = { home.stateVersion = stateVersion; } // extraConfig;
           };
