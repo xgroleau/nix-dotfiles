@@ -29,7 +29,7 @@ in {
 
           home-manager.users.${username} = { ... }: {
             imports = [ ../home.nix profile ] ++ extraModules;
-            config = { inherit stateVersion; } // extraConfig;
+            config = { home.stateVersion = stateVersion; } // extraConfig;
           };
         }
       ];
