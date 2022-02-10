@@ -1,4 +1,4 @@
-# nix-dotfiles
+# Nix Dotfiles
 My declarative dotfiles configuration using [nix](https://nixos.org/) and [home-manager](https://github.com/nix-community/home-manager) to manage my systems.
 
 This configuration **should** work in all distribution in theory, but because nixpkgs has some issue with opengl, some features may not work. Namely `alacritty` and `picom` won't be able to launch if you are not using NixOS.
@@ -86,4 +86,3 @@ Or to apply the changes directly, you can run.
 ``` sh
 nix run .#fmt
 ```
-

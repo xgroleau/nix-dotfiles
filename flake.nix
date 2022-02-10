@@ -45,10 +45,10 @@
         apps = {
           fmt = pkgs.writeShellApplication {
             name = "fmt";
-            runtimeInputs = with pkgs; [ nixfmt ];
+            runtimeInputs = with pkgs; [ nixfmt statix ];
             text = ''
               nixfmt ./**/*.nix
-              statix fix ${./.}
+              statix fix ./.
             '';
           };
         };
