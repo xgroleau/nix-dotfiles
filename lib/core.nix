@@ -10,6 +10,8 @@ let
       };
     } // home-manager.lib);
 
+  stateVersion = "22.05";
+
 in {
   # Returns a module with the home-manager configuration and the profile
   nixosConfigurationFromProfile = { username, extraModules ? [ ]
@@ -27,7 +29,7 @@ in {
 
           home-manager.users.${username} = { ... }: {
             imports = [ ../home.nix profile ] ++ extraModules;
-            config = extraConfig;
+            config = { inherit stateVersion; } // extraConfig;
           };
         }
       ];
@@ -39,7 +41,7 @@ in {
     , extraSpecialArgs ? { }, extraConfig ? { }, profile ? { _ }: { }, ... }:
 
     home-manager.lib.homeManagerConfiguration {
-      inherit system username homeDirectory extraModules;
+      inherit system username homeDirectory extraModules stateVersion;
       extraSpecialArgs = { lib = myHmLib; } // extraSpecialArgs;
       configuration = {
         imports = [ ../home.nix profile ] ++ extraModules;
