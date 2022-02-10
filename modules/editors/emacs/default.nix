@@ -16,11 +16,16 @@ in {
 
       # tools
       fd
+      git
+      gnutls
       imagemagick
+      ripgrep
 
-      # lang nix
+      # lang
       nixfmt
       rnix-lsp
+      rustfmt
+      rust-analyzer
 
       # term
       libtool

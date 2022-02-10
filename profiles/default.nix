@@ -18,8 +18,11 @@ rec {
         applications.gitkraken.enable = true;
         applications.discord.enable = true;
         applications.spotify.enable = true;
+
         dev.cc.enable = true;
         dev.python.enable = true;
+        dev.rust.enable = true;
+
         editors.vscode.enable = true;
         shell.alacritty.enable = true;
       };
