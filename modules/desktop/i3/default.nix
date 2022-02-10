@@ -23,6 +23,7 @@ in {
 
       betterlockscreen = {
         enable = true;
+        inactiveInterval = 45;
         arguments = [ "-u ${./config/wallpapers} " ];
       };
 
