@@ -85,7 +85,10 @@ in {
 
     xdg = {
       enable = true;
-      configFile.autorandr.source = ./config/autorandr;
+      configFile.autorandr = {
+        recursive = true;
+        source = ./config/autorandr;
+      };
       configFile.i3.source = ./config/i3;
       configFile.rofi.source = ./config/rofi;
     };
