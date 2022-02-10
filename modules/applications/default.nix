@@ -1,5 +1,5 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = [ ./firefox ./gitkraken ./discord ];
+  imports = [ ./discord ./firefox ./gitkraken ./spotify ];
 }
