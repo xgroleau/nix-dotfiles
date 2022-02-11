@@ -23,8 +23,7 @@ in {
 
       # lang
       nixfmt
-      rnix-lsp
-      rustfmt
+      rustup
       rust-analyzer
 
       # term
