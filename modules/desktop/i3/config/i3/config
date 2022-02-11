@@ -35,10 +35,10 @@ bindsym $mod+p exec --no-startup-id rofi -show p:rofi-power-menu
 bindsym $mod+semicolon exec --no-startup-id rofi -show emoji -modi emoji
 
 #start snipping tool
-bindsym $mod+Shift+s exec flameshot gui
+bindsym $mod+Shift+s exec --no-startup-id flameshot gui
 
 # Doom everywhere
-bindsym $mod+Shift+d exec ~/.emacs.d/bin/doom everywhere
+bindsym $mod+Shift+d exec --no-startup-id ~/.emacs.d/bin/doom everywhere
 
 # Notifications
 bindsym $alt+space exec dunstctl close
@@ -248,5 +248,5 @@ for_window [class="plasmashell" window_type="notification"] floating enable, bor
 no_focus [class="plasmashell" window_type="notification"] 
 
 #exec at startup
-# Restart polybar so it can connect to workspaces
-exec --no-startup-id systemctl --user restart polybar.service
+# Setup screens
+exec --no-startup-id autorandr -c

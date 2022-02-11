@@ -14,6 +14,7 @@ rec {
     imports = [ minimal ];
     config = {
       modules = {
+        applications.element.enable = true;
         applications.firefox.enable = true;
         applications.gitkraken.enable = true;
         applications.discord.enable = true;
