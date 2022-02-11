@@ -33,7 +33,7 @@ in {
 
     home.sessionVariables = {
       DOOM_EMACS = "${config.xdg.dataHome}/.emacs.d";
-      DOOM_EMACS_BIN = "${config.xdg.dataHome}/bin";
+      DOOM_EMACS_BIN = "${config.xdg.dataHome}/doom/bin";
     };
     home.sessionPath = [ "${config.home.sessionVariables.DOOM_EMACS_BIN}" ];
   };
