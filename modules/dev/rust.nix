@@ -11,8 +11,8 @@ in {
     home.packages = with pkgs; [ pkgs.rustup ];
 
     home.sessionVariables = {
-      RUSTUP_HOME = "$XDG_DATA_HOME/rustup";
-      CARGO_HOME = "$XDG_DATA_HOME/cargo";
+      RUSTUP_HOME = "${config.xdg.dataHome}/rustup";
+      CARGO_HOME = "${config.xdg.dataHome}/cargo";
     };
     home.sessionPath = [ "${config.home.sessionVariables.CARGO_HOME}/bin" ];
   };

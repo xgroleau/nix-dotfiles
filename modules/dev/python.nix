@@ -21,14 +21,14 @@ in {
       cfg.pythonPackages.poetry
     ];
     home.sessionVariables = {
-      IPYTHONDIR = "$XDG_CONFIG_HOME/ipython";
-      PIP_CONFIG_FILE = "$XDG_CONFIG_HOME/pip/pip.conf";
-      PIP_LOG_FILE = "$XDG_DATA_HOME/pip/log";
-      PYLINTHOME = "$XDG_DATA_HOME/pylint";
-      PYLINTRC = "$XDG_CONFIG_HOME/pylint/pylintrc";
-      PYTHONSTARTUP = "$XDG_CONFIG_HOME/python/pythonrc";
-      PYTHON_EGG_CACHE = "$XDG_CACHE_HOME/python-eggs";
-      JUPYTER_CONFIG_DIR = "$XDG_CONFIG_HOME/jupyter";
+      IPYTHONDIR = "${config.xdg.configHome}/ipython";
+      PIP_CONFIG_FILE = "${config.xdg.configHome}/pip/pip.conf";
+      PIP_LOG_FILE = "${config.xdg.dataHome}/pip/log";
+      PYLINTHOME = "${config.xdg.dataHome}/pylint";
+      PYLINTRC = "${config.xdg.configHome}/pylint/pylintrc";
+      PYTHONSTARTUP = "${config.xdg.configHome}/python/pythonrc";
+      PYTHON_EGG_CACHE = "${config.xdg.cacheHome}/python-eggs";
+      JUPYTER_CONFIG_DIR = "${config.xdg.configHome}/jupyter";
     };
   };
 }
