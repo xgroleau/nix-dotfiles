@@ -30,5 +30,11 @@ in {
       libtool
       libvterm
     ];
+
+    home.sessionVariables = {
+      DOOM_EMACS = "$XDG_DATA_HOME/.emacs.d";
+      DOOM_EMACS_BIN = "$XDG_DATA_HOME/bin";
+    };
+    home.sessionPath = [ "${config.home.sessionVariables.DOOM_EMACS_BIN}" ];
   };
 }

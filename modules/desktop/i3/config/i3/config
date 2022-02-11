@@ -167,7 +167,6 @@ bindsym $mod+Shift+0 move container to workspace number $ws10; workspace number 
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
-bindsym $mod+$alt+l exec $HOME/.config/i3scripts/lock
 
 
 # resize window (you can also use the mouse for that)
@@ -249,7 +248,5 @@ for_window [class="plasmashell" window_type="notification"] floating enable, bor
 no_focus [class="plasmashell" window_type="notification"] 
 
 #exec at startup
-# exec --no-startup-id $HOME/.screenlayout/screenlayout.sh
-
 # Restart polybar so it can connect to workspaces
 exec --no-startup-id systemctl --user restart polybar.service

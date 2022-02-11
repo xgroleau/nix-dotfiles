@@ -13,9 +13,10 @@ in {
     xdg.configFile.zsh.source = ./config;
     programs.zsh = {
       enable = true;
-      envExtra = "source $HOME/.config/zsh/zshenv";
-      initExtra = "source $HOME/.config/zsh/zshrc";
+      envExtra = "source $XDG_CONFIG_HOME/zsh/zshenv";
+      initExtra = "source $XDG_CONFIG_HOME/zsh/zshrc";
     };
     home.packages = with pkgs; [ nix-zsh-completions git pythonCfg.package ];
+    home.sessionPath = [ "$HOME/.local/bin" "$HOME/bin" ];
   };
 }
