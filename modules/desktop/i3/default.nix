@@ -17,6 +17,8 @@ in {
       playerctl
     ];
 
+    home.sessionVariables = { XDG_CURRENT_DESKTOP = "i3"; };
+
     programs.autorandr = {
       enable = true;
       hooks.postswitch = {
