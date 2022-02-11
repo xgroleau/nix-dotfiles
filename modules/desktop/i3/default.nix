@@ -20,7 +20,6 @@ in {
     programs.autorandr = {
       enable = true;
       hooks.postswitch = {
-        i3 = "systemctl --user restart i3";
         polybar = "systemctl --user restart polybar";
         background = "systemctl --user restart random-background";
       };
