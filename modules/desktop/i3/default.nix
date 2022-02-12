@@ -50,6 +50,7 @@ in {
         shadow = true;
         shadowOffsets = [ (-5) (-5) ];
         shadowOpacity = "1";
+        shadowExclude = [ "class_g = 'i3-frame'" ];
         extraOptions = "xinerama-shadow-crop = true;";
       };
 
