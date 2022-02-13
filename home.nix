@@ -3,11 +3,12 @@
 {
 
   imports = [
+    ./modules/applications
     ./modules/desktop
     ./modules/dev
-    ./modules/shell
     ./modules/editors
-    ./modules/applications
+    ./modules/nixpkgs
+    ./modules/shell
   ];
 
   config = {
