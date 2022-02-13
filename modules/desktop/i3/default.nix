@@ -15,6 +15,7 @@ in {
       (rofi.override { plugins = [ rofi-emoji rofi-calc ]; })
       rofi-power-menu
       playerctl
+      pulseaudio
     ];
 
     home.sessionVariables = { XDG_CURRENT_DESKTOP = "i3"; };
