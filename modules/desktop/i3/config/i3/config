@@ -256,3 +256,4 @@ for_window [class="^Pavucontrol$"] floating enable
 #exec at startup
 # Setup screens
 exec --no-startup-id autorandr -c
+exec --no-startup-id systemctl --user restart polybar
