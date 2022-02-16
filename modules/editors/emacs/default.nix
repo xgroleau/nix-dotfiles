@@ -12,7 +12,8 @@ in {
 
     home.packages = with pkgs; [
       # Emacs
-      ((emacsPackagesNgGen emacs).emacsWithPackages (epkgs: [ epkgs.vterm ]))
+      ((emacsPackagesNgGen emacs).emacsWithPackages
+        (epkgs: [ epkgs.vterm epkgs.editorconfig ]))
 
       # tools
       fd
