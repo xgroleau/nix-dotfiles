@@ -16,6 +16,11 @@ in {
       rofi-power-menu
       playerctl
       pulseaudio
+
+      # KDE apps
+      libsForQt5.ark
+      libsForQt5.dolphin
+      libsForQt5.okular
     ];
 
     home.sessionVariables = { XDG_CURRENT_DESKTOP = "i3"; };
