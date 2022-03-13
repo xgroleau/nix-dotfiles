@@ -15,12 +15,19 @@ in {
       ((emacsPackagesNgGen emacs).emacsWithPackages
         (epkgs: [ epkgs.vterm epkgs.editorconfig ]))
 
-      # tools
+      # general tools
       fd
       git
       gnutls
       imagemagick
       ripgrep
+
+      # apps
+      ## everywhere
+      xclip
+      xdotool
+      xorg.xprop
+      xorg.xwininfo
 
       # lang
       nixfmt
