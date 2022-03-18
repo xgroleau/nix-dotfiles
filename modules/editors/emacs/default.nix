@@ -12,7 +12,7 @@ in {
 
     home.packages = with pkgs; [
       # Emacs
-      ((emacsPackagesNgGen emacs).emacsWithPackages
+      ((emacsPackagesFor emacs).emacsWithPackages
         (epkgs: [ epkgs.vterm epkgs.editorconfig ]))
 
       # general tools
