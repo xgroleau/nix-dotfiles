@@ -45,6 +45,7 @@ bindsym $alt+space exec dunstctl close
 bindsym $alt+shift+space exec dunstctl close-all
 bindsym $alt+. exec dunstctl history
 bindsym $alt+shift+. exec dunstctl context
+bindsym $mod+$alt+r exec systemctl --user restart polybar.service
 
 # Use pactl to adjust volume in PulseAudio.
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10%
