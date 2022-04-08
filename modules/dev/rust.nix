@@ -8,7 +8,7 @@ in {
   options.modules.dev.rust = with types; { enable = mkBoolOpt false; };
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [ rustup cargo-generate ];
+    home.packages = with pkgs; [ rustup cargo-generate cargo-readme ];
 
     home.sessionVariables = {
       RUSTUP_HOME = "${config.xdg.dataHome}/rustup";
