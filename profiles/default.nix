@@ -11,8 +11,19 @@ rec {
     };
   };
 
-  graphical = _: {
+  dev = _: {
     imports = [ minimal ];
+    config = {
+      modules = {
+        dev.cc.enable = true;
+        dev.python.enable = true;
+        dev.rust.enable = true;
+      };
+    };
+  };
+
+  graphical = _: {
+    imports = [ dev ];
     config = {
       modules = {
         applications.element.enable = true;
@@ -20,10 +31,6 @@ rec {
         applications.gitkraken.enable = true;
         applications.discord.enable = true;
         applications.spotify.enable = true;
-
-        dev.cc.enable = true;
-        dev.python.enable = true;
-        dev.rust.enable = true;
 
         editors.vscode.enable = true;
         shell.alacritty.enable = true;
