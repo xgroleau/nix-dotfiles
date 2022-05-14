@@ -49,6 +49,8 @@ in {
       gnome-keyring.enable = true;
       network-manager-applet.enable = true;
 
+      kdeconnect.enable = true;
+
       picom = {
         enable = true;
         blur = true;
