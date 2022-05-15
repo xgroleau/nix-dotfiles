@@ -27,7 +27,7 @@
       inherit (utils.core) homeConfigurationFromProfile;
     in {
       inherit profiles;
-      utils = utils.core;
+      inherit utils;
 
       # Generate a configuration for each profiles
       homeConfigurations = nixpkgs.lib.mapAttrs (profileName: profileConfig:
