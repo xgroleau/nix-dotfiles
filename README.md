@@ -16,7 +16,7 @@ where `<profile>` is your desired profile.
 
 ## Profiles
 
-Different profiles are available in the `profiles` directory. Namely `minimal` for TUI, `graphical` for GUI and `desktop` for GUI and DE. Each profile is a superset of the other. 
+Different profiles are available in the `profiles` directory. Namely `minimal` for TUI headless server, `dev` for headless development, `graphical` for GUI and `desktop` for GUI and DE. Each profile is a superset of the other. 
 
 ## Usage as module
 
