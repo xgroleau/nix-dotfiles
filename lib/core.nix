@@ -10,7 +10,7 @@ let
       };
     } // home-manager.lib);
 
-  stateVersion = "22.05";
+  stateVersion = "22.11";
 
 in {
   # Returns a module with the home-manager configuration and the profile
