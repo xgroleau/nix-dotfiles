@@ -22,6 +22,16 @@ in {
     programs.direnv.enable = true;
     programs.direnv.nix-direnv.enable = true;
 
-    home.packages = with pkgs; [ bpytop bat fd fzf gh killall tldr ripgrep ];
+    home.packages = with pkgs; [
+      bpytop
+      bat
+      comma
+      fd
+      fzf
+      gh
+      killall
+      tldr
+      ripgrep
+    ];
   };
 }
