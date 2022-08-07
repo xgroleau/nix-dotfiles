@@ -25,6 +25,8 @@
 
       enableNixpkgsReleaseCheck = true;
       language.base = "en_CA.UTF-8";
+      stateVersion = "22.11";
     };
   };
+
 }

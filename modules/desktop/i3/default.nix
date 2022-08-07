@@ -56,13 +56,15 @@ in {
 
       picom = {
         enable = true;
-        blur = true;
-        inactiveOpacity = "0.95";
+        settings = {
+          blur = true;
+          xinerama-shadow-crop = true;
+        };
+        inactiveOpacity = 0.95;
         shadow = true;
         shadowOffsets = [ (-5) (-5) ];
-        shadowOpacity = "1";
+        shadowOpacity = 1.0;
         shadowExclude = [ "class_g = 'i3-frame'" ];
-        extraOptions = "xinerama-shadow-crop = true;";
       };
 
       polybar = {

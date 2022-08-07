@@ -20,7 +20,7 @@ in {
       cfg.pythonPackages.pylint
       cfg.pythonPackages.poetry
       cfg.pythonPackages.pipx
-      python-language-server
+      # python-language-server
     ];
     home.sessionVariables = {
       IPYTHONDIR = "${config.xdg.configHome}/ipython";

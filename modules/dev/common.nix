@@ -29,6 +29,7 @@ in {
       fd
       fzf
       gh
+      jq
       killall
       tldr
       ripgrep

@@ -9,9 +9,6 @@ let
         lib = self;
       };
     } // home-manager.lib);
-
-  stateVersion = "22.11";
-
 in {
   # Returns a module with the home-manager configuration and the profile
   nixosConfigurationFromProfile = { username, extraModules ? [ ]
@@ -29,23 +26,19 @@ in {
 
           home-manager.users.${username} = _: {
             imports = [ ../home.nix profile ] ++ extraModules;
-            config = { home.stateVersion = stateVersion; } // extraConfig;
+            config = extraConfig;
           };
         }
       ];
     };
 
   # Calls homeManagerConfiguration with the profile
-  homeConfigurationFromProfile = { system, username
-    , homeDirectory ? "/home/${username}", extraModules ? [ ]
-    , extraSpecialArgs ? { }, extraConfig ? { }, profile ? { _ }: { }, ... }:
+  homeConfigurationFromProfile = { pkgs, modules ? [ ], extraSpecialArgs ? { }
+    , profile ? { _ }: { }, check ? true, ... }:
 
     home-manager.lib.homeManagerConfiguration {
-      inherit system username homeDirectory extraModules stateVersion;
-      extraSpecialArgs = { lib = myHmLib; } // extraSpecialArgs;
-      configuration = {
-        imports = [ ../home.nix profile ] ++ extraModules;
-        config = extraConfig;
-      };
+      inherit pkgs extraSpecialArgs check;
+      lib = myHmLib;
+      modules = [ ../home.nix profile ] ++ modules;
     };
 }

@@ -2,7 +2,7 @@
   description = "My user configuration using home-manager";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/master";
 
     home-manager = {
       url = "github:nix-community/home-manager/master";
@@ -22,8 +22,13 @@
       };
 
       profiles = import ./profiles;
+      hmModule = {
+        home = rec {
+          username = "xgroleau";
+          homeDirectory = "/home/${username}";
+        };
+      };
 
-      inherit (nixpkgs.lib) listToAttrs mapAttrs;
       inherit (utils.core) homeConfigurationFromProfile;
     in {
       inherit profiles;
@@ -32,9 +37,9 @@
       # Generate a configuration for each profiles
       homeConfigurations = nixpkgs.lib.mapAttrs (profileName: profileConfig:
         homeConfigurationFromProfile {
-          inherit system;
-          username = "xgroleau";
+          pkgs = pkgs.legacyPackages.${system};
           profile = profileConfig;
+          modules = [ hmModule ];
         }) profiles;
     }
 
