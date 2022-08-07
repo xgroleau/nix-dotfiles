@@ -56,6 +56,24 @@ in {
 
       picom = {
         enable = true;
+        wintypes = {
+          tooltip = {
+            fade = true;
+            shadow = true;
+            opacity = 0.95;
+            focus = true;
+            full-shadow = false;
+          };
+          dock = {
+            shadow = false;
+            opacity = 0.8;
+          };
+          dnd = { shadow = false; };
+          menu = { shadow = false; };
+          popup_menu = { opacity = 0.95; };
+          dropdown_menu = { opacity = 0.8; };
+
+        };
         settings = {
           blur = true;
           xinerama-shadow-crop = true;
@@ -64,12 +82,7 @@ in {
         shadow = true;
         shadowOffsets = [ (-5) (-5) ];
         shadowOpacity = 1.0;
-        shadowExclude = [
-          "class_g = 'i3-frame'"
-          "name = 'noshadow'"
-          "name = 'polybar'"
-          "name = 'Polybar tray window'"
-        ];
+        shadowExclude = [ "class_g = 'i3-frame'" "name = 'noshadow'" ];
       };
 
       polybar = {

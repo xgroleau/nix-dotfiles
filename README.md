@@ -64,10 +64,14 @@ To use for your home-manager configuration
   outputs = { nixpkgs, home-manager, dotfiles, ... }: {
     homeConfigurations = {
       example = nix-config.utils.homeConfigurationFromProfile {
-        system = "x86_64-linux";
-        username = "xgroleau";
-        profile = nix-config.profiles.desktop;
-        # You can use extraSpecialArgs, extraConfig and extraModules to customize
+          pkgs = pkgs.legacyPackages.${system};
+          profile = profileConfig;
+          modules = [ {
+            home = rec {
+              username = "xgroleau";
+              homeDirectory = "/home/xgroleau";
+            };
+          }];
       };
     };
   };
