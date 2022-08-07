@@ -64,7 +64,12 @@ in {
         shadow = true;
         shadowOffsets = [ (-5) (-5) ];
         shadowOpacity = 1.0;
-        shadowExclude = [ "class_g = 'i3-frame'" ];
+        shadowExclude = [
+          "class_g = 'i3-frame'"
+          "name = 'noshadow'"
+          "name = 'polybar'"
+          "name = 'Polybar tray window'"
+        ];
       };
 
       polybar = {
