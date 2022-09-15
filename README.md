@@ -65,9 +65,9 @@ To use for your home-manager configuration
     homeConfigurations = {
       example = nix-config.utils.homeConfigurationFromProfile {
           pkgs = pkgs.legacyPackages.${system};
-          profile = profileConfig;
+          profile = nix-config.profile.desktop; #Replace with the desired profile
           modules = [ {
-            home = rec {
+            home = {
               username = "xgroleau";
               homeDirectory = "/home/xgroleau";
             };

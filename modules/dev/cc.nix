@@ -8,5 +8,5 @@ in {
   options.modules.dev.cc = with types; { enable = mkBoolOpt false; };
 
   config =
-    mkIf cfg.enable { home.packages = with pkgs; [ gcc gdb gnumake cmake ]; };
+    mkIf cfg.enable { home.packages = with pkgs; [ cmake gcc gdb gnumake ]; };
 }
