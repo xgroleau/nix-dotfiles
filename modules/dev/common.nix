@@ -31,6 +31,7 @@ in {
       gh
       jq
       killall
+      ranger
       tldr
       ripgrep
     ];
