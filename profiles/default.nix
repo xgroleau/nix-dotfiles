@@ -33,6 +33,7 @@ rec {
         applications.discord.enable = true;
         applications.spotify.enable = true;
         applications.obs.enable = true;
+        applications.mpv.enable = true;
 
         editors.vscode.enable = true;
         shell.alacritty.enable = true;
