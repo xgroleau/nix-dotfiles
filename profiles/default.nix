@@ -32,6 +32,7 @@ rec {
         applications.gitkraken.enable = true;
         applications.discord.enable = true;
         applications.spotify.enable = true;
+        applications.obs.enable = true;
 
         editors.vscode.enable = true;
         shell.alacritty.enable = true;
