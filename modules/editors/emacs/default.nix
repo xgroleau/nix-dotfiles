@@ -13,7 +13,7 @@ in {
     home.packages = with pkgs; [
       # Emacs
       ((emacsPackagesFor emacs).emacsWithPackages
-        (epkgs: [ epkgs.vterm epkgs.editorconfig ]))
+        (epkgs: [ epkgs.vterm epkgs.editorconfig epkgs.lsp-pyright ]))
 
       # general tools
       fd

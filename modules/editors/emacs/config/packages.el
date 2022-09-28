@@ -49,5 +49,3 @@
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;(unpin! t)
 
-;; Temporary fix , see https://github.com/emacs-lsp/dap-mode/issues/407
-(package! dap-mode :pin "096ba8b4afd672894ad1c5be7f6cc3fe6b8183de")

@@ -30,10 +30,6 @@
 
 (setq buzz-indent-level 4)
 
-;; support for nix patched lsp
-(after! lsp-python-ms
-  (setq lsp-python-ms-executable (executable-find "python-language-server"))
-  (set-lsp-priority! 'mspyls 1))
 
 ;; dap settings
 (require 'dap-cpptools)
