@@ -2,12 +2,12 @@
 
 with lib;
 with lib.my.option;
-let cfg = config.modules.applications.puselview;
+let cfg = config.modules.applications.pulseview;
 in {
 
-  options.modules.applications.puselview = with types; {
+  options.modules.applications.pulseview = with types; {
     enable = mkBoolOpt false;
   };
 
-  config = mkIf cfg.enable { home.packages = with pkgs; [ puselview ]; };
+  config = mkIf cfg.enable { home.packages = with pkgs; [ pulseview ]; };
 }
