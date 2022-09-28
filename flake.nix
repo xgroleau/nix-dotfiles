@@ -18,7 +18,7 @@
       pkgs = nixpkgs;
       utils = import ./lib {
         inherit pkgs home-manager;
-        lib = nixpkgs.lib;
+        inherit (nixpkgs) lib;
       };
 
       profiles = import ./profiles;
