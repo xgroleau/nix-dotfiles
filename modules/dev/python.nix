@@ -7,8 +7,8 @@ in {
 
   options.modules.dev.python = with types; {
     enable = mkBoolOpt false;
-    package = mkOpt package pkgs.python38;
-    pythonPackages = mkOpt attrs pkgs.python38Packages;
+    package = mkOpt package pkgs.python3;
+    pythonPackages = mkOpt attrs pkgs.python3Packages;
   };
 
   config = mkIf cfg.enable {
