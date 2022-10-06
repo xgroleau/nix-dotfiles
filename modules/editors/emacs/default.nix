@@ -13,7 +13,7 @@ in {
     home.packages = with pkgs; [
       # Emacs
       ((emacsPackagesFor emacs).emacsWithPackages
-        (epkgs: [ epkgs.vterm epkgs.editorconfig epkgs.lsp-pyright ]))
+        (epkgs: [ epkgs.vterm epkgs.editorconfig ]))
 
       # general tools
       fd
@@ -31,6 +31,7 @@ in {
 
       # lang
       nixfmt
+      nodePackages.pyright
       rustup
       rust-analyzer
 
