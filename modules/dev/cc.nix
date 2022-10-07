@@ -7,6 +7,7 @@ in {
 
   options.modules.dev.cc = with types; { enable = mkBoolOpt false; };
 
-  config =
-    mkIf cfg.enable { home.packages = with pkgs; [ cmake gcc gdb gnumake ]; };
+  config = mkIf cfg.enable {
+    home.packages = with pkgs; [ clang clang-tools cmake gdb gnumake ];
+  };
 }
