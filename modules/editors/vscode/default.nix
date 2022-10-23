@@ -10,9 +10,15 @@ in {
   config = mkIf cfg.enable {
     programs.vscode = {
       enable = true;
+      package = pkgs.vscode.fhs;
       extensions = with pkgs.vscode-extensions; [
         bbenoist.nix
         brettm12345.nixfmt-vscode
+        ms-vscode.cpptools
+        ms-vscode.cpptools-extension-pack
+        ms-vscode.cpptools-themes
+        tamasfe.even-better-toml
+        rust-lang.rust-analyzer
       ];
     };
   };
