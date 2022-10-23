@@ -15,8 +15,6 @@ in {
         bbenoist.nix
         brettm12345.nixfmt-vscode
         ms-vscode.cpptools
-        ms-vscode.cpptools-extension-pack
-        ms-vscode.cpptools-themes
         tamasfe.even-better-toml
         rust-lang.rust-analyzer
       ];
