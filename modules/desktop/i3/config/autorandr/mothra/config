@@ -2,8 +2,8 @@ output DisplayPort-0
 off
 output DisplayPort-1
 off
-output DVI-0
-crtc 2
+output DisplayPort-2
+crtc 1
 gamma 0.909:0.833:0.714
 mode 1920x1080
 pos 0x0
@@ -29,8 +29,8 @@ x-prop-tearfree auto
 x-prop-underscan off
 x-prop-underscan_hborder 0
 x-prop-underscan_vborder 0
-output DisplayPort-2
-crtc 1
+output DVI-0
+crtc 2
 gamma 0.909:0.833:0.714
 mode 1920x1080
 pos 3840x0
