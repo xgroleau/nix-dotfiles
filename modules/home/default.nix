@@ -23,10 +23,10 @@ in {
   };
 
   imports = [
-    #(lib.my.core.nixosConfigurationFromProfile {
-    #  username = cfg.username;
-    #  profile = cfg.profile;
-    #})
+    (lib.my.core.nixosConfigurationFromProfile {
+      username = cfg.username;
+      profile = cfg.profile;
+    })
   ];
 
 }

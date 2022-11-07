@@ -22,7 +22,7 @@
       };
 
       hosts = import ./hosts;
-      profiles = import ./profiles;
+      profiles = import ./home/profiles;
       hmModule = {
         home = rec {
           username = "xgroleau";
@@ -49,14 +49,13 @@
         nixpkgs.lib.nixosSystem {
           inherit (hostConfig) system;
           specialArgs = {
-            inherit lib;
+            inherit lib; # Provide my lib to modules
           };
 
           modules = [ 
             ./modules
-            ./modules/home
             hostConfig.cfg 
-            ];
+          ];
         }) hosts;
     }
 
