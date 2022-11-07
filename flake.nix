@@ -31,6 +31,7 @@
       };
 
       inherit (utils) core;
+      lib = nixpkgs.lib.extend (self: super: { my = utils; });
     in {
       inherit profiles;
       inherit utils;
@@ -47,13 +48,15 @@
       nixosConfigurations = nixpkgs.lib.mapAttrs (hostName: hostConfig:
         nixpkgs.lib.nixosSystem {
           inherit (hostConfig) system;
+          specialArgs = {
+            inherit lib;
+          };
+
           modules = [ 
             ./modules
+            ./modules/home
             hostConfig.cfg 
-            utils.nixosConfigurationFromProfile {
-              username = "xgroleau";
-              profile = profiles.desktop; 
-            }];
+            ];
         }) hosts;
     }
 

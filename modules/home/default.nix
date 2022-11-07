@@ -1,4 +1,4 @@
-{ config, lib, pkgs, nix-dotfiles, ... }:
+{ config, lib, pkgs, ... }:
 
 with lib;
 with lib.my.option;
@@ -23,10 +23,10 @@ in {
   };
 
   imports = [
-    (nix-dotfiles.utils.core.nixosConfigurationFromProfile {
-      username = "xgroleau";
-      profile = nix-dotfiles.profiles.desktop;
-    })
+    #(lib.my.core.nixosConfigurationFromProfile {
+    #  username = cfg.username;
+    #  profile = cfg.profile;
+    #})
   ];
 
 }
