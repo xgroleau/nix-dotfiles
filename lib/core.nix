@@ -25,7 +25,7 @@ in {
           } // extraSpecialArgs;
 
           home-manager.users.${username} = _: {
-            imports = [ ../home.nix profile ] ++ extraModules;
+            imports = [ ../home profile ] ++ extraModules;
             config = extraConfig;
           };
         }
@@ -39,6 +39,6 @@ in {
     home-manager.lib.homeManagerConfiguration {
       inherit pkgs extraSpecialArgs check;
       lib = myHmLib;
-      modules = [ ../home.nix profile ] ++ modules;
+      modules = [ ../home profile ] ++ modules;
     };
 }

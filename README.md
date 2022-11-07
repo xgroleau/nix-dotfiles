@@ -1,9 +1,12 @@
 # Nix Dotfiles
+
 My declarative dotfiles configuration using [nix](https://nixos.org/) and [home-manager](https://github.com/nix-community/home-manager) to manage my systems.
 
 This configuration **should** work in all distribution in theory, but because nixpkgs has some issue with opengl, some features may not work. Namely `alacritty` and `picom` won't be able to launch if you are not using NixOS.
 
 ## Installation
+
+### Home manager
 
 Make sure [flakes are enabled on your system](https://nixos.wiki/wiki/Flakes#Installing_flakes). 
 
@@ -14,9 +17,33 @@ home-manager switch --flake .#<profile>
 
 where `<profile>` is your desired profile.
 
+### NixOS
+
+Simply run the command with flakes enabled to get my full NixOS configuration
+
+ ```sh
+ sudo nixos-rebuild switch --flake .#<host>
+ ```
+
+#### Hosts
+
+The configs
+
+##### Godzilla
+
+My old Ideapad Y580 from 2012. A thick boy but still fully functionning. NixOS gave it a breath of fresh air. 
+
+##### Mothra
+
+My main tower for development, work and games.
+
+##### Rodan
+
+The free oracle A1 vm tier. For doing random projects.
+
 ## Profiles
 
-Different profiles are available in the `profiles` directory. Namely `minimal` for TUI headless server, `dev` for headless development, `graphical` for GUI and `desktop` for GUI and DE. Each profile is a superset of the other. 
+Different profiles are available in the `profiles` directory. Namely `minimal` for TUI headless server, `dev` for headless development, `graphical` for GUI and `desktop` for GUI and DE. Each profile is a superset of the other.
 
 ## Usage as module
 
@@ -25,6 +52,7 @@ You can use this flake as a module to your home-manager configuration or your Ni
 ### NixOS module
 
 To use as a nixos module
+
 ``` nix
 {
   inputs = {
@@ -53,6 +81,7 @@ To use as a nixos module
 ### Home-Manager module
 
 To use for your home-manager configuration
+
 ``` nix
 {
   inputs = {
@@ -87,6 +116,7 @@ nix flake check
 ```
 
 Or to apply the changes directly, you can run.
+
 ``` sh
 nix run .#fmt
 ```
