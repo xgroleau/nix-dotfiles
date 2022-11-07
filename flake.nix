@@ -21,6 +21,7 @@
         inherit (nixpkgs) lib;
       };
 
+      hosts = import ./hosts;
       profiles = import ./profiles;
       hmModule = {
         home = rec {
@@ -29,18 +30,31 @@
         };
       };
 
-      inherit (utils.core) homeConfigurationFromProfile;
+      inherit (utils) core;
     in {
       inherit profiles;
       inherit utils;
 
-      # Generate a configuration for each profiles
+      # Generate a home configuration for each profiles
       homeConfigurations = nixpkgs.lib.mapAttrs (profileName: profileConfig:
-        homeConfigurationFromProfile {
+        core.homeConfigurationFromProfile {
           pkgs = pkgs.legacyPackages.${system};
           profile = profileConfig;
           modules = [ hmModule ];
         }) profiles;
+
+      # Generate a nixos configuration for each hosts
+      nixosConfigurations = nixpkgs.lib.mapAttrs (hostName: hostConfig:
+        nixpkgs.lib.nixosSystem {
+          inherit (hostConfig) system;
+          modules = [ 
+            ./modules
+            hostConfig.cfg 
+            utils.nixosConfigurationFromProfile {
+              username = "xgroleau";
+              profile = profiles.desktop; 
+            }];
+        }) hosts;
     }
 
     # Utils of each system
