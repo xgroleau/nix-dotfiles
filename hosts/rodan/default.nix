@@ -5,8 +5,8 @@
 
   config = {
     modules = {
-      networking.kdeconnect.enable = true;
-      home.profile = "desktop";
+      home.username = "xgroleau";
+      home.profile = "dev";
     };
 
     # Use the systemd-boot EFI boot loader.

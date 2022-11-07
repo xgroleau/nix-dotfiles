@@ -50,6 +50,7 @@
           inherit (hostConfig) system;
           specialArgs = {
             inherit lib; # Provide my lib to modules
+            inherit profiles;
           };
 
           modules = [ 

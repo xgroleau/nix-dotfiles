@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, profiles, ... }:
 
 with lib;
 with lib.my.option;
@@ -14,7 +14,7 @@ in {
       '';
     };
     username = mkOption {
-      type = nullOr str;
+      type = str;
       default = null;
       description = ''
         The username of the nix-dotfiles
@@ -24,7 +24,8 @@ in {
 
   imports = [
     (lib.my.core.nixosConfigurationFromProfile {
-      inherit (cfg) profile username;
+      username = cfg.username;
+      profile = profiles."${cfg.profile}";
     })
   ];
 
