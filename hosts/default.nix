@@ -10,7 +10,7 @@
   };
 
   rodan = {
-    system = "x86_64-linux";
+    system = "aarch64-linux";
     cfg = import ./rodan;
   };
 }
