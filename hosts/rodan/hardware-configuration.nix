@@ -16,6 +16,10 @@
     device = "/dev/disk/by-uuid/FBA9-6926";
     fsType = "vfat";
   };
+  fileSystems."/" = {
+    device = "/dev/sda1";
+    fsType = "ext4";
+  };
 
   boot.initrd.availableKernelModules =
     [ "ata_piix" "uhci_hcd" "xen_blkfront" "xhci_pci" "virtio_pci" ];
