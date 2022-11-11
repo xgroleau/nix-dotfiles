@@ -48,8 +48,6 @@
       nixosConfigurations = nixpkgs.lib.mapAttrs (hostName: hostConfig:
         nixpkgs.lib.nixosSystem {
           system = hostConfig.system;
-          inherit hostConfig;
-
           specialArgs = {
             inherit lib; # Provide my lib to modules
             inherit profiles;
