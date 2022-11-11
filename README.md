@@ -22,7 +22,7 @@ where `<profile>` is your desired profile.
 Simply run the command with flakes enabled to get my full NixOS configuration
 
  ```sh
- sudo nixos-rebuild switch --flake .#<host>
+ nixos-rebuild switch --use-remote-sudo --flake .#<host>
  ```
 
 #### Hosts

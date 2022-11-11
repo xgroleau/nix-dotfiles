@@ -47,16 +47,15 @@
       # Generate a nixos configuration for each hosts
       nixosConfigurations = nixpkgs.lib.mapAttrs (hostName: hostConfig:
         nixpkgs.lib.nixosSystem {
-          inherit (hostConfig) system;
+          system = hostConfig.system;
+          inherit hostConfig;
+
           specialArgs = {
             inherit lib; # Provide my lib to modules
             inherit profiles;
           };
 
-          modules = [ 
-            ./modules
-            hostConfig.cfg 
-          ];
+          modules = [ ./modules hostConfig.cfg ];
         }) hosts;
     }
 
