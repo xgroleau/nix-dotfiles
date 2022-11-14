@@ -1,8 +1,10 @@
 { config, pkgs, lib, ... }:
 
 let
-  runners = map (idx: "jyggalag-${toString idx}") (lib.lists.range 0 2);
-  tokenPath = /run/secrets/github-runner/HOP-Tech-Canada.token;
+  hostname = "jyggalag";
+  runners = map (idx: "${hostname}-${toString idx}") (lib.lists.range 0 2);
+  ghTokenPath = /run/secrets/github-runner/HOP-Tech-Canada.token;
+  duckdnsTokenPath = /run/secrets/duckdns + "/${hostname}";
 in {
   imports = [ ../base-config.nix ./hardware-configuration.nix ];
 
@@ -11,6 +13,11 @@ in {
       home.username = "xgroleau";
       home.profile = "dev";
       networking.ssh.enable = true;
+      networking.duckdns = {
+        enable = true;
+        domain = hostname;
+        token = duckdnsTokenPath;
+      };
     };
 
     boot = {
@@ -23,7 +30,7 @@ in {
     # Enable docker
     virtualisation.docker.enable = true;
 
-    networking.hostName = "jyggalag";
+    networking.hostName = hostname;
   }] ++
     # Config for each runners
     map (name: {
@@ -31,7 +38,7 @@ in {
         enable = true;
         replace = true;
         url = "https://github.com/HOP-Tech-Canada";
-        tokenFile = tokenPath;
+        tokenFile = ghTokenPath;
         extraPackages = with pkgs; [ config.virtualisation.docker.package ];
       };
       systemd.services."github-runner-${name}".serviceConfig.SupplementaryGroups =
