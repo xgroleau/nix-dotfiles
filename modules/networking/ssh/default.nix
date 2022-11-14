@@ -8,7 +8,7 @@ in {
   options.modules.networking.ssh = with types; { enable = mkBoolOpt false; };
 
   config = mkIf cfg.enable {
-    service.openssh = {
+    services.openssh = {
       enable = true;
       passwordAuthentication = false;
     };
