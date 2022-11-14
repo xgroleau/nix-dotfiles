@@ -19,7 +19,7 @@ in {
       systemCronJobs = [
         "${pkgs.curl}/bin/curl https://www.duckdns.org/update?domains=${domain}&token=${
           builtins.readFile cfg.tokenFile
-        } >/dev/null 2>&1"
+        }&ip= >/dev/null 2>&1"
       ];
     };
   };
