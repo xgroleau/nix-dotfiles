@@ -7,7 +7,7 @@ in {
 
   options.modules.networking.duckdns = with types; {
     enable = mkBoolOpt false;
-    domain = mkReq types.string "The domain to register";
+    domain = mkReq types.nonEmptyStr "The domain to register";
     tokenFile = mkReq types.path ''
       The full path to a file which contains the toekn for the domain.
        The file should contain exactly one line with the token without any newline.'';
@@ -17,7 +17,7 @@ in {
     services.cron = {
       enable = true;
       systemCronJobs = [
-        "${pkgs.curl}/bin/curl https://www.duckdns.org/update?domains=${domain}&token=${
+        "${pkgs.curl}/bin/curl https://www.duckdns.org/update?domains=${cfg.domain}&token=${
           builtins.readFile cfg.tokenFile
         }&ip= >/dev/null 2>&1"
       ];
