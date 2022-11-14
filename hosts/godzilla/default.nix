@@ -19,7 +19,7 @@
     };
 
     networking = {
-      hostName = "godzilla"; # Define your hostname.
+      hostName = "godzilla";
       networkmanager.enable = true;
     };
 
