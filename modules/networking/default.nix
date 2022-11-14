@@ -1,5 +1,5 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = [ ./kdeconnect ];
+  imports = [ ./kdeconnect ./ssh ];
 }
