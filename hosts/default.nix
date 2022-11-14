@@ -1,16 +1,16 @@
 {
-  godzilla = {
+  namira = {
     system = "x86_64-linux";
-    cfg = import ./godzilla;
+    cfg = import ./namira;
   };
 
-  mothra = {
+  azura = {
     system = "x86_64-linux";
-    cfg = import ./mothra;
+    cfg = import ./azura;
   };
 
-  rodan = {
+  jyggalag = {
     system = "aarch64-linux";
-    cfg = import ./rodan;
+    cfg = import ./jyggalag;
   };
 }

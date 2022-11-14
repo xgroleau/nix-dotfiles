@@ -19,7 +19,7 @@
     };
 
     networking = {
-      hostName = "godzilla";
+      hostName = "namira";
       networkmanager.enable = true;
     };
 

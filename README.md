@@ -29,15 +29,15 @@ Simply run the command with flakes enabled to get my full NixOS configuration
 
 The configs
 
-##### Godzilla
+##### Namira
 
 My old Ideapad Y580 from 2012. A thick boy but still fully functionning. NixOS gave it a breath of fresh air. 
 
-##### Mothra
+##### Azura
 
 My main tower for development, work and games.
 
-##### Rodan
+##### Jyggalag
 
 The free oracle A1 vm tier. For doing random projects.
 

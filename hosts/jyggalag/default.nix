@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 
 let
-  runners = map (idx: "rodan-${toString idx}") (lib.lists.range 0 2);
+  runners = map (idx: "jyggalag-${toString idx}") (lib.lists.range 0 2);
   tokenPath = /run/secrets/github-runner/HOP-Tech-Canada.token;
 in {
   imports = [ ../base-config.nix ./hardware-configuration.nix ];
@@ -23,7 +23,7 @@ in {
     # Enable docker
     virtualisation.docker.enable = true;
 
-    networking.hostName = "rodan";
+    networking.hostName = "jyggalag";
   }] ++
     # Config for each runners
     map (name: {

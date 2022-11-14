@@ -19,7 +19,7 @@
     };
 
     networking = {
-      hostName = "mothra"; # Define your hostname.
+      hostName = "azura"; # Define your hostname.
       networkmanager.enable = true;
       interfaces.enp0s25.useDHCP = true;
     };
