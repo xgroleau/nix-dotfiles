@@ -16,7 +16,7 @@ in {
       networking.duckdns = {
         enable = true;
         domain = hostname;
-        token = duckdnsTokenPath;
+        tokenFile = duckdnsTokenPath;
       };
     };
 

@@ -24,7 +24,7 @@ in {
 
   imports = [
     (lib.my.core.nixosConfigurationFromProfile {
-      username = cfg.username;
+      inherit (cfg) username;
       profile = profiles."${cfg.profile}";
     })
   ];

@@ -47,7 +47,7 @@
       # Generate a nixos configuration for each hosts
       nixosConfigurations = nixpkgs.lib.mapAttrs (hostName: hostConfig:
         nixpkgs.lib.nixosSystem {
-          system = hostConfig.system;
+          inherit (hostConfig) system;
           specialArgs = {
             inherit lib; # Provide my lib to modules
             inherit profiles;
@@ -89,7 +89,7 @@
 
         };
 
-        devShell = pkgs.mkShell {
+        devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [
             git
             nixfmt
