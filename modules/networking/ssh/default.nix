@@ -2,7 +2,7 @@
 
 with lib;
 with lib.my.option;
-let cfg = config.modules.networking.kdeconnect;
+let cfg = config.modules.networking.ssh;
 in {
 
   options.modules.networking.ssh = with types; { enable = mkBoolOpt false; };
