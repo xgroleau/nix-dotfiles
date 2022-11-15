@@ -1,5 +1,5 @@
 { config, lib, pkgs, nix-dotfiles, ... }:
 
 {
-  imports = [ ./networking ./home ];
+  imports = [ ./home ./services ./networking ];
 }
