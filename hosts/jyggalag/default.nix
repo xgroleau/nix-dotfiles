@@ -23,14 +23,6 @@ in {
           tokenFile = duckdnsTokenPath;
         };
       };
-      services = {
-        honeygain = {
-          enable = true;
-          name = hostname;
-          email = "xavgroleau@gmail.com";
-          passwordFile = honeygainTokenPath;
-        };
-      };
     };
 
     boot = {
