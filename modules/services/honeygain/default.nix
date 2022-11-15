@@ -2,10 +2,10 @@
 
 with lib;
 with lib.my.option;
-let cfg = config.modules.networking.honeygain;
+let cfg = config.modules.services.honeygain;
 in {
 
-  options.modules.networking.honeygain = with types; {
+  options.modules.services.honeygain = with types; {
     enable = mkBoolOpt false;
     email = mkReq types.nonEmptyStr "The account email";
     name = mkReq types.nonEmptyStr
