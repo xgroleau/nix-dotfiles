@@ -9,7 +9,7 @@ in {
     enable = mkBoolOpt false;
     domain = mkReq types.nonEmptyStr "The domain to register";
     tokenFile = mkReq types.path ''
-      The full path to a file which contains the toekn for the domain.
+      The full path to a file which contains the token for the domain.
        The file should contain exactly one line with the token without any newline.'';
   };
 

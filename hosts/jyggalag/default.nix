@@ -5,18 +5,31 @@ let
   runners = map (idx: "${hostname}-${toString idx}") (lib.lists.range 0 2);
   ghTokenPath = /run/secrets/github-runner/HOP-Tech-Canada.token;
   duckdnsTokenPath = /run/secrets/duckdns + "/${hostname}.token";
+  honeygainTokenPath = /run/secrets/honeygain + "/${hostname}.token";
 in {
   imports = [ ../base-config.nix ./hardware-configuration.nix ];
 
   config = lib.mkMerge ([{
     modules = {
-      home.username = "xgroleau";
-      home.profile = "dev";
-      networking.ssh.enable = true;
-      networking.duckdns = {
-        enable = true;
-        domain = hostname;
-        tokenFile = duckdnsTokenPath;
+      home = {
+        username = "xgroleau";
+        profile = "dev";
+      };
+      networking = {
+        ssh.enable = true;
+        duckdns = {
+          enable = true;
+          domain = hostname;
+          tokenFile = duckdnsTokenPath;
+        };
+        services = {
+          honeygain = {
+            enable = true;
+            name = hostname;
+            email = "xavgroleau@gmail.com";
+            passwordFile = honeygainTokenPath;
+          };
+        };
       };
     };
 
