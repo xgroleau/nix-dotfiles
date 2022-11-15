@@ -22,13 +22,13 @@ in {
           domain = hostname;
           tokenFile = duckdnsTokenPath;
         };
-        services = {
-          honeygain = {
-            enable = true;
-            name = hostname;
-            email = "xavgroleau@gmail.com";
-            passwordFile = honeygainTokenPath;
-          };
+      };
+      services = {
+        honeygain = {
+          enable = true;
+          name = hostname;
+          email = "xavgroleau@gmail.com";
+          passwordFile = honeygainTokenPath;
         };
       };
     };
