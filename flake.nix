@@ -3,16 +3,15 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-22.11";
-
     home-manager = {
       url = "github:nix-community/home-manager/release-22.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
     flake-utils.url = "github:numtide/flake-utils";
+    agenix.url = "github:ryantm/agenix";
   };
 
-  outputs = { self, nixpkgs, home-manager, flake-utils }:
+  outputs = { self, nixpkgs, home-manager, flake-utils, agenix }:
     let
       system = flake-utils.lib.system.x86_64-linux;
       pkgs = nixpkgs;
@@ -53,7 +52,7 @@
             inherit profiles;
           };
 
-          modules = [ ./modules hostConfig.cfg ];
+          modules = [ ./modules hostConfig.cfg agenix.nixosModule ];
         }) hosts;
     }
 
