@@ -8,7 +8,10 @@ in {
   options.modules.editors.emacs = with types; { enable = mkBoolOpt false; };
 
   config = {
-    xdg.configFile.doom.source = ./config;
+    xdg.configFile.doom = {
+      source = ./config;
+      recursive = true;
+    };
 
     home.packages = with pkgs; [
       # Emacs
