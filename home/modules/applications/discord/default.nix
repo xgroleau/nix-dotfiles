@@ -11,7 +11,10 @@ in {
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [ discord ];
-    xdg.configFile.discord."settings.json".source = ./settings.json;
+    xdg.configFile.discord = {
+      source = ./config;
+      recursive = true;
+    };
 
   };
 }
