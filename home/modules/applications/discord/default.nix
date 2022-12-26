@@ -9,5 +9,9 @@ in {
     enable = mkBoolOpt false;
   };
 
-  config = mkIf cfg.enable { home.packages = with pkgs; [ discord ]; };
+  config = mkIf cfg.enable {
+    home.packages = with pkgs; [ discord ];
+    xdg.configFile.discord."settings.json".source = ./settings.json;
+
+  };
 }
