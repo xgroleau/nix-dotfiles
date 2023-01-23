@@ -15,6 +15,5 @@ in {
       source = ./config;
       recursive = true;
     };
-
   };
 }
