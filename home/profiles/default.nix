@@ -6,7 +6,7 @@ rec {
       editors.nvim.enable = true;
       editors.emacs.enable = true;
       nixpkgs.enable = true;
-      shell.tmux.enable = true;
+      shell.zellij.enable = true;
       shell.zsh.enable = true;
     };
   };

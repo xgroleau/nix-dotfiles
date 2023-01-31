@@ -8,12 +8,6 @@ alias du="du -h"
 # nvim
 alias v="nvim"
 
-# tmux aliases
-alias ta="tmux attach"
-alias tls="tmux ls"
-alias tat="tmux attach -t"
-alias tns="tmux new-session -s"
-
 # emacs aliases
 alias em="emacsclient -nw -a ''"
 alias emg="emacsclient -c -a ''"
