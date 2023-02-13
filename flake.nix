@@ -52,7 +52,7 @@
             inherit profiles;
           };
 
-          modules = [ ./modules hostConfig.cfg agenix.nixosModule ];
+          modules = [ ./modules hostConfig.cfg ];
         }) hosts;
     }
 
