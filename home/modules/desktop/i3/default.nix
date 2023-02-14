@@ -12,6 +12,7 @@ in {
       brightnessctl
       flameshot
       (nerdfonts.override { fonts = [ "FiraCode" ]; })
+      xclip
       (rofi.override { plugins = [ rofi-emoji rofi-calc ]; })
       rofi-power-menu
       playerctl

@@ -39,8 +39,8 @@ scrolling:
 env:
     TERM: xterm-256color
 shell:
-    program: zellij
+    program: tmux
     args:
-    - attach
-    - --create
-    - alacritty
+    - new
+    - -A
+    - -s main
