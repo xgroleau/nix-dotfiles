@@ -16,6 +16,7 @@
         packages = with pkgs; [
           # For embedded
           stlink
+          qmk-udev-rules
           openocd
           libsigrok
         ];
