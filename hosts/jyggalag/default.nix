@@ -5,7 +5,6 @@ let
   runners = map (idx: "${hostname}-${toString idx}") (lib.lists.range 0 2);
   ghTokenPath = /run/secrets/github-runner/HOP-Tech-Canada.token;
   duckdnsTokenPath = /run/secrets/duckdns + "/${hostname}.token";
-  honeygainTokenPath = /run/secrets/honeygain + "/${hostname}.token";
 in {
   imports = [ ../base-config.nix ./hardware-configuration.nix ];
 
@@ -45,6 +44,7 @@ in {
         url = "https://github.com/HOP-Tech-Canada";
         tokenFile = ghTokenPath;
         extraPackages = with pkgs; [ config.virtualisation.docker.package ];
+        extraLabels = [ "nixos" ];
       };
       systemd.services."github-runner-${name}".serviceConfig.SupplementaryGroups =
         [ "docker" ];
