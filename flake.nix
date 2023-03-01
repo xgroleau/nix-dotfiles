@@ -52,7 +52,7 @@
             inherit profiles;
           };
 
-          modules = [ ./modules hostConfig.cfg ];
+          modules = [ ./modules ./secrets hostConfig.cfg ];
         }) hosts;
     }
 
@@ -90,6 +90,7 @@
 
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [
+            agenix.packages.${system}.default
             git
             nixfmt
             statix
