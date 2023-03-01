@@ -30,7 +30,7 @@ in {
       '';
       serviceConfig = {
         Type = "oneshot";
-        User = "nobody";
+        User = "root";
       };
     };
   };
