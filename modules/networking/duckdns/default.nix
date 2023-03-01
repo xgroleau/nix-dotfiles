@@ -34,6 +34,7 @@ in {
       serviceConfig = {
         Type = "oneshot";
         DynamicUser = true;
+        ReadOnlyPaths = [ cfg.tokenFile ];
       };
     };
   };
