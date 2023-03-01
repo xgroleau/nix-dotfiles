@@ -52,7 +52,8 @@
             inherit profiles;
           };
 
-          modules = [ ./modules ./secrets hostConfig.cfg ];
+          modules =
+            [ ./modules ./secrets agenix.nixosModules.default hostConfig.cfg ];
         }) hosts;
     }
 

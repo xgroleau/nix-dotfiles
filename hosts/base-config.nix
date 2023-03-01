@@ -28,6 +28,7 @@
     environment.systemPackages = with pkgs; [ vim nano curl wget firefox ];
 
     programs.zsh.enable = true;
+    i18n.defaultLocale = "en_CA.UTF-8";
     users = {
       users.xgroleau = {
         isNormalUser = true;
@@ -49,6 +50,6 @@
       };
     };
 
-    system.stateVersion = "22.05";
+    system.stateVersion = "22.11";
   };
 }

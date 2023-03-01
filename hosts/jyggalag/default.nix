@@ -19,9 +19,10 @@ in {
         duckdns = {
           enable = true;
           domain = hostname;
-          tokenFile = duckdnsTokenPath;
+          tokenFile = config.age.secrets.duckdnsToken.path;
         };
       };
+      secrets.enable = true;
     };
 
     boot = {
@@ -42,7 +43,7 @@ in {
         enable = true;
         replace = true;
         url = "https://github.com/HOP-Tech-Canada";
-        tokenFile = ghTokenPath;
+        tokenFile = config.age.secrets.ghRunner.path;
         extraPackages = with pkgs; [ config.virtualisation.docker.package ];
         extraLabels = [ "nixos" ];
       };
