@@ -26,11 +26,11 @@ in {
     systemd.services.duckdns = {
       script = ''
         set -eu
-        "${pkgs.curl}/bin/curl https://www.duckdns.org/update?domains=${cfg.domain}&token=$(${pkgs.coreutils}/bin/cat ${cfg.tokenFile})&ip= >/dev/null 2>&1"
+        "${pkgs.curl}/bin/curl https://www.duckdns.org/update?domains=${cfg.domain}&token=$(${pkgs.coreutils}/bin/cat ${cfg.tokenFile})&ip="
       '';
       serviceConfig = {
         Type = "oneshot";
-        User = "root";
+        DynamicUser = true;
       };
     };
   };
