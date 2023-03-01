@@ -25,6 +25,12 @@ in {
       secrets.enable = true;
     };
 
+    nix.gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 30d";
+    };
+
     boot = {
       loader = {
         systemd-boot.enable = true;
