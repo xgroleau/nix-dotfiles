@@ -52,7 +52,6 @@ in {
         replace = true;
         url = "https://github.com/HOP-Tech-Canada";
         tokenFile = config.age.secrets.ghRunner.path;
-        workDir = "$/tmp/gh-runners";
         extraPackages = with pkgs; [ config.virtualisation.docker.package ];
         extraLabels = [ "nixos" ];
       };
