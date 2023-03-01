@@ -10,7 +10,7 @@ in {
   config = mkIf cfg.enable {
     services.openssh = {
       enable = true;
-      passwordAuthentication = false;
+      settings = { PasswordAuthentication = false; };
     };
   };
 }
