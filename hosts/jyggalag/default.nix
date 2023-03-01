@@ -50,7 +50,7 @@ in {
         replace = true;
         url = "https://github.com/HOP-Tech-Canada";
         tokenFile = config.age.secrets.ghRunner.path;
-        workDir = "$S/github-runner-work/${name}";
+        workDir = "%S/github-runner-work/${name}";
 
         extraPackages = with pkgs; [ config.virtualisation.docker.package ];
         extraLabels = [ "nixos" ];
