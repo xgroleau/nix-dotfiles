@@ -23,7 +23,7 @@ in {
     programs.direnv.nix-direnv.enable = true;
 
     home.packages = with pkgs; [
-      bpytop
+      btop
       bat
       comma
       fd

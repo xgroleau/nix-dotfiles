@@ -32,8 +32,6 @@ in {
     };
 
     boot = {
-      # https://github.com/NixOS/nixpkgs/issues/204503
-      runSize = "18G";
       loader = {
         systemd-boot.enable = true;
         efi.canTouchEfiVariables = true;
@@ -52,6 +50,8 @@ in {
         replace = true;
         url = "https://github.com/HOP-Tech-Canada";
         tokenFile = config.age.secrets.ghRunner.path;
+        workDir = "%S/tmp/gh-runners";
+
         extraPackages = with pkgs; [ config.virtualisation.docker.package ];
         extraLabels = [ "nixos" ];
       };

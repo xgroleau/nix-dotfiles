@@ -13,12 +13,12 @@ in {
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
+      poetry
       cfg.package
       cfg.pythonPackages.pip
       cfg.pythonPackages.black
       cfg.pythonPackages.setuptools
       cfg.pythonPackages.pylint
-      cfg.pythonPackages.poetry
       cfg.pythonPackages.pipx
     ];
     home.sessionVariables = {
