@@ -50,7 +50,11 @@ in {
         replace = true;
         url = "https://github.com/HOP-Tech-Canada";
         tokenFile = config.age.secrets.ghRunner.path;
-        extraPackages = with pkgs; [ config.virtualisation.docker.package ];
+        workDir = "/tmp/gh-runners";
+        extraPackages = with pkgs; [
+          gnutar
+          config.virtualisation.docker.package
+        ];
         extraLabels = [ "nixos" ];
       };
       systemd.services."github-runner-${name}".serviceConfig.SupplementaryGroups =
