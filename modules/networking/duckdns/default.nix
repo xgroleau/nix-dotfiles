@@ -30,7 +30,7 @@ in {
       after = [ "network.target" "network-online.target" ];
       script = ''
         set -eu
-        ${pkgs.curl}/bin/curl https://www.duckdns.org/update?domains=${cfg.domain}&token=$(${pkgs.coreutils}/bin/cat $CREDENTIALS_DIRECTORY/duckdnsToken)&ip= >/dev/null 2>&1
+        ${pkgs.curl}/bin/curl "https://www.duckdns.org/update?domains=${cfg.domain}&token=$(${pkgs.coreutils}/bin/cat $CREDENTIALS_DIRECTORY/duckdnsToken)&ip=" >/dev/null 2>&1
       '';
       serviceConfig = {
         Type = "oneshot";
