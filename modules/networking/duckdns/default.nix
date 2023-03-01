@@ -17,9 +17,7 @@ in {
     services.cron = {
       enable = true;
       systemCronJobs = [
-        "${pkgs.curl}/bin/curl https://www.duckdns.org/update?domains=${cfg.domain}&token=${
-          builtins.readFile cfg.tokenFile
-        }&ip= >/dev/null 2>&1"
+        "${pkgs.curl}/bin/curl https://www.duckdns.org/update?domains=${cfg.domain}&token=$(${pkgs.coreutils}/bin/echo ${cfg.tokenFile})&ip= >/dev/null 2>&1"
       ];
     };
   };
