@@ -16,6 +16,8 @@ in {
   config = mkIf cfg.enable {
     systemd.timers.duckdns = {
       wantedBy = [ "timers.target" ];
+      wants = [ "network-online.target" ];
+      after = [ "network.target" "network-online.target" ];
       timerConfig = {
         OnBootSec = "5m";
         OnUnitActiveSec = "5m";
@@ -24,17 +26,17 @@ in {
     };
 
     systemd.services.duckdns = {
-      wantedBy = [ "multi-user.target" ];
       wants = [ "network-online.target" ];
       after = [ "network.target" "network-online.target" ];
       script = ''
         set -eu
-        "${pkgs.curl}/bin/curl https://www.duckdns.org/update?domains=${cfg.domain}&token=$(${pkgs.coreutils}/bin/cat ${cfg.tokenFile})&ip="
+        "${pkgs.curl}/bin/curl https://www.duckdns.org/update?domains=${cfg.domain}&token=$(${pkgs.coreutils}/bin/cat $CREDENTIALS_DIRECTORY/duckdnsToken)&ip="
       '';
       serviceConfig = {
         Type = "oneshot";
         DynamicUser = true;
         ReadOnlyPaths = [ cfg.tokenFile ];
+        LoadCredential = "duckdnsToken:${cfg.tokenFile}";
       };
     };
   };
