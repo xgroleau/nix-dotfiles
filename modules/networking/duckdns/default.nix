@@ -14,11 +14,24 @@ in {
   };
 
   config = mkIf cfg.enable {
-    services.cron = {
-      enable = true;
-      systemCronJobs = [
+    systemd.timers.duckdns = {
+      wantedBy = [ "timers.target" ];
+      timerConfig = {
+        OnBootSec = "5m";
+        OnUnitActiveSec = "5m";
+        Unit = "duckdns.service";
+      };
+    };
+
+    systemd.services.duckdns = {
+      script = ''
+        set -eu
         "${pkgs.curl}/bin/curl https://www.duckdns.org/update?domains=${cfg.domain}&token=$(${pkgs.coreutils}/bin/echo ${cfg.tokenFile})&ip= >/dev/null 2>&1"
-      ];
+      '';
+      serviceConfig = {
+        Type = "oneshot";
+        User = "nobody";
+      };
     };
   };
 }
