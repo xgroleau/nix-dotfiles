@@ -24,6 +24,9 @@ in {
     };
 
     systemd.services.duckdns = {
+      wantedBy = [ "multi-user.target" ];
+      wants = [ "network-online.target" ];
+      after = [ "network.target" "network-online.target" ];
       script = ''
         set -eu
         "${pkgs.curl}/bin/curl https://www.duckdns.org/update?domains=${cfg.domain}&token=$(${pkgs.coreutils}/bin/cat ${cfg.tokenFile})&ip="
