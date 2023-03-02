@@ -41,6 +41,10 @@ in {
       # term
       libtool
       libvterm
+
+      # copilot
+      nodejs
+
     ];
 
     home.sessionVariables = {

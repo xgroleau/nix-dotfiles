@@ -22,43 +22,6 @@
       display-line-numbers-mode t)
 
 
-;; Modules settings
-;; Buzz mode
-(add-to-list 'load-path "/usr/local/share/buzz/emacs")
-(use-package buzz-mode
-  :mode "\\.bbz\\'")
-
-(setq buzz-indent-level 4)
-
-
-;; dap settings
-(require 'dap-cpptools)
-;; removes all windows when debug starts
-(setq lsp-enable-dap-auto-configure nil
-      dap-auto-configure-features nil)
-
-;; Modes settings
-(add-to-list 'auto-mode-alist '("\\.tpp\\'" . c++-mode))
-(add-to-list 'auto-mode-alist '("\\.bzz\\'" . buzz-mode))
-
-;; Here are some additional functions/macros that could help you configure Doom:
-;;
-;; - `load!' for loading external *.el files relative to this one
-;; - `use-package!' for configuring packages
-;; - `after!' for running code after a package has loaded
-;; - `add-load-path!' for adding directories to the `load-path', relative to
-;;   this file. Emacs searches the `load-path' when you load packages with
-;;   `require' or `use-package'.
-;; - `map!' for binding new keys
-;;
-;; To get information about any of these functions/macros, move the cursor over
-;; the highlighted symbol at press 'K' (non-evil users must press 'C-c c k').
-;; This will open documentation for it, including demos of how they are used.
-;;
-;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
-;; they are implemented.
-
-
 ;; Key mapping
 ;; normal mode mapping
 (map!
@@ -87,7 +50,6 @@
  :desc "Switch workspace buffer in new window " "b w" #'+ivy/switch-workspace-buffer-other-window
  :desc "Switch buffer in new window " "b W" #'+ivy/switch-buffer-other-window)
 
-
 ;; The greatest splash screen of all
 (defun splash-screen-surpised-pikachu ()
   (mapc (lambda (line)
@@ -114,3 +76,42 @@
 
 
 (setq +doom-dashboard-ascii-banner-fn #'splash-screen-surpised-pikachu)
+
+;; Here are some additional functions/macros that could help you configure Doom:
+;;
+;; - `load!' for loading external *.el files relative to this one
+;; - `use-package!' for configuring packages
+;; - `after!' for running code after a package has loaded
+;; - `add-load-path!' for adding directories to the `load-path', relative to
+;;   this file. Emacs searches the `load-path' when you load packages with
+;;   `require' or `use-package'.
+;; - `map!' for binding new keys
+;;
+;; To get information about any of these functions/macros, move the cursor over
+;; the highlighted symbol at press 'K' (non-evil users must press 'C-c c k').
+;; This will open documentation for it, including demos of how they are used.
+;;
+;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
+;; they are implemented.
+
+
+;; Modules settings
+;; dap settings
+(require 'dap-cpptools)
+;; removes all windows when debug starts
+(setq lsp-enable-dap-auto-configure nil
+      dap-auto-configure-features nil)
+
+;; Modes settings
+(add-to-list 'auto-mode-alist '("\\.tpp\\'" . c++-mode))
+(add-to-list 'auto-mode-alist '("\\.bzz\\'" . buzz-mode))
+
+
+;; accept completion from copilot and fallback to company
+(use-package! copilot
+  :hook (prog-mode . copilot-mode)
+  :bind (("C-TAB" . 'copilot-accept-completion-by-word)
+         ("C-<tab>" . 'copilot-accept-completion-by-word)
+         :map copilot-completion-map
+         ("<tab>" . 'copilot-accept-completion)
+         ("TAB" . 'copilot-accept-completion)))
