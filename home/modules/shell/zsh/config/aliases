@@ -3,7 +3,6 @@
 # helpers
 alias grep="grep --color=auto"
 alias df="df -h"
-alias du="du -h"
 
 # nvim
 alias v="nvim"
@@ -11,20 +10,3 @@ alias v="nvim"
 # emacs aliases
 alias em="emacsclient -nw -a ''"
 alias emg="emacsclient -c -a ''"
-
-# yadm aliases
-alias ya="yadm add"
-alias yaa="yadm add -u"
-alias yb="yadm bootstrap"
-alias yc="yadm commit -v"
-alias yca="yadm commit -v -a"
-alias ycam="yadm commit -a -m"
-alias ycm="yadm commit -m"
-alias ycm="yadm commit -m"
-alias yd="yadm diff"
-alias yl="yadm pull"
-alias yp="yadm push"
-alias ysh="yadm show"
-alias ysb="yadm status -sb"
-alias yss="yadm status -s"
-alias yst="yadm status"

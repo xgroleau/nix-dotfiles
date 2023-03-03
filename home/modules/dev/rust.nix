@@ -9,6 +9,7 @@ in {
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
+      bacon
       rustup
       cargo-expand
       cargo-generate

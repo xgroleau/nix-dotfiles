@@ -22,18 +22,32 @@ in {
     programs.direnv.enable = true;
     programs.direnv.nix-direnv.enable = true;
 
-    home.packages = with pkgs; [
+    programs.zoxide = {
+      enable = true;
+      enableZshIntegration = true;
+    };
+
+    programs.exa = {
+      enable = true;
+      enableAliases = true;
+    };
+
+    home = {
+      packages = with pkgs; [
       btop
-      bat
-      comma
-      fd
-      fzf
-      gh
-      jq
-      killall
-      ranger
-      tldr
-      ripgrep
-    ];
+        bat
+        comma
+        du-dust
+        fd
+        fzf
+        gh
+        jq
+        killall
+        ranger
+        ripgrep
+        tldr
+      ];
+
+    };
   };
 }
