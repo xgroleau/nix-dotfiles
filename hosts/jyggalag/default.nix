@@ -3,8 +3,6 @@
 let
   hostname = "jyggalag";
   runners = map (idx: "${hostname}-${toString idx}") (lib.lists.range 0 2);
-  ghTokenPath = /run/secrets/github-runner/HOP-Tech-Canada.token;
-  duckdnsTokenPath = /run/secrets/duckdns + "/${hostname}.token";
 in {
   imports = [ ../base-config.nix ./hardware-configuration.nix ];
 

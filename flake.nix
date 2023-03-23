@@ -13,7 +13,6 @@
 
   outputs = { self, nixpkgs, home-manager, flake-utils, agenix }:
     let
-      system = flake-utils.lib.system.x86_64-linux;
       pkgs = nixpkgs;
       utils = import ./lib {
         inherit pkgs home-manager;
@@ -38,7 +37,7 @@
       # Generate a home configuration for each profiles
       homeConfigurations = nixpkgs.lib.mapAttrs (profileName: profileConfig:
         core.homeConfigurationFromProfile {
-          pkgs = pkgs.legacyPackages.${system};
+          pkgs = pkgs.legacyPackages.${flake-utils.lib.system.x86_64-linux};
           profile = profileConfig;
           modules = [ hmModule ];
         }) profiles;
@@ -78,7 +77,6 @@
         };
 
         checks = {
-          # TODO: Fix check
           fmt = pkgs.runCommand "fmt" {
             buildInputs = with pkgs; [ nixfmt statix ];
           } ''
