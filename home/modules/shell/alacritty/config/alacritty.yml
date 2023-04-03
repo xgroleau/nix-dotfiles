@@ -39,8 +39,6 @@ scrolling:
 env:
     TERM: xterm-256color
 shell:
-    program: tmux
+    program: zellij
     args:
-    - new
-    - -A
-    - -s main
+    - --create default
