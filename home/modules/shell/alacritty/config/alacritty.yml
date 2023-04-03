@@ -41,4 +41,6 @@ env:
 shell:
     program: zellij
     args:
-    - --create default
+    - attach
+    - --create
+    - default

@@ -9,7 +9,11 @@ in {
   config = mkIf cfg.enable {
     programs.zellij = {
       enable = true;
-      settings = { theme = "gruvbox-dark"; };
+      settings = {
+        on_force_close = "detach";
+        theme = "gruvbox-dark";
+        pane_frames = false;
+      };
     };
   };
 }
