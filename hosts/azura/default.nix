@@ -8,6 +8,7 @@
       home.username = "xgroleau";
       home.profile = "desktop";
       networking.kdeconnect.enable = true;
+      services.docker.enable = true;
     };
 
     # Use the systemd-boot EFI boot loader.
