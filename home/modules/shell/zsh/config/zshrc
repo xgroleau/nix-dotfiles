@@ -1,6 +1,6 @@
 # -- ZGen loading --
 ZGENOM_DIR="${XDG_DATA_HOME:="$HOME/.local/share"}/zgenom";
-ZGENOM_SOURCE="${ZGENOM_DIR}/zgen.zsh";
+ZGENOM_SOURCE="${ZGENOM_DIR}/zgenom.zsh";
 [ -d "$ZGENOM_DIR" ] || git clone https://github.com/jandamm/zgenom "$ZGENOM_DIR"
 source $ZGENOM_SOURCE
 
