@@ -36,7 +36,6 @@ in {
       nixfmt
       nodePackages.pyright
       rustup
-      rust-analyzer
 
       # term
       libtool
