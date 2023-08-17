@@ -7,7 +7,7 @@ in {
 
   options.modules.editors.nvim = with types; { enable = mkBoolOpt false; };
 
-  config = {
+  config = mkIf cfg.enable {
     programs.neovim = { enable = true; };
     programs.neovim.vimAlias = true;
     programs.neovim.vimdiffAlias = true;

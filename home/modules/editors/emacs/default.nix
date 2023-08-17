@@ -5,13 +5,18 @@ with lib.my.option;
 let cfg = config.modules.editors.emacs;
 in {
 
-  options.modules.editors.emacs = with types; { enable = mkBoolOpt false; };
+  options.modules.editors.emacs = with types; {
+    enable = mkBoolOpt false;
+    defaultEditor = mkBoolOpt false;
+  };
 
-  config = {
+  config = mkIf cfg.enable {
     xdg.configFile.doom = {
       source = ./config;
       recursive = true;
     };
+
+    services.emacs.defaultEditor = cfg.defaultEditor;
 
     home.packages = with pkgs; [
       # Emacs

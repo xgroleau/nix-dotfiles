@@ -5,6 +5,7 @@ rec {
       dev.common.enable = true;
       editors.nvim.enable = true;
       editors.emacs.enable = true;
+      editors.emacs.defaultEditor = true;
       nixpkgs.enable = true;
       shell.tmux.enable = true;
       shell.zsh.enable = true;
