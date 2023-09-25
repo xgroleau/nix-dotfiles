@@ -8,9 +8,13 @@ in {
   options.modules.editors.nvim = with types; { enable = mkBoolOpt false; };
 
   config = mkIf cfg.enable {
-    programs.neovim = { enable = true; };
-    programs.neovim.vimAlias = true;
-    programs.neovim.vimdiffAlias = true;
+    programs.neovim = {
+      enable = true;
+      vimAlias = true;
+      vimdiffAlias = true;
+    };
     xdg.configFile.nvim.source = ./config;
+    home.packages = with pkgs;
+      [ (nerdfonts.override { fonts = [ "FiraCode" ]; }) ];
   };
 }

@@ -20,7 +20,8 @@
 
       display-line-numbers-type 'relative
       display-line-numbers-mode t)
-
+      
+(setq nerd-icons-font-names '("SymbolsNerdFontMono-Regular.ttf"))
 
 ;; Key mapping
 ;; normal mode mapping

@@ -23,6 +23,9 @@ in {
       ((emacsPackagesFor emacs).emacsWithPackages
         (epkgs: [ epkgs.vterm epkgs.editorconfig epkgs.xclip ]))
 
+      # Font
+      (nerdfonts.override { fonts = [ "FiraCode" "NerdFontsSymbolsOnly" ]; })
+
       # general tools
       fd
       git
@@ -46,13 +49,10 @@ in {
       libtool
       libvterm
 
-      # copilot
-      nodejs
-
     ];
 
     home.sessionVariables = {
-      DOOM_EMACS = "${config.home.homeDirectory}/.emacs.d";
+      DOOM_EMACS = "${config.xdg.configHome}/emacs";
       DOOM_EMACS_BIN = "${config.home.sessionVariables.DOOM_EMACS}/bin";
     };
     home.sessionPath = [ "${config.home.sessionVariables.DOOM_EMACS_BIN}" ];
