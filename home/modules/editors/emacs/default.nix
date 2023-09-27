@@ -20,7 +20,7 @@ in {
 
     home.packages = with pkgs; [
       # Emacs
-      ((emacsPackagesFor emacs).emacsWithPackages
+      ((emacsPackagesFor emacs29).emacsWithPackages
         (epkgs: [ epkgs.vterm epkgs.editorconfig epkgs.xclip ]))
 
       # Font
