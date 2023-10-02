@@ -26,7 +26,7 @@
     };
 
     environment.systemPackages = with pkgs; [ pavucontrol ];
-    programs.steam.enable = true;
+    programs.steam.enable = false;
 
     # Dualbooting, avoids time issues
     time.hardwareClockInLocalTime = true;
