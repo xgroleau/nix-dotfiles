@@ -44,12 +44,16 @@ in {
       nixfmt
       nodePackages.pyright
       rustup
+
       html-tidy
       nodePackages.stylelint
       nodePackages.js-beautify
-      multimarkdown
+
       nodePackages.textlint
-      mdl
+      nodePackages.prettier
+      nodePackages.markdownlint-cli
+      multimarkdown
+      ispell
 
       # term
       libtool
