@@ -32,14 +32,18 @@ in {
       enableAliases = true;
     };
 
+    programs.fzf = {
+      enable = true;
+      enableZshIntegration = true;
+    };
+
     home = {
       packages = with pkgs; [
-      btop
+        btop
         bat
         comma
         du-dust
         fd
-        fzf
         gh
         jq
         killall

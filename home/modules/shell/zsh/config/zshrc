@@ -5,6 +5,7 @@ ZGENOM_SOURCE="${ZGENOM_DIR}/zgenom.zsh";
 source $ZGENOM_SOURCE
 
 if ! zgenom saved; then
+    zgenom load Aloxaf/fzf-tab
     zgenom load djui/alias-tips
     zgenom load unixorn/autoupdate-zgen
     zgenom load romkatv/powerlevel10k powerlevel10k
@@ -18,6 +19,8 @@ if ! zgenom saved; then
     zgenom oh-my-zsh plugins/sudo
 
     [ -z "$SSH_CONNECTION" ] && zgenom load zsh-users/fast-syntax-highlighting
+
+    zgenom load unixorn/fzf-zsh-plugin
 
     zgenom save
 fi
@@ -37,6 +40,9 @@ source ~/.config/zsh/aliases
 # Functions
 fpath=(~/.config/zsh/zshfn "${fpath[@]}")
 autoload Uz ~/.config/zsh/zshfn/*(.:t)
+
+# Enable fzf tab from Aloxaf/fzf-tab
+enable-fzf-tab
 
 #-- Local configuration --
 # Loading local configuration
