@@ -10,7 +10,7 @@
       networking.kdeconnect.enable = true;
 
       # Let home manager setup the session and the X11 windowing system.
-      services.xsever.home-manager = true;
+      services.xserver.home-manager = true;
     };
 
     # Use the systemd-boot EFI boot loader.

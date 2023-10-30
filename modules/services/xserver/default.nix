@@ -9,7 +9,7 @@ in {
     home-manager = mkBoolOpt' false "Let home-manager manage the session";
   };
 
-  config = mkIf cfg.enable {
+  config = mkIf cfg.home-manager {
     services = {
       xserver = {
 
