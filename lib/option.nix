@@ -15,4 +15,11 @@ in rec {
       type = types.bool;
       example = true;
     };
+
+  mkBoolOpt' = default: description:
+    mkOption {
+      inherit default description;
+      type = types.bool;
+      example = true;
+    };
 }

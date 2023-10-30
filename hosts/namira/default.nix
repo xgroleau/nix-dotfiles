@@ -8,6 +8,9 @@
       home.username = "xgroleau";
       home.profile = "desktop";
       networking.kdeconnect.enable = true;
+
+      # Let home manager setup the session and the X11 windowing system.
+      services.xsever.home-manager = true;
     };
 
     # Use the systemd-boot EFI boot loader.
@@ -31,12 +34,8 @@
     services = {
       # Enable CUPS to print documents. Add driver if needed
       printing.enable = true;
-
       xserver = {
         enable = true;
-        displayManager.sddm.enable = true;
-        desktopManager.plasma5.enable = true;
-
         # Enable touchpad
         libinput.enable = true;
       };

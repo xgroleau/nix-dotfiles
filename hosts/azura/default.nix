@@ -9,6 +9,9 @@
       home.profile = "desktop";
       networking.kdeconnect.enable = true;
       services.docker.enable = true;
+
+      # Let home manager setup the session and the X11 windowing system.
+      services.xsever.home-manager = true;
     };
 
     # Use the systemd-boot EFI boot loader.
@@ -30,16 +33,6 @@
 
     # Dualbooting, avoids time issues
     time.hardwareClockInLocalTime = true;
-
-    # Enable the X11 windowing system.
-    services = {
-      xserver = {
-        enable = true;
-        # Enable the Plasma 5 Desktop Environment.
-        displayManager.sddm.enable = true;
-        desktopManager.plasma5.enable = true;
-      };
-    };
 
     hardware.bluetooth.enable = true;
     services.blueman.enable = true;
