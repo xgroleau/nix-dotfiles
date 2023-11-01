@@ -10,6 +10,7 @@ in {
   };
 
   config = mkIf cfg.home-manager {
+    environment.systemPackages = [ pkgs.sddm-chili-theme ];
     services = {
       xserver = {
 
@@ -19,12 +20,9 @@ in {
           defaultSession = "none+fake";
 
           # Setup lightdm
-          lightdm = {
+          sddm = {
             enable = true;
-            greeters.slick = {
-              enable = true;
-              draw-user-backgrounds = true;
-            };
+            theme = "chili";
           };
 
           # Use a fake session. The actual session is managed by Home Manager.
