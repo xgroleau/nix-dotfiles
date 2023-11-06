@@ -7,10 +7,7 @@ in {
   options.modules.shell.tmux = with types; { enable = mkBoolOpt false; };
 
   config = mkIf cfg.enable {
-    programs.tmux = {
-      enable = true;
-      enableZshIntegration = true;
-    };
+    programs.tmux = { enable = true; };
     xdg.configFile.tmux.source = ./config;
   };
 }
