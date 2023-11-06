@@ -7,7 +7,7 @@ in {
   options.modules.shell.tmux = with types; { enable = mkBoolOpt false; };
 
   config = mkIf cfg.enable {
-    programs.zellij = {
+    programs.tmux = {
       enable = true;
       enableZshIntegration = true;
     };
