@@ -1,3 +1,5 @@
+output DVI-D-1
+off
 output DP-2
 off
 output DP-3
@@ -14,24 +16,12 @@ x-prop-underscan off
 x-prop-underscan_hborder 0
 x-prop-underscan_vborder 0
 output HDMI-1
-crtc 2
-gamma 0.909:0.833:0.714
-mode 1920x1080
-pos 1920x0
-rate 60.00
-x-prop-non_desktop 0
-x-prop-scaling_mode None
-x-prop-underscan off
-x-prop-underscan_hborder 0
-x-prop-underscan_vborder 0
-output DVI-D-1
 crtc 0
 gamma 0.909:0.833:0.714
 mode 1920x1080
-pos 3840x0
+pos 1920x0
 primary
 rate 60.00
-rotate left
 x-prop-non_desktop 0
 x-prop-scaling_mode None
 x-prop-underscan off
