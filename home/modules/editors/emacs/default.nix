@@ -20,8 +20,12 @@ in {
 
     home.packages = with pkgs; [
       # Emacs
-      ((emacsPackagesFor emacs29).emacsWithPackages
-        (epkgs: [ epkgs.vterm epkgs.editorconfig epkgs.xclip ]))
+      ((emacsPackagesFor emacs29).emacsWithPackages (epkgs: [
+        epkgs.vterm
+        epkgs.editorconfig
+        epkgs.xclip
+        #ocaml
+      ]))
 
       # Font
       (nerdfonts.override { fonts = [ "FiraCode" "NerdFontsSymbolsOnly" ]; })
@@ -44,6 +48,12 @@ in {
       nixfmt
       nodePackages.pyright
       rustup
+
+      dune_3
+      ocamlPackages.utop
+      ocamlPackages.merlin
+      ocamlPackages.ocamlformat
+      ocamlPackages.ocp-indent
 
       html-tidy
       nodePackages.stylelint
