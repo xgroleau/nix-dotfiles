@@ -22,6 +22,7 @@ in {
       libsForQt5.ark
       libsForQt5.dolphin
       libsForQt5.okular
+      libsForQt5.breeze-icons
     ];
 
     home.sessionVariables = { XDG_CURRENT_DESKTOP = "i3"; };
