@@ -39,7 +39,7 @@ bindsym $mod+semicolon exec --no-startup-id rofi -show emoji -modi emoji
 bindsym $mod+Shift+s exec --no-startup-id flameshot gui
 
 # Doom everywhere
-bindsym $mod+Shift+d exec --no-startup-id emacsclient --eval "(emacs-everywhere)"
+bindsym $mod+d exec --no-startup-id emacsclient --eval "(emacs-everywhere)"
 
 # Notifications
 bindsym $alt+space exec dunstctl close
@@ -109,7 +109,7 @@ bindsym $mod+e layout toggle split
 bindsym $mod+Shift+f floating toggle
 
 # change focus between tiling / floating windows
-bindsym $mod+d focus mode_toggle
+bindsym $mod+Shift+d focus mode_toggle
 
 # focus the parent container
 bindsym $mod+a focus parent

@@ -124,6 +124,7 @@ in {
       };
 
       unclutter.enable = true;
+      udiskie.enable = true;
     };
 
     xdg = {
