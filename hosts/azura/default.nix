@@ -4,6 +4,7 @@
   imports = [ ../desktop.nix ./hardware-configuration.nix ];
 
   config = {
+    # Custom modules
     modules = {
       home.username = "xgroleau";
       home.profile = "desktop";

@@ -3,6 +3,9 @@
 {
   config = {
 
+    # Custom modules
+    modules = { networking.tailscale.enable = true; };
+
     nixpkgs.config.allowUnfree = true;
     nix = {
       package = pkgs.nixUnstable;
