@@ -10,7 +10,7 @@ in {
     modules = {
       home = {
         username = "xgroleau";
-        profile = "dev";
+        profile = "minimal";
       };
       networking = {
         ssh.enable = true;

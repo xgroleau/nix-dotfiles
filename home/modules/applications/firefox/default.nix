@@ -12,8 +12,12 @@ in {
   config = mkIf cfg.enable {
     programs.firefox = {
       enable = true;
-      package =
-        pkgs.firefox.override { cfg = { enableTridactylNative = true; }; };
+      package = pkgs.firefox.override {
+        nativeMessagingHosts = [
+          # Tridactyl native connector
+          pkgs.tridactyl-native
+        ];
+      };
     };
 
     home.sessionVariables.BROWSER = "firefox";

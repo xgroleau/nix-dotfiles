@@ -4,8 +4,6 @@ rec {
     config.modules = {
       dev.common.enable = true;
       editors.nvim.enable = true;
-      editors.emacs.enable = true;
-      editors.emacs.defaultEditor = true;
       nixpkgs.enable = true;
       shell.zellij.enable = true;
       shell.zsh.enable = true;
@@ -16,6 +14,8 @@ rec {
     imports = [ minimal ];
     config = {
       modules = {
+        editors.emacs.enable = true;
+        editors.emacs.defaultEditor = true;
         dev.cc.enable = true;
         dev.ocaml.enable = true;
         dev.python.enable = true;
@@ -39,6 +39,7 @@ rec {
         applications.spotify.enable = true;
 
         editors.vscode.enable = true;
+
         shell.alacritty.enable = true;
       };
     };
