@@ -20,12 +20,8 @@ in {
 
     home.packages = with pkgs; [
       # Emacs
-      ((emacsPackagesFor emacs29).emacsWithPackages (epkgs: [
-        epkgs.vterm
-        epkgs.editorconfig
-        epkgs.xclip
-        #ocaml
-      ]))
+      ((emacsPackagesFor emacs29).emacsWithPackages
+        (epkgs: [ epkgs.editorconfig epkgs.vterm epkgs.xclip ]))
 
       # Font
       (nerdfonts.override { fonts = [ "FiraCode" "NerdFontsSymbolsOnly" ]; })
@@ -68,7 +64,6 @@ in {
       # term
       libtool
       libvterm
-
     ];
 
     home.sessionVariables = {
