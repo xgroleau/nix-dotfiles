@@ -17,7 +17,6 @@ rec {
         editors.emacs.enable = true;
         editors.emacs.defaultEditor = true;
         dev.cc.enable = true;
-        dev.ocaml.enable = true;
         dev.python.enable = true;
         dev.rust.enable = true;
       };
