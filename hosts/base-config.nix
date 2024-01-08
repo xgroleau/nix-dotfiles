@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, nixpkgs, ... }:
 
 {
   config = {
@@ -12,6 +12,10 @@
       extraOptions = ''
         experimental-features = nix-command flakes
       '';
+
+      # Avoid always redownloading the registry
+      registry.nixpkgs.flake = nixpkgs; # For flake commands
+      nixPath = [ "nixpkgs=${nixpkgs}" ]; # For legacy commands
     };
 
     time.timeZone = "America/Toronto";

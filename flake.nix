@@ -50,8 +50,10 @@
         nixpkgs.lib.nixosSystem {
           inherit (hostConfig) system;
           specialArgs = {
-            inherit lib; # Provide my lib to modules
+            # Provide my lib to modules
+            inherit lib;
             inherit profiles;
+            inherit nixpkgs;
           };
 
           modules =
