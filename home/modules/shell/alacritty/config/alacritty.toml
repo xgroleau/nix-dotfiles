@@ -1,0 +1,40 @@
+custom_cursor_colors = true
+hide_cursor_when_typing = false
+use_thin_strokes = true
+
+[colors]
+draw_bold_text_with_bright_colors = true
+
+[colors.cursor]
+cursor = "0xff2600"
+text = "0xf1c1c1"
+
+[colors.primary]
+background = "0x191919"
+foreground = "0xeaeaea"
+
+[env]
+TERM = "xterm-256color"
+
+[font]
+size = 10
+
+[font.bold]
+family = "FiraCode Nerd Font"
+style = "Bold"
+
+[font.italic]
+family = "FiraCode Nerd Font"
+style = "Light,Regular"
+
+[font.normal]
+family = "FiraCode Nerd Font"
+style = "Regular"
+
+[scrolling]
+history = 10000
+multiplier = 3
+
+[shell]
+args = ["attach", "--create", "default"]
+program = "zellij"
