@@ -29,4 +29,8 @@ in {
     })
   ];
 
+  config = {
+    home-manager.users."${cfg.username}".home.stateVersion = config.system.stateVersion;
+  };
+
 }

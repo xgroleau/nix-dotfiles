@@ -24,12 +24,12 @@
 
   swapDevices = [{ device = "/dev/disk/by-label/swap"; }];
 
-  hardware.cpu.intel.updateMicrocode =
-    lib.mkDefault config.hardware.enableRedistributableFirmware;
+ hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
   services.fstrim.enable = true;
   services.xserver.xrandrHeads = [{
     output = "HDMI-1";
     primary = true;
   }];
+  
 }

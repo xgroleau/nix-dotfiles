@@ -24,11 +24,11 @@
     };
 
     networking = {
-      hostName = "azura"; # Define your hostname.
+      hostName = "azura";
       networkmanager.enable = true;
-      interfaces.enp0s25.useDHCP = true;
+      interfaces.enp12s0.useDHCP = true;
     };
-
+    
     environment.systemPackages = with pkgs; [ pavucontrol ];
     programs.steam.enable = false;
 
@@ -48,5 +48,7 @@
       alsa.support32Bit = true;
       pulse.enable = true;
     };
+
+    system.stateVersion = "24.05"; 
   };
 }

@@ -54,5 +54,7 @@
       pulse.enable = true;
     };
 
+    system.stateVersion = "22.11";
+
   };
 }
