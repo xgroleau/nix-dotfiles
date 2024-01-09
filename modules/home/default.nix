@@ -30,7 +30,11 @@ in {
   ];
 
   config = {
-    home-manager.users."${cfg.username}".home.stateVersion = config.system.stateVersion;
+    home-manager = {
+      useGlobalPkgs = true;
+      useUserPackages = true;
+      users."${cfg.username}".home.stateVersion = config.system.stateVersion;
+    };
   };
 
 }

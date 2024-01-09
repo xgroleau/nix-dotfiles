@@ -18,8 +18,6 @@ in {
       imports = [
         home-manager.nixosModules.home-manager
         {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
           home-manager.extraSpecialArgs = {
             lib = myHmLib;
           } // extraSpecialArgs;
@@ -33,12 +31,12 @@ in {
     };
 
   # Calls homeManagerConfiguration with the profile
-  homeConfigurationFromProfile = { pkgs, modules ? [ ], extraSpecialArgs ? { }
+  homeConfigurationFromProfile = { pkgs, stateVersion, modules ? [ ], extraSpecialArgs ? { }
     , profile ? { _ }: { }, check ? true, ... }:
 
     home-manager.lib.homeManagerConfiguration {
       inherit pkgs extraSpecialArgs check;
       lib = myHmLib;
-      modules = [ ../home profile ] ++ modules;
+      modules = [ ../home profile  { home.stateVersion = stateVersion; }] ++ modules;
     };
 }

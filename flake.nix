@@ -41,6 +41,7 @@
       homeConfigurations = nixpkgs.lib.mapAttrs (profileName: profileConfig:
         core.homeConfigurationFromProfile {
           pkgs = pkgs.legacyPackages.${flake-utils.lib.system.x86_64-linux};
+          stateVersion = "24.05";
           profile = profileConfig;
           modules = [ hmModule ];
         }) profiles;
