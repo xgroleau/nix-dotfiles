@@ -100,6 +100,7 @@
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [
             agenix.packages.${system}.default
+            disko.packages.${system}.default
             git
             nixfmt
             statix
