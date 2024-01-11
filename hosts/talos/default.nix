@@ -9,6 +9,9 @@
       home.username = "xgroleau";
       home.profile = "minimal";
       services.docker.enable = true;
+      networking = {
+        ssh.enable = true;
+      };
     };
 
     # Use the systemd-boot EFI boot loader.
