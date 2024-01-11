@@ -113,6 +113,7 @@
           vault = {
             type = "zfs_fs";
             mountpoint = "/storage/vault";
+            options.mountpoint = "legacy";
           };
         };
       };
