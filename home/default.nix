@@ -15,7 +15,7 @@
     targets.genericLinux.enable = true;
     systemd.user.startServices = true;
     nixpkgs.config.allowUnfree = true;
-    manual.manpages.enable = true;
+    manual.manpages.enable = false;
 
     home = {
       keyboard = {
