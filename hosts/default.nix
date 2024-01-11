@@ -18,6 +18,11 @@
   talos = {
     system = "x86_64-linux";
     cfg = import ./talos;
+    deploy = {
+      hostname = "talos";
+      sshUser = "root";
+      user = "root";
+    };
   };
 
 }

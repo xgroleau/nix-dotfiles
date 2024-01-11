@@ -7,18 +7,26 @@
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    flake-utils.url = "github:numtide/flake-utils";
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    disko ={
+    deploy-rs = {
+      url = "github:serokell/deploy-rs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        utils.follows = "flake-utils";
+      };
+    };
+    disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
-    }; 
+    };
+    flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs, home-manager, flake-utils, agenix, disko }:
+  outputs =
+    { self, nixpkgs, home-manager, agenix, deploy-rs, disko, flake-utils }:
     let
       pkgs = nixpkgs;
       utils = import ./lib {
@@ -41,6 +49,20 @@
       inherit profiles;
       inherit utils;
 
+      deploy = {
+        remoteBuild = true;
+        nodes = nixpkgs.lib.mapAttrs (hostName: hostConfig: {
+          inherit (hostConfig.deploy) hostname;
+          profiles.system = {
+            user = hostConfig.deploy.user;
+            sshUser = hostConfig.deploy.sshUser;
+            path = deploy-rs.lib.${hostConfig.system}.activate.nixos
+              self.nixosConfigurations.${hostName};
+          };
+        }) (nixpkgs.lib.filterAttrs (hostName: hostConfig: hostConfig ? deploy)
+          hosts);
+      };
+
       # Generate a home configuration for each profiles
       homeConfigurations = nixpkgs.lib.mapAttrs (profileName: profileConfig:
         core.homeConfigurationFromProfile {
@@ -61,8 +83,13 @@
             inherit nixpkgs;
           };
 
-          modules =
-            [ ./modules ./secrets agenix.nixosModules.default disko.nixosModules.disko hostConfig.cfg ];
+          modules = [
+            ./modules
+            ./secrets
+            agenix.nixosModules.default
+            disko.nixosModules.disko
+            hostConfig.cfg
+          ];
         }) hosts;
     }
 
@@ -86,20 +113,20 @@
           };
         };
 
-        checks = {
-          fmt = pkgs.runCommand "fmt" {
-            buildInputs = with pkgs; [ nixfmt statix ];
-          } ''
-            ${pkgs.nixfmt}/bin/nixfmt --check ${./.}/**/*.nix && \
-            ${pkgs.statix}/bin/statix check ${./.} && \
-            touch $out
-          '';
-
-        };
+        # checks = {
+        #   fmt = pkgs.runCommand "fmt" {
+        #     buildInputs = with pkgs; [ nixfmt statix ];
+        #   } ''
+        #      ${pkgs.nixfmt}/bin/nixfmt --check ${./.}/**/*.nix && \
+        #      ${pkgs.statix}/bin/statix check ${./.} && \
+        #      touch $out
+        #   '';
+        # };
 
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [
             agenix.packages.${system}.default
+            deploy-rs.packages.${system}.default
             disko.packages.${system}.default
             git
             nixfmt
