@@ -12,9 +12,13 @@
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    disko ={
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    }; 
   };
 
-  outputs = { self, nixpkgs, home-manager, flake-utils, agenix }:
+  outputs = { self, nixpkgs, home-manager, flake-utils, agenix, disko }:
     let
       pkgs = nixpkgs;
       utils = import ./lib {
@@ -58,7 +62,7 @@
           };
 
           modules =
-            [ ./modules ./secrets agenix.nixosModules.default hostConfig.cfg ];
+            [ ./modules ./secrets agenix.nixosModules.default disko.nixosModules.disko hostConfig.cfg ];
         }) hosts;
     }
 

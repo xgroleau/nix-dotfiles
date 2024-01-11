@@ -15,7 +15,7 @@
     cfg = import ./namira;
   };
 
-  namira = {
+  talos = {
     system = "x86_64-linux";
     cfg = import ./talos;
   };

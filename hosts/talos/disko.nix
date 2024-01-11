@@ -9,7 +9,7 @@
                 type = "gpt";
                 partitions = {
                     ESP = {
-                        size = "64M";
+                        size = "500M";
                         type = "EF00";
                         content = {
                             type = "filesystem";
@@ -18,11 +18,18 @@
                         };
                     };
                     root = {
-                        size = "100%";
+                        end = "-8G";
                         content = {
                             type = "filesystem";
                             format = "ext4";
                             mountpoint = "/";
+                        };
+                    };
+                    plainSwap = {
+                    size = "100%";
+                        content = {
+                            type = "swap";
+                            resumeDevice = true; # resume from hiberation from this device
                         };
                     };
                 };

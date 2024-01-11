@@ -1,18 +1,14 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ ../desktop.nix ./disko  ./hardware-configuration.nix  ];
+  imports = [ ../base-config.nix ./disko.nix ./hardware-configuration.nix  ];
 
   config = {
     # Custom modules
     modules = {
       home.username = "xgroleau";
-      home.profile = "desktop";
-      networking.kdeconnect.enable = true;
+      home.profile = "minimal";
       services.docker.enable = true;
-
-      # Let home manager setup the session and the X11 windowing system.
-      services.xserver.home-manager = true;
     };
 
     # Use the systemd-boot EFI boot loader.
@@ -24,29 +20,9 @@
     };
 
     networking = {
-      hostName = "talos";
-      networkmanager.enable = true;
+      hostId = "819a6cd7";
+      hostName = "talos"; 
       interfaces.enp0s25.useDHCP = true;
-    };
-    
-    environment.systemPackages = with pkgs; [ pavucontrol ];
-    programs.steam.enable = false;
-
-    # Dualbooting, avoids time issues
-    time.hardwareClockInLocalTime = true;
-
-    hardware.bluetooth.enable = true;
-    services.blueman.enable = true;
-
-    services.printing.enable = true;
-
-    # Enable sound.
-    security.rtkit.enable = true;
-    services.pipewire = {
-      enable = true;
-      alsa.enable = true;
-      alsa.support32Bit = true;
-      pulse.enable = true;
     };
 
     system.stateVersion = "24.05"; 
