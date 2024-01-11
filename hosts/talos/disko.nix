@@ -69,7 +69,7 @@
         };
         wdc3 = {
             type = "disk";
-            device = "/dev/disk//by-id/ata-WDC_WD80EAZZ-00BKLB0_WD-CA24G8HK";
+            device = "/dev/disk/by-id/ata-WDC_WD80EAZZ-00BKLB0_WD-CA24G8HK";
             content = {
                 type = "gpt";
                 partitions = {
@@ -85,7 +85,7 @@
         };
         wdc4 = {
             type = "disk";
-            device = "/dev/disk//by-id/ata-WDC_WD80EAZZ-00BKLB0_WD-CA24GG5K";
+            device = "/dev/disk/by-id/ata-WDC_WD80EAZZ-00BKLB0_WD-CA24GG5K";
             content = {
                 type = "gpt";
                 partitions = {
