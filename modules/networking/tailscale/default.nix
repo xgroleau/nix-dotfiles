@@ -6,7 +6,7 @@ let cfg = config.modules.networking.tailscale;
 in {
 
   options.modules.networking.tailscale = with types; {
-    enable = mkBoolOpt false;
+    enable = mkEnableOption "Enables tailscale service and firewall";
   };
 
   config = mkIf cfg.enable {

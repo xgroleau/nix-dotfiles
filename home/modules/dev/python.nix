@@ -6,7 +6,7 @@ let cfg = config.modules.dev.python;
 in {
 
   options.modules.dev.python = with types; {
-    enable = mkBoolOpt false;
+    enable = mkEnableOption "Enables python development tools";
     package = mkOpt package pkgs.python3;
     pythonPackages = mkOpt attrs pkgs.python3Packages;
   };

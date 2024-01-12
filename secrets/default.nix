@@ -6,7 +6,9 @@ with lib.my.option;
 let cfg = config.modules.secrets;
 in {
 
-  options.modules.secrets = with types; { enable = mkBoolOpt false; };
+  options.modules.secrets = with types; {
+    enable = mkEnableOption "Enables secrets management";
+  };
 
   config = mkIf cfg.enable {
     age = {

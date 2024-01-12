@@ -1,15 +1,6 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = [
-    ./discord
-    ./element
-    ./firefox
-    ./gitkraken
-    ./mpv
-    ./obs
-    ./pulseview
-    ./slack
-    ./spotify
-  ];
+  imports =
+    [ ./discord ./element ./firefox ./mpv ./obs ./pulseview ./slack ./spotify ];
 }

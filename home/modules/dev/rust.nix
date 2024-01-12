@@ -5,7 +5,9 @@ with lib.my.option;
 let cfg = config.modules.dev.rust;
 in {
 
-  options.modules.dev.rust = with types; { enable = mkBoolOpt false; };
+  options.modules.dev.rust = with types; {
+    enable = mkEnableOption "Enables rust development tools";
+  };
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [

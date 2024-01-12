@@ -6,7 +6,7 @@ let cfg = config.modules.dev.common;
 in {
 
   options.modules.dev.common = with types; {
-    enable = mkBoolOpt false;
+    enable = mkEnableOption "Enable common development settings and tools";
     gitUser = mkOpt types.str "xgroleau";
     gitEmail = mkOpt types.str "xavgroleau@gmail.com";
   };

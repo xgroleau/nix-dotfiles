@@ -30,7 +30,6 @@ rec {
         applications.element.enable = true;
         applications.slack.enable = true;
         applications.firefox.enable = true;
-        applications.gitkraken.enable = true;
         applications.discord.enable = true;
         applications.obs.enable = true;
         applications.mpv.enable = true;

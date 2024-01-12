@@ -7,4 +7,7 @@ let
 in {
   "duckdns-token.age".publicKeys = [ xgroleau jyggalag ];
   "gh-runner.age".publicKeys = [ xgroleau jyggalag ];
+  "pia-user.age".publicKeys = [ xgroleau ];
+  "pia-pass.age".publicKeys = [ xgroleau ];
+  "pia-ovpn.age".publicKeys = [ xgroleau ];
 }

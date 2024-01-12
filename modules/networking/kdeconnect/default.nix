@@ -6,7 +6,7 @@ let cfg = config.modules.networking.kdeconnect;
 in {
 
   options.modules.networking.kdeconnect = with types; {
-    enable = mkBoolOpt false;
+    enable = mkEnableOption "Enables the kde connect service";
   };
 
   config = mkIf cfg.enable {

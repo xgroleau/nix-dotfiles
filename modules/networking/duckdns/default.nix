@@ -6,7 +6,8 @@ let cfg = config.modules.networking.duckdns;
 in {
 
   options.modules.networking.duckdns = with types; {
-    enable = mkBoolOpt false;
+    enable = mkEnableOption
+      "Duckdns configuration, enable to register a domain to duckdns";
     domain = mkReq types.nonEmptyStr "The domain to register";
     tokenFile = mkReq types.path ''
       The full path to a file which contains the token for the domain.
