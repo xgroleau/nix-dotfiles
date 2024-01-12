@@ -31,12 +31,13 @@ in {
     };
 
   # Calls homeManagerConfiguration with the profile
-  homeConfigurationFromProfile = { pkgs, stateVersion, modules ? [ ], extraSpecialArgs ? { }
-    , profile ? { _ }: { }, check ? true, ... }:
+  homeConfigurationFromProfile = { pkgs, stateVersion, modules ? [ ]
+    , extraSpecialArgs ? { }, profile ? { _ }: { }, check ? true, ... }:
 
     home-manager.lib.homeManagerConfiguration {
       inherit pkgs extraSpecialArgs check;
       lib = myHmLib;
-      modules = [ ../home profile  { home.stateVersion = stateVersion; }] ++ modules;
+      modules = [ ../home profile { home.stateVersion = stateVersion; } ]
+        ++ modules;
     };
 }

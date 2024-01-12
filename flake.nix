@@ -113,15 +113,15 @@
           };
         };
 
-        # checks = {
-        #   fmt = pkgs.runCommand "fmt" {
-        #     buildInputs = with pkgs; [ nixfmt statix ];
-        #   } ''
-        #      ${pkgs.nixfmt}/bin/nixfmt --check ${./.}/**/*.nix && \
-        #      ${pkgs.statix}/bin/statix check ${./.} && \
-        #      touch $out
-        #   '';
-        # };
+        checks = {
+          fmt = pkgs.runCommand "fmt" {
+            buildInputs = with pkgs; [ nixfmt statix ];
+          } ''
+            ${pkgs.nixfmt}/bin/nixfmt --check ${./.}/**/*.nix && \
+            ${pkgs.statix}/bin/statix check ${./.} && \
+            touch $out
+          '';
+        };
 
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [

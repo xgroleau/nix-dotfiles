@@ -12,6 +12,6 @@ in {
   config = mkIf cfg.enable {
     virtualisation.docker.enable = true;
     users.groups.docker.members =
-      [ users.users.${config.modules.home.username}.name ];
+      [ config.users.users.${config.modules.home.username}.name ];
   };
 }

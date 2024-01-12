@@ -9,9 +9,8 @@ in {
   config = {
     programs.alacritty.enable = true;
     xdg.configFile.alacritty.source = ./config;
-    home.packages = with pkgs; [
-      (nerdfonts.override { fonts = [ "FiraCode" ]; })
-    ];
+    home.packages = with pkgs;
+      [ (nerdfonts.override { fonts = [ "FiraCode" ]; }) ];
   };
 
 }

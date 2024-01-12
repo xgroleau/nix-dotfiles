@@ -28,7 +28,7 @@
       networkmanager.enable = true;
       interfaces.enp12s0.useDHCP = true;
     };
-    
+
     environment.systemPackages = with pkgs; [ pavucontrol ];
     programs.steam.enable = false;
 
@@ -49,6 +49,6 @@
       pulse.enable = true;
     };
 
-    system.stateVersion = "24.05"; 
+    system.stateVersion = "24.05";
   };
 }

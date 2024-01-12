@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ ../base-config.nix ./disko.nix ./hardware-configuration.nix  ];
+  imports = [ ../base-config.nix ./disko.nix ./hardware-configuration.nix ];
 
   config = {
     # Custom modules
@@ -9,11 +9,8 @@
       home.username = "xgroleau";
       home.profile = "minimal";
       services.docker.enable = true;
-      networking = {
-        ssh.enable = true;
-      };
+      networking = { ssh.enable = true; };
     };
-
 
     # Use the systemd-boot EFI boot loader.
     boot = {
@@ -25,10 +22,10 @@
 
     networking = {
       hostId = "819a6cd7";
-      hostName = "talos"; 
+      hostName = "talos";
       interfaces.enp0s25.useDHCP = true;
     };
 
-    system.stateVersion = "24.05"; 
+    system.stateVersion = "24.05";
   };
 }
