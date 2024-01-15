@@ -24,15 +24,9 @@ in {
             type = types.str;
           };
 
-          ovpnUsernameFile = mkOption {
+          ovpnAuthFile = mkOption {
             description =
               "Path to file containing username to authenticate with VPN.";
-            type = types.str;
-          };
-
-          ovpnPasswordFile = mkOption {
-            description =
-              "Path to file containing password to authenticate with VPN.";
             type = types.str;
           };
 
@@ -486,13 +480,10 @@ in {
     # Set up VPN service.
     services.openvpn.servers = mapAttrs (name: srv: {
       autoStart = true;
-      authUserPass = {
-        username =
-          lib.removeSuffix "\n" (builtins.readFile srv.ovpnUsernameFile);
-        password =
-          lib.removeSuffix "\n" (builtins.readFile srv.ovpnPasswordFile);
-      };
-      config = ""; # (builtins.readFile srv.ovpnFile);
+      config = ''
+        config ${srv.ovpnFile}
+        auth-user-pass ${srv.ovpnAuthFile}
+      '';
       up = mkOpenVpnUpScript name srv;
       updateResolvConf = true;
     }) cfg.servers;

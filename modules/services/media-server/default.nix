@@ -15,21 +15,9 @@ in {
       type = types.str;
     };
 
-    ovpnUsernameFile = mkOption {
-      description =
-        "Path to file containing username to authenticate with VPN.";
-      type = types.str;
-    };
-
-    ovpnPasswordFile = mkOption {
-      description =
-        "Path to file containing password to authenticate with VPN.";
-      type = types.str;
-    };
-
     ovpnAuthFile = mkOption {
       description =
-        "Path to file containing password to authenticate with VPN.";
+        "Path to file containing username and password to authenticate with VPN.";
       type = types.str;
     };
 
@@ -80,8 +68,7 @@ in {
       enable = true;
       servers."${group}" = {
         ovpnFile = cfg.ovpnFile;
-        ovpnUsernameFile = cfg.ovpnUsernameFile;
-        ovpnPasswordFile = cfg.ovpnPasswordFile;
+        ovpnAuthFile = cfg.ovpnAuthFile;
         mark = "0x6";
         protocol = "udp";
         routeTableId = 42;

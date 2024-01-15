@@ -17,8 +17,7 @@
           enable = true;
           downloadPath = "/storage/vault/downloads";
           ovpnFile = config.age.secrets.piaOvpn.path;
-          ovpnUsernameFile = config.age.secrets.piaUser.path;
-          ovpnPasswordFile = config.age.secrets.piaPassword.path;
+          ovpnAuthFile = config.age.secrets.piaAuth.path;
         };
       };
     };
