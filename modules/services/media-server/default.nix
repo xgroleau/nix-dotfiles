@@ -34,7 +34,7 @@ in {
       };
     };
 
-    services.jackett = {
+    services.prowlarr = {
       inherit group;
       enable = true;
       openFirewall = true;
@@ -69,7 +69,7 @@ in {
       servers."${group}" = {
         ovpnFile = cfg.ovpnFile;
         ovpnAuthFile = cfg.ovpnAuthFile;
-        mark = "0x6";
+        mark = "0x1";
         protocol = "udp";
         routeTableId = 42;
         users = [ config.services.jackett.user config.services.deluge.user ];

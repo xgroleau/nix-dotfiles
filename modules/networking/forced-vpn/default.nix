@@ -88,17 +88,6 @@ in {
             type = str;
           };
 
-          protocol = mkOption {
-            default = "udp";
-            description = "Protocol to use when connecting to OpenVPN server.";
-            type = enum [ "udp" "tcp" ];
-          };
-
-          remotes = mkOption {
-            description = "List of OpenVPN remote servers that will be used.";
-            type = listOf str;
-          };
-
           routeTableId = mkOption {
             description = ''
               Id of routing table that will be defined to route traffic onto the VPN. This can be
@@ -366,44 +355,6 @@ in {
           ${pkgs.iproute}/bin/ip route flush cache
         '';
       in "${dir}/bin/${name}";
-
-    mkOpenVpnConfig = name: srv: ''
-      # Specify the type of the layer of the VPN connection.
-      dev tun-${name}
-      dev-type tun
-
-      # Specify the underlying protocol beyond the Internet.
-      proto ${srv.protocol}
-
-      # The destination hostname / IP address, and port number of
-      # the target VPN Server.
-      ${builtins.concatStringsSep "\n"
-      (builtins.map (r: "remote ${r}") srv.remotes)}
-      remote-random
-
-      # Other parameters necessary to connect to the VPN Server.
-      client
-      auth-nocache
-      remote-cert-tls server
-      resolv-retry infinite
-      nobind
-      verb 4
-      reneg-sec 0
-      route-delay 2
-      comp-lzo
-      tun-mtu 1500
-
-      # The encryption and authentication algorithm.
-      cipher AES-256-CBC
-      tls-cipher TLS-DHE-RSA-WITH-AES-256-GCM-SHA384:TLS-DHE-RSA-WITH-AES-256-CBC-SHA
-      auth SHA512
-
-      # The certificate file of the destination VPN Server.
-      ca ${srv.certificate}
-
-      # Disable the client from sending all traffic over the VPN by default.
-      pull-filter ignore redirect-gateway
-    '';
 
     mkOpenVpnUpScript = name: srv: ''
       # Workaround: OpenVPN will run `ip addr add` to assign an IP to the interface. However,
