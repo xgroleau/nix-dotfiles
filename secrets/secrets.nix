@@ -4,9 +4,11 @@ let
   '';
   jyggalag =
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMAIwytbvcA1fJJbeCC5pFCrIL1QdEeEu9eAz87YsP4q";
+  talos =
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMbgJmtDQmuGORoB29oUkiLH5vxuVwFvb7lxdknKv2Si";
 in {
   "duckdns-token.age".publicKeys = [ xgroleau jyggalag ];
   "gh-runner.age".publicKeys = [ xgroleau jyggalag ];
-  "pia-auth.age".publicKeys = [ xgroleau ];
-  "pia-ovpn.age".publicKeys = [ xgroleau ];
+  "pia-auth.age".publicKeys = [ xgroleau talos ];
+  "pia-ovpn.age".publicKeys = [ xgroleau talos ];
 }
