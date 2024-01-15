@@ -12,17 +12,25 @@ in {
 
     ovpnFile = mkOption {
       description = "Path to ovpn config file";
-      type = path;
+      type = types.str;
     };
 
     ovpnUsernameFile = mkOption {
-      description = "Path ovpn user file";
-      type = path;
+      description =
+        "Path to file containing username to authenticate with VPN.";
+      type = types.str;
     };
 
     ovpnPasswordFile = mkOption {
-      description = "Path ovpn password file";
-      type = path;
+      description =
+        "Path to file containing password to authenticate with VPN.";
+      type = types.str;
+    };
+
+    ovpnAuthFile = mkOption {
+      description =
+        "Path to file containing password to authenticate with VPN.";
+      type = types.str;
     };
 
   };
@@ -68,39 +76,16 @@ in {
       openFirewall = true;
     };
 
-    # Run Binhex/DelugeVPN in dockern container.
-    virtualisation.oci-containers = {
-      backend = "docker";
-      containers = {
-        "delugevpn" = {
-          image = "binhex/arch-delugevpn";
-          extraOptions = [ "--cap-add=NET_ADMIN" ];
-          ports = [ "8112:8112" "8118:8118" "58846:58846" "58946:58946" ];
-          volumes = [
-            "/home/nixos/torrents:/data"
-            "/etc/nixos/configs/delugevpn:/config"
-          ];
-          environment = {
-            VPN_ENABLED = "yes";
-            VPN_USER = "myUser";
-            VPN_PASS = "myPass";
-            VPN_PROV = "custom";
-            VPN_CLIENT = "openvpn";
-            STRICT_PORT_FORWARD = "yes";
-            ENABLE_PRIVOXY = "yes";
-            LAN_NETWORK = "192.168.1.0/24";
-            NAME_SERVERS = "1.1.1.1,8.8.8.8";
-            DELUGE_DAEMON_LOG_LEVEL = "info";
-            DELUGE_WEB_LOG_LEVEL = "info";
-            DELUGE_ENABLE_WEBUI_PASSWORD = "yes";
-            VPN_INPUT_PORTS = "";
-            VPN_OUTPUT_PORTS = "";
-            DEBUG = "false";
-            UMASK = "000";
-            PUID = "0";
-            PGID = "0";
-          };
-        };
+    modules.networking.forced-vpn = {
+      enable = true;
+      servers."${group}" = {
+        ovpnFile = cfg.ovpnFile;
+        ovpnUsernameFile = cfg.ovpnUsernameFile;
+        ovpnPasswordFile = cfg.ovpnPasswordFile;
+        mark = "0x6";
+        protocol = "udp";
+        routeTableId = 42;
+        users = [ config.services.jackett.user config.services.deluge.user ];
       };
     };
 
@@ -113,39 +98,3 @@ in {
     ]);
   };
 }
-# { config, lib, pkgs, ... }:
-
-# with lib;
-
-# let
-#   cfg = config.services.viaVpn;
-# in
-# {
-#   options.services.viaVpn = {
-#     enable = mkEnableOption "Force specific services to use VPN";
-
-#     services = mkOption {
-#       type = types.listOf types.str;
-#       default = [];
-#       example = [ "nginx" "ssh" ];
-#       description = "List of services to force through VPN";
-#     };
-
-#     vpnInterface = mkOption {
-#       type = types.str;
-#       default = "tun0";
-#       example = "tun0";
-#       description = "VPN interface name";
-#     };
-#   };
-
-#   config = mkIf cfg.enable {
-#     networking.firewall.extraCommands = ''
-#       # Ensure services can only communicate through VPN
-#       ${concatStringsSep "\n" (map (service:
-#         "iptables -A OUTPUT -m owner --uid-owner `id -u ${service}` -o ${cfg.vpnInterface} -j ACCEPT
-#          iptables -A OUTPUT -m owner --uid-owner `id -u ${service}` ! -o ${cfg.vpnInterface} -j REJECT"
-#       ) cfg.services)}
-#     '';
-#   };
-# }

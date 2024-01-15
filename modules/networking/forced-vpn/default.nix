@@ -21,12 +21,19 @@ in {
         options = {
           ovpnFile = mkOption {
             description = "Path to ovpn config file";
-            type = path;
+            type = types.str;
           };
 
-          authUserPassFile = mkOption {
-            description = "Path to the auth-user-pass file";
-            type = path;
+          ovpnUsernameFile = mkOption {
+            description =
+              "Path to file containing username to authenticate with VPN.";
+            type = types.str;
+          };
+
+          ovpnPasswordFile = mkOption {
+            description =
+              "Path to file containing password to authenticate with VPN.";
+            type = types.str;
           };
 
           dns = {
@@ -479,11 +486,14 @@ in {
     # Set up VPN service.
     services.openvpn.servers = mapAttrs (name: srv: {
       autoStart = true;
-      config = ''
-        auth-user-pass ${authUserPass}
-        config ${srv.ovpnFile}
-      '';
-      up = ""; # mkOpenVpnUpScript name srv;
+      authUserPass = {
+        username =
+          lib.removeSuffix "\n" (builtins.readFile srv.ovpnUsernameFile);
+        password =
+          lib.removeSuffix "\n" (builtins.readFile srv.ovpnPasswordFile);
+      };
+      config = ""; # (builtins.readFile srv.ovpnFile);
+      up = mkOpenVpnUpScript name srv;
       updateResolvConf = true;
     }) cfg.servers;
 
