@@ -15,8 +15,13 @@ in {
       type = path;
     };
 
-    authUserPassFile = mkOption {
-      description = "Path to auth-user-pass file";
+    ovpnUsernameFile = mkOption {
+      description = "Path ovpn user file";
+      type = path;
+    };
+
+    ovpnPasswordFile = mkOption {
+      description = "Path ovpn password file";
       type = path;
     };
 
@@ -63,15 +68,39 @@ in {
       openFirewall = true;
     };
 
-    modules.networking.forced-vpn = {
-      enable = true;
-      servers."${group}" = {
-        ovpnFile = cfg.ovpnFile;
-        authUserPass = cfg.authUserPassFile;
-        mark = "0x6";
-        protocol = "udp";
-        routeTableId = 42;
-        users = [ config.services.jackett.user config.services.deluge.user ];
+    # Run Binhex/DelugeVPN in dockern container.
+    virtualisation.oci-containers = {
+      backend = "docker";
+      containers = {
+        "delugevpn" = {
+          image = "binhex/arch-delugevpn";
+          extraOptions = [ "--cap-add=NET_ADMIN" ];
+          ports = [ "8112:8112" "8118:8118" "58846:58846" "58946:58946" ];
+          volumes = [
+            "/home/nixos/torrents:/data"
+            "/etc/nixos/configs/delugevpn:/config"
+          ];
+          environment = {
+            VPN_ENABLED = "yes";
+            VPN_USER = "myUser";
+            VPN_PASS = "myPass";
+            VPN_PROV = "custom";
+            VPN_CLIENT = "openvpn";
+            STRICT_PORT_FORWARD = "yes";
+            ENABLE_PRIVOXY = "yes";
+            LAN_NETWORK = "192.168.1.0/24";
+            NAME_SERVERS = "1.1.1.1,8.8.8.8";
+            DELUGE_DAEMON_LOG_LEVEL = "info";
+            DELUGE_WEB_LOG_LEVEL = "info";
+            DELUGE_ENABLE_WEBUI_PASSWORD = "yes";
+            VPN_INPUT_PORTS = "";
+            VPN_OUTPUT_PORTS = "";
+            DEBUG = "false";
+            UMASK = "000";
+            PUID = "0";
+            PGID = "0";
+          };
+        };
       };
     };
 
