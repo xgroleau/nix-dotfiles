@@ -8,8 +8,19 @@
     modules = {
       home.username = "xgroleau";
       home.profile = "minimal";
-      services.docker.enable = true;
-      networking = { ssh.enable = true; };
+      networking.ssh.enable = true;
+      secrets.enable = true;
+
+      services = {
+        docker.enable = true;
+        media-server = {
+          enable = true;
+          downloadPath = "/storage/vault/downloads";
+          ovpnFile = config.age.secrets.piaOvpn.path;
+          ovpnUsername = config.age.secrets.piaUsername.path;
+          ovpnPassword = config.age.secrets.piaPassword.path;
+        };
+      };
     };
 
     # Use the systemd-boot EFI boot loader.

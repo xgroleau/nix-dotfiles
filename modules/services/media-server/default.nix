@@ -1,14 +1,25 @@
 { config, lib, pkgs, ... }:
 
 with lib;
+with lib.my.option;
 let
-  cfg = config.modules.networking.duckdns;
+  cfg = config.modules.services.media-server;
   group = "media";
 in {
-  options.veritas.profiles.media-server = {
+  options.modules.services.media-server = {
     enable = mkEnableOption "A media server configuration";
+    downloadPath = mkReq types.str "Path where the download will be done";
 
-    downloadPath = mkReq types.string "Path where the download will be done";
+    ovpnFile = mkOption {
+      description = "Path to ovpn config file";
+      type = path;
+    };
+
+    authUserPassFile = mkOption {
+      description = "Path to auth-user-pass file";
+      type = path;
+    };
+
   };
 
   config = mkIf cfg.enable {
@@ -26,21 +37,18 @@ in {
       inherit group;
       enable = true;
       openFirewall = true;
-      package = pkgs.jackett;
     };
 
     services.lidarr = {
       inherit group;
       enable = true;
       openFirewall = true;
-      package = pkgs.lidarr;
     };
 
     services.plex = {
       inherit group;
       enable = true;
       openFirewall = true;
-      package = pkgs.plexPass;
     };
 
     services.sonarr = {
@@ -55,29 +63,60 @@ in {
       openFirewall = true;
     };
 
-    veritas.services.per-user-vpn = {
+    modules.networking.forced-vpn = {
       enable = true;
       servers."${group}" = {
-        ovpnFile = config.age.secrets.pia-ovpn.path;
-        credentials = {
-          username = config.age.secrets.pia-user.path;
-          password = config.age.secrets.pia-password.path;
-        };
-        mark = "0x1";
+        ovpnFile = cfg.ovpnFile;
+        authUserPass = cfg.authUserPassFile;
+        mark = "0x6";
         protocol = "udp";
         routeTableId = 42;
         users = [ config.services.jackett.user config.services.deluge.user ];
       };
     };
 
-    users.groups.media.members =
-      [ users.users.${config.modules.home.username}.name ]
-      ++ (with config.services; [
-        deluge.user
-        sonarr.user
-        radarr.user
-        plex.user
-        lidarr.user
-      ]);
+    users.groups.media.members = (with config.services; [
+      deluge.user
+      sonarr.user
+      radarr.user
+      plex.user
+      lidarr.user
+    ]);
   };
 }
+# { config, lib, pkgs, ... }:
+
+# with lib;
+
+# let
+#   cfg = config.services.viaVpn;
+# in
+# {
+#   options.services.viaVpn = {
+#     enable = mkEnableOption "Force specific services to use VPN";
+
+#     services = mkOption {
+#       type = types.listOf types.str;
+#       default = [];
+#       example = [ "nginx" "ssh" ];
+#       description = "List of services to force through VPN";
+#     };
+
+#     vpnInterface = mkOption {
+#       type = types.str;
+#       default = "tun0";
+#       example = "tun0";
+#       description = "VPN interface name";
+#     };
+#   };
+
+#   config = mkIf cfg.enable {
+#     networking.firewall.extraCommands = ''
+#       # Ensure services can only communicate through VPN
+#       ${concatStringsSep "\n" (map (service:
+#         "iptables -A OUTPUT -m owner --uid-owner `id -u ${service}` -o ${cfg.vpnInterface} -j ACCEPT
+#          iptables -A OUTPUT -m owner --uid-owner `id -u ${service}` ! -o ${cfg.vpnInterface} -j REJECT"
+#       ) cfg.services)}
+#     '';
+#   };
+# }

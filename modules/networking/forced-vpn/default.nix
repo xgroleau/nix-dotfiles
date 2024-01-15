@@ -24,18 +24,9 @@ in {
             type = path;
           };
 
-          credentials = {
-            username = mkOption {
-              description =
-                "Path to file containing username to authenticate with VPN.";
-              type = path;
-            };
-
-            password = mkOption {
-              description =
-                "Path to file containing password to authenticate with VPN.";
-              type = path;
-            };
+          authUserPassFile = mkOption {
+            description = "Path to the auth-user-pass file";
+            type = path;
           };
 
           dns = {
@@ -473,13 +464,13 @@ in {
         path = [ pkgs.iproute pkgs.gnugrep pkgs.gawk ];
         reloadIfChanged = false;
         serviceConfig = {
-          "Type" = "oneshot";
-          "RemainAfterExit" = true;
-          "ExecStart" = "${mkRoutingScript name srv}";
+          Type = "oneshot";
+          RemainAfterExit = true;
+          ExecStart = "${mkRoutingScript name srv}";
         };
         unitConfig = {
-          "ConditionCapability" = "CAP_NET_ADMIN";
-          "DefaultDependencies" = false;
+          ConditionCapability = "CAP_NET_ADMIN";
+          DefaultDependencies = false;
         };
         wantedBy = [ "sysinit.target" ];
         wants = [ "network-pre.target" ];
@@ -488,14 +479,11 @@ in {
     # Set up VPN service.
     services.openvpn.servers = mapAttrs (name: srv: {
       autoStart = true;
-      authUserPass = {
-        username =
-          lib.removeSuffix "\n" (builtins.readFile srv.credentials.username);
-        password =
-          lib.removeSuffix "\n" (builtins.readFile srv.credentials.password);
-      };
-      config = "config ${srv.ovpnFile}";
-      up = mkOpenVpnUpScript name srv;
+      config = ''
+        auth-user-pass ${authUserPass}
+        config ${srv.ovpnFile}
+      '';
+      up = ""; # mkOpenVpnUpScript name srv;
       updateResolvConf = true;
     }) cfg.servers;
 
@@ -504,5 +492,3 @@ in {
       (mapAttrsToList mkFirewallRules cfg.servers);
   });
 }
-
-# vim:foldmethod=marker:foldlevel=0:ts=2:sts=2:sw=2:et:nowrap

@@ -1,5 +1,5 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = [ ./docker ./xserver ];
+  imports = [ ./docker ./media-server ./xserver ];
 }

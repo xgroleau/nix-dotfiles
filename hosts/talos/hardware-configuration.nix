@@ -18,9 +18,4 @@
     lib.mkDefault config.hardware.enableRedistributableFirmware;
 
   services.fstrim.enable = true;
-  services.xserver.xrandrHeads = [{
-    output = "HDMI-1";
-    primary = true;
-  }];
-
 }

@@ -12,6 +12,7 @@ in {
         username = "xgroleau";
         profile = "minimal";
       };
+
       networking = {
         ssh.enable = true;
         duckdns = {
@@ -20,6 +21,7 @@ in {
           tokenFile = config.age.secrets.duckdnsToken.path;
         };
       };
+
       secrets.enable = true;
     };
 
