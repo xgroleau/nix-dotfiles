@@ -15,7 +15,6 @@ in {
       secrets = {
         duckdnsToken.file = ./duckdns-token.age;
         ghRunner.file = ./gh-runner.age;
-        piaAuth.file = ./pia-auth.age;
         piaOvpn.file = ./pia-ovpn.age;
       };
     };

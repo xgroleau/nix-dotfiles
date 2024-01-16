@@ -19,4 +19,8 @@
     lib.mkDefault config.hardware.enableRedistributableFirmware;
 
   services.fstrim.enable = true;
+  services.zfs = {
+    autoScrub.enable = true;
+    trim.enable = true;
+  };
 }
