@@ -42,7 +42,7 @@
               size = "100%";
               content = {
                 type = "zfs";
-                pool = "storage";
+                pool = "vault";
               };
             };
           };
@@ -58,7 +58,7 @@
               size = "100%";
               content = {
                 type = "zfs";
-                pool = "storage";
+                pool = "vault";
               };
             };
           };
@@ -74,7 +74,7 @@
               size = "100%";
               content = {
                 type = "zfs";
-                pool = "storage";
+                pool = "vault";
               };
             };
           };
@@ -90,7 +90,7 @@
               size = "100%";
               content = {
                 type = "zfs";
-                pool = "storage";
+                pool = "vault";
               };
             };
           };
@@ -98,7 +98,7 @@
       };
     };
     zpool = {
-      storage = {
+      vault = {
         type = "zpool";
         mode = "raidz";
         rootFsOptions = {
@@ -117,7 +117,7 @@
 
         datasets = {
 
-          # Small data frequently access
+          # Small data frequently accessed data like config with snapshots
           data = {
             type = "zfs_fs";
             options = {
@@ -128,7 +128,7 @@
             };
           };
 
-          # General use
+          # General use with snapshot
           storage = {
             type = "zfs_fs";
             mountpoint = "/storage";
@@ -141,6 +141,7 @@
             };
           };
 
+          # For media, no snapshot
           media = {
             type = "zfs_fs";
             mountpoint = "/media";
