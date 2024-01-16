@@ -103,9 +103,15 @@
         mode = "raidz";
         rootFsOptions = {
           compression = "zstd";
+          acltype = "posixacl";
+          dnodesize = "auto";
           mountpoint = "none";
           canmount = "off";
+          xattr = "sa";
+        };
+        options = {
           ashift = "12";
+          autotrim = "on";
         };
 
         datasets = {
