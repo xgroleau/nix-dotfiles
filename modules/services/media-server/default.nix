@@ -54,7 +54,13 @@ in {
       };
     };
     # Create a directory in the service
-    systemd.tmpfiles.rules = [ "d ${cfg.data}/deluge 0770 root ${group} -" ];
+    systemd.tmpfiles.settings.delugevpn."${cfg.data}/deluge" = {
+      d = {
+        inherit group;
+        mode = "0755";
+        user = "root";
+      };
+    };
 
     # Expose ports
     networking.firewall = {
