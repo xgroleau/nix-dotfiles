@@ -14,7 +14,7 @@
       services = {
         media-server = {
           enable = true;
-          data = "/data/media";
+          data = "/data/media-server";
           download = "/storage/downloads";
           ovpnFile = config.age.secrets.piaOvpn.path;
         };

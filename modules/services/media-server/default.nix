@@ -55,14 +55,22 @@ in {
     };
 
     # Create a directory for the container to properly start
-    systemd.tmpfiles.settings.delugevpn."${cfg.data}/deluge" = {
-      d = {
-        inherit group;
-        mode = "0755";
-        user = "root";
+    systemd.tmpfiles.settings.delugevpn = {
+      "${cfg.data}/deluge" = {
+        d = {
+          inherit group;
+          mode = "0755";
+          user = "root";
+        };
+      };
+      "${cfg.download}" = {
+        d = {
+          inherit group;
+          mode = "0755";
+          user = "root";
+        };
       };
     };
-
     # Expose ports
     networking.firewall = {
       allowedTCPPorts = lib.mkForce [ 8112 8118 58846 58946 ];
