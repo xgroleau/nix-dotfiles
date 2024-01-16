@@ -20,10 +20,13 @@
   hardware.cpu.intel.updateMicrocode =
     lib.mkDefault config.hardware.enableRedistributableFirmware;
 
-  services.fstrim.enable = true;
   systemd.services.zfs-mount.enable = false;
-  services.zfs = {
-    autoScrub.enable = true;
-    trim.enable = true;
+  services = {
+    fstrim.enable = true;
+    zfs = {
+      trim.enable = true;
+      autoScrub.enable = true;
+      autoSnapshot.enable = true;
+    };
   };
 }
