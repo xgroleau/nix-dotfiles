@@ -31,7 +31,7 @@ in {
             "${cfg.download}:/download"
             "${cfg.ovpnFile}:/config/openvpn/vpn.ovpn"
           ];
-          extraOptions = [ "--cap-add=NET_ADMIN" ];
+          extraOptions = [ "--cap-add=NET_ADMIN" "--privileged=true" ];
           environment = {
             VPN_ENABLED = "yes";
             VPN_PROV = "custom";
