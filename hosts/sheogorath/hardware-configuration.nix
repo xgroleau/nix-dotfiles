@@ -19,6 +19,7 @@
     lib.mkDefault config.hardware.enableRedistributableFirmware;
 
   services.fstrim.enable = true;
+  systemd.services.zfs-mount.enable = false;
   services.zfs = {
     autoScrub.enable = true;
     trim.enable = true;

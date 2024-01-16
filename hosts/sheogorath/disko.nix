@@ -108,6 +108,7 @@
           mountpoint = "none";
           canmount = "off";
           xattr = "sa";
+          "com.sun:auto-snapshot" = "false";
         };
         options = {
           ashift = "12";
@@ -123,6 +124,7 @@
               compression = "zstd";
               mountpoint = "legacy";
               relatime = "off";
+              "com.sun:auto-snapshot" = "true";
             };
           };
 
@@ -135,10 +137,10 @@
               mountpoint = "legacy";
               atime = "on";
               relatime = "on";
+              "com.sun:auto-snapshot" = "true";
             };
           };
 
-          # Media for videos and stuff
           media = {
             type = "zfs_fs";
             mountpoint = "/media";
