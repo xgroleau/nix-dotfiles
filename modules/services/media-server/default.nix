@@ -29,7 +29,7 @@ in {
           volumes = [
             "${cfg.data}/deluge:/data"
             "${cfg.download}:/download"
-            "${cfg.ovpnFile}:/config/vpn.ovpn"
+            "${cfg.ovpnFile}:/config/openvpn/vpn.ovpn"
           ];
           environment = {
             VPN_ENABLED = "yes";
