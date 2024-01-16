@@ -104,13 +104,15 @@
       storage = {
         type = "zpool";
         mode = "raidz";
-        rootFsOptions = { compression = "zstd"; };
-        mountpoint = "/storage";
-
+        rootFsOptions = { 
+          canmount = "off";
+          mountpoint = "none"
+          compression = "zstd";
+        };
         datasets = {
           vault = {
             type = "zfs_fs";
-            mountpoint = "/storage/vault";
+            mountpoint = "/vault";
             options.mountpoint = "legacy";
           };
         };
