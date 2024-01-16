@@ -15,9 +15,9 @@
         docker.enable = true;
         media-server = {
           enable = true;
-          downloadPath = "/storage/vault/downloads";
+          data = "/data/media";
+          download = "/storage/downloads";
           ovpnFile = config.age.secrets.piaOvpn.path;
-          ovpnAuthFile = config.age.secrets.piaAuth.path;
         };
       };
     };

@@ -27,10 +27,7 @@
             };
             plainSwap = {
               size = "100%";
-              content = {
-                type = "swap";
-                resumeDevice = true; # resume from hiberation from this device
-              };
+              content = { type = "swap"; };
             };
           };
         };
@@ -104,14 +101,57 @@
       storage = {
         type = "zpool";
         mode = "raidz";
-        rootFsOptions = { compression = "zstd"; };
-        mountpoint = "/storage";
+        rootFsOptions = {
+          compression = "zstd";
+          canmount = "off";
+          ashift = "12";
+        };
+        mountpoint = "none";
 
         datasets = {
-          vault = {
+
+          # Small data frequently access
+          data = {
             type = "zfs_fs";
-            mountpoint = "/storage/vault";
-            options.mountpoint = "legacy";
+            options = {
+              compression = "zstd";
+              mountpoint = "legacy";
+              relatime = "off";
+            };
+          };
+
+          # General use
+          storage = {
+            type = "zfs_fs";
+            mountpoint = "/storage";
+            options = {
+              compression = "zstd";
+              mountpoint = "legacy";
+              atime = "on";
+              relatime = "on";
+            };
+          };
+
+          # Media for videos and stuff
+          media = {
+            type = "zfs_fs";
+            mountpoint = "/media";
+            options = {
+              # media is already compressed generally anyway
+              compression = "off";
+              mountpoint = "legacy";
+              recordsize = "1M"; # for better sequential reads
+              atime = "off";
+            };
+
+          };
+          # As per https://nixos.wiki/wiki/ZFS#Reservations
+          reserved = {
+            type = "zfs_fs";
+            options = {
+              canmount = "off";
+              refreservation = "10G";
+            };
           };
         };
       };
