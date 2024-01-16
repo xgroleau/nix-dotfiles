@@ -15,9 +15,9 @@
         docker.enable = true;
         media-server = {
           enable = true;
-          downloadPath = "/storage/vault/downloads";
+          data = "/data/media";
+          download = "/storage/downloads";
           ovpnFile = config.age.secrets.piaOvpn.path;
-          ovpnAuthFile = config.age.secrets.piaAuth.path;
         };
       };
     };
@@ -32,7 +32,7 @@
 
     networking = {
       hostId = "819a6cd7";
-      hostName = "talos";
+      hostName = "sheogorath";
       interfaces.enp0s25.useDHCP = true;
     };
 

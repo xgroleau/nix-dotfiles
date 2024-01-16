@@ -8,34 +8,52 @@ let
 in {
   options.modules.services.media-server = {
     enable = mkEnableOption "A media server configuration";
-    downloadPath = mkReq types.str "Path where the download will be done";
 
-    ovpnFile = mkOption {
-      description = "Path to ovpn config file";
-      type = types.str;
-    };
+    data = mkReq types.str "Path where the data will be stored";
 
-    ovpnAuthFile = mkOption {
-      description =
-        "Path to file containing username and password to authenticate with VPN.";
-      type = types.str;
-    };
+    download = mkReq types.str "Path where the download will be stored";
+
+    ovpnFile = mkReq types.str
+      "Path to ovpn config file, auth needs to be embedded in the file";
 
   };
 
   config = mkIf cfg.enable {
-    services.deluge = {
-      inherit group;
-      enable = true;
-      extraPackages = [ pkgs.unrar ];
-      web = {
-        enable = true;
-        openFirewall = true;
+    virtualisation.oci-containers = {
+      backend = "podman";
+      containers = {
+        delugevpn = {
+          image = "binhex/arch-delugevpn";
+          ports = [ "8112:8112" "8118:8118" "58846:58846" "58946:58946" ];
+          volumes = [
+            "${cfg.data}/deluge:/data"
+            "${cfg.download}:/download"
+            "${cfg.ovpnFile}:/config/vpn.ovpn"
+          ];
+          environment = {
+            VPN_ENABLED = "yes";
+            VPN_PROV = "custom";
+            VPN_CLIENT = "openvpn";
+            STRICT_PORT_FORWARD = "yes";
+            ENABLE_PRIVOXY = "yes";
+            LAN_NETWORK = "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16";
+            NAME_SERVERS =
+              "84.200.69.80,37.235.1.174,1.1.1.1,37.235.1.177,84.200.70.40,1.0.0.1,8.8.8.8";
+            DELUGE_DAEMON_LOG_LEVEL = "info";
+            DELUGE_WEB_LOG_LEVEL = "info";
+            DELUGE_ENABLE_WEBUI_PASSWORD = "yes";
+            VPN_INPUT_PORTS = "";
+            VPN_OUTPUT_PORTS = "";
+            DEBUG = "false";
+            UMASK = "000";
+            PUID = "0";
+            PGID = "0";
+          };
+        };
       };
     };
 
     services.prowlarr = {
-      inherit group;
       enable = true;
       openFirewall = true;
     };
@@ -44,35 +62,35 @@ in {
       inherit group;
       enable = true;
       openFirewall = true;
+      dataDir = cfg.data + "/lidarr";
     };
 
     services.plex = {
       inherit group;
       enable = true;
       openFirewall = true;
+      dataDir = cfg.data + "/plex";
     };
 
     services.sonarr = {
       inherit group;
       enable = true;
       openFirewall = true;
+      dataDir = cfg.data + "/sonarr";
     };
 
     services.radarr = {
       inherit group;
       enable = true;
       openFirewall = true;
+      dataDir = cfg.data + "/radarr";
     };
 
-    modules.networking.forced-vpn = {
-      enable = true;
-      servers."${group}" = {
-        ovpnFile = cfg.ovpnFile;
-        ovpnAuthFile = cfg.ovpnAuthFile;
-        mark = "0x1";
-        protocol = "udp";
-        routeTableId = 42;
-        users = [ config.services.jackett.user config.services.deluge.user ];
+    # And overwrite prowlarr's default systemd unit to run with the correct user/group
+    systemd.services.prowlarr = {
+      serviceConfig = {
+        User = "prowlarr";
+        Group = "media";
       };
     };
 

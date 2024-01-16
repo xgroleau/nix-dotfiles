@@ -15,11 +15,11 @@
     cfg = import ./namira;
   };
 
-  talos = {
+  sheogorath = {
     system = "x86_64-linux";
-    cfg = import ./talos;
+    cfg = import ./sheogorath;
     deploy = {
-      hostname = "talos";
+      hostname = "sheogorath";
       sshUser = "root";
       user = "root";
     };

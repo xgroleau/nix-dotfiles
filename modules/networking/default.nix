@@ -1,5 +1,5 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = [ ./duckdns ./forced-vpn ./kdeconnect ./ssh ./tailscale ];
+  imports = [ ./duckdns ./kdeconnect ./ssh ./tailscale ];
 }
