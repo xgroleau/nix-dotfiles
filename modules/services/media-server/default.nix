@@ -5,6 +5,7 @@ with lib.my.option;
 let
   cfg = config.modules.services.media-server;
   group = "media";
+  delugeUser = "delugevpn";
 in {
   options.modules.services.media-server = {
     enable = mkEnableOption "A media server configuration";
@@ -22,7 +23,7 @@ in {
     virtualisation.oci-containers = {
       containers = {
         delugevpn = {
-          user = "delugevpn";
+          user = delugeUser;
           autoStart = true;
           image = "binhex/arch-delugevpn";
           ports = [ "8112:8112" "8118:8118" "58846:58846" "58946:58946" ];
@@ -54,9 +55,8 @@ in {
       };
     };
     # Create a directory in the service
-    systemd.tmpfiles.rules = [
-      "d ${cfg.data}/deluge 0770 ${virtualisation.oci-containers.containers.delugevpn.user} ${group} -"
-    ];
+    systemd.tmpfiles.rules =
+      [ "d ${cfg.data}/deluge 0770 ${delugeUser} ${group} -" ];
 
     # Expose ports
     networking.firewall = {
