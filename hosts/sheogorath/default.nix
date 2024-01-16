@@ -12,7 +12,6 @@
       secrets.enable = true;
 
       services = {
-        docker.enable = true;
         media-server = {
           enable = true;
           data = "/data/media";

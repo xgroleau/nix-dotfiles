@@ -20,9 +20,9 @@ in {
 
   config = mkIf cfg.enable {
     virtualisation.oci-containers = {
-      backend = "podman";
       containers = {
         delugevpn = {
+          autoStart = true;
           image = "binhex/arch-delugevpn";
           ports = [ "8112:8112" "8118:8118" "58846:58846" "58946:58946" ];
           volumes = [
@@ -51,6 +51,11 @@ in {
           };
         };
       };
+    };
+
+    networking.firewall = {
+      allowedTCPPorts = lib.mkForce [ 8112 8118 58846 58946 ];
+      allowedUDPPorts = lib.mkForce [ 8112 8118 58846 58946 ];
     };
 
     services.prowlarr = {
