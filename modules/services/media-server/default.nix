@@ -86,6 +86,14 @@ in {
       dataDir = cfg.data + "/radarr";
     };
 
+    # And overwrite prowlarr's default systemd unit to run with the correct user/group
+    systemd.services.prowlarr = {
+      serviceConfig = {
+        User = "prowlarr";
+        Group = "media";
+      };
+    };
+
     users.groups.media.members = (with config.services; [
       deluge.user
       sonarr.user

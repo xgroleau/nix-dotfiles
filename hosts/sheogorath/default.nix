@@ -32,7 +32,7 @@
 
     networking = {
       hostId = "819a6cd7";
-      hostName = "talos";
+      hostName = "sheogorath";
       interfaces.enp0s25.useDHCP = true;
     };
 
