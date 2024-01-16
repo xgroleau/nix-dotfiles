@@ -53,7 +53,8 @@ in {
         };
       };
     };
-    # Create a directory in the service
+
+    # Create a directory for the container to properly start
     systemd.tmpfiles.settings.delugevpn."${cfg.data}/deluge" = {
       d = {
         inherit group;

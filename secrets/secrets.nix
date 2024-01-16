@@ -5,7 +5,8 @@ let
   jyggalag =
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMAIwytbvcA1fJJbeCC5pFCrIL1QdEeEu9eAz87YsP4q";
   sheogorath =
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMbgJmtDQmuGORoB29oUkiLH5vxuVwFvb7lxdknKv2Si";
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMfDxcGMr42zg36qDbUYhtPlw4PI0hJOXhUqrOnWHgge";
+
 in {
   "duckdns-token.age".publicKeys = [ xgroleau jyggalag ];
   "gh-runner.age".publicKeys = [ xgroleau jyggalag ];
