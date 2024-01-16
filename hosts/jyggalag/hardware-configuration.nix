@@ -3,10 +3,12 @@
 {
   imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "virtio_pci" "usbhid" ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ ];
-  boot.extraModulePackages = [ ];
+  boot = {
+    initrd.availableKernelModules = [ "xhci_pci" "virtio_pci" "usbhid" ];
+    initrd.kernelModules = [ ];
+    kernelModules = [ ];
+    extraModulePackages = [ ];
+  };
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/6a6764b5-b091-4fb6-bcd3-f81df83812d0";

@@ -129,12 +129,14 @@ in {
 
     xdg = {
       enable = true;
-      configFile.autorandr = {
-        recursive = true;
-        source = ./config/autorandr;
+      configFile = {
+        autorandr = {
+          recursive = true;
+          source = ./config/autorandr;
+        };
+        i3.source = ./config/i3;
+        rofi.source = ./config/rofi;
       };
-      configFile.i3.source = ./config/i3;
-      configFile.rofi.source = ./config/rofi;
     };
 
     xsession = {

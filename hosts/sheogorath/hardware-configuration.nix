@@ -6,14 +6,16 @@
 {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
-  boot.initrd.availableKernelModules =
-    [ "xhci_pci" "ehci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" ];
-  boot.supportedFilesystems = [ "zfs" ];
-  boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
-  boot.extraModulePackages = [ ];
-  boot.zfs.forceImportRoot = false;
+  boot = {
+    initrd.availableKernelModules =
+      [ "xhci_pci" "ehci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
+    initrd.kernelModules = [ ];
+    kernelModules = [ "kvm-intel" ];
+    supportedFilesystems = [ "zfs" ];
+    kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
+    extraModulePackages = [ ];
+    zfs.forceImportRoot = false;
+  };
 
   hardware.cpu.intel.updateMicrocode =
     lib.mkDefault config.hardware.enableRedistributableFirmware;

@@ -13,30 +13,34 @@ in {
 
   config = mkIf cfg.enable {
 
-    programs.git = {
-      enable = true;
-      userName = cfg.gitUser;
-      userEmail = cfg.gitEmail;
+    programs = {
+      git = {
+        enable = true;
+        userName = cfg.gitUser;
+        userEmail = cfg.gitEmail;
+      };
+
+      direnv = {
+        enable = true;
+        nix-direnv.enable = true;
+      };
+
+      zoxide = {
+        enable = true;
+        enableZshIntegration = true;
+      };
+
+      eza = {
+        enable = true;
+        enableAliases = true;
+      };
+
+      fzf = {
+        enable = true;
+        enableZshIntegration = true;
+      };
+
     };
-
-    programs.direnv.enable = true;
-    programs.direnv.nix-direnv.enable = true;
-
-    programs.zoxide = {
-      enable = true;
-      enableZshIntegration = true;
-    };
-
-    programs.eza = {
-      enable = true;
-      enableAliases = true;
-    };
-
-    programs.fzf = {
-      enable = true;
-      enableZshIntegration = true;
-    };
-
     home = {
       packages = with pkgs; [
         btop

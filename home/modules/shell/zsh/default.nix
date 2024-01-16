@@ -16,13 +16,13 @@ in {
       envExtra = "source ${config.xdg.configHome}/zsh/zshenv";
       initExtra = "source ${config.xdg.configHome}/zsh/zshrc";
     };
-    home.sessionVariables.SHELL = "zsh";
-
-    home.packages = with pkgs; [ nix-zsh-completions git pythonCfg.package ];
-
-    home.sessionPath = [
-      "${config.home.homeDirectory}/.local/bin"
-      "${config.home.homeDirectory}/bin"
-    ];
+    home = {
+      sessionVariables.SHELL = "zsh";
+      packages = with pkgs; [ nix-zsh-completions git pythonCfg.package ];
+      sessionPath = [
+        "${config.home.homeDirectory}/.local/bin"
+        "${config.home.homeDirectory}/bin"
+      ];
+    };
   };
 }

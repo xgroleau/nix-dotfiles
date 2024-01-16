@@ -77,38 +77,41 @@ in {
       allowedTCPPorts = lib.mkForce [ 8112 8118 58846 58946 ];
       allowedUDPPorts = lib.mkForce [ 8112 8118 58846 58946 ];
     };
+    services = {
 
-    services.prowlarr = {
-      enable = true;
-      openFirewall = true;
-    };
+      prowlarr = {
+        enable = true;
+        openFirewall = true;
+      };
 
-    services.lidarr = {
-      inherit group;
-      enable = true;
-      openFirewall = true;
-      dataDir = cfg.data + "/lidarr";
-    };
+      lidarr = {
+        inherit group;
+        enable = true;
+        openFirewall = true;
+        dataDir = cfg.data + "/lidarr";
+      };
 
-    services.plex = {
-      inherit group;
-      enable = true;
-      openFirewall = true;
-      dataDir = cfg.data + "/plex";
-    };
+      plex = {
+        inherit group;
+        enable = true;
+        openFirewall = true;
+        dataDir = cfg.data + "/plex";
+      };
 
-    services.sonarr = {
-      inherit group;
-      enable = true;
-      openFirewall = true;
-      dataDir = cfg.data + "/sonarr";
-    };
+      sonarr = {
+        inherit group;
+        enable = true;
+        openFirewall = true;
+        dataDir = cfg.data + "/sonarr";
+      };
 
-    services.radarr = {
-      inherit group;
-      enable = true;
-      openFirewall = true;
-      dataDir = cfg.data + "/radarr";
+      radarr = {
+        inherit group;
+        enable = true;
+        openFirewall = true;
+        dataDir = cfg.data + "/radarr";
+      };
+
     };
 
     # And overwrite prowlarr's default systemd unit to run with the correct user/group
@@ -119,12 +122,12 @@ in {
       };
     };
 
-    users.groups.media.members = (with config.services; [
+    users.groups.media.members = with config.services; [
       deluge.user
       sonarr.user
       radarr.user
       plex.user
       lidarr.user
-    ]);
+    ];
   };
 }

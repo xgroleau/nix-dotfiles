@@ -10,19 +10,22 @@ in {
   };
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [
-      bacon
-      rustup
-      cargo-expand
-      cargo-generate
-      cargo-readme
-    ];
+    home = {
+      packages = with pkgs; [
+        bacon
+        rustup
+        cargo-expand
+        cargo-generate
+        cargo-readme
+      ];
 
-    home.sessionVariables = {
-      RUSTUP_HOME = "${config.xdg.dataHome}/rustup";
-      CARGO_HOME = "${config.xdg.dataHome}/cargo";
+      sessionVariables = {
+        RUSTUP_HOME = "${config.xdg.dataHome}/rustup";
+        CARGO_HOME = "${config.xdg.dataHome}/cargo";
+      };
+      sessionPath = [ "${config.home.sessionVariables.CARGO_HOME}/bin" ];
+
     };
-    home.sessionPath = [ "${config.home.sessionVariables.CARGO_HOME}/bin" ];
   };
 
 }

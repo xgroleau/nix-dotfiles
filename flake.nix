@@ -54,8 +54,7 @@
         nodes = nixpkgs.lib.mapAttrs (hostName: hostConfig: {
           inherit (hostConfig.deploy) hostname;
           profiles.system = {
-            user = hostConfig.deploy.user;
-            sshUser = hostConfig.deploy.sshUser;
+            inherit (hostConfig.deploy) user sshUser;
             path = deploy-rs.lib.${hostConfig.system}.activate.nixos
               self.nixosConfigurations.${hostName};
           };

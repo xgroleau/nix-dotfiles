@@ -18,58 +18,61 @@ in {
 
     services.emacs.defaultEditor = cfg.defaultEditor;
 
-    home.packages = with pkgs; [
-      # Emacs
-      ((emacsPackagesFor emacs29).emacsWithPackages
-        (epkgs: [ epkgs.editorconfig epkgs.vterm epkgs.xclip ]))
+    home = {
 
-      # Font
-      (nerdfonts.override { fonts = [ "FiraCode" "NerdFontsSymbolsOnly" ]; })
+      packages = with pkgs; [
+        # Emacs
+        ((emacsPackagesFor emacs29).emacsWithPackages
+          (epkgs: [ epkgs.editorconfig epkgs.vterm epkgs.xclip ]))
 
-      # general tools
-      fd
-      git
-      gnutls
-      imagemagick
-      ripgrep
+        # Font
+        (nerdfonts.override { fonts = [ "FiraCode" "NerdFontsSymbolsOnly" ]; })
 
-      # apps
-      ## everywhere
-      xclip
-      xdotool
-      xorg.xprop
-      xorg.xwininfo
+        # general tools
+        fd
+        git
+        gnutls
+        imagemagick
+        ripgrep
 
-      # lang
-      nixfmt
-      nodePackages.pyright
-      rustup
+        # apps
+        ## everywhere
+        xclip
+        xdotool
+        xorg.xprop
+        xorg.xwininfo
 
-      dune_3
-      ocamlPackages.utop
-      ocamlPackages.merlin
-      ocamlPackages.ocamlformat
-      ocamlPackages.ocp-indent
+        # lang
+        nixfmt
+        nodePackages.pyright
+        rustup
 
-      html-tidy
-      nodePackages.stylelint
-      nodePackages.js-beautify
+        dune_3
+        ocamlPackages.utop
+        ocamlPackages.merlin
+        ocamlPackages.ocamlformat
+        ocamlPackages.ocp-indent
 
-      nodePackages.textlint
-      nodePackages.prettier
-      nodePackages.markdownlint-cli
-      multimarkdown
-      ispell
+        html-tidy
+        nodePackages.stylelint
+        nodePackages.js-beautify
 
-      # term
-      libtool
-      libvterm
-    ];
+        nodePackages.textlint
+        nodePackages.prettier
+        nodePackages.markdownlint-cli
+        multimarkdown
+        ispell
 
-    home.sessionVariables = {
-      DOOM_EMACS = "${config.xdg.configHome}/emacs";
-      DOOM_EMACS_BIN = "${config.home.sessionVariables.DOOM_EMACS}/bin";
+        # term
+        libtool
+        libvterm
+      ];
+
+      sessionVariables = {
+        DOOM_EMACS = "${config.xdg.configHome}/emacs";
+        DOOM_EMACS_BIN = "${config.home.sessionVariables.DOOM_EMACS}/bin";
+      };
+      sessionPath = [ "${config.home.sessionVariables.DOOM_EMACS_BIN}" ];
     };
-    home.sessionPath = [ "${config.home.sessionVariables.DOOM_EMACS_BIN}" ];
   };
 }
