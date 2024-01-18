@@ -2,10 +2,10 @@
 
 with lib;
 with lib.my.option;
-let cfg = config.modules.services.xserver;
+let cfg = config.modules.xserver;
 in {
 
-  options.modules.services.xserver = with types; {
+  options.modules.xserver = with types; {
     home-manager = mkBoolOpt' false "Let home-manager manage the session";
   };
 

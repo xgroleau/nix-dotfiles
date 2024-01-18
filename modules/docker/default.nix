@@ -2,10 +2,10 @@
 
 with lib;
 with lib.my.option;
-let cfg = config.modules.services.docker;
+let cfg = config.modules.docker;
 in {
 
-  options.modules.services.docker = with types; {
+  options.modules.docker = with types; {
     enable = mkEnableOption "Enables docker";
   };
 

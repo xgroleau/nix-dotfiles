@@ -2,10 +2,10 @@
 
 with lib;
 with lib.my.option;
-let cfg = config.modules.networking.tailscale;
+let cfg = config.modules.tailscale;
 in {
 
-  options.modules.networking.tailscale = with types; {
+  options.modules.tailscale = with types; {
     enable = mkEnableOption "Enables tailscale service and firewall";
   };
 

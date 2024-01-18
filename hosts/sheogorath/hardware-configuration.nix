@@ -26,7 +26,17 @@
     zfs = {
       trim.enable = true;
       autoScrub.enable = true;
-      autoSnapshot.enable = true;
+      autoSnapshot = {
+        enable = true;
+        flags = "-k -p --utc";
+
+        frequent = 4; # 15 mins
+        hourly = 24;
+        daily = 7;
+        weekly = 4;
+        # That means it takes 4 month after deletion of a file until space is freed
+        monthly = 4;
+      };
     };
   };
 }

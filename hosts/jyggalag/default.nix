@@ -13,13 +13,11 @@ in {
         profile = "minimal";
       };
 
-      networking = {
-        ssh.enable = true;
-        duckdns = {
-          enable = true;
-          domain = hostname;
-          tokenFile = config.age.secrets.duckdnsToken.path;
-        };
+      ssh.enable = true;
+      duckdns = {
+        enable = true;
+        domain = hostname;
+        tokenFile = config.age.secrets.duckdnsToken.path;
       };
 
       secrets.enable = true;

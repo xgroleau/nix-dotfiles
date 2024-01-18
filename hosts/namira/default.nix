@@ -7,10 +7,10 @@
     modules = {
       home.username = "xgroleau";
       home.profile = "desktop";
-      networking.kdeconnect.enable = true;
+      kdeconnect.enable = true;
 
       # Let home manager setup the session and the X11 windowing system.
-      services.xserver.home-manager = true;
+      xserver.home-manager = true;
     };
 
     # Use the systemd-boot EFI boot loader.

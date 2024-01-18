@@ -42,7 +42,7 @@ _: {
               size = "100%";
               content = {
                 type = "zfs";
-                pool = "vault";
+                pool = "zpwdblue0";
               };
             };
           };
@@ -58,7 +58,7 @@ _: {
               size = "100%";
               content = {
                 type = "zfs";
-                pool = "vault";
+                pool = "zpwdblue0";
               };
             };
           };
@@ -74,7 +74,7 @@ _: {
               size = "100%";
               content = {
                 type = "zfs";
-                pool = "vault";
+                pool = "zpwdblue0";
               };
             };
           };
@@ -90,7 +90,7 @@ _: {
               size = "100%";
               content = {
                 type = "zfs";
-                pool = "vault";
+                pool = "zpwdblue0";
               };
             };
           };
@@ -98,9 +98,9 @@ _: {
       };
     };
     zpool = {
-      vault = {
+      zpwdblue0 = {
         type = "zpool";
-        mode = "raidz";
+        mode = "mirror";
         rootFsOptions = {
           compression = "zstd";
           acltype = "posixacl";
@@ -117,23 +117,33 @@ _: {
 
         datasets = {
 
-          # Small data frequently accessed data like config with snapshots
-          data = {
+          # Small data frequently accessed data like configs. With snapshots and no atime
+          vault = {
             type = "zfs_fs";
+            mountpoint = "/vault";
             options = {
-              compression = "zstd";
               mountpoint = "legacy";
-              relatime = "off";
+              atime = "off";
               "com.sun:auto-snapshot" = "true";
             };
           };
 
-          # General use with snapshot
-          storage = {
+          # Data frequently accessed data that doesn't require snapshots or atime
+          # e.g. databases with a solid backup solution
+          data = {
             type = "zfs_fs";
-            mountpoint = "/storage";
+            mountpoint = "/data";
             options = {
-              compression = "zstd";
+              mountpoint = "legacy";
+              atime = "off";
+            };
+          };
+
+          # General use with snapshot and atime support
+          documents = {
+            type = "zfs_fs";
+            mountpoint = "/documents";
+            options = {
               mountpoint = "legacy";
               atime = "on";
               relatime = "on";
@@ -141,7 +151,7 @@ _: {
             };
           };
 
-          # For media, no snapshot
+          # For media, no snapshot and optimzed for sequential read
           media = {
             type = "zfs_fs";
             mountpoint = "/media";
@@ -154,12 +164,13 @@ _: {
             };
 
           };
+
           # As per https://nixos.wiki/wiki/ZFS#Reservations
           reserved = {
             type = "zfs_fs";
             options = {
               canmount = "off";
-              refreservation = "10G";
+              refreservation = "20G";
             };
           };
         };

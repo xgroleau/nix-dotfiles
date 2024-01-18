@@ -2,10 +2,10 @@
 
 with lib;
 with lib.my.option;
-let cfg = config.modules.networking.kdeconnect;
+let cfg = config.modules.kdeconnect;
 in {
 
-  options.modules.networking.kdeconnect = with types; {
+  options.modules.kdeconnect = with types; {
     enable = mkEnableOption "Enables the kde connect service";
   };
 

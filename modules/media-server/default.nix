@@ -3,11 +3,11 @@
 with lib;
 with lib.my.option;
 let
-  cfg = config.modules.services.media-server;
+  cfg = config.modules.media-server;
   group = "media";
   delugeUser = "delugevpn";
 in {
-  options.modules.services.media-server = {
+  options.modules.media-server = {
     enable = mkEnableOption "A media server configuration";
 
     data = mkReq types.str "Path where the data will be stored";
@@ -24,7 +24,7 @@ in {
       containers = {
         delugevpn = {
           autoStart = true;
-          image = "binhex/arch-delugevpn";
+          image = "binhex/arch-delugevpn:2.1.1-4-05";
           ports = [ "8112:8112" "8118:8118" "58846:58846" "58946:58946" ];
           volumes = [
             "${cfg.data}/deluge:/data"
@@ -55,6 +55,12 @@ in {
       };
     };
 
+    # Expose ports for container
+    networking.firewall = {
+      allowedTCPPorts = lib.mkForce [ 8112 8118 58846 58946 ];
+      allowedUDPPorts = lib.mkForce [ 8112 8118 58846 58946 ];
+    };
+
     # Create a directory for the container to properly start
     systemd.tmpfiles.settings.delugevpn = {
       "${cfg.data}/deluge" = {
@@ -72,18 +78,8 @@ in {
         };
       };
     };
-    # Expose ports
-    networking.firewall = {
-      allowedTCPPorts = lib.mkForce [ 8112 8118 58846 58946 ];
-      allowedUDPPorts = lib.mkForce [ 8112 8118 58846 58946 ];
-    };
+
     services = {
-
-      prowlarr = {
-        enable = true;
-        openFirewall = true;
-      };
-
       lidarr = {
         inherit group;
         enable = true;
@@ -91,11 +87,16 @@ in {
         dataDir = cfg.data + "/lidarr";
       };
 
-      plex = {
+      prowlarr = {
+        enable = true;
+        openFirewall = true;
+      };
+
+      radarr = {
         inherit group;
         enable = true;
         openFirewall = true;
-        dataDir = cfg.data + "/plex";
+        dataDir = cfg.data + "/radarr";
       };
 
       sonarr = {
@@ -105,11 +106,10 @@ in {
         dataDir = cfg.data + "/sonarr";
       };
 
-      radarr = {
+      jellyfin = {
         inherit group;
         enable = true;
         openFirewall = true;
-        dataDir = cfg.data + "/radarr";
       };
 
     };
@@ -123,11 +123,10 @@ in {
     };
 
     users.groups.media.members = with config.services; [
-      deluge.user
-      sonarr.user
-      radarr.user
-      plex.user
       lidarr.user
+      radarr.user
+      sonarr.user
+      jellyfin.user
     ];
   };
 }

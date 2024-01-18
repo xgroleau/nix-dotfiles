@@ -4,7 +4,7 @@
   config = {
 
     # Custom modules
-    modules = { networking.tailscale.enable = true; };
+    modules = { tailscale.enable = true; };
 
     nixpkgs.config.allowUnfree = true;
     nix = {

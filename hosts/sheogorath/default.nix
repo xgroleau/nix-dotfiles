@@ -1,6 +1,7 @@
 { config, pkgs, ... }:
 
-{
+let hostname = "jyggalag";
+in {
   imports = [ ../base-config.nix ./disko.nix ./hardware-configuration.nix ];
 
   config = {
@@ -8,17 +9,22 @@
     modules = {
       home.username = "xgroleau";
       home.profile = "minimal";
-      networking.ssh.enable = true;
+      ssh.enable = true;
       secrets.enable = true;
 
-      services = {
-        media-server = {
-          enable = true;
-          data = "/data/media-server";
-          download = "/media/deluge-downloads";
-          ovpnFile = config.age.secrets.piaOvpn.path;
-        };
+      duckdns = {
+        enable = true;
+        domain = hostname;
+        tokenFile = config.age.secrets.duckdnsToken.path;
       };
+
+      media-server = {
+        enable = true;
+        data = "/data/media-server";
+        download = "/media/deluge-downloads";
+        ovpnFile = config.age.secrets.piaOvpn.path;
+      };
+
     };
 
     # Use the systemd-boot EFI boot loader.

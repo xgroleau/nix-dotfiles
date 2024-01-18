@@ -2,10 +2,10 @@
 
 with lib;
 with lib.my.option;
-let cfg = config.modules.networking.duckdns;
+let cfg = config.modules.pomerium;
 in {
 
-  options.modules.networking.duckdns = with types; {
+  options.modules.pomerium = with types; {
     enable = mkEnableOption
       "Duckdns configuration, enable to register a domain to duckdns";
     domain = mkReq types.nonEmptyStr "The domain to register";
