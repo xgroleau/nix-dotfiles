@@ -4,9 +4,9 @@
   imports = [
     ./docker
     ./duckdns
-    ./home-manager
+    ./home
     ./kdeconnect
-    ./media/server
+    ./media-server
     ./pomerium
     ./ssh
     ./tailscale
