@@ -6,6 +6,10 @@ let
   cfg = config.modules.media-server;
   group = "media";
   delugeUser = "delugevpn";
+  image = "binhex/arch-delugevpn";
+  imageVersion = "2.1.1-4-05";
+  imageHash =
+    "sha256:c1b7a518298d06bc5b66c3bc875a274ad5945258455e059fc6d82152c536e86d";
 in {
   options.modules.media-server = {
     enable = mkEnableOption "A media server configuration";
@@ -24,7 +28,7 @@ in {
       containers = {
         delugevpn = {
           autoStart = true;
-          image = "binhex/arch-delugevpn:2.1.1-4-05";
+          image = "${image}:${imageVersion}@${imageHash}";
           ports = [ "8112:8112" "8118:8118" "58846:58846" "58946:58946" ];
           volumes = [
             "${cfg.data}/deluge:/data"
