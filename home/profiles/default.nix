@@ -23,23 +23,21 @@ rec {
     };
   };
 
-  graphical = _: {
+  graphical = { pkgs, ... }: {
     imports = [ dev ];
     config = {
       modules = {
-        applications.element.enable = true;
-        applications.slack.enable = true;
         applications.firefox.enable = true;
         applications.discord.enable = true;
-        applications.obs.enable = true;
-        applications.mpv.enable = true;
-        applications.pulseview.enable = true;
-        applications.spotify.enable = true;
-
         editors.vscode.enable = true;
-
         shell.alacritty.enable = true;
       };
+
+      home.packages = with pkgs; [
+        pkgs.element-desktop
+        pkgs.slack
+        pkgs.spotify
+      ];
     };
   };
 
