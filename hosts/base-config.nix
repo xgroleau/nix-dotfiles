@@ -39,10 +39,10 @@ in {
           "dialout"
         ];
 
-        openssh.authorizedKeys.keys = [ keys.user.xgroleau ];
+        openssh.authorizedKeys.keys = [ keys.users.xgroleau ];
       };
 
-      users.root = { openssh.authorizedKeys.keys = [ keys.user.xgroleau ]; };
+      users.root = { openssh.authorizedKeys.keys = [ keys.users.xgroleau ]; };
     };
   };
 }
