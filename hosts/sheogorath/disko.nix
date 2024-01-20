@@ -116,7 +116,6 @@ _: {
         };
 
         datasets = {
-
           # Small data frequently accessed data like configs. With snapshots and no atime
           vault = {
             type = "zfs_fs";
