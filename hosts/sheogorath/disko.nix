@@ -100,7 +100,7 @@ _: {
     zpool = {
       zpwdblue0 = {
         type = "zpool";
-        mode = "raidz1";
+        mode = "raidz";
         rootFsOptions = {
           compression = "zstd";
           acltype = "posixacl";
