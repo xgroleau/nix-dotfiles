@@ -53,8 +53,10 @@ in {
     # Expose ports for container
     networking.firewall = { allowedUDPPorts = lib.mkForce [ cfg.port ]; };
 
+    users.groups.palworld = { };
+
     # Create a directory for the container to properly start
-    systemd.tmpfiles.settings.delugevpn = {
+    systemd.tmpfiles.settings.palworld = {
       "${cfg.dataDir}" = {
         d = {
           inherit group;
