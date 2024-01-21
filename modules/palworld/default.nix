@@ -50,7 +50,11 @@ in {
     };
 
     # Expose ports for container
-    networking.firewall = { allowedUDPPorts = lib.mkForce [ cfg.port ]; };
+    networking.firewall = {
+      allowedUDPPorts = lib.mkForce [ cfg.port ];
+      allowedTCPPorts = lib.mkForce [ cfg.port ];
+
+    };
 
     users.groups.palworld = { };
 
