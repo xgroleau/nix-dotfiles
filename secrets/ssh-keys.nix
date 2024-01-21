@@ -9,7 +9,7 @@
     jyggalag =
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMAIwytbvcA1fJJbeCC5pFCrIL1QdEeEu9eAz87YsP4q";
     sheogorath =
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILG/szgGZEPflNL+lC0p8Dy8PkT2k86bRKIL5Pl1QqSG";
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOuwT6qqxP57fqNw5vrmsrwbFCF3FhFokJQXrW9ku3AR";
   };
 
 }
