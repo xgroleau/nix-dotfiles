@@ -40,7 +40,7 @@ in {
               "-No-useperfthreads -NoAsyncLoadingThread -UseMultithreadForDS";
             UID = "99";
             GID = "100";
-            GAME_PORT = "${cfg.port}";
+            GAME_PORT = "${toString cfg.port}";
             VALIDATE = "";
             USERNAME = "";
             PASSWRD = "";
