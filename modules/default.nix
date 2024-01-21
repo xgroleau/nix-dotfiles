@@ -9,6 +9,7 @@
     ./media-server
     ./ocis
     ./pomerium
+    ./palworld
     ./ssh
     ./tailscale
     ./xserver
