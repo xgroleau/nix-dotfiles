@@ -29,7 +29,6 @@ in {
         enable = true;
         dataDir = "/data/palworld";
         port = 8211;
-        maxPlayers = 32;
       };
     };
 

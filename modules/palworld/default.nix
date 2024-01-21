@@ -9,16 +9,6 @@ in {
 
   options.modules.palworld = {
     enable = mkEnableOption "palworld";
-    user = mkOption {
-      type = str;
-      default = "palworld";
-      description = mdDoc "User account under which palworld runs";
-    };
-    group = mkOption {
-      type = str;
-      default = "palworld";
-      description = mdDoc "Group under which palworld runs";
-    };
     dataDir = mkOption {
       type = path;
       default = "/var/lib/palworld";
@@ -29,53 +19,39 @@ in {
       default = 8211;
       description = "the port to use";
     };
-    maxPlayers = mkOption {
-      type = number;
-      default = 32;
-      description = "the amount of players to support";
-    };
   };
 
   config = mkIf cfg.enable {
-    users.users.${cfg.user} = {
-      inherit (cfg) group;
-      home = cfg.dataDir;
-      createHome = true;
-      isSystemUser = true;
+    virtualisation.oci-containers = {
+      containers = {
+        palworld = {
+          autoStart = true;
+          image = "ich777/steamcmd:palworld";
+          ports = [ "${cfg.port}:8112" ];
+          volumes = [ "${cfg.dataDir}:/serverdata/serverfiles" ];
+          extraOptions = [ "--cap-add=NET_ADMIN" "--privileged=true" ];
+          environment = {
+            STEAMCMD_DIR = "/serverdata/steamcmd";
+            SERVER_DIR = "/serverdata/serverfiles";
+            GAME_ID = 2394010;
+            UPDATE_PUBLIC_IP = "false";
+            GAME_NAME = "Palworld-Yofo";
+            GAME_PARAMS = "EpicApp=PalServer";
+            GAME_PARAMS_EXTRA =
+              "-No-useperfthreads -NoAsyncLoadingThread -UseMultithreadForDS";
+            UID = "99";
+            GID = "100";
+            GAME_PORT = "27015";
+            VALIDATE = "";
+            USERNAME = "";
+            PASSWRD = "";
+          };
+        };
+      };
     };
-    users.groups.${cfg.group} = { };
 
-    systemd.services.palworld = let dir = cfg.dataDir;
-    in {
-      wantedBy = [ "multi-user.target" ];
-      serviceConfig = {
-        ExecStartPre = join [
-          "${pkgs.steamcmd}/bin/steamcmd"
-          "+force_install_dir ${dir}"
-          "+login anonymous"
-          "+app_update 2394010"
-          "+quit"
-          "&& mkdir -p ${dir}/.steam/sdk64"
-          "&& cp ${dir}/linux64/steamclient.so ${dir}/.steam/sdk64/."
-        ];
-        ExecStart = join [
-          "${pkgs.steam-run}/bin/steam-run ${dir}/Pal/Binaries/Linux/PalServer-Linux-Test Pal"
-          "--port ${toString cfg.port}"
-          "--players ${toString cfg.maxPlayers}"
-          "--useperfthreads"
-          "-NoAsyncLoadingThread"
-          "-UseMultithreadForDS"
-        ];
-        Nice = "-5";
-        Restart = "always";
-        StateDirectory = "palworld";
-        User = cfg.user;
-        WorkingDirectory = cfg.dataDir;
-      };
-      environment = {
-        # linux64 directory is required by palworld.
-        LD_LIBRARY_PATH = "linux64:${pkgs.glibc}/lib";
-      };
-    };
+    # Expose ports for container
+    networking.firewall = { allowedUDPPorts = lib.mkForce [ cfg.port ]; };
+
   };
 }
