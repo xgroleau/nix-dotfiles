@@ -24,15 +24,14 @@ in {
         palworld = {
           autoStart = true;
           image = "ich777/steamcmd:palworld";
-          ports = [ "${toString cfg.port}:8112" ];
+          ports = [ "${toString cfg.port}:8211" ];
           volumes = [
             "${cfg.dataDir}:/serverdata/serverfiles"
             "${cfg.steamCmdDir}:/serverdata/steamcmd"
           ];
-          extraOptions = [ "--cap-add=NET_ADMIN" "--privileged=true" ];
           environment = {
+            server_DIR = "/serverdata/serverfiles";
             STEAMCMD_DIR = "/serverdata/steamcmd";
-            SERVER_DIR = "/serverdata/serverfiles";
             GAME_ID = "2394010";
             UPDATE_PUBLIC_IP = "false";
             GAME_NAME = "palworld";
@@ -41,7 +40,7 @@ in {
               "-No-useperfthreads -NoAsyncLoadingThread -UseMultithreadForDS";
             UID = "99";
             GID = "100";
-            GAME_PORT = "8112";
+            GAME_PORT = "${cfg.port}";
             VALIDATE = "";
             USERNAME = "";
             PASSWRD = "";
