@@ -25,6 +25,12 @@ in {
         ovpnFile = config.age.secrets.piaOvpn.path;
       };
 
+      palworld = {
+        enable = true;
+        dataDir = "/data/palworld";
+        port = 8211;
+        maxPlayers = 32;
+      };
     };
 
     nix.gc = {
