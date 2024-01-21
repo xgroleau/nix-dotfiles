@@ -28,6 +28,7 @@ in {
       palworld = {
         enable = true;
         dataDir = "/data/palworld";
+        steamCmdDir = "/data/steamCmd";
         port = 8211;
       };
     };

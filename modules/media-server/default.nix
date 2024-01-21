@@ -122,7 +122,7 @@ in {
     systemd.services.prowlarr = {
       serviceConfig = {
         User = "prowlarr";
-        Group = "media";
+        Group = group;
       };
     };
 
