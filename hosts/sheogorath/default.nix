@@ -29,7 +29,7 @@ in {
         enable = true;
         dataDir = "/data/palworld";
         steamCmdDir = "/data/steamCmd";
-        port = 88211;
+        port = 18211;
       };
     };
 
