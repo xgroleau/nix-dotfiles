@@ -20,7 +20,7 @@ in {
 
       media-server = {
         enable = true;
-        data = "/data/media-server";
+        data = "/vault/media-server";
         download = "/media/deluge-downloads";
         ovpnFile = config.age.secrets.piaOvpn.path;
       };
