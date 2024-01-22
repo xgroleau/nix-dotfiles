@@ -2,12 +2,12 @@
 let
   inherit (lib) mdDoc mkIf mkEnableOption mkOption;
   inherit (lib.types) path port str number;
-  cfg = config.services.palworld;
+  cfg = config.services.palworld2;
   join = builtins.concatStringsSep " ";
 in {
   imports = [ ];
 
-  options.services.palworld = {
+  options.services.palworld2 = {
     enable = mkEnableOption "palworld";
     user = mkOption {
       type = str;
