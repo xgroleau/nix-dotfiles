@@ -7,8 +7,8 @@ in {
   options.modules.ocis = with types; {
     enable =
       mkEnableOption "OwnCloudInfiniteScale, Nextcloud but without bloat";
-    configFile = mkReq types.str
-      "Path to the config file, or where it will be generated if there is none";
+    configDir = mkReq types.str
+      "Path to the config directory. The config file will be created if there is none";
     dataDir = mkReq types.str "Path to where the data will be stored";
   };
 
@@ -41,5 +41,20 @@ in {
 
     # Expose ports for container
     networking.firewall = { allowedTCPPorts = lib.mkForce [ 9200 ]; };
+
+    systemd.tmpfiles.settings.ocis = {
+      "${cfg.dataDir}" = {
+        d = {
+          mode = "0750";
+          user = "root";
+        };
+      };
+      "${cfg.configDir}" = {
+        d = {
+          mode = "0750";
+          user = "root";
+        };
+      };
+    };
   };
 }
