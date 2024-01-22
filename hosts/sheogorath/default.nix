@@ -12,12 +12,6 @@ in {
       ssh.enable = true;
       secrets.enable = true;
 
-      duckdns = {
-        enable = true;
-        domain = hostname;
-        tokenFile = config.age.secrets.duckdnsToken.path;
-      };
-
       media-server = {
         enable = true;
         data = "/data/media-server";
