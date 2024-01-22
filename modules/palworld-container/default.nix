@@ -62,11 +62,24 @@ in {
 
     };
 
-    # Create a directory for the container to properly start
-    systemd.services."${config.virtualisation.oci-containers.backend}-palworld".serviceConfig =
-      {
-        StateDirectory =
-          "palworld/data:${cfg.dataDir} palworld/steam:${cfg.steamCmdDir}";
+    users.groups.palworld = { };
+
+    systemd.tmpfiles.settings.palworld = {
+      "${cfg.dataDir}" = {
+        d = {
+          inherit group;
+          mode = "0750";
+          user = "root";
+        };
       };
+      "${cfg.steamCmdDir}" = {
+        d = {
+          inherit group;
+          mode = "0750";
+          user = "root";
+        };
+      };
+    };
+
   };
 }
