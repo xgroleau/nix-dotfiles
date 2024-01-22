@@ -8,6 +8,7 @@
     modules = {
       home.username = "xgroleau";
       home.profile = "desktop";
+      ssh.enable = true;
       kdeconnect.enable = true;
       docker.enable = true;
 
