@@ -9,7 +9,7 @@ in {
     enable = mkEnableOption
       "Pomerium, enable to use pomerium idenity aware access proxy";
     envFile = mkReq types.str
-      "Environment file, needs to provided at least IDP_PROVIDER, IDP_CLIENT_ID, IDP_CLIENT_SECRET and AUTHENTICATE_SERVICE_URL";
+      "Environment file, needs to provided at least IDP_PROVIDER, IDP_CLIENT_ID, IDP_CLIENT_SECRET";
   };
 
   config = mkIf cfg.enable {
@@ -22,11 +22,8 @@ in {
         address = ":443";
         http_redirect_addr = ":80";
 
-        # jwt_claims_headers = {
-        #   X-Pomerium-Claim-Email = "email";
-        #   X-Pomerium-Claim-User = "user";
-        #   X-Pomerium-Claim-Name = "name";
-        # };
+        authenticate_service_url =
+          "https://authenticate.sheogorath.duckdns.org";
 
         routes = [{
           from = "https://test.sheogorath.duckdns.org";

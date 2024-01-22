@@ -16,7 +16,7 @@ in {
         duckdnsToken.file = ./duckdns-token.age;
         ghRunner.file = ./gh-runner.age;
         piaOvpn.file = ./pia-ovpn.age;
-        pomeriumIdentityProvider.file = ./pomerium-identity-provider.age;
+        pomeriumIdentityProvider.file = ./pomerium-idp.age;
       };
     };
   };
