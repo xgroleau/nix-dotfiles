@@ -21,7 +21,7 @@ in {
             "owncloud/ocis:4.0.5@sha256:1bd0d3ff28b01c17964a1e71cbb410d5d82d630a7556297538723211ffce3513";
           ports = [ "9200:9200" ];
           volumes = [
-            "${cfg.configFile}:/etc/ocis/config.yaml"
+            "${cfg.configFile}:/etc/ocis/ocis.yaml"
             "${cfg.dataDir}:/var/lib/ocis"
           ];
           environment = {

@@ -15,7 +15,7 @@ in {
       ocis = {
         enable = true;
         dataDir = "/documents/ocis";
-        configFile = "/vault/ocis/config.yaml";
+        configFile = "/vault/ocis/ocis.yaml";
       };
 
       media-server = {
