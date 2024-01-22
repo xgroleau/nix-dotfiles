@@ -32,8 +32,10 @@ in {
         port = 8311;
       };
 
-      pomerium.enable = true;
-
+      pomerium = {
+        enable = true;
+        envFile = config.age.secrets.pomeriumIdentityProvider.path;
+      };
     };
     networking.firewall.enable = false;
     nix.gc = {
