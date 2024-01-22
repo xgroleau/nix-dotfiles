@@ -1,16 +1,30 @@
 { config, pkgs, lib, ... }:
+
 with lib;
 with lib.my.option;
 let
-  group = "palworld";
   cfg = config.modules.palworld;
+  join = builtins.concatStringsSep " ";
 in {
   imports = [ ];
 
   options.modules.palworld = {
     enable = mkEnableOption "palworld";
-    dataDir = mkReq types.str "Path where the data will be stored";
-    steamCmdDir = mkReq types.str "Path for the SteamCmdDirectory";
+    user = mkOption {
+      type = types.str;
+      default = "palworld";
+      description = mdDoc "User account under which palworld runs";
+    };
+    group = mkOption {
+      type = types.str;
+      default = "palworld";
+      description = mdDoc "Group under which palworld runs";
+    };
+    dataDir = mkOption {
+      type = types.path;
+      default = "/var/lib/palworld";
+      description = "where on disk to store your palworld directory";
+    };
     port = mkOption {
       type = types.port;
       default = 8211;
@@ -24,61 +38,42 @@ in {
   };
 
   config = mkIf cfg.enable {
-    virtualisation.oci-containers = {
-      containers = {
-        palworld = {
-          autoStart = true;
-          image = "ich777/steamcmd:palworld";
-          ports = [ "${toString cfg.port}:8211" ];
-          volumes = [
-            "${cfg.dataDir}:/serverdata/serverfiles"
-            "${cfg.steamCmdDir}:/serverdata/steamcmd"
-          ];
-          environment = {
-            server_DIR = "/serverdata/serverfiles";
-            STEAMCMD_DIR = "/serverdata/steamcmd";
-            GAME_ID = "2394010";
-            UPDATE_PUBLIC_IP = "false";
-            GAME_NAME = "palworld";
-            GAME_PARAMS = "EpicApp=PalServer";
-            GAME_PARAMS_EXTRA = "--port 8211 --players ${
-                toString cfg.maxPlayers
-              }  -useperfthreads -NoAsyncLoadingThread -UseMultithreadForDS";
-            UID = "99";
-            GID = "100";
-            GAME_PORT = "${toString cfg.port}";
-            VALIDATE = "";
-            USERNAME = "";
-            PASSWRD = "";
-          };
-        };
-      };
+    users.users.${cfg.user} = {
+      inherit (cfg) group;
+      home = cfg.dataDir;
+      createHome = true;
+      isSystemUser = true;
     };
+    users.groups.${cfg.group} = { };
 
-    # Expose ports for container
-    networking.firewall = {
-      allowedUDPPorts = lib.mkForce [ cfg.port ];
-      allowedTCPPorts = lib.mkForce [ cfg.port ];
-
-    };
-
-    users.groups.palworld = { };
-
-    # Create a directory for the container to properly start
-    systemd.tmpfiles.settings.palworld = {
-      "${cfg.dataDir}" = {
-        d = {
-          inherit group;
-          mode = "0755";
-          user = "root";
-        };
+    systemd.services.palworld = {
+      wantedBy = [ "multi-user.target" ];
+      serviceConfig = {
+        ExecStartPre = join [
+          "${pkgs.steamcmd}/bin/steamcmd"
+          "+force_install_dir ${cfg.dataDir}"
+          "+login anonymous"
+          "+app_update 2394010"
+          "+quit"
+        ];
+        ExecStart = join [
+          "${pkgs.steam-run}/bin/steam-run ${cfg.dataDir}/Pal/Binaries/Linux/PalServer-Linux-Test Pal"
+          "--port ${toString cfg.port}"
+          "--players ${toString cfg.maxPlayers}"
+          "--useperfthreads"
+          "-NoAsyncLoadingThread"
+          "-UseMultithreadForDS"
+        ];
+        Nice = "-5";
+        Restart = "always";
+        StateDirectory = "palworld:${cfg.dataDir}";
+        User = cfg.user;
+        WorkingDirectory = cfg.dataDir;
       };
-      "${cfg.steamCmdDir}" = {
-        d = {
-          inherit group;
-          mode = "0755";
-          user = "root";
-        };
+
+      environment = {
+        # linux64 directory is required by palworld.
+        LD_LIBRARY_PATH = "linux64:${pkgs.glibc}/lib";
       };
     };
 

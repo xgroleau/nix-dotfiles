@@ -22,15 +22,16 @@ in {
       palworld = {
         enable = true;
         dataDir = "/data/palworld";
+        port = 8211;
+      };
+
+      palworld-container = {
+        enable = true;
+        dataDir = "/data/palworld-container";
         steamCmdDir = "/data/steamCmd";
         port = 8311;
       };
 
-      palworld2 = {
-        enable = true;
-        dataDir = "/data/palworld2";
-        port = 8211;
-      };
     };
     networking.firewall.enable = false;
     nix.gc = {

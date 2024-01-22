@@ -10,7 +10,7 @@
     ./ocis
     ./pomerium
     ./palworld
-    ./palworld-2
+    ./palworld-container
     ./ssh
     ./tailscale
     ./xserver
