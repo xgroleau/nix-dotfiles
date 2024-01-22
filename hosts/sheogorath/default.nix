@@ -29,6 +29,12 @@ in {
         enable = true;
         dataDir = "/data/palworld";
         steamCmdDir = "/data/steamCmd";
+        port = 8311;
+      };
+
+      palworld2 = {
+        enable = true;
+        dataDir = "/data/palworld2";
         port = 8211;
       };
     };
