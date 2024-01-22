@@ -31,7 +31,7 @@ in {
       description = "the port to use";
     };
     maxPlayers = mkOption {
-      type = number;
+      type = types.number;
       default = 32;
       description = "the amount of players to support";
     };
