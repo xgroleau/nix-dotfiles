@@ -19,48 +19,54 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    users.users.palworld = {
-      isSystemUser = true;
-      home = cfg.dataDir;
-      createHome = true;
-      homeMode = "750";
-      group = config.users.groups.palworld.name;
-    };
-
-    users.groups.palworld = { };
-
-    systemd.tmpfiles.rules = [
-      "d ${config.users.users.palworld.home}/.steam 0755 ${config.users.users.palworld.name} ${config.users.groups.palworld.name} - -"
-      "L+ ${config.users.users.palworld.home}/.steam/sdk64 - - - - /var/lib/steamcmd/apps/1007/linux64"
-    ];
-
     systemd.services.palworld = {
-      path = [ pkgs.xdg-user-dirs ];
+      description = "Palworld Server";
+      wantedBy = [ "multi-user.target" ];
+      after = [ "network.target" ];
+      requires = [ "network.target" ];
+      environment.HOME = cfg.dataDir;
 
-      # Manually start the server if needed, to save resources.
-      wantedBy = [ ];
+      path = with pkgs; [ steamcmd steam-run ];
 
-      # Install the game before launching.
-      wants = [ "steamcmd@${steam-id}.service" ];
-      after = [ "steamcmd@${steam-id}.service" ];
+      preStart = ''
+        steamcmd \
+          +force_install_dir ${cfg.dataDir} \
+          +login anonymous \
+          +app_update ${steam-id} validate \
+          +quit
+      '';
+
+      script = ''
+        mkdir -p .steam/sdk64/
+        cp linux64/steamclient.so .steam/sdk64/steamclient.so
+        steam-run \
+          ${cfg.dataDir}/PalServer.sh \
+            -useperfthreads \
+            -NoAsyncLoadingThread \
+            -UseMultithreadForDS
+      '';
 
       serviceConfig = {
-        ExecStart = lib.escapeShellArgs [
-          "${pkgs.steam-run}/bin/steam-run"
-          "/var/lib/steamcmd/apps/${steam-id}/PalServer.sh"
-          "port=${toString cfg.port}"
-          "-useperfthreads"
-          "-NoAsyncLoadingThread"
-          "-UseMultithreadForDS"
-        ];
-        Nice = "-5";
-        PrivateTmp = true;
+        User = "palworld";
+        Group = "palworld";
         Restart = "on-failure";
-        User = config.users.users.palworld.name;
-        WorkingDirectory = "~";
+
+        StateDirectory = "palworld";
+        WorkingDirectory = cfg.dataDir;
+
+        TimeoutStartSec = "1h";
+
+        ProcSubset = "all";
+        RestrictNamespaces = false;
+        SystemCallFilter = [ ];
       };
-      environment = { SteamAppId = "${toString steam-id}"; };
     };
+
+    users.users.palworld = {
+      group = "palworld";
+      isSystemUser = true;
+    };
+    users.groups.palworld = { };
 
     networking.firewall.allowedTCPPorts = [ cfg.port ];
     networking.firewall.allowedUDPPorts = [ cfg.port ];
