@@ -48,9 +48,9 @@ in {
     };
 
     networking = {
+      useDHCP = true;
       hostId = "819a6cd7";
       hostName = "sheogorath";
-      #interfaces.enp0s25.useDHCP = true;
     };
 
     system.stateVersion = "24.05";

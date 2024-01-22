@@ -55,11 +55,6 @@ in {
           "+login anonymous"
           "+app_update 2394010"
           "+quit"
-          "&& echo 'Hello'"
-          "&& mkdir -p ${cfg.dataDir}/.steam/sdk64"
-          "&& cp ${cfg.dataDir}/linux64/steamclient.so ${cfg.dataDir}/.steam/sdk64/."
-          "&& echo 'World'"
-          "&& ls ${cfg.dataDir}"
         ];
         ExecStart = join [
           "${pkgs.steam-run}/bin/steam-run ${cfg.dataDir}/Pal/Binaries/Linux/PalServer-Linux-Test Pal"
