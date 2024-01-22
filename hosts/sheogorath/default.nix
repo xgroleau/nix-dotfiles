@@ -32,7 +32,7 @@ in {
         port = 8211;
       };
     };
-
+    virtualisation.oci-containers.backend
     nix.gc = {
       automatic = true;
       dates = "weekly";
