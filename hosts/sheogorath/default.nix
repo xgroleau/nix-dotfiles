@@ -32,7 +32,7 @@ in {
         port = 8211;
       };
     };
-    network.firewall.enable = false;
+    networking.firewall.enable = false;
     nix.gc = {
       automatic = true;
       dates = "weekly";
