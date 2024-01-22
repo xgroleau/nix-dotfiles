@@ -73,7 +73,7 @@ in {
         WorkingDirectory = cfg.dataDir;
       };
 
-      systemd.tmpfiles.settings.palworld = {
+      systemd.tmpfiles.settings.palworld2 = {
         "${cfg.dataDir}" = {
           d = {
             group = cfg.group;
