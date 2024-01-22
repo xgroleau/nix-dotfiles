@@ -45,21 +45,20 @@ in {
     };
     users.groups.${cfg.group} = { };
 
-    systemd.services.palworld = let dir = cfg.dataDir;
-    in {
+    systemd.services.palworld = {
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
         ExecStartPre = join [
           "${pkgs.steamcmd}/bin/steamcmd"
-          "+force_install_dir ${dir}"
+          "+force_install_dir ${cfg.dataDir}"
           "+login anonymous"
           "+app_update 2394010"
           "+quit"
-          "&& mkdir -p ${dir}/.steam/sdk64"
-          "&& cp ${dir}/linux64/steamclient.so ${dir}/.steam/sdk64/."
+          "&& mkdir -p ${cfg.dataDir}/.steam/sdk64"
+          "&& cp ${cfg.dataDir}/linux64/steamclient.so ${cfg.dataDir}/.steam/sdk64/."
         ];
         ExecStart = join [
-          "${pkgs.steam-run}/bin/steam-run ${dir}/Pal/Binaries/Linux/PalServer-Linux-Test Pal"
+          "${pkgs.steam-run}/bin/steam-run ${cfg.dataDir}/Pal/Binaries/Linux/PalServer-Linux-Test Pal"
           "--port ${toString cfg.port}"
           "--players ${toString cfg.maxPlayers}"
           "--useperfthreads"
@@ -73,20 +72,21 @@ in {
         WorkingDirectory = cfg.dataDir;
       };
 
-      systemd.tmpfiles.settings.palworld2 = {
-        "${cfg.dataDir}" = {
-          d = {
-            group = cfg.group;
-            mode = "0755";
-            user = "root";
-          };
-        };
-      };
-
       environment = {
         # linux64 directory is required by palworld.
         LD_LIBRARY_PATH = "linux64:${pkgs.glibc}/lib";
       };
     };
+
+    systemd.tmpfiles.settings.palworld2 = {
+      "${cfg.dataDir}" = {
+        d = {
+          group = cfg.group;
+          mode = "0755";
+          user = "root";
+        };
+      };
+    };
+
   };
 }
