@@ -16,6 +16,11 @@ in {
       default = 8211;
       description = "the port to use";
     };
+    maxPlayers = mkOption {
+      type = number;
+      default = 32;
+      description = "the amount of players to support";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -36,8 +41,9 @@ in {
             UPDATE_PUBLIC_IP = "false";
             GAME_NAME = "palworld";
             GAME_PARAMS = "EpicApp=PalServer";
-            GAME_PARAMS_EXTRA =
-              "-No-useperfthreads -NoAsyncLoadingThread -UseMultithreadForDS";
+            GAME_PARAMS_EXTRA = "--port ${toString cfg.port} --players ${
+                toString cfg.maxPlayers
+              }  -No-useperfthreads -NoAsyncLoadingThread -UseMultithreadForDS";
             UID = "99";
             GID = "100";
             GAME_PORT = "${toString cfg.port}";
