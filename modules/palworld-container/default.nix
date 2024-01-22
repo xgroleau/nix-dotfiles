@@ -3,11 +3,11 @@ with lib;
 with lib.my.option;
 let
   group = "palworld";
-  cfg = config.modules.palworld;
+  cfg = config.modules.palworld-container;
 in {
   imports = [ ];
 
-  options.modules.palworld = {
+  options.modules.palworld-container = {
     enable = mkEnableOption "palworld";
     dataDir = mkReq types.str "Path where the data will be stored";
     steamCmdDir = mkReq types.str "Path for the SteamCmdDirectory";
@@ -62,25 +62,11 @@ in {
 
     };
 
-    users.groups.palworld = { };
-
     # Create a directory for the container to properly start
-    systemd.tmpfiles.settings.palworld = {
-      "${cfg.dataDir}" = {
-        d = {
-          inherit group;
-          mode = "0755";
-          user = "root";
-        };
+    systemd.services."${config.virtualisation.oci-containers.backend}-palworld".serviceConfig =
+      {
+        StateDirectory =
+          "palworld/data:${cfg.dataDir} palworld/steam:${cfg.steamCmdDir}";
       };
-      "${cfg.steamCmdDir}" = {
-        d = {
-          inherit group;
-          mode = "0755";
-          user = "root";
-        };
-      };
-    };
-
   };
 }
