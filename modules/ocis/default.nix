@@ -7,10 +7,8 @@ in {
   options.modules.ocis = with types; {
     enable =
       mkEnableOption "OwnCloudInfiniteScale, Nextcloud but without bloat";
-
     configFile = mkReq types.str
       "Path to the config file, or where it will be generated if there is none";
-
     dataDir = mkReq types.str "Path to where the data will be stored";
   };
 

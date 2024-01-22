@@ -12,6 +12,12 @@ in {
       ssh.enable = true;
       secrets.enable = true;
 
+      ocis = {
+        enable = true;
+        dataDir = "/documents/ocis";
+        configFile = "/data/ocis/ocis.yaml";
+      };
+
       media-server = {
         enable = true;
         data = "/data/media-server";
@@ -31,7 +37,6 @@ in {
         steamCmdDir = "/data/steamCmd";
         port = 8311;
       };
-
       pomerium = {
         enable = true;
         envFile = config.age.secrets.pomeriumIdentityProvider.path;
