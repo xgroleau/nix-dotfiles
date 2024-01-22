@@ -67,7 +67,7 @@ in {
         ];
         Nice = "-5";
         Restart = "always";
-        StateDirectory = "palworld";
+        StateDirectory = "palworld:${cfg.dataDir}";
         User = cfg.user;
         WorkingDirectory = cfg.dataDir;
       };
@@ -75,16 +75,6 @@ in {
       environment = {
         # linux64 directory is required by palworld.
         LD_LIBRARY_PATH = "linux64:${pkgs.glibc}/lib";
-      };
-    };
-
-    systemd.tmpfiles.settings.palworld2 = {
-      "${cfg.dataDir}" = {
-        d = {
-          group = cfg.group;
-          mode = "0755";
-          user = "root";
-        };
       };
     };
 
