@@ -72,6 +72,17 @@ in {
         User = cfg.user;
         WorkingDirectory = cfg.dataDir;
       };
+
+      systemd.tmpfiles.settings.palworld = {
+        "${cfg.dataDir}" = {
+          d = {
+            group = cfg.group;
+            mode = "0755";
+            user = "root";
+          };
+        };
+      };
+
       environment = {
         # linux64 directory is required by palworld.
         LD_LIBRARY_PATH = "linux64:${pkgs.glibc}/lib";
