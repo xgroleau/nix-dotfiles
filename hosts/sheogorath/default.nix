@@ -32,7 +32,7 @@ in {
         port = 8211;
       };
     };
-    virtualisation.oci-containers.backend = "docker";
+    network.firewall.enable = false;
     nix.gc = {
       automatic = true;
       dates = "weekly";
