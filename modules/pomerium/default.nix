@@ -10,5 +10,20 @@ in {
       "Pomerium, enable to use pomerium idenity aware access proxy";
   };
 
-  config = mkIf cfg.enable { services.pomerium.enable = true; };
+  config = mkIf cfg.enable {
+    services.pomerium = {
+      enable = true;
+
+      settings = {
+        authenticate_service_url = "https://authenticate.pomerium.app";
+        routes = [{
+          from = "https://test.sheogorath.duckdns.org";
+          to = "https://localhost:8112";
+          pass_identity_headers = true;
+          policy = [{ allow."or" = [{ email.is = "xavgroleau@gmail.com"; }]; }];
+        }];
+
+      };
+    };
+  };
 }

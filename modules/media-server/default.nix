@@ -70,14 +70,14 @@ in {
       "${cfg.data}/deluge" = {
         d = {
           inherit group;
-          mode = "0755";
+          mode = "0750";
           user = "root";
         };
       };
       "${cfg.download}" = {
         d = {
           inherit group;
-          mode = "0755";
+          mode = "0750";
           user = "root";
         };
       };

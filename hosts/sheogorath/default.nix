@@ -32,6 +32,8 @@ in {
         port = 8311;
       };
 
+      pomerium.enable = true;
+
     };
     networking.firewall.enable = false;
     nix.gc = {
