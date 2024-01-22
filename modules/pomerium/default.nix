@@ -18,7 +18,7 @@ in {
         authenticate_service_url = "https://authenticate.pomerium.app";
         routes = [{
           from = "https://test.sheogorath.duckdns.org";
-          to = "https://localhost:8112";
+          to = "localhost:8112";
           pass_identity_headers = true;
           policy = [{ allow."or" = [{ email.is = "xavgroleau@gmail.com"; }]; }];
         }];
