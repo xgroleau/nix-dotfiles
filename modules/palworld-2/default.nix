@@ -1,7 +1,8 @@
 { config, pkgs, lib, ... }:
+
+with lib;
+with lib.my.option;
 let
-  inherit (lib) mdDoc mkIf mkEnableOption mkOption;
-  inherit (lib.types) path port str number;
   cfg = config.modules.palworld2;
   join = builtins.concatStringsSep " ";
 in {
@@ -10,22 +11,22 @@ in {
   options.modules.palworld2 = {
     enable = mkEnableOption "palworld";
     user = mkOption {
-      type = str;
+      type = types.str;
       default = "palworld";
       description = mdDoc "User account under which palworld runs";
     };
     group = mkOption {
-      type = str;
+      type = types.str;
       default = "palworld";
       description = mdDoc "Group under which palworld runs";
     };
     dataDir = mkOption {
-      type = path;
+      type = types.path;
       default = "/var/lib/palworld";
       description = "where on disk to store your palworld directory";
     };
     port = mkOption {
-      type = port;
+      type = types.port;
       default = 8211;
       description = "the port to use";
     };
@@ -54,8 +55,11 @@ in {
           "+login anonymous"
           "+app_update 2394010"
           "+quit"
+          "&& echo 'Hello'"
           "&& mkdir -p ${cfg.dataDir}/.steam/sdk64"
           "&& cp ${cfg.dataDir}/linux64/steamclient.so ${cfg.dataDir}/.steam/sdk64/."
+          "&& echo 'World'"
+          "&& ls ${cfg.dataDir}"
         ];
         ExecStart = join [
           "${pkgs.steam-run}/bin/steam-run ${cfg.dataDir}/Pal/Binaries/Linux/PalServer-Linux-Test Pal"
