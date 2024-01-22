@@ -41,9 +41,9 @@ in {
             UPDATE_PUBLIC_IP = "false";
             GAME_NAME = "palworld";
             GAME_PARAMS = "EpicApp=PalServer";
-            GAME_PARAMS_EXTRA = "--port ${toString cfg.port} --players ${
+            GAME_PARAMS_EXTRA = "--port 8211 --players ${
                 toString cfg.maxPlayers
-              }  -No-useperfthreads -NoAsyncLoadingThread -UseMultithreadForDS";
+              }  -useperfthreads -NoAsyncLoadingThread -UseMultithreadForDS";
             UID = "99";
             GID = "100";
             GAME_PORT = "${toString cfg.port}";
