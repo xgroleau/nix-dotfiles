@@ -30,7 +30,7 @@ in {
         };
 
         "${cfg.dbDataDir}" = {
-          hostPath = cfg.envFile;
+          hostPath = cfg.dbDataDir;
           isReadOnly = false;
         };
       };
