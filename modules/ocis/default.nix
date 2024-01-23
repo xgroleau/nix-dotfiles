@@ -27,17 +27,17 @@ in {
         ocis = {
           autoStart = true;
           image = "owncloud/ocis:${ocisVersion}@${ocisHash}";
-          ports = [ "${toString cfg.port}:9200" ];
+          ports = [ "${toString cfg.port}:${toString cfg.port}" ];
           volumes =
             [ "${cfg.configDir}:/etc/ocis" "${cfg.dataDir}:/var/lib/ocis" ];
           environment = {
             DEMO_USERS = "false";
 
             PROXY_TLS = "false";
-            PROXY_HTTP_ADDR = "0.0.0.0:${9200}";
+            PROXY_HTTP_ADDR = "0.0.0.0:${toString cfg.port}";
 
             OCIS_INSECURE = "true";
-            OCIS_URL = "http://localhost:${9200}";
+            OCIS_URL = "http://localhost:${toString cfg.port}";
             OCIS_LOG_LEVEL = "info";
           };
 
