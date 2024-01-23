@@ -30,8 +30,8 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, agenix, deploy-rs, disko, flake-utils
-    , authentik-nix }:
+  outputs = inputs@{ self, nixpkgs, home-manager, agenix, deploy-rs, disko
+    , flake-utils, authentik-nix }:
     let
       pkgs = nixpkgs;
       utils = import ./lib {
@@ -85,6 +85,7 @@
             inherit lib;
             inherit profiles;
             inherit nixpkgs;
+            flakeInputs = inputs;
           };
 
           modules = [
@@ -92,7 +93,7 @@
             ./secrets
             agenix.nixosModules.default
             disko.nixosModules.disko
-            authentik-nix.nixosModules.default
+            # authentik-nix.nixosModules.default
             hostConfig.cfg
           ];
         }) hosts;
