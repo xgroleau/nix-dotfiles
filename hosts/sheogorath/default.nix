@@ -23,6 +23,7 @@ in {
         enable = true;
         dataDir = "/documents/ocis";
         configDir = "/vault/ocis";
+        port = 9200;
       };
 
       media-server = {
