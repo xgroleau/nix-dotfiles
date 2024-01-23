@@ -29,13 +29,12 @@ in {
       enable = true;
       dataDir = cfg.dataDir;
       email = cfg.email;
-      virtualHosts = lib.mapAttrs (addr: target) {
+      virtualHosts = lib.mapAttrs (addr: target: {
         serverAliases = [ "www.${addr}" ];
         extraConfig = ''
           reverse_proxy ${target}
         '';
-
-      };
+      });
 
     };
 
