@@ -60,19 +60,19 @@ in {
           # Some override of the internal services
           postgresql.dataDir = cfg.dbDataDir;
 
+          systemd.tmpfiles.settings.authentik = {
+            "${cfg.dbDataDir}" = {
+              d = {
+                user = "postgres";
+                group = "postgres";
+                mode = "770";
+              };
+            };
+          };
+
         };
 
         system.stateVersion = "24.05";
-      };
-    };
-
-    systemd.tmpfiles.settings.authentik = {
-      "${cfg.dbDataDir}" = {
-        d = {
-          user = "postgres";
-          group = "postgres";
-          mode = "770";
-        };
       };
     };
 
