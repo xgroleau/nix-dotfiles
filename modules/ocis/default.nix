@@ -13,7 +13,7 @@ in {
       mkEnableOption "OwnCloudInfiniteScale, Nextcloud but without bloat";
     configDir = mkReq types.str "Path to the config file";
     dataDir = mkReq types.str "Path to where the data will be stored";
-    url = mkOpt' types.str "https://localhost:9200"
+    url = mkReq types.str
       "URL of the OCIS instance, needs to be https and the same as the OpenIDConnect proxy";
     port = mkOpt' types.port 9200 "the port to use";
   };
