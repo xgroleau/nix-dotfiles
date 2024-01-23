@@ -10,7 +10,7 @@ in {
     email = mkReq types.str
       "Email to contact if there is an issue with the certificate";
     dataDir = mkReq types.str "Path to where the data will be stored";
-    reversePoxies = mkOption {
+    reverseProxies = mkOption {
       type = types.attrsOf types.str;
       default = { };
       example = literalExpression ''
