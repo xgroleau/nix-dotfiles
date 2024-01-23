@@ -64,8 +64,8 @@ in {
         systemd.tmpfiles.settings.authentik = {
           "${cfg.dbDataDir}" = {
             d = {
-              user = users.users.postgres.name;
-              group = users.users.postgres.group;
+              user = config.users.users.postgres.name;
+              group = config.users.users.postgres.group;
               mode = "770";
             };
           };
