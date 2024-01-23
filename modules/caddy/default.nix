@@ -34,7 +34,7 @@ in {
         extraConfig = ''
           reverse_proxy ${target}
         '';
-      });
+      }) cfg.reverseProxies;
 
     };
 
