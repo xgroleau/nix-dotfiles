@@ -11,7 +11,7 @@ in {
     dataDir = mkReq types.str "Path to where the data will be stored";
     port = mkOption {
       type = types.port;
-      default = 8211;
+      default = 9200;
       description = "the port to use";
     };
   };
@@ -32,7 +32,7 @@ in {
             OCIS_INSECURE = "true";
 
             # OCIS_URL: the external domain / ip address of oCIS (with protocol, must always be https)
-            OCIS_URL = "https://localhost:9200";
+            OCIS_URL = "https://sheogorath:9200";
 
             # OCIS_LOG_LEVEL: error / info / ... / debug
             OCIS_LOG_LEVEL = "info";
