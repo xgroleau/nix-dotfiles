@@ -11,7 +11,7 @@ in {
     enable = mkEnableOption
       "Enables the authentik module, uses a nixos container under the hood so the postges db is a seperated service";
     envFile = mkReq types.str "Path to the environment file";
-    dbDataDir = mkReq types.str "Path to the database data directory";
+    dataDir = mkReq types.str "Path to the database data directory";
     port = mkOption {
       type = types.port;
       default = 9000;
@@ -30,8 +30,8 @@ in {
           isReadOnly = true;
         };
 
-        "${cfg.dbDataDir}" = {
-          hostPath = cfg.dbDataDir;
+        "${cfg.dataDir}" = {
+          hostPath = cfg.dataDir;
           isReadOnly = false;
         };
       };
@@ -56,23 +56,20 @@ in {
 
             };
           };
-
           # Some override of the internal services
-          postgresql.dataDir = cfg.dbDataDir;
-
-        };
-
-        systemd.tmpfiles.settings.authentik = {
-          "${cfg.dbDataDir}" = {
-            d = {
-              user = "postgres";
-              group = "postgres";
-              mode = "770";
-            };
-          };
+          postgresql.dataDir = "${cfg.dataDir}/postgres";
         };
 
         system.stateVersion = "24.05";
+      };
+    };
+
+    systemd.tmpfiles.settings.authentik = {
+      "${cfg.dataDir}" = {
+        d = {
+          user = "root";
+          mode = "770";
+        };
       };
     };
 
