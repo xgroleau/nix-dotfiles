@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./authentik
     ./docker
     ./duckdns
     ./home

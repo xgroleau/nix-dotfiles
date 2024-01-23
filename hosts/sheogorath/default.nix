@@ -12,6 +12,11 @@ in {
       ssh.enable = true;
       secrets.enable = true;
 
+      authentik = {
+        enable = true;
+        envFile = config.age.secrets.authentikEnv.path;
+      };
+
       ocis = {
         enable = true;
         dataDir = "/documents/ocis";
