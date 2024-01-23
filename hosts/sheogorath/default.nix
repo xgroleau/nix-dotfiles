@@ -37,7 +37,7 @@ in {
         enable = true;
         dataDir = "/documents/ocis";
         configDir = "/vault/ocis";
-        url = "ocis.sheogorath.duckdns.org";
+        url = "https://ocis.sheogorath.duckdns.org";
         port = 9200;
       };
 
