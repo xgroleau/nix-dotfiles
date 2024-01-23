@@ -31,7 +31,7 @@ in {
 
         "${cfg.dbDataDir}" = {
           hostPath = cfg.dbDataDir;
-          mountPath = cfg.dbDataDir;
+          mountPoint = cfg.dbDataDir;
           isReadOnly = false;
         };
       };
