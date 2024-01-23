@@ -34,7 +34,7 @@ in {
             PROXY_TLS = "false";
             PROXY_HTTP_ADDR = "0.0.0.0:9200";
 
-            OCIS_INSECURE = "true";
+            OCIS_INSECURE = "false";
             OCIS_URL = cfg.url;
             OCIS_LOG_LEVEL = "info";
           };
