@@ -22,6 +22,7 @@ in {
   config = mkIf cfg.enable {
     containers.authentik = {
       autoStart = true;
+      ephemeral = true;
       # Access to the host data
       bindMounts = {
         "${cfg.envFile}" = {
@@ -31,7 +32,6 @@ in {
 
         "${cfg.dbDataDir}" = {
           hostPath = cfg.dbDataDir;
-          mountPoint = cfg.dbDataDir;
           isReadOnly = false;
         };
       };
@@ -62,17 +62,17 @@ in {
 
         };
 
-        systemd.tmpfiles.settings.authentik = {
-          "${cfg.dbDataDir}" = {
-            d = {
-              user = "postgres";
-              group = "postgres";
-              mode = "770";
-            };
-          };
-        };
-
         system.stateVersion = "24.05";
+      };
+    };
+
+    systemd.tmpfiles.settings.authentik = {
+      "${cfg.dbDataDir}" = {
+        d = {
+          user = "postgres";
+          group = "postgres";
+          mode = "770";
+        };
       };
     };
 
