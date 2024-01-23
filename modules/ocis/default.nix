@@ -34,10 +34,10 @@ in {
             DEMO_USERS = "false";
 
             PROXY_TLS = "false";
-            PROXY_HTTP_ADDR = "0.0.0.0:9200";
+            PROXY_HTTP_ADDR = "0.0.0.0:${9200}";
 
             OCIS_INSECURE = "true";
-            OCIS_URL = "https://localhost:9200";
+            OCIS_URL = "http://localhost:${9200}";
             OCIS_LOG_LEVEL = "info";
           };
 
