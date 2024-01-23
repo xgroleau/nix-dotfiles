@@ -41,7 +41,7 @@ in {
         protocol = "tcp";
       }];
 
-      config = _: {
+      config = { ... }: {
         nixpkgs.pkgs = pkgs;
         imports = [ flakeInputs.authentik-nix.nixosModules.default ];
         services = {
@@ -61,12 +61,13 @@ in {
 
         };
 
+        # Create the sub folder
         systemd.tmpfiles.settings.authentik = {
           "${cfg.dataDir}/postgres" = {
             d = {
               user = "postgres";
               group = "postgres";
-              mode = "770";
+              mode = "755";
             };
           };
         };
@@ -75,6 +76,7 @@ in {
       };
     };
 
+    # Create the folder if it doesn't exist
     systemd.tmpfiles.settings.authentik = {
       "${cfg.dataDir}" = {
         d = {
