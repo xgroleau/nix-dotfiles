@@ -15,7 +15,7 @@ in {
       authentik = {
         enable = true;
         envFile = config.age.secrets.authentikEnv.path;
-        dbDataDir = "/data/authentik";
+        dataDir = "/data/authentik";
         port = 9000;
       };
 
