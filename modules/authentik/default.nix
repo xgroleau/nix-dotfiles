@@ -29,7 +29,10 @@ in {
           isReadOnly = true;
         };
 
-        "${cfg.dbDataDir}" = { hostPath = cfg.envFile; };
+        "${cfg.dbDataDir}" = {
+          hostPath = cfg.envFile;
+          isReadOnly = false;
+        };
       };
 
       forwardPorts = [{
