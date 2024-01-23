@@ -3,13 +3,13 @@
 {
   imports = [
     ./authentik
+    ./caddy
     ./docker
     ./duckdns
     ./home
     ./kdeconnect
     ./media-server
     ./ocis
-    ./pomerium
     ./palworld
     ./ssh
     ./tailscale
