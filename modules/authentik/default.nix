@@ -12,6 +12,11 @@ in {
       "Enables the authentik module, uses a nixos container under the hood so the postges db is a seperated service";
     envFile = mkReq types.str "Path to the environment file";
     dbDataDir = mkReq types.str "Path to the database data directory";
+    port = mkOption {
+      type = types.port;
+      default = 9000;
+      description = "the port for http access";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -27,7 +32,11 @@ in {
         "${cfg.dbDataDir}" = { hostPath = cfg.envFile; };
       };
 
-      # nixpkgs.pkgs = pkgs;
+      forwardPorts = [{
+        hostPort = cfg.port;
+        protocol = "tcp";
+      }];
+
       config = _: {
         nixpkgs.pkgs = pkgs;
         imports = [ flakeInputs.authentik-nix.nixosModules.default ];
@@ -38,7 +47,9 @@ in {
             environmentFile = cfg.envFile;
             settings = {
               disable_startup_analytics = true;
-              avatars = "initials";
+              avatars = "gravatar,initials";
+              listen = { http = "0.0.0.0:${toString cfg.port}"; };
+
             };
           };
 

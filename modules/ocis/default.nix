@@ -9,6 +9,11 @@ in {
       mkEnableOption "OwnCloudInfiniteScale, Nextcloud but without bloat";
     configFile = mkReq types.str "Path to the config file";
     dataDir = mkReq types.str "Path to where the data will be stored";
+    port = mkOption {
+      type = types.port;
+      default = 8211;
+      description = "the port to use";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -19,7 +24,7 @@ in {
           autoStart = true;
           image =
             "owncloud/ocis:4.0.5@sha256:1bd0d3ff28b01c17964a1e71cbb410d5d82d630a7556297538723211ffce3513";
-          ports = [ "9200:9200" ];
+          ports = [ "${toString cfg.port}:9200" ];
           volumes = [
             "${cfg.configFile}:/etc/ocis/ocis.yaml"
             "${cfg.dataDir}:/var/lib/ocis"
@@ -39,7 +44,7 @@ in {
     };
 
     # Expose ports for container
-    networking.firewall = { allowedTCPPorts = lib.mkForce [ 9200 ]; };
+    networking.firewall = { allowedTCPPorts = lib.mkForce [ cfg.port ]; };
 
     systemd.tmpfiles.settings.ocis = {
       "${cfg.dataDir}" = {
