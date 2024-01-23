@@ -61,8 +61,19 @@ in {
 
         };
 
+        systemd.tmpfiles.settings.authentik = {
+          "${cfg.dbDataDir}" = {
+            d = {
+              user = users.users.postgres.name;
+              group = users.users.postgres.group;
+              mode = "770";
+            };
+          };
+        };
+
         system.stateVersion = "24.05";
       };
     };
+
   };
 }
