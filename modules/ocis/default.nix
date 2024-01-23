@@ -31,12 +31,12 @@ in {
           volumes =
             [ "${cfg.configDir}:/etc/ocis" "${cfg.dataDir}:/var/lib/ocis" ];
           environment = {
-            DEMO_USERS = false;
+            DEMO_USERS = "false";
 
-            PROXY_TLS = false;
+            PROXY_TLS = "false";
             PROXY_HTTP_ADDR = "0.0.0.0:9200";
 
-            OCIS_INSECURE = true;
+            OCIS_INSECURE = "true";
             OCIS_URL = "https://localhost:9200";
             OCIS_LOG_LEVEL = "info";
           };
