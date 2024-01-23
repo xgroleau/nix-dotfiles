@@ -19,11 +19,10 @@ in {
         port = 9000;
       };
 
-      ocis = {
+      caddy = {
         enable = true;
-        dataDir = "/documents/ocis";
-        configDir = "/vault/ocis";
-        port = 9200;
+        email = "xavgroleau@gmail.com";
+        dataDir = "/data/caddy";
       };
 
       media-server = {
@@ -33,16 +32,19 @@ in {
         ovpnFile = config.age.secrets.piaOvpn.path;
       };
 
+      ocis = {
+        enable = true;
+        dataDir = "/documents/ocis";
+        configDir = "/vault/ocis";
+        port = 9200;
+      };
+
       palworld = {
         enable = true;
         dataDir = "/data/palworld";
         port = 8211;
       };
 
-      pomerium = {
-        enable = true;
-        envFile = config.age.secrets.pomeriumIdentityProvider.path;
-      };
     };
     networking.firewall.enable = false;
     nix.gc = {

@@ -2,7 +2,11 @@
 
 with lib;
 with lib.my.option;
-let cfg = config.modules.ocis;
+let
+  cfg = config.modules.ocis;
+  ocisVersion = "4.0.5";
+  ocisHash =
+    "sha256:1bd0d3ff28b01c17964a1e71cbb410d5d82d630a7556297538723211ffce3513";
 in {
   options.modules.ocis = with types; {
     enable =
@@ -22,19 +26,18 @@ in {
       containers = {
         ocis = {
           autoStart = true;
-          image =
-            "owncloud/ocis:4.0.5@sha256:1bd0d3ff28b01c17964a1e71cbb410d5d82d630a7556297538723211ffce3513";
+          image = "owncloud/ocis:${ocisVersion}@${ocisHash}";
           ports = [ "${toString cfg.port}:9200" ];
           volumes =
             [ "${cfg.configDir}:/etc/ocis" "${cfg.dataDir}:/var/lib/ocis" ];
           environment = {
-            # INSECURE: needed if oCIS / Traefik is using self generated certificates
-            OCIS_INSECURE = "true";
+            DEMO_USERS = false;
 
-            # OCIS_URL: the external domain / ip address of oCIS (with protocol, must always be https)
-            OCIS_URL = "https://sheogorath:9200";
+            PROXY_TLS = false;
+            PROXY_HTTP_ADDR = "0.0.0.0:9200";
 
-            # OCIS_LOG_LEVEL: error / info / ... / debug
+            OCIS_INSECURE = true;
+            OCIS_URL = "https://localhost:9200";
             OCIS_LOG_LEVEL = "info";
           };
 

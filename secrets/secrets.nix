@@ -3,6 +3,5 @@ in with keys; {
   "duckdns-token.age".publicKeys = [ users.xgroleau machines.jyggalag ];
   "gh-runner.age".publicKeys = [ users.xgroleau machines.jyggalag ];
   "pia-ovpn.age".publicKeys = [ users.xgroleau machines.sheogorath ];
-  "pomerium-idp.age".publicKeys = [ users.xgroleau machines.sheogorath ];
   "authentik-env.age".publicKeys = [ users.xgroleau machines.sheogorath ];
 }
