@@ -58,6 +58,17 @@ in {
           };
           # Some override of the internal services
           postgresql.dataDir = "${cfg.dataDir}/postgres";
+
+        };
+
+        systemd.tmpfiles.settings.authentik = {
+          "${cfg.dataDir}/postgres" = {
+            d = {
+              user = "postgres";
+              group = "postgres";
+              mode = "770";
+            };
+          };
         };
 
         system.stateVersion = "24.05";
