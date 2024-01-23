@@ -31,12 +31,6 @@ in {
         port = 8211;
       };
 
-      palworld-container = {
-        enable = true;
-        dataDir = "/data/palworld-container";
-        steamCmdDir = "/data/steamCmd";
-        port = 8311;
-      };
       pomerium = {
         enable = true;
         envFile = config.age.secrets.pomeriumIdentityProvider.path;

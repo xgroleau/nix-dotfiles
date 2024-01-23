@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -22,11 +23,15 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    flake-utils.url = "github:numtide/flake-utils";
+
+    authentik-nix = {
+      url = "github:nix-community/authentik-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs =
-    { self, nixpkgs, home-manager, agenix, deploy-rs, disko, flake-utils }:
+  outputs = { self, nixpkgs, home-manager, agenix, deploy-rs, disko, flake-utils
+    , authentik-nix }:
     let
       pkgs = nixpkgs;
       utils = import ./lib {
@@ -87,6 +92,7 @@
             ./secrets
             agenix.nixosModules.default
             disko.nixosModules.disko
+            authentik-nix.nixosModules.default
             hostConfig.cfg
           ];
         }) hosts;

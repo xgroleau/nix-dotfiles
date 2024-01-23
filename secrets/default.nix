@@ -17,6 +17,7 @@ in {
         ghRunner.file = ./gh-runner.age;
         piaOvpn.file = ./pia-ovpn.age;
         pomeriumIdentityProvider.file = ./pomerium-idp.age;
+        authentikEnv.file = ./authentik-env.age;
       };
     };
   };
