@@ -13,11 +13,9 @@ in {
       mkEnableOption "OwnCloudInfiniteScale, Nextcloud but without bloat";
     configDir = mkReq types.str "Path to the config file";
     dataDir = mkReq types.str "Path to where the data will be stored";
-    port = mkOption {
-      type = types.port;
-      default = 9200;
-      description = "the port to use";
-    };
+    url = mkOpt' types.str "http://localhost:9200"
+      "URL of the OCIS instance, needs to be the same as the OpenIDConnect proxy";
+    port = mkOpt' types.port 9200 "the port to use";
   };
 
   config = mkIf cfg.enable {
@@ -27,17 +25,17 @@ in {
         ocis = {
           autoStart = true;
           image = "owncloud/ocis:${ocisVersion}@${ocisHash}";
-          ports = [ "${toString cfg.port}:${toString cfg.port}" ];
+          ports = [ "${toString cfg.port}:9200" ];
           volumes =
             [ "${cfg.configDir}:/etc/ocis" "${cfg.dataDir}:/var/lib/ocis" ];
           environment = {
             DEMO_USERS = "false";
 
             PROXY_TLS = "false";
-            PROXY_HTTP_ADDR = "0.0.0.0:${toString cfg.port}";
+            PROXY_HTTP_ADDR = "0.0.0.0:9200";
 
             OCIS_INSECURE = "true";
-            OCIS_URL = "http://localhost:${toString cfg.port}";
+            OCIS_URL = cfg.url;
             OCIS_LOG_LEVEL = "info";
           };
 
