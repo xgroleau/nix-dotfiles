@@ -23,6 +23,7 @@ in {
         enable = true;
         email = "xavgroleau@gmail.com";
         dataDir = "/data/caddy";
+        reverseProxies = { "ocis.sheogorath.duckdns.org" = "localhost:9200"; };
       };
 
       media-server = {
