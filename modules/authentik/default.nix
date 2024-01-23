@@ -62,7 +62,7 @@ in {
         };
 
         # Create the sub folder
-        systemd.tmpfiles.settings.authentik = {
+        systemd.tmpfiles.settings.autpostgres = {
           "${cfg.dataDir}/postgres" = {
             d = {
               user = "postgres";
