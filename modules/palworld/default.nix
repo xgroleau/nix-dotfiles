@@ -71,17 +71,17 @@ in {
         WorkingDirectory = cfg.dataDir;
       };
 
-      networking.firewall = {
-        allowedUDPPorts = lib.mkForce [
-          cfg.port
-          (cfg.port + 1) # For steam discovery
-        ];
-      };
-
       environment = {
         # linux64 directory is required by palworld.
         LD_LIBRARY_PATH = "linux64:${pkgs.glibc}/lib";
       };
+    };
+
+    networking.firewall = {
+      allowedUDPPorts = lib.mkForce [
+        cfg.port
+        (cfg.port + 1) # For steam discovery
+      ];
     };
 
   };
