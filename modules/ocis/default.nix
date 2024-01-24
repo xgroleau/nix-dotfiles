@@ -46,7 +46,7 @@ in {
     };
 
     # Expose ports for container
-    networking.firewall = { allowedTCPPorts = lib.mkForce [ cfg.port ]; };
+    networking.firewall = { allowedTCPPorts = [ cfg.port ]; };
 
     systemd.tmpfiles.settings.ocis = {
       "${cfg.dataDir}" = {

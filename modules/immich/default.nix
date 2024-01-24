@@ -54,8 +54,8 @@ in {
   };
 
   networking.firewall = {
-    allowedTCPPorts = lib.mkForce [ 3001 ];
-    allowedUDPPorts = lib.mkForce [ 3001 ];
+    allowedTCPPorts = [ 3001 ];
+    allowedUDPPorts = [ 3001 ];
   };
 
 }

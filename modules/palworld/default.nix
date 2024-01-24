@@ -78,7 +78,7 @@ in {
     };
 
     networking.firewall = {
-      allowedUDPPorts = lib.mkForce [
+      allowedUDPPorts = [
         cfg.port
         (cfg.port + 1) # For steam discovery
       ];

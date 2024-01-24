@@ -61,8 +61,8 @@ in {
 
     # Expose ports for container
     networking.firewall = {
-      allowedTCPPorts = lib.mkForce [ 8112 8118 58846 58946 ];
-      allowedUDPPorts = lib.mkForce [ 8112 8118 58846 58946 ];
+      allowedTCPPorts = [ 8112 8118 58846 58946 ];
+      allowedUDPPorts = [ 8112 8118 58846 58946 ];
     };
 
     # Create a directory for the container to properly start
