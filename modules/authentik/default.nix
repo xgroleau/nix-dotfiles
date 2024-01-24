@@ -24,6 +24,8 @@ in {
     containers.authentik = {
       autoStart = true;
       ephemeral = true;
+      restartIfChanged = true;
+
       # Access to the host data
       bindMounts = {
         "${cfg.envFile}" = {
