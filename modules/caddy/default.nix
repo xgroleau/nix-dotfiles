@@ -7,6 +7,8 @@ in {
 
   options.modules.caddy = with types; {
     enable = mkEnableOption "Caddy server as an easy to use reverse proxy";
+    openFirewall =
+      mkOpt' types.bool false "Open the required ports in the firewall";
     email = mkReq types.str
       "Email to contact if there is an issue with the certificate";
     dataDir = mkReq types.str "Path to where the data will be stored";
@@ -38,7 +40,8 @@ in {
 
     };
 
-    networking.firewall = { allowedTCPPorts = [ 80 443 ]; };
+    networking.firewall =
+      mkIf cfg.openFirewall { allowedTCPPorts = [ 80 443 ]; };
 
     systemd.tmpfiles.settings.caddy = {
       "${cfg.dataDir}" = {
