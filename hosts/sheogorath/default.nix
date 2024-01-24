@@ -48,7 +48,7 @@ in {
       };
 
     };
-    networking.firewall.enable = false;
+
     nix.gc = {
       automatic = true;
       dates = "weekly";
