@@ -24,7 +24,10 @@ in {
         openFirewall = true;
         dataDir = "/data/caddy";
         email = "xavgroleau@gmail.com";
-        reverseProxies = { "ocis.sheogorath.duckdns.org" = "localhost:9200"; };
+        reverseProxies = {
+          "ocis.sheogorath.duckdns.org" = "localhost:9200";
+          "overseerr.sheogorath.duckdns.org" = "192.168.1.110:5055"; # Temporary
+        };
       };
 
       media-server = {
