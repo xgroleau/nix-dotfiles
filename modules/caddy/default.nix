@@ -36,6 +36,7 @@ in {
         '';
       }) cfg.reverseProxies;
 
+      networking.firewall = { allowedTCPPorts = [ 80 443 ]; };
     };
 
     systemd.tmpfiles.settings.caddy = {
