@@ -78,7 +78,7 @@ in {
     };
 
     networking.firewall =
-      mkIf cfg.openFirewall { allowedTcpPorts = [ cfg.port ]; };
+      mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ]; };
 
     # Create the folder if it doesn't exist
     systemd.tmpfiles.settings.authentik = {
