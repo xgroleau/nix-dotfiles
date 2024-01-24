@@ -56,7 +56,6 @@ in {
               disable_startup_analytics = true;
               avatars = "gravatar,initials";
               listen = { http = "0.0.0.0:${toString cfg.port}"; };
-
             };
           };
           # Some override of the internal services
