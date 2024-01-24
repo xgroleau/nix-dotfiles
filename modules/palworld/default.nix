@@ -10,31 +10,19 @@ in {
 
   options.modules.palworld = {
     enable = mkEnableOption "palworld";
-    user = mkOption {
-      type = types.str;
-      default = "palworld";
-      description = mdDoc "User account under which palworld runs";
-    };
-    group = mkOption {
-      type = types.str;
-      default = "palworld";
-      description = mdDoc "Group under which palworld runs";
-    };
-    dataDir = mkOption {
-      type = types.path;
-      default = "/var/lib/palworld";
-      description = "where on disk to store your palworld directory";
-    };
-    port = mkOption {
-      type = types.port;
-      default = 8211;
-      description = "the port to use";
-    };
-    maxPlayers = mkOption {
-      type = types.number;
-      default = 32;
-      description = "the amount of players to support";
-    };
+
+    openFirewall = mkBoolOpt' false "Open the required ports in the firewall";
+
+    user = mkOpt' types.str "palworld" "User account under which palworld runs";
+
+    group = mkOpt' types.str "palworld" "Group under which palworld runs";
+
+    dataDir = mkOpt' types.path "/var/lib/palworld"
+      "Where on disk to store your palworld directory";
+
+    port = mkOpt' types.port 8211 "the port to use";
+
+    maxPlayers = mkOpt' types.number 32 "The max amount of players to support";
   };
 
   config = mkIf cfg.enable {
@@ -77,7 +65,7 @@ in {
       };
     };
 
-    networking.firewall = {
+    networking.firewall = mkIf cfg.openFirewall {
       allowedUDPPorts = [
         cfg.port
         (cfg.port + 1) # For steam discovery

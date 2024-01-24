@@ -8,10 +8,13 @@ in {
   options.modules.duckdns = with types; {
     enable = mkEnableOption
       "Duckdns configuration, enable to register a domain to duckdns";
+
     domain = mkReq types.nonEmptyStr "The domain to register";
+
     tokenFile = mkReq types.str ''
       The full path to a file which contains the token for the domain.
-       The file should contain exactly one line with the token without any newline.'';
+       The file should contain exactly one line with the token without any newline.
+    '';
   };
 
   config = mkIf cfg.enable {

@@ -22,8 +22,8 @@ in {
       caddy = {
         enable = true;
         openFirewall = true;
-        email = "xavgroleau@gmail.com";
         dataDir = "/data/caddy";
+        email = "xavgroleau@gmail.com";
         reverseProxies = { "ocis.sheogorath.duckdns.org" = "localhost:9200"; };
       };
 
@@ -36,16 +36,17 @@ in {
 
       ocis = {
         enable = true;
-        dataDir = "/documents/ocis";
-        configDir = "/vault/ocis";
-        url = "https://ocis.sheogorath.duckdns.org";
         port = 9200;
+        configDir = "/vault/ocis";
+        dataDir = "/documents/ocis";
+        url = "https://ocis.sheogorath.duckdns.org";
       };
 
       palworld = {
         enable = true;
-        dataDir = "/data/palworld";
+        openFirewall = true;
         port = 8211;
+        dataDir = "/data/palworld";
       };
 
     };

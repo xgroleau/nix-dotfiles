@@ -14,6 +14,8 @@ in {
   options.modules.media-server = {
     enable = mkEnableOption "A media server configuration";
 
+    openFirewall = mkBoolOpt' false "Open the required ports in the firewall";
+
     data = mkReq types.str "Path where the data will be stored";
 
     download = mkReq types.str "Path where the download will be stored";
@@ -60,7 +62,7 @@ in {
     };
 
     # Expose ports for container
-    networking.firewall = {
+    networking.firewall = mkIf cfg.openFirewall {
       allowedTCPPorts = [ 8112 8118 58846 58946 ];
       allowedUDPPorts = [ 8112 8118 58846 58946 ];
     };
@@ -87,33 +89,33 @@ in {
       lidarr = {
         inherit group;
         enable = true;
-        openFirewall = true;
+        openFirewall = cfg.openFirewall;
         dataDir = cfg.data + "/lidarr";
       };
 
       prowlarr = {
         enable = true;
-        openFirewall = true;
+        openFirewall = cfg.openFirewall;
       };
 
       radarr = {
         inherit group;
         enable = true;
-        openFirewall = true;
+        openFirewall = cfg.openFirewall;
         dataDir = cfg.data + "/radarr";
       };
 
       sonarr = {
         inherit group;
         enable = true;
-        openFirewall = true;
+        openFirewall = cfg.openFirewall;
         dataDir = cfg.data + "/sonarr";
       };
 
       jellyfin = {
         inherit group;
         enable = true;
-        openFirewall = true;
+        openFirewall = cfg.openFirewall;
       };
 
     };

@@ -6,16 +6,20 @@ let cfg = config.modules.kdeconnect;
 in {
 
   options.modules.kdeconnect = with types; {
-    enable = mkEnableOption "Enables the kde connect service";
+    enable = mkEnableOption "Enables the kde connect service ports";
   };
 
   config = mkIf cfg.enable {
-    networking.firewall = rec {
+    networking.firewall = {
       allowedTCPPortRanges = [{
         from = 1714;
         to = 1764;
       }];
-      allowedUDPPortRanges = allowedTCPPortRanges;
+      allowedUDPPortRanges = [{
+        from = 1714;
+        to = 1764;
+      }];
+
     };
   };
 }

@@ -11,10 +11,16 @@ in {
   options.modules.ocis = with types; {
     enable =
       mkEnableOption "OwnCloudInfiniteScale, Nextcloud but without bloat";
+
+    openFirewall = mkBoolOpt' false "Open the required ports in the firewall";
+
     configDir = mkReq types.str "Path to the config file";
+
     dataDir = mkReq types.str "Path to where the data will be stored";
+
     url = mkReq types.str
       "URL of the OCIS instance, needs to be https and the same as the OpenIDConnect proxy";
+
     port = mkOpt' types.port 9200 "the port to use";
   };
 
@@ -46,7 +52,8 @@ in {
     };
 
     # Expose ports for container
-    # networking.firewall = { allowedTCPPorts = [ cfg.port ]; };
+    networking.firewall =
+      mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ]; };
 
     systemd.tmpfiles.settings.ocis = {
       "${cfg.dataDir}" = {

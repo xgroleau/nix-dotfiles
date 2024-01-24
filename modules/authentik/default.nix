@@ -10,13 +10,14 @@ in {
   options.modules.authentik = {
     enable = mkEnableOption
       "Enables the authentik module, uses a nixos container under the hood so the postges db is a seperated service";
+
+    openFirewall = mkBoolOpt' false "Open the required ports in the firewall";
+
     envFile = mkReq types.str "Path to the environment file";
+
     dataDir = mkReq types.str "Path to the database data directory";
-    port = mkOption {
-      type = types.port;
-      default = 9000;
-      description = "the port for http access";
-    };
+
+    port = mkOpt' types.port 9000 "the port for http access";
   };
 
   config = mkIf cfg.enable {
@@ -75,6 +76,9 @@ in {
         system.stateVersion = "24.05";
       };
     };
+
+    networking.firewall =
+      mkIf cfg.openFirewall { allowedTcpPorts = [ cfg.port ]; };
 
     # Create the folder if it doesn't exist
     systemd.tmpfiles.settings.authentik = {
