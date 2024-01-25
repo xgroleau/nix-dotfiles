@@ -12,7 +12,7 @@ let
     "sha256:440bfe850b36b6e41437f314af7441de3dd1874591c889b1adf3986ae86ff82b";
 
   postgresImage = "tensorchord/pgvecto-rs";
-  postgresVesion = "pg14-v0.1.13";
+  postgresVersion = "pg14-v0.1.13";
   postgresHash =
     "sha256:c57994a048b449c2ed1cfc10dac82655aa2f207f10d41b51a47b3813a3b1f46b";
 in {
