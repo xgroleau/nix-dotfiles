@@ -7,6 +7,7 @@
     ./docker
     ./duckdns
     ./home
+    ./immich
     ./kdeconnect
     ./media-server
     ./ocis
