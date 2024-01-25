@@ -15,6 +15,11 @@ let
   postgresHash =
     "sha256:7f436a06a0daa3957ae5ad6831657feda8cc096e4a67c5d72bffd0e40253c7c5";
 
+  redisImage = "redis";
+  redisVersion = "7.2.4-bookworm";
+  redisHash =
+    "sha256:9e32ff5c286464387ff8f3fe72fc150a095c80f67af69d31ce4cb4d80fad0d7a";
+
   containerBackendName = config.virtualisation.oci-containers.backend;
 
   containerBackend = pkgs."${containerBackendName}" + "/bin/"
@@ -61,10 +66,11 @@ in {
           PGID = "1000";
 
           # Redis
-          DOCKER_MODS = "imagegenius/mods:universal-redis";
-          REDIS_HOSTNAME = "localhost";
+          REDIS_HOSTNAME = "immich-redis";
+          REDIS_PORT = "6379";
 
-          DB_HOSTNAME = "localhost";
+          # postgres
+          DB_HOSTNAME = "immich-postgres";
           DB_USERNAME = "postgres";
           DB_PORT = "5432";
           DB_DATABASE_NAME = "immich";
@@ -77,6 +83,14 @@ in {
         environmentFiles = [ cfg.envFile ];
         ports = [ "${toString cfg.port}:8080" ];
         dependsOn = [ "immich-postgres" ];
+        extraOptions = [ "--network=immich-bridge" ];
+      };
+
+      immich-redis = {
+        image = "${redisImage}:${redisVersion}@${redisHash}";
+
+        environmentFiles = [ cfg.envFile ];
+
         extraOptions = [ "--network=immich-bridge" ];
       };
 
@@ -95,6 +109,7 @@ in {
         };
 
         environmentFiles = [ cfg.envFile ];
+
         extraOptions = [ "--network=immich-bridge" ];
       };
 
