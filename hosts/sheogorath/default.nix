@@ -25,6 +25,8 @@ in {
         dataDir = "/data/caddy";
         email = "xavgroleau@gmail.com";
         reverseProxies = {
+          "authentik.sheogorath.duckdns.org" = "192.168.1.110:9000";
+          "immich.sheogorath.duckdns.org" = "192.168.1.110:10300";
           "ocis.sheogorath.duckdns.org" = "localhost:11200";
           "overseerr.sheogorath.duckdns.org" = "192.168.1.110:5055"; # Temporary
         };
