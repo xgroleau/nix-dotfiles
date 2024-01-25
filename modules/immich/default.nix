@@ -16,9 +16,9 @@ let
     "sha256:7f436a06a0daa3957ae5ad6831657feda8cc096e4a67c5d72bffd0e40253c7c5";
 
   redisImage = "redis";
-  redisVersion = "7.2.4-bookworm";
+  redisVersion = "6.2-alpine";
   redisHash =
-    "sha256:9e32ff5c286464387ff8f3fe72fc150a095c80f67af69d31ce4cb4d80fad0d7a";
+    "sha256:c5a607fb6e1bb15d32bbcf14db22787d19e428d59e31a5da67511b49bb0f1ccc";
 
   containerBackendName = config.virtualisation.oci-containers.backend;
 
