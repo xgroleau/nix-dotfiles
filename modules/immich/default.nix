@@ -48,8 +48,8 @@ in {
         image = "${immichImage}:${immichVersion}@${immichHash}";
         volumes = [
           "/etc/localtime:/etc/localtime:ro"
-          "${configDir}:/config"
-          "${dataDir}:/photos"
+          "${cfg.configDir}:/config"
+          "${cfg.dataDir}:/photos"
         ];
         environment = {
           PUID = "1000";
@@ -81,7 +81,7 @@ in {
         image = "${postgresImage}:${postgresVersion}@${postgresHash}";
         volumes = [
           "/etc/localtime:/etc/localtime:ro"
-          "${databaseDir}:/var/lib/postgresql/data"
+          "${cfg.databaseDir}:/var/lib/postgresql/data"
         ];
         environment = {
           POSTGRES_USER = "postgres";
