@@ -69,7 +69,7 @@ in {
           # MACHINE_LEARNING_WORKER_TIMEOUT = "120";
         };
 
-        environmentFile = cfg.envFile;
+        environmentFiles = [ cfg.envFile ];
 
         ports = [ "${toString cfg.port}:8080" ];
         dependsOn = [ "immich-postgres" ];
@@ -88,7 +88,7 @@ in {
           POSTGRES_DB = "immich";
         };
 
-        environmentFile = cfg.envFile;
+        environmentFiles = [ cfg.envFile ];
 
         extraOptions = [ "--network=immich" ];
       };
