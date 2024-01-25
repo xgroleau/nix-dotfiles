@@ -43,6 +43,9 @@ in {
   config = mkIf cfg.enable {
 
     virtualisation.oci-containers.containers = {
+      # TODO: Remove explicit podmand dependency, either create a network, or use the host as network
+      backend = "podman";
+
       immich-server = {
         autoStart = true;
         image = "${immichImage}:${immichVersion}@${immichHash}";
@@ -51,6 +54,7 @@ in {
           "${cfg.configDir}:/config"
           "${cfg.dataDir}:/photos"
         ];
+
         environment = {
           PUID = "1000";
           PGID = "1000";
@@ -59,7 +63,7 @@ in {
           DOCKER_MODS = "imagegenius/mods:universal-redis";
           REDIS_HOSTNAME = "localhost";
 
-          DB_HOSTNAME = "immich-postgres";
+          DB_HOSTNAME = "localhost";
           DB_USERNAME = "postgres";
           DB_PORT = "5432";
           DB_DATABASE_NAME = "immich";
@@ -70,29 +74,47 @@ in {
         };
 
         environmentFiles = [ cfg.envFile ];
-
         ports = [ "${toString cfg.port}:8080" ];
         dependsOn = [ "immich-postgres" ];
-        extraOptions = [ "--network=immich" ];
+        extraOptions = [ "--pod=new:immich-pod" ];
       };
 
       immich-postgres = {
         autoStart = true;
         image = "${postgresImage}:${postgresVersion}@${postgresHash}";
+
         volumes = [
           "/etc/localtime:/etc/localtime:ro"
           "${cfg.databaseDir}:/var/lib/postgresql/data"
         ];
+
         environment = {
           POSTGRES_USER = "postgres";
           POSTGRES_DB = "immich";
         };
 
         environmentFiles = [ cfg.envFile ];
-
-        extraOptions = [ "--network=immich" ];
+        extraOptions = [ "--pod=new:immich-pod" ];
       };
 
+    };
+    systemd.services.init-immich-network = {
+      description = "Create the network bridge for immich.";
+      after = [ "network.target" ];
+      wantedBy = [ "multi-user.target" ];
+      serviceConfig.Type = "oneshot";
+      script = ''
+        # Put a true at the end to prevent getting non-zero return code, which will
+        # crash the whole service.
+        check=$(${
+          pkgs.docker/bin/docker
+        } network ls | grep "immich-bridge" || true)
+        if [ -z "$check" ]; then
+           ${pkgs.docker/bin/docker} network create immich-bridge
+        else
+          echo "immich-bridge already exists in docker"
+        fi
+      '';
     };
 
     networking.firewall =
