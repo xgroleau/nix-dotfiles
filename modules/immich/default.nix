@@ -5,10 +5,9 @@ with lib.my.option;
 let
 
   cfg = config.modules.immich;
-  immichImage = "ghcr.io/imagegenius/immich:latest";
+  immichImage = "ghcr.io/imagegenius/immich";
   immichVersion = "1.93.3-noml";
   immichHash =
-
     "sha256:440bfe850b36b6e41437f314af7441de3dd1874591c889b1adf3986ae86ff82b";
 
   postgresImage = "tensorchord/pgvecto-rs";
