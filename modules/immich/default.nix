@@ -77,12 +77,12 @@ in {
 
           # Currently noml
           # MACHINE_LEARNING_WORKERS = "1";
-          # MACHINE_LEARNING_WORKER_TIMEOUT = "120";
+          # MACHINE_LEARNING_WORKER_TIMEout = "120";
         };
 
         environmentFiles = [ cfg.envFile ];
         ports = [ "${toString cfg.port}:8080" ];
-        dependsOn = [ "immich-postgres" ];
+        dependsOn = [ "immich-postgres" "immich-redis" ];
         extraOptions = [ "--network=immich-bridge" ];
       };
 
@@ -132,8 +132,10 @@ in {
 
     };
 
-    networking.firewall =
-      mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ]; };
+    networking.firewall = {
+      allowedTCPPorts = mkIf cfg.openFirewall [ cfg.port ];
+      interfaces."podman+".allowedUDPPorts = [ 53 ];
+    };
 
     systemd.tmpfiles.settings.immich = {
       "${cfg.configDir}" = {
