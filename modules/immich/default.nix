@@ -11,9 +11,9 @@ let
     "sha256:440bfe850b36b6e41437f314af7441de3dd1874591c889b1adf3986ae86ff82b";
 
   postgresImage = "tensorchord/pgvecto-rs";
-  postgresVersion = "pg16-v0.1.13";
+  postgresVersion = "pg16-v0.1.11";
   postgresHash =
-    "sha256:7f436a06a0daa3957ae5ad6831657feda8cc096e4a67c5d72bffd0e40253c7c5";
+    "sha256:6102a989f03361b4f1f36057888405597bc5b9851aa237cc3216f40c23f9853a";
 
   redisImage = "redis";
   redisVersion = "6.2-alpine";
