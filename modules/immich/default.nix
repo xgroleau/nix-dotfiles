@@ -87,10 +87,9 @@ in {
       };
 
       immich-redis = {
+        autoStart = true;
         image = "${redisImage}:${redisVersion}@${redisHash}";
-
         environmentFiles = [ cfg.envFile ];
-
         extraOptions = [ "--network=immich-bridge" ];
       };
 
