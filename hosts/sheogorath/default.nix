@@ -25,14 +25,14 @@ in {
         dataDir = "/data/caddy";
         email = "xavgroleau@gmail.com";
         reverseProxies = {
-          "ocis.sheogorath.duckdns.org" = "localhost:9200";
+          "ocis.sheogorath.duckdns.org" = "localhost:11200";
           "overseerr.sheogorath.duckdns.org" = "192.168.1.110:5055"; # Temporary
         };
       };
 
       immich = {
         enable = true;
-        port = 9300;
+        port = 10300;
         configDir = "/vault/immich";
         dataDir = "/documents/immich";
         databaseDir = "/data/immich/database";
@@ -48,7 +48,7 @@ in {
 
       ocis = {
         enable = true;
-        port = 9200;
+        port = 11200;
         configDir = "/vault/ocis";
         dataDir = "/documents/ocis";
         url = "https://ocis.sheogorath.duckdns.org";
