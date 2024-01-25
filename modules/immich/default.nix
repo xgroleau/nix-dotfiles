@@ -61,7 +61,7 @@ in {
 
           DB_HOSTNAME = "immich-postgres";
           DB_USERNAME = "postgres";
-          DB_PORT = 5432;
+          DB_PORT = "5432";
           DB_DATABASE_NAME = "immich";
 
           # Currently noml
