@@ -98,24 +98,6 @@ in {
       };
 
     };
-    systemd.services.init-immich-network = {
-      description = "Create the network bridge for immich.";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
-      serviceConfig.Type = "oneshot";
-      script = ''
-        # Put a true at the end to prevent getting non-zero return code, which will
-        # crash the whole service.
-        check=$(${
-          pkgs.docker/bin/docker
-        } network ls | grep "immich-bridge" || true)
-        if [ -z "$check" ]; then
-           ${pkgs.docker/bin/docker} network create immich-bridge
-        else
-          echo "immich-bridge already exists in docker"
-        fi
-      '';
-    };
 
     networking.firewall =
       mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ]; };
