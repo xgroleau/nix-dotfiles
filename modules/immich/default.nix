@@ -42,9 +42,9 @@ in {
 
   config = mkIf cfg.enable {
 
+    virtualisation.oci-containers.backend = "podman";
     virtualisation.oci-containers.containers = {
       # TODO: Remove explicit podmand dependency, either create a network, or use the host as network
-      backend = "podman";
 
       immich-server = {
         autoStart = true;
