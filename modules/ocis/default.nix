@@ -14,14 +14,14 @@ in {
 
     openFirewall = mkBoolOpt' false "Open the required ports in the firewall";
 
+    port = mkOpt' types.port 9200 "the port to use";
+
     configDir = mkReq types.str "Path to the config file";
 
     dataDir = mkReq types.str "Path to where the data will be stored";
 
     url = mkReq types.str
       "URL of the OCIS instance, needs to be https and the same as the OpenIDConnect proxy";
-
-    port = mkOpt' types.port 9200 "the port to use";
   };
 
   config = mkIf cfg.enable {

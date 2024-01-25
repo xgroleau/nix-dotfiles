@@ -30,6 +30,15 @@ in {
         };
       };
 
+      immich = {
+        enable = true;
+        port = 9300;
+        configDir = "/vault/immich";
+        dataDir = "/documents/immich";
+        databaseDir = "/data/immich/database";
+        envFile = config.age.secrets.immichEnv.path;
+      };
+
       media-server = {
         enable = true;
         data = "/vault/media-server";

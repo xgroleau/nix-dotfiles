@@ -4,4 +4,5 @@ in with keys; {
   "gh-runner.age".publicKeys = [ users.xgroleau machines.jyggalag ];
   "pia-ovpn.age".publicKeys = [ users.xgroleau machines.sheogorath ];
   "authentik-env.age".publicKeys = [ users.xgroleau machines.sheogorath ];
+  "immich-env.age".publicKeys = [ users.xgroleau machines.sheogorath ];
 }
