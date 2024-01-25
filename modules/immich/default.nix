@@ -11,9 +11,14 @@ let
     "sha256:440bfe850b36b6e41437f314af7441de3dd1874591c889b1adf3986ae86ff82b";
 
   postgresImage = "tensorchord/pgvecto-rs";
-  postgresVersion = "pg14-v0.1.13";
+  postgresVersion = "pg16-v0.1.13";
   postgresHash =
-    "sha256:c57994a048b449c2ed1cfc10dac82655aa2f207f10d41b51a47b3813a3b1f46b";
+    "sha256:7f436a06a0daa3957ae5ad6831657feda8cc096e4a67c5d72bffd0e40253c7c5";
+
+  containerBackendName = config.virtualisation.oci-containers.backend;
+
+  containerBackend = pkgs."${containerBackendName}" + "/bin/"
+    + containerBackendName;
 in {
 
   options.modules.immich = with types; {
@@ -41,10 +46,7 @@ in {
 
   config = mkIf cfg.enable {
 
-    virtualisation.oci-containers.backend = "podman";
     virtualisation.oci-containers.containers = {
-      # TODO: Remove explicit podmand dependency, either create a network, or use the host as network
-
       immich-server = {
         autoStart = true;
         image = "${immichImage}:${immichVersion}@${immichHash}";
@@ -75,7 +77,7 @@ in {
         environmentFiles = [ cfg.envFile ];
         ports = [ "${toString cfg.port}:8080" ];
         dependsOn = [ "immich-postgres" ];
-        extraOptions = [ "--pod=new:immich-pod" ];
+        extraOptions = [ "--network=immich-bridge" ];
       };
 
       immich-postgres = {
@@ -93,8 +95,26 @@ in {
         };
 
         environmentFiles = [ cfg.envFile ];
-        extraOptions = [ "--pod=new:immich-pod" ];
+        extraOptions = [ "--network=immich-bridge" ];
       };
+
+    };
+
+    systemd.services.init-immich-network = {
+      description = "Create the network bridge for immich.";
+      after = [ "network.target" ];
+      wantedBy = [ "multi-user.target" ];
+      serviceConfig.Type = "oneshot";
+      script = ''
+        # Put a true at the end to prevent getting non-zero return code, which will
+        # crash the whole service.
+        check=$(${containerBackend} network ls | ${pkgs.gnugrep}/bin/grep "immich-bridge" || true)
+        if [ -z "$check" ]; then
+          ${containerBackend} network create immich-bridge
+        else
+             echo "immich-bridge already exists in docker"
+         fi
+      '';
 
     };
 
