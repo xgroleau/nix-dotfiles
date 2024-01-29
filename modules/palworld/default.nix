@@ -52,7 +52,10 @@ in {
           "-NoAsyncLoadingThread"
           "-UseMultithreadForDS"
         ];
+
+        # Palworld has a massive memoryleak, let's limit the memory to keep the system up
         MemoryMax = "16G";
+
         Restart = "always";
         StateDirectory = "palworld:${cfg.dataDir}";
         User = cfg.user;
