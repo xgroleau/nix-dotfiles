@@ -52,7 +52,7 @@ in {
           "-NoAsyncLoadingThread"
           "-UseMultithreadForDS"
         ];
-        Nice = "-5";
+        MemoryMax = "16G";
         Restart = "always";
         StateDirectory = "palworld:${cfg.dataDir}";
         User = cfg.user;

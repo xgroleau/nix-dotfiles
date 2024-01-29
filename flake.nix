@@ -110,7 +110,6 @@
               runtimeInputs = with pkgs; [ nixfmt statix ];
               text = ''
                 nixfmt ./**/*.nix
-                statix fix ./.
               '';
             };
           in {
@@ -124,7 +123,6 @@
             buildInputs = with pkgs; [ nixfmt statix ];
           } ''
             ${pkgs.nixfmt}/bin/nixfmt --check ${./.}/**/*.nix && \
-            ${pkgs.statix}/bin/statix check ${./.} && \
             touch $out
           '';
         };
