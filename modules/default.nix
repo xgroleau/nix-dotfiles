@@ -10,6 +10,7 @@
     ./immich
     ./kdeconnect
     ./media-server
+    ./msmtp
     ./ocis
     ./palworld
     ./ssh
