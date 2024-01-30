@@ -18,6 +18,7 @@ in {
         piaOvpn.file = ./pia-ovpn.age;
         authentikEnv.file = ./authentik-env.age;
         immichEnv.file = ./immich-env.age;
+        msmtpPass.file = ./msmtp-pass.age;
       };
     };
   };

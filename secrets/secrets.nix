@@ -5,4 +5,5 @@ in with keys; {
   "pia-ovpn.age".publicKeys = [ users.xgroleau machines.sheogorath ];
   "authentik-env.age".publicKeys = [ users.xgroleau machines.sheogorath ];
   "immich-env.age".publicKeys = [ users.xgroleau machines.sheogorath ];
+  "msmtp-pass.age".publicKeys = [ users.xgroleau machines.sheogorath ];
 }

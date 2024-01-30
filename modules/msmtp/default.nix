@@ -2,29 +2,30 @@
 
 with lib;
 with lib.my.option;
-let cfg = config.modules.authentik;
+let cfg = config.modules.msmtp;
 in {
 
   options.modules.msmtp = {
     enable = mkEnableOption "Enables msmtp to send emails and notifications";
+    host = mkReq types.str "Host to use";
+    email = mkReq types.str "Email to use to send";
+    username = mkReq types.str "Username to authenticate";
+    passwordFile = mkReq types.str "Path to the password file";
   };
 
   config = mkIf cfg.enable {
     programs.msmtp = {
       enable = true;
-      default = {
-
-        aliases = "/etc/aliases";
-      };
+      setSendmail = true;
+      default = { aliases = "/etc/aliases"; };
       accounts = {
         default = {
           auth = true;
           tls = true;
-          # try setting `tls_starttls` to `false` if sendmail hangs
-          from = "<from address here>";
-          host = "<hostname here>";
-          user = "<username here>";
-          passwordeval = "cat /secrets/smtp_password.txt";
+          from = cfg.email;
+          host = cfg.host;
+          user = cfg.username;
+          passwordeval = "cat ${cfg.passwordFile}";
         };
       };
     };
@@ -32,7 +33,7 @@ in {
     environment.etc = {
       "aliases" = {
         text = ''
-          root: me@example.com
+          root: ${cfg.user}
         '';
         mode = "0644";
       };

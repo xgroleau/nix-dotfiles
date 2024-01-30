@@ -56,6 +56,14 @@ in {
         url = "https://ocis.sheogorath.duckdns.org";
       };
 
+      msmtp = {
+        enable = true;
+        host = "mail.gmx.com:587";
+        username = "xavgroleau@gmx.com";
+        from = "sheogorath@gmx.com";
+        passwordFile = config.age.secrets.msmtpPass.path;
+      };
+
       palworld = {
         enable = true;
         openFirewall = true;
