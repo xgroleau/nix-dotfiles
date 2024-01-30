@@ -59,8 +59,9 @@ in {
       msmtp = {
         enable = true;
         host = "mail.gmx.com";
-        username = "xavgroleau@gmx.com";
         from = "sheogorath@gmx.com";
+        to = "xavgroleau@gmail.com";
+        username = "xavgroleau@gmx.com";
         passwordFile = config.age.secrets.msmtpPass.path;
       };
 

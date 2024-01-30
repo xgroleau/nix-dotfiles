@@ -6,12 +6,15 @@ let cfg = config.modules.msmtp;
 in {
 
   options.modules.msmtp = {
-    enable = mkEnableOption "Enables msmtp to send emails and notifications";
+    enable = mkEnableOption
+      "Enables msmtp to send emails and notifications. Also enables system notification to an email";
     host = mkReq types.str "Host to use";
     from = mkReq types.str "Email to use to send";
     username = mkReq types.str "Username to authenticate";
     passwordFile = mkReq types.str "Path to the password file";
     port = mkOpt' types.port 587 "The port to use to send the email";
+    to =
+      mkReq types.str "Email to receive system notificaiton (e.g. zfs errors)";
   };
 
   config = mkIf cfg.enable {
@@ -45,7 +48,7 @@ in {
       enableMail = false;
       settings = {
         ZED_DEBUG_LOG = "/tmp/zed.debug.log";
-        ZED_EMAIL_ADDR = [ "root" ];
+        ZED_EMAIL_ADDR = [ cfg.to ];
         ZED_EMAIL_PROG = "${pkgs.msmtp}/bin/msmtp";
         ZED_EMAIL_OPTS = "@ADDRESS@";
 
