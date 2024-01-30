@@ -8,7 +8,7 @@ in {
   options.modules.msmtp = {
     enable = mkEnableOption "Enables msmtp to send emails and notifications";
     host = mkReq types.str "Host to use";
-    email = mkReq types.str "Email to use to send";
+    from = mkReq types.str "Email to use to send";
     username = mkReq types.str "Username to authenticate";
     passwordFile = mkReq types.str "Path to the password file";
   };
@@ -22,7 +22,7 @@ in {
         default = {
           auth = true;
           tls = true;
-          from = cfg.email;
+          from = cfg.from;
           host = cfg.host;
           user = cfg.username;
           passwordeval = "cat ${cfg.passwordFile}";
