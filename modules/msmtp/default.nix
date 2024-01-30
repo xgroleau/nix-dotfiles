@@ -35,7 +35,7 @@ in {
     environment.etc = {
       "aliases" = {
         text = ''
-          root: ${cfg.user}
+          root: ${cfg.from}
         '';
         mode = "0644";
       };
