@@ -101,14 +101,14 @@ in {
       "${cfg.dataDir}" = {
         d = {
           user = "root";
-          mode = "755";
+          mode = "766";
         };
       };
 
       "${cfg.backupDir}" = {
         d = {
           user = "root";
-          mode = "755";
+          mode = "766";
         };
       };
     };
