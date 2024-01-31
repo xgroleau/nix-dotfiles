@@ -72,7 +72,7 @@ in {
           postgresqlBackup = {
             enable = true;
             backupAll = true;
-            localtion = cfg.backupDir;
+            location = cfg.backupDir;
           };
 
         };
