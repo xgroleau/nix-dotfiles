@@ -19,6 +19,7 @@ in {
         authentikEnv.file = ./authentik-env.age;
         immichEnv.file = ./immich-env.age;
         msmtpPass.file = ./msmtp-pass.age;
+        cloudflareXgroleau.file = ./cloudflare-xgroleau.age;
       };
     };
   };

@@ -74,6 +74,22 @@ in {
 
     };
 
+    services.cloudflare-dyndns = {
+      enable = true;
+      deleteMissing = false;
+      domains = [ "xgroleau.com" ];
+      apiTokenFile = config.age.secrets.cloudflareXgroleau.path;
+    };
+
+    services.borgbackup.jobs."unraid" = {
+      paths = [ "/vault" "/documents" "/data/backups" ];
+      exclude = [ ];
+      repo = "ssh://borg@unraid:2222/backup/sheogorath";
+      encryption = { mode = "none"; };
+      compression = "auto,lzma";
+      startAt = "daily";
+    };
+
     nix.gc = {
       automatic = true;
       dates = "weekly";

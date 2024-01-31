@@ -6,4 +6,5 @@ in with keys; {
   "authentik-env.age".publicKeys = [ users.xgroleau machines.sheogorath ];
   "immich-env.age".publicKeys = [ users.xgroleau machines.sheogorath ];
   "msmtp-pass.age".publicKeys = [ users.xgroleau machines.sheogorath ];
+  "cloudflare-xgroleau.age".publicKeys = [ users.xgroleau machines.sheogorath ];
 }
