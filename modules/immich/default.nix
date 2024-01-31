@@ -128,7 +128,7 @@ in {
       };
 
       services.immich-postgres-backup = {
-        description = "Creates";
+        description = "Creates a backup for the immich database";
         serviceConfig.User = "root";
         serviceConfig.Type = "oneshot";
         path = with pkgs; [ containerBackend gzip ];
