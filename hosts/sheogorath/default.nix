@@ -25,10 +25,10 @@ in {
         dataDir = "/data/caddy";
         email = "xavgroleau@gmail.com";
         reverseProxies = {
-          "authentik.sheogorath.duckdns.org" = "localhost:9000";
-          "immich.sheogorath.duckdns.org" = "localhost:10300";
-          "ocis.sheogorath.duckdns.org" = "localhost:11200";
-          "overseerr.sheogorath.duckdns.org" = "192.168.1.110:5055"; # Temporary
+          "authentik.xgroleau.org" = "localhost:9000";
+          "immich.xgroleau.org" = "localhost:10300";
+          "ocis.xgroleau.org" = "localhost:11200";
+          "overseerr.xgroleau.org" = "192.168.1.110:5055"; # Temporary
         };
       };
 
@@ -53,7 +53,7 @@ in {
         port = 11200;
         configDir = "/vault/ocis";
         dataDir = "/documents/ocis";
-        url = "https://ocis.sheogorath.duckdns.org";
+        url = "https://ocis.xgroleau.org";
       };
 
       msmtp = {
@@ -86,6 +86,7 @@ in {
       exclude = [ ];
       repo = "ssh://borg@unraid:2222/backup/sheogorath";
       encryption = { mode = "none"; };
+      environment.BORG_RSH = "ssh -i /etc/ssh/ssh_host_ed25519_key";
       compression = "auto,lzma";
       startAt = "daily";
     };
