@@ -41,12 +41,6 @@ in {
         '';
       }) cfg.reverseProxies;
 
-      # To make it work with cloudflare
-      extraConfig = ''
-        tls {
-             resolvers 1.1.1.1 8.8.8.8 8.8.4.4
-         }'';
-
     };
 
     networking.firewall =
