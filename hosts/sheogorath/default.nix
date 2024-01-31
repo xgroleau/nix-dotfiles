@@ -37,6 +37,7 @@ in {
         port = 10300;
         configDir = "/vault/immich";
         dataDir = "/documents/immich";
+        backupDir = "/data/backup/immich";
         databaseDir = "/data/immich/database";
         envFile = config.age.secrets.immichEnv.path;
       };
@@ -74,21 +75,26 @@ in {
 
     };
 
-    services.cloudflare-dyndns = {
-      enable = true;
-      deleteMissing = false;
-      domains = [ domain ];
-      apiTokenFile = config.age.secrets.cloudflareXgroleau.path;
-    };
+    services = {
+      borgbackup.jobs."unraid" = {
+        paths = [ "/vault" "/documents" "/data/backups" ];
+        exclude = [ ];
+        repo = "ssh://borg@unraid:2222/backup/sheogorath";
+        encryption = { mode = "none"; };
+        environment.BORG_RSH = "ssh -i /etc/ssh/ssh_host_ed25519_key";
+        compression = "auto,lzma";
+        startAt = "daily";
+      };
 
-    services.borgbackup.jobs."unraid" = {
-      paths = [ "/vault" "/documents" "/data/backups" ];
-      exclude = [ ];
-      repo = "ssh://borg@unraid:2222/backup/sheogorath";
-      encryption = { mode = "none"; };
-      environment.BORG_RSH = "ssh -i /etc/ssh/ssh_host_ed25519_key";
-      compression = "auto,lzma";
-      startAt = "daily";
+      cloudflare-dyndns = {
+        enable = true;
+        deleteMissing = false;
+        domains = [ domain ];
+        apiTokenFile = config.age.secrets.cloudflareXgroleau.path;
+      };
+
+      fail2ban.enable = true;
+
     };
 
     nix.gc = {

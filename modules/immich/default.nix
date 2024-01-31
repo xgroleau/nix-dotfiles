@@ -38,6 +38,8 @@ in {
 
     dataDir = mkReq types.str "Path to where the data will be stored";
 
+    backupDir = mkReq types.str "Path to where the database will be backedup";
+
     databaseDir = mkReq types.str "Path to where the database will be stored";
 
     envFile = mkReq types.str ''
@@ -114,21 +116,46 @@ in {
 
     };
 
-    systemd.services.init-immich-network = {
-      description = "Create the network bridge for immich.";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
-      serviceConfig.Type = "oneshot";
-      script = ''
-        # Put a true at the end to prevent getting non-zero return code, which will
-        # crash the whole service.
-        check=$(${containerBackend} network ls | ${pkgs.gnugrep}/bin/grep "immich-bridge" || true)
-        if [ -z "$check" ]; then
-          ${containerBackend} network create immich-bridge
-        else
-             echo "immich-bridge already exists in docker"
-         fi
-      '';
+    systemd = {
+      # Backing up
+      timers.docker-pull = {
+        wantedBy = [ "timers.target" ];
+        partOf = [ "${containerBackendName}-immich-postgres-backup.service" ];
+        timerConfig = {
+          RandomizedDelaySec = "1h";
+          OnCalendar = [ "*-*-* 02:00:00" ];
+        };
+      };
+
+      services.immich-postgres-backup = {
+        serviceConfig.User = "root";
+        serviceConfig.Type = "oneshot";
+
+        path = with pkgs; [ containerBackend gzip ];
+
+        script = ''
+          ${containerBackend} -t immich_postgres pg_dumpall -c -U postgres | gzip > "${cfg.backupDir}/immich.sql.gz"
+        '';
+      };
+
+      # Network creation
+      services.init-immich-network = {
+        description = "Create the network bridge for immich.";
+        after = [ "network.target" ];
+        wantedBy = [ "multi-user.target" ];
+        serviceConfig.Type = "oneshot";
+        script = ''
+          # Put a true at the end to prevent getting non-zero return code, which will
+          # crash the whole service.
+          check=$(${containerBackend} network ls | ${pkgs.gnugrep}/bin/grep "immich-bridge" || true)
+          if [ -z "$check" ]; then
+            ${containerBackend} network create immich-bridge
+          else
+               echo "immich-bridge already exists in docker"
+           fi
+        '';
+
+      };
 
     };
 
@@ -140,19 +167,26 @@ in {
     systemd.tmpfiles.settings.immich = {
       "${cfg.configDir}" = {
         d = {
-          mode = "0777";
+          mode = "0755";
           user = "root";
         };
       };
       "${cfg.dataDir}" = {
         d = {
-          mode = "0777";
+          mode = "0755";
           user = "root";
         };
       };
       "${cfg.databaseDir}" = {
         d = {
-          mode = "0777";
+          mode = "0755";
+          user = "root";
+        };
+      };
+
+      "${cfg.backupDir}" = {
+        d = {
+          mode = "0755";
           user = "root";
         };
       };

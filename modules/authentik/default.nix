@@ -69,7 +69,6 @@ in {
             d = {
               user = "postgres";
               group = "postgres";
-              mode = "750";
             };
           };
         };
@@ -86,7 +85,7 @@ in {
       "${cfg.dataDir}" = {
         d = {
           user = "root";
-          mode = "777";
+          mode = "750";
         };
       };
     };

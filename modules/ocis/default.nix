@@ -58,13 +58,13 @@ in {
     systemd.tmpfiles.settings.ocis = {
       "${cfg.dataDir}" = {
         d = {
-          mode = "0777";
+          mode = "0755";
           user = "root";
         };
       };
       "${cfg.configDir}" = {
         d = {
-          mode = "0777";
+          mode = "0755";
           user = "root";
         };
       };
