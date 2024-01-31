@@ -129,12 +129,18 @@ in {
 
       services.immich-postgres-backup = {
         description = "Creates a backup for the immich database";
-        serviceConfig.User = "root";
-        serviceConfig.Type = "oneshot";
+        wantedBy = [ "multi-user.target" ];
         path = with pkgs; [ containerBackend gzip ];
+
         script = ''
           ${containerBackend} -t immich_postgres pg_dumpall -c -U postgres | gzip > "${cfg.backupDir}/immich.sql.gz"
         '';
+
+        serviceConfig = {
+          User = "root";
+          Type = "oneshot";
+        };
+
       };
 
       # Network creation
