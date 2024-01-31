@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 
-let hostname = "jyggalag";
+let domain = "xgroleau.com";
 in {
   imports = [ ../base-config.nix ./disko.nix ./hardware-configuration.nix ];
 
@@ -25,10 +25,10 @@ in {
         dataDir = "/data/caddy";
         email = "xavgroleau@gmail.com";
         reverseProxies = {
-          "authentik.xgroleau.com" = "localhost:9000";
-          "immich.xgroleau.com" = "localhost:10300";
-          "ocis.xgroleau.com" = "localhost:11200";
-          "overseerr.xgroleau.com" = "192.168.1.110:5055"; # Temporary
+          "authentik.${domain}" = "localhost:9000";
+          "immich.${domain}" = "localhost:10300";
+          "ocis.${domain}" = "localhost:11200";
+          "overseerr.${domain}" = "192.168.1.110:5055"; # Temporary
         };
       };
 
@@ -53,7 +53,7 @@ in {
         port = 11200;
         configDir = "/vault/ocis";
         dataDir = "/documents/ocis";
-        url = "https://ocis.xgroleau.org";
+        url = "https://ocis.${domain}";
       };
 
       msmtp = {
@@ -77,7 +77,7 @@ in {
     services.cloudflare-dyndns = {
       enable = true;
       deleteMissing = false;
-      domains = [ "xgroleau.com" ];
+      domains = [ domain ];
       apiTokenFile = config.age.secrets.cloudflareXgroleau.path;
     };
 
