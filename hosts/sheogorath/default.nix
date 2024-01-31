@@ -14,9 +14,10 @@ in {
 
       authentik = {
         enable = true;
-        envFile = config.age.secrets.authentikEnv.path;
-        dataDir = "/data/authentik";
         port = 9000;
+        dataDir = "/data/authentik";
+        backupDir = "/data/backup/immich";
+        envFile = config.age.secrets.authentikEnv.path;
       };
 
       caddy = {

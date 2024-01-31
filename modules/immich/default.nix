@@ -38,7 +38,8 @@ in {
 
     dataDir = mkReq types.str "Path to where the data will be stored";
 
-    backupDir = mkReq types.str "Path to where the database will be backedup";
+    backupDir = mkReq types.str
+      "Path to where the database will be backed up. Yes, you are required to backup your databases. Even if you think you don't, you do.";
 
     databaseDir = mkReq types.str "Path to where the database will be stored";
 

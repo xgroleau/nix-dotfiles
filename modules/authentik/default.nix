@@ -17,6 +17,9 @@ in {
 
     dataDir = mkReq types.str "Path to the database data directory";
 
+    backupDir = mkReq types.str
+      "Path to where the database will be backed up. Yes, you are required to backup your databases. Even if you think you don't, you do.";
+
     port = mkOpt' types.port 9000 "the port for http access";
   };
 
@@ -35,6 +38,10 @@ in {
 
         "${cfg.dataDir}" = {
           hostPath = cfg.dataDir;
+          isReadOnly = false;
+        };
+        "${cfg.backupDir}" = {
+          hostPath = cfg.backupDir;
           isReadOnly = false;
         };
       };
@@ -61,16 +68,24 @@ in {
           # Some override of the internal services
           postgresql.dataDir = "${cfg.dataDir}/postgres";
 
+          services.postgresqlBackup = {
+            enable = true;
+            backupAll = true;
+            localtion = cfg.backupDir;
+          };
+
         };
 
         # Create the sub folder
         systemd.tmpfiles.settings.authentik = {
+
           "${cfg.dataDir}/postgres" = {
             d = {
               user = "postgres";
               group = "postgres";
             };
           };
+
         };
 
         system.stateVersion = "24.05";
@@ -86,6 +101,13 @@ in {
         d = {
           user = "root";
           mode = "750";
+        };
+      };
+
+      "${cfg.backupDir}" = {
+        d = {
+          user = "root";
+          group = "750";
         };
       };
     };
