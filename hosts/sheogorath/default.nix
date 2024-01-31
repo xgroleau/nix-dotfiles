@@ -24,6 +24,12 @@ in {
         openFirewall = true;
         dataDir = "/data/caddy";
         email = "xavgroleau@gmail.com";
+        # Since we are using cloudflare
+        extraConfig = ''
+          tls {
+               resolvers 1.1.1.1 8.8.8.8 8.8.4.4
+           }'';
+
         reverseProxies = {
           "authentik.${domain}" = "localhost:9000";
           "immich.${domain}" = "localhost:10300";
