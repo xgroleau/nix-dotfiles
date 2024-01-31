@@ -65,10 +65,11 @@ in {
               listen = { http = "0.0.0.0:${toString cfg.port}"; };
             };
           };
+
           # Some override of the internal services
           postgresql.dataDir = "${cfg.dataDir}/postgres";
 
-          services.postgresqlBackup = {
+          postgresqlBackup = {
             enable = true;
             backupAll = true;
             localtion = cfg.backupDir;
