@@ -133,7 +133,7 @@ in {
         path = with pkgs; [ containerBackend gzip ];
 
         script = ''
-          ${containerBackend} -t immich_postgres pg_dumpall -c -U postgres | gzip > "${cfg.backupDir}/immich.sql.gz"
+          ${containerBackend} exec -t immich_postgres pg_dumpall -c -U postgres | gzip > "${cfg.backupDir}/immich.sql.gz"
         '';
 
         serviceConfig = {
