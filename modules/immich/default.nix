@@ -118,9 +118,8 @@ in {
 
     systemd = {
       # Backing up
-      timers.docker-pull = {
+      timers.immich-postgres-backup = {
         wantedBy = [ "timers.target" ];
-        partOf = [ "${containerBackendName}-immich-postgres-backup.service" ];
         timerConfig = {
           RandomizedDelaySec = "1h";
           OnCalendar = [ "*-*-* 02:00:00" ];
