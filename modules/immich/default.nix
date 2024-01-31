@@ -120,6 +120,7 @@ in {
       # Backing up
       timers.immich-postgres-backup = {
         wantedBy = [ "timers.target" ];
+        partOf = [ "immich-postgres-backup.service" ];
         timerConfig = {
           RandomizedDelaySec = "1h";
           OnCalendar = [ "*-*-* 02:00:00" ];
@@ -127,11 +128,10 @@ in {
       };
 
       services.immich-postgres-backup = {
+        description = "Creates";
         serviceConfig.User = "root";
         serviceConfig.Type = "oneshot";
-
         path = with pkgs; [ containerBackend gzip ];
-
         script = ''
           ${containerBackend} -t immich_postgres pg_dumpall -c -U postgres | gzip > "${cfg.backupDir}/immich.sql.gz"
         '';
