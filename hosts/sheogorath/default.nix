@@ -25,10 +25,10 @@ in {
         dataDir = "/data/caddy";
         email = "xavgroleau@gmail.com";
         reverseProxies = {
-          "authentik.xgroleau.org" = "localhost:9000";
-          "immich.xgroleau.org" = "localhost:10300";
-          "ocis.xgroleau.org" = "localhost:11200";
-          "overseerr.xgroleau.org" = "192.168.1.110:5055"; # Temporary
+          "authentik.xgroleau.com" = "localhost:9000";
+          "immich.xgroleau.com" = "localhost:10300";
+          "ocis.xgroleau.com" = "localhost:11200";
+          "overseerr.xgroleau.com" = "192.168.1.110:5055"; # Temporary
         };
       };
 
