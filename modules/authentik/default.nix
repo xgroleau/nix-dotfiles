@@ -47,7 +47,7 @@ in {
           hostPath = cfg.backupDir;
           isReadOnly = false;
         };
-        "${cfg.mediaDir}" = {
+        "/var/lib/authentik/media" = {
           hostPath = cfg.mediaDir;
           isReadOnly = false;
         };
@@ -70,7 +70,7 @@ in {
               disable_startup_analytics = true;
               avatars = "gravatar,initials";
               listen = { http = "0.0.0.0:${toString cfg.port}"; };
-              paths.media = "${cfg.mediaDir}/media";
+              paths.media = "/var/lib/authentik/media";
             };
           };
 
@@ -87,13 +87,6 @@ in {
 
         # Create the sub folder
         systemd.tmpfiles.settings.authentik = {
-
-          "${cfg.mediaDir}/media" = {
-            d = {
-              user = "root";
-              mode = "777";
-            };
-          };
 
           "${cfg.dataDir}/postgres" = {
             d = {
