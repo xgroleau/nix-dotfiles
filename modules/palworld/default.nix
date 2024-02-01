@@ -34,37 +34,60 @@ in {
     };
     users.groups.${cfg.group} = { };
 
-    systemd.services.palworld = {
-      wantedBy = [ "multi-user.target" ];
-      serviceConfig = {
-        ExecStartPre = join [
-          "${pkgs.steamcmd}/bin/steamcmd"
-          "+force_install_dir ${cfg.dataDir}"
-          "+login anonymous"
-          "+app_update 2394010"
-          "+quit"
-        ];
-        ExecStart = join [
-          "${pkgs.steam-run}/bin/steam-run ${cfg.dataDir}/Pal/Binaries/Linux/PalServer-Linux-Test Pal"
-          "--port ${toString cfg.port}"
-          "--players ${toString cfg.maxPlayers}"
-          "--useperfthreads"
-          "-NoAsyncLoadingThread"
-          "-UseMultithreadForDS"
-        ];
+    systemd = {
+      services = {
+        palworld = {
+          wantedBy = [ "multi-user.target" ];
+          serviceConfig = {
+            ExecStartPre = join [
+              "${pkgs.steamcmd}/bin/steamcmd"
+              "+force_install_dir ${cfg.dataDir}"
+              "+login anonymous"
+              "+app_update 2394010"
+              "+quit"
+            ];
+            ExecStart = join [
+              "${pkgs.steam-run}/bin/steam-run ${cfg.dataDir}/Pal/Binaries/Linux/PalServer-Linux-Test Pal"
+              "--port ${toString cfg.port}"
+              "--players ${toString cfg.maxPlayers}"
+              "--useperfthreads"
+              "-NoAsyncLoadingThread"
+              "-UseMultithreadForDS"
+            ];
 
-        # Palworld has a massive memoryleak, let's limit the memory to keep the system up
-        MemoryMax = "16G";
+            # Palworld has a massive memoryleak, let's limit the memory to keep the system up
+            MemoryMax = "16G";
 
-        Restart = "always";
-        StateDirectory = "palworld:${cfg.dataDir}";
-        User = cfg.user;
-        WorkingDirectory = cfg.dataDir;
+            Restart = "always";
+            StateDirectory = "palworld:${cfg.dataDir}";
+            User = cfg.user;
+            WorkingDirectory = cfg.dataDir;
+          };
+
+          environment = {
+            # linux64 directory is required by palworld.
+            LD_LIBRARY_PATH = "linux64:${pkgs.glibc}/lib";
+          };
+        };
+
+        palworld-restart = {
+          description = "Restart palworld";
+          wantedBy = [ "multi-user.target" ];
+          script = ''
+            systemctl restart palworld.service
+          '';
+          serviceConfig = {
+            User = "root";
+            Type = "oneshot";
+          };
+
+        };
       };
 
-      environment = {
-        # linux64 directory is required by palworld.
-        LD_LIBRARY_PATH = "linux64:${pkgs.glibc}/lib";
+      timers.palworld-restart = {
+        wantedBy = [ "timers.target" ];
+        partOf = [ "palworld.service" ];
+        timerConfig = { OnCalendar = [ "*-*-* 04:30:00" ]; };
       };
     };
 
