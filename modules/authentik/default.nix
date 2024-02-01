@@ -70,7 +70,7 @@ in {
               disable_startup_analytics = true;
               avatars = "gravatar,initials";
               listen = { http = "0.0.0.0:${toString cfg.port}"; };
-              paths.media = "${cfg.mediaDir}";
+              paths.media = "${cfg.mediaDir}/media";
             };
           };
 
@@ -87,6 +87,13 @@ in {
 
         # Create the sub folder
         systemd.tmpfiles.settings.authentik = {
+
+          "${cfg.mediaDir}/media" = {
+            d = {
+              user = "root";
+              mode = "777";
+            };
+          };
 
           "${cfg.dataDir}/postgres" = {
             d = {
