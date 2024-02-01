@@ -70,8 +70,8 @@ in {
               disable_startup_analytics = true;
               avatars = "gravatar,initials";
               listen = { http = "0.0.0.0:${toString cfg.port}"; };
+              paths.media = "${cfg.mediaDir}/media";
             };
-            paths.media = "${cfg.mediaDir}/media";
           };
 
           # Some override of the internal services
