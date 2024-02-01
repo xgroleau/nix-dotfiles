@@ -1,6 +1,8 @@
 { config, pkgs, ... }:
 
-let domain = "xgroleau.com";
+let
+  domain = "xgroleau.com";
+  backupFolders = [ "/vault" "/documents" "/data/backups" ];
 in {
   imports = [ ../base-config.nix ./disko.nix ./hardware-configuration.nix ];
 
@@ -17,6 +19,7 @@ in {
         port = 9000;
         dataDir = "/data/authentik";
         backupDir = "/data/backup/authentik";
+        mediaDir = "/vault/authentik/media";
         envFile = config.age.secrets.authentikEnv.path;
       };
 
@@ -69,8 +72,8 @@ in {
 
       palworld = {
         enable = true;
-        openFirewall = true;
         port = 8211;
+        openFirewall = true;
         dataDir = "/data/palworld";
       };
 
@@ -92,6 +95,12 @@ in {
         deleteMissing = false;
         domains = [ domain ];
         apiTokenFile = config.age.secrets.cloudflareXgroleau.path;
+      };
+
+      duplicati = {
+        enable = true;
+        port = 13000;
+        interface = config.services.tailscale.interfaceName;
       };
 
       fail2ban.enable = true;

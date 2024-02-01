@@ -8,14 +8,17 @@ in {
   imports = [ ];
 
   options.modules.authentik = {
-    enable = mkEnableOption
-      "Enables the authentik module, uses a nixos container under the hood so the postges db is a seperated service";
+    enable = mkEnableOption ''
+      Enables the authentik module, uses a nixos container under the hood so the postges db is a seperated service.
+       Also uses ephemeral container, so you need to pass the media directory'';
 
     openFirewall = mkBoolOpt' false "Open the required ports in the firewall";
 
     envFile = mkReq types.str "Path to the environment file";
 
-    dataDir = mkReq types.str "Path to the database data directory";
+    dataDir = mkReq types.str "Path to the database directory";
+
+    mediaDir = mkReq types.str "Path to the media directory";
 
     backupDir = mkReq types.str
       "Path to where the database will be backed up. Yes, you are required to backup your databases. Even if you think you don't, you do.";
@@ -44,6 +47,10 @@ in {
           hostPath = cfg.backupDir;
           isReadOnly = false;
         };
+        "${cfg.mediaDir}" = {
+          hostPath = cfg.mediaDir;
+          isReadOnly = false;
+        };
       };
 
       forwardPorts = [{
@@ -64,6 +71,7 @@ in {
               avatars = "gravatar,initials";
               listen = { http = "0.0.0.0:${toString cfg.port}"; };
             };
+            paths.media = "${cfg.mediaDir}/media";
           };
 
           # Some override of the internal services
@@ -99,6 +107,13 @@ in {
     # Create the folder if it doesn't exist
     systemd.tmpfiles.settings.authentik = {
       "${cfg.dataDir}" = {
+        d = {
+          user = "root";
+          mode = "777";
+        };
+      };
+
+      "${cfg.mediaDir}" = {
         d = {
           user = "root";
           mode = "777";
