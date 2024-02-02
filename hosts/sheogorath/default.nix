@@ -58,6 +58,7 @@ in {
         port = 11200;
         configDir = "/vault/ocis";
         dataDir = "/documents/ocis";
+        environmentFiles = [ config.age.secrets.ocisEnv.path ];
         url = "https://ocis.${domain}";
       };
 
@@ -72,6 +73,7 @@ in {
 
       palworld = {
         enable = true;
+        restart = true;
         port = 8211;
         openFirewall = true;
         dataDir = "/data/palworld";

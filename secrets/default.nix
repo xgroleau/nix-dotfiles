@@ -20,6 +20,7 @@ in {
         immichEnv.file = ./immich-env.age;
         msmtpPass.file = ./msmtp-pass.age;
         cloudflareXgroleau.file = ./cloudflare-xgroleau.age;
+        ocisEnv.file = ./ocis-env.age;
       };
     };
   };

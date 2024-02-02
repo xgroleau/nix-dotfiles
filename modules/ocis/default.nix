@@ -20,6 +20,9 @@ in {
 
     dataDir = mkReq types.str "Path to where the data will be stored";
 
+    environmentFiles = mkOpt' (types.listOf types.str) [ ]
+      "List of environment files to pass for secrets, oidc and others";
+
     url = mkReq types.str
       "URL of the OCIS instance, needs to be https and the same as the OpenIDConnect proxy";
   };
@@ -44,6 +47,8 @@ in {
             OCIS_URL = cfg.url;
             OCIS_LOG_LEVEL = "info";
           };
+
+          environmentFiles = cfg.environmentFiles;
 
           entrypoint = "/bin/sh";
           cmd = [ "-c" "ocis init | true; ocis server" ];
