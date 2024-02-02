@@ -173,26 +173,26 @@ in {
     systemd.tmpfiles.settings.immich = {
       "${cfg.configDir}" = {
         d = {
-          mode = "0755";
+          mode = "0777";
           user = "root";
         };
       };
       "${cfg.dataDir}" = {
         d = {
-          mode = "0755";
+          mode = "0777";
           user = "root";
         };
       };
       "${cfg.databaseDir}" = {
         d = {
-          mode = "0755";
+          mode = "0777";
           user = "root";
         };
       };
 
       "${cfg.backupDir}" = {
         d = {
-          mode = "0755";
+          mode = "0777";
           user = "root";
         };
       };
