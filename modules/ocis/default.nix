@@ -86,10 +86,10 @@ in {
             autoStart = true;
             image = "owncloud/ocis:${ocisVersion}@${ocisHash}";
             environment = {
+              REVA_GATEWAY = "ocis:9142";
               APP_PROVIDER_GRPC_ADDR = "0.0.0.0:9164";
-              APP_PROVIDER_SERVICE_NAME = "app-provider-collabora";
-              # use the internal service name
               APP_PROVIDER_EXTERNAL_ADDR = "ocis-approvider-collabora:9164";
+              APP_PROVIDER_SERVICE_NAME = "app-provider-collabora";
               APP_PROVIDER_DRIVER = "wopi";
               APP_PROVIDER_WOPI_APP_NAME = "Collabora";
               APP_PROVIDER_WOPI_APP_ICON_URI =
