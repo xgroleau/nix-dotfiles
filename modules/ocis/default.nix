@@ -138,7 +138,7 @@ in {
     };
 
     # Network creation
-    services.init-ocis-network = {
+    systemd.services.init-ocis-network = {
       description = "Create the network bridge for ocis.";
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
