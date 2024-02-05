@@ -59,10 +59,5 @@ in {
         ZED_SCRUB_AFTER_RESILVER = true;
       };
     };
-    services.borgbackup.jobs = lib.mapAttrs (name: cfg: {
-      postHook = ''
-        echo -e "From: ${cfg.from}\nTo: ${cfg.to}\nSubject: Borg ${name}\n\nFailed to backup borg job ${name}\n" | ${pkgs.msmtp}/bin/msmtp -a default ${cfg.from}
-      '';
-    }) config.services.borgbackup.jobs;
   };
 }
