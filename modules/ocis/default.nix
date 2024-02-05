@@ -50,6 +50,7 @@ in {
             ports = [ "${toString cfg.port}:9200" ];
             volumes =
               [ "${cfg.configDir}:/etc/ocis" "${cfg.dataDir}:/var/lib/ocis" ];
+
             environment = {
               DEMO_USERS = "false";
               # make the REVA gateway accessible to the app drivers
@@ -85,6 +86,9 @@ in {
           ocis-approvider-collabora = {
             autoStart = true;
             image = "owncloud/ocis:${ocisVersion}@${ocisHash}";
+            volumes = [ "${cfg.configDir}:/etc/ocis" ];
+
+            environmentFiles = cfg.environmentFiles;
             environment = {
               REVA_GATEWAY = "ocis:9142";
               APP_PROVIDER_GRPC_ADDR = "0.0.0.0:9164";
@@ -99,7 +103,7 @@ in {
               APP_PROVIDER_WOPI_WOPI_SERVER_EXTERNAL_URL = "http://ocis-wopi";
               APP_PROVIDER_WOPI_FOLDER_URL_BASE_URL = cfg.url;
             };
-            environmentFiles = cfg.environmentFiles;
+
             extraOptions = [ "--network=ocis-bridge" ];
 
             entrypoint = "/bin/sh";
