@@ -106,7 +106,6 @@ in {
       duplicati = {
         enable = true;
         port = 13000;
-        dataDir = "/data/duplicati";
       };
 
       fail2ban.enable = true;

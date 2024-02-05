@@ -98,14 +98,13 @@ in {
               APP_PROVIDER_WOPI_INSECURE = "true";
               APP_PROVIDER_WOPI_WOPI_SERVER_EXTERNAL_URL = "http://ocis-wopi";
               APP_PROVIDER_WOPI_FOLDER_URL_BASE_URL = cfg.url;
-
             };
             environmentFiles = cfg.environmentFiles;
             extraOptions = [ "--network=ocis-bridge" ];
             cmd = [ "app-provider server" ];
           };
 
-          ocis-wopiserver = {
+          ocis-wopi = {
             autoStart = true;
             image = "cs3org/wopiserver:v10.3.1";
             extraOptions = [ "--network=ocis-bridge" ];
