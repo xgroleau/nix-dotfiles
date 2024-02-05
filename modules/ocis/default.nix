@@ -129,7 +129,7 @@ in {
           ocis-collabora = {
             autoStart = true;
             image = "collabora/code:23.05.5.2.1";
-            extraOptions = [ "--network=ocis-bridge" ];
+            extraOptions = [ "--network=ocis-bridge" "--cap-add=CAP_MKNOD" ];
             environment = {
               DONT_GEN_SSL_CERT = "YES";
               extra_params =
