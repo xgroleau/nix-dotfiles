@@ -101,7 +101,9 @@ in {
             };
             environmentFiles = cfg.environmentFiles;
             extraOptions = [ "--network=ocis-bridge" ];
-            cmd = [ "app-provider server" ];
+
+            entrypoint = "/bin/sh";
+            cmd = [ "-c" "ocis app-provider server" ];
           };
 
           ocis-wopi = {
