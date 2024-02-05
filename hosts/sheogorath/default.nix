@@ -106,7 +106,7 @@ in {
       duplicati = {
         enable = true;
         port = 13000;
-        interface = config.services.tailscale.interfaceName;
+        dataDir = "/data/duplicati";
       };
 
       fail2ban.enable = true;
