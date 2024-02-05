@@ -55,6 +55,7 @@ in {
 
       ocis = {
         enable = true;
+        collabora = true;
         port = 11200;
         configDir = "/vault/ocis";
         dataDir = "/documents/ocis";
