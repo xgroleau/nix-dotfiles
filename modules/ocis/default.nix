@@ -55,6 +55,7 @@ in {
               DEMO_USERS = "false";
               # make the REVA gateway accessible to the app drivers
               GATEWAY_GRPC_ADDR = "0.0.0.0:9142";
+              OCIS_GATEWAY_GRPC_ADDR = "0.0.0.0:9142";
 
               PROXY_TLS = "false";
               PROXY_HTTP_ADDR = "0.0.0.0:9200";
@@ -90,7 +91,6 @@ in {
 
             environmentFiles = cfg.environmentFiles;
             environment = {
-              # Seems we need to set both
               OCIS_REVA_GATEWAY = "ocis:9142";
 
               APP_PROVIDER_GRPC_ADDR = "0.0.0.0:9164";
