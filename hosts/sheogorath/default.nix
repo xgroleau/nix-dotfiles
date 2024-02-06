@@ -92,7 +92,9 @@ in {
         compression = "auto,lzma";
         startAt = "daily";
         postHook = ''
-          echo -e "From: sheogorath@gmx.com\nTo: xavgroleau@gmail.com\nSubject: Borg unraid\n\nFailed to backup borg job unraid\n" | ${pkgs.msmtp}/bin/msmtp -a default xavgroleau@gmail.com
+          if [ $exitStatus -ne 0 ]; then
+             echo -e "From: sheogorath@gmx.com\nTo: xavgroleau@gmail.com\nSubject: Borg unraid\n\nFailed to backup borg job unraid with exitcode $exitStatus\n" | ${pkgs.msmtp}/bin/msmtp -a default xavgroleau@gmail.com
+          fi
         '';
       };
 

@@ -97,8 +97,8 @@ in {
               APP_PROVIDER_DRIVER = "wopi";
               APP_PROVIDER_WOPI_APP_NAME = "Collabora";
               APP_PROVIDER_WOPI_APP_ICON_URI =
-                "http://ocis-collabora/favicon.ico";
-              APP_PROVIDER_WOPI_APP_URL = "http://ocis-collabora";
+                "http://ocis-collabora:9980/favicon.ico";
+              APP_PROVIDER_WOPI_APP_URL = "http://ocis-collabora:9980";
               APP_PROVIDER_WOPI_INSECURE = "true";
               APP_PROVIDER_WOPI_WOPI_SERVER_EXTERNAL_URL = "http://ocis-wopi";
               APP_PROVIDER_WOPI_FOLDER_URL_BASE_URL = cfg.url;
@@ -133,7 +133,7 @@ in {
             environment = {
               DONT_GEN_SSL_CERT = "YES";
               extra_params =
-                "--o:ssl.enable=false --o:ssl.termination=true --o:welcome.enable=false --o:net.frame_ancestors=${cfg.url}";
+                "--o:ssl.enable=false --o:ssl.termination=false --o:welcome.enable=false --o:net.frame_ancestors=${cfg.url}";
             };
           };
         })
