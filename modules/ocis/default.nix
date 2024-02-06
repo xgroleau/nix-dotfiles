@@ -90,7 +90,9 @@ in {
 
             environmentFiles = cfg.environmentFiles;
             environment = {
-              REVA_GATEWAY = "ocis:9142";
+              # Seems we need to set both
+              OCIS_REVA_GATEWAY = "ocis:9142";
+
               APP_PROVIDER_GRPC_ADDR = "0.0.0.0:9164";
               APP_PROVIDER_EXTERNAL_ADDR = "ocis-approvider-collabora:9164";
               APP_PROVIDER_SERVICE_NAME = "app-provider-collabora";
