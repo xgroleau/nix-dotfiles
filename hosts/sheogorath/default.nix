@@ -32,7 +32,8 @@ in {
           "authentik.${domain}" = "localhost:9000";
           "immich.${domain}" = "localhost:10300";
           "ocis.${domain}" = "localhost:11200";
-          "overseerr.${domain}" = "192.168.1.110:5055"; # Temporary
+          "overseerr.${domain}" = "unraid:5055"; # Temporary
+          "overseerr.sheogorath.duckdns.org" = "unraid:5055"; # Temporary
         };
       };
 

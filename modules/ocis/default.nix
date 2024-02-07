@@ -1,3 +1,4 @@
+# Based off https://github.com/owncloud/ocis/blob/1515c77b7d3335d32d3c537f31f570121ea60063/deployments/examples/ocis_wopi/docker-compose.yml#L1
 { config, lib, pkgs, ... }:
 
 with lib;
@@ -100,7 +101,8 @@ in {
               REVA_GATEWAY = "com.owncloud.api.gateway";
 
               APP_PROVIDER_GRPC_ADDR = "0.0.0.0:9164";
-              APP_PROVIDER_EXTERNAL_ADDR = "ocis-app-provider-collabora:9164";
+              APP_PROVIDER_EXTERNAL_ADDR =
+                "com.owncloud.api.app-provider-collabora";
               APP_PROVIDER_SERVICE_NAME = "app-provider-collabora";
               APP_PROVIDER_DRIVER = "wopi";
               APP_PROVIDER_WOPI_APP_NAME = "Collabora";
