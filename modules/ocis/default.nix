@@ -51,28 +51,33 @@ in {
             volumes =
               [ "${cfg.configDir}:/etc/ocis" "${cfg.dataDir}:/var/lib/ocis" ];
 
-            environment = {
-              DEMO_USERS = "false";
+            environment = lib.mkMerge [
+              {
+                DEMO_USERS = "false";
 
-              PROXY_TLS = "false";
-              PROXY_HTTP_ADDR = "0.0.0.0:9200";
+                PROXY_TLS = "false";
+                PROXY_HTTP_ADDR = "0.0.0.0:9200";
 
-              OCIS_INSECURE = "false";
-              OCIS_URL = cfg.url;
-              OCIS_LOG_LEVEL = "info";
+                OCIS_INSECURE = "false";
+                OCIS_URL = cfg.url;
+                OCIS_LOG_LEVEL = "info";
 
-              #Tika
-              SEARCH_EXTRACTOR_TYPE = "tika";
-              SEARCH_EXTRACTOR_TIKA_TIKA_URL = "http://ocis-tika:9998";
+                #Tika
+                SEARCH_EXTRACTOR_TYPE = "tika";
+                SEARCH_EXTRACTOR_TIKA_TIKA_URL = "http://ocis-tika:9998";
 
-            } // lib.mkIf cfg.collabora {
-              # make the REVA gateway accessible to the app drivers
-              GATEWAY_GRPC_ADDR = "0.0.0.0:9142";
+              }
 
-              # share the registry with the ocis container
-              MICRO_REGISTRY = "etcd";
-              MICRO_REGISTRY_ADDRESS = "etcd:2379";
-            };
+              (lib.mkIf cfg.collabora {
+                # make the REVA gateway accessible to the app drivers
+                GATEWAY_GRPC_ADDR = "0.0.0.0:9142";
+
+                # share the registry with the ocis container
+                MICRO_REGISTRY = if cfg.collabora then "etcd" else "";
+                MICRO_REGISTRY_ADDRESS =
+                  if cfg.collabora then "etcd:2379" else "";
+              })
+            ];
 
             environmentFiles = cfg.environmentFiles;
 
