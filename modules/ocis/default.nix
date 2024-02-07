@@ -73,6 +73,9 @@ in {
                 GATEWAY_GRPC_ADDR = "0.0.0.0:9142";
                 # share the registry with the ocis container
                 MICRO_REGISTRY_ADDRESS = "127.0.0.1:9233";
+                # make NATS available
+                NATS_NATS_HOST = "0.0.0.0";
+                NATS_NATS_PORT = "9233";
               })
             ];
 
