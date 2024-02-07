@@ -75,6 +75,12 @@ in {
                 SEARCH_EXTRACTOR_TYPE = "tika";
                 SEARCH_EXTRACTOR_TIKA_TIKA_URL = "http://ocis-tika:9998";
                 FRONTEND_FULL_TEXT_SEARCH_ENABLED = "true";
+
+                # NOTIFICATIONS_SMTP_HOST: inbucket
+                # NOTIFICATIONS_SMTP_PORT: 2500
+                # NOTIFICATIONS_SMTP_SENDER: oCIS notifications <notifications@${OCIS_DOMAIN:-ocis.owncloud.test}>
+                # NOTIFICATIONS_SMTP_USERNAME: notifications@${OCIS_DOMAIN:-ocis.owncloud.test}
+                # NOTIFICATIONS_SMTP_INSECURE: "true" # the mail catcher uses self signed certificates
               }
 
               (lib.mkIf cfg.collabora.enable {
