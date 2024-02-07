@@ -53,9 +53,6 @@ in {
 
             environment = {
               DEMO_USERS = "false";
-              # make the REVA gateway accessible to the app drivers
-              GATEWAY_GRPC_ADDR = "0.0.0.0:9142";
-              OCIS_GATEWAY_GRPC_ADDR = "0.0.0.0:9142";
 
               PROXY_TLS = "false";
               PROXY_HTTP_ADDR = "0.0.0.0:9200";
@@ -67,6 +64,14 @@ in {
               #Tika
               SEARCH_EXTRACTOR_TYPE = "tika";
               SEARCH_EXTRACTOR_TIKA_TIKA_URL = "http://ocis-tika:9998";
+
+            } // lib.mkIf cfg.collabora {
+              # make the REVA gateway accessible to the app drivers
+              GATEWAY_GRPC_ADDR = "0.0.0.0:9142";
+
+              # share the registry with the ocis container
+              MICRO_REGISTRY = "etcd";
+              MICRO_REGISTRY_ADDRESS = "etcd:2379";
             };
 
             environmentFiles = cfg.environmentFiles;
@@ -84,17 +89,17 @@ in {
         }
 
         (lib.mkIf cfg.collabora {
-          ocis-approvider-collabora = {
+          ocis-app-rovider-collabora = {
             autoStart = true;
             image = "owncloud/ocis:${ocisVersion}@${ocisHash}";
             volumes = [ "${cfg.configDir}:/etc/ocis" ];
 
             environmentFiles = cfg.environmentFiles;
             environment = {
-              OCIS_REVA_GATEWAY = "ocis:9142";
+              REVA_GATEWAY = "com.owncloud.api.gateway";
 
               APP_PROVIDER_GRPC_ADDR = "0.0.0.0:9164";
-              APP_PROVIDER_EXTERNAL_ADDR = "ocis-approvider-collabora:9164";
+              APP_PROVIDER_EXTERNAL_ADDR = "ocis-app-rovider-collabora:9164";
               APP_PROVIDER_SERVICE_NAME = "app-provider-collabora";
               APP_PROVIDER_DRIVER = "wopi";
               APP_PROVIDER_WOPI_APP_NAME = "Collabora";
@@ -104,6 +109,10 @@ in {
               APP_PROVIDER_WOPI_INSECURE = "true";
               APP_PROVIDER_WOPI_WOPI_SERVER_EXTERNAL_URL = "http://ocis-wopi";
               APP_PROVIDER_WOPI_FOLDER_URL_BASE_URL = cfg.url;
+
+              # share the registry with the ocis container
+              MICRO_REGISTRY = "etcd";
+              MICRO_REGISTRY_ADDRESS = "etcd:2379";
             };
 
             extraOptions = [ "--network=ocis-bridge" ];
@@ -137,6 +146,14 @@ in {
               extra_params =
                 "--o:ssl.enable=false --o:ssl.termination=false --o:welcome.enable=false --o:net.frame_ancestors=${cfg.url}";
             };
+          };
+          ocsi-etcd = {
+            image = "bitnami/etcd:latest";
+            environment = {
+              ALLOW_NONE_AUTHENTICATION = "yes";
+              ETCD_ADVERTISE_CLIENT_URLS = "http://etcd:2379";
+            };
+            extraOptions = [ "--network=ocis-bridge" ];
           };
         })
 
