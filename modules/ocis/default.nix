@@ -71,10 +71,8 @@ in {
               (lib.mkIf cfg.collabora {
                 # make the REVA gateway accessible to the app drivers
                 GATEWAY_GRPC_ADDR = "0.0.0.0:9142";
-
                 # share the registry with the ocis container
-                MICRO_REGISTRY = "ocis-etcd";
-                MICRO_REGISTRY_ADDRESS = "ocis-etcd:2379";
+                MICRO_REGISTRY_ADDRESS = "127.0.0.1:9233";
               })
             ];
 
@@ -115,8 +113,7 @@ in {
               APP_PROVIDER_WOPI_FOLDER_URL_BASE_URL = cfg.url;
 
               # share the registry with the ocis container
-              MICRO_REGISTRY = "ocis-etcd";
-              MICRO_REGISTRY_ADDRESS = "ocis-etcd:2379";
+              MICRO_REGISTRY_ADDRESS = "ocis:9233";
             };
 
             extraOptions = [ "--network=ocis-bridge" ];
@@ -150,14 +147,6 @@ in {
               extra_params =
                 "--o:ssl.enable=false --o:ssl.termination=false --o:welcome.enable=false --o:net.frame_ancestors=${cfg.url}";
             };
-          };
-          ocis-etcd = {
-            image = "bitnami/etcd:latest";
-            environment = {
-              ALLOW_NONE_AUTHENTICATION = "yes";
-              ETCD_ADVERTISE_CLIENT_URLS = "http://ocis-etcd:2379";
-            };
-            extraOptions = [ "--network=ocis-bridge" ];
           };
         })
 
