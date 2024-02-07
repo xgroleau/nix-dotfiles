@@ -18,8 +18,17 @@ in {
     enable =
       mkEnableOption "OwnCloudInfiniteScale, Nextcloud but without bloat";
 
-    collabora = mkEnableOption
-      "Enables collabora with the OCIS instance, WOPISECRET envinronment variables in the environmentFiles needs to be enabled";
+    collabora = mkOption {
+      type = types.submodule {
+        enable = mkEnableOption
+          "Enables collabora with the OCIS instance, WOPISECRET envinronment variables in the environmentFiles needs to be enabled";
+        wopiUrl = mkReq types.str "URL of the WOPI instance";
+        wopiPort = mkOpt' types.port 8880 "the port to use for the WOPI server";
+        collaboraUrl = mkReq types.str "URL of the Collabora instance";
+        collaboraPort =
+          mkOpt' types.port 9980 "the port to use for the WOPI server";
+      };
+    };
 
     openFirewall = mkBoolOpt' false "Open the required ports in the firewall";
 
@@ -31,6 +40,9 @@ in {
 
     environmentFiles = mkOpt' (types.listOf types.str) [ ]
       "List of environment files to pass for secrets, oidc and others";
+
+    wopiUrl = mkOpt' (types.listOf types.str) [ ]
+      "WopiUrl, must be set if collabora is enabled";
 
     url = mkReq types.str
       "URL of the OCIS instance, needs to be https and the same as the OpenIDConnect proxy";
@@ -65,7 +77,7 @@ in {
                 FRONTEND_FULL_TEXT_SEARCH_ENABLED = "true";
               }
 
-              (lib.mkIf cfg.collabora {
+              (lib.mkIf cfg.collabora.enable {
                 # make the REVA gateway accessible to the app drivers
                 GATEWAY_GRPC_ADDR = "0.0.0.0:9142";
                 # share the registry with the ocis container
@@ -90,7 +102,7 @@ in {
           };
         }
 
-        (lib.mkIf cfg.collabora {
+        (lib.mkIf cfg.collabora.enable {
           ocis-app-provider-collabora = {
             autoStart = true;
             image = "owncloud/ocis:${ocisVersion}";
@@ -107,10 +119,11 @@ in {
               APP_PROVIDER_DRIVER = "wopi";
               APP_PROVIDER_WOPI_APP_NAME = "Collabora";
               APP_PROVIDER_WOPI_APP_ICON_URI =
-                "http://ocis-collabora:9980/favicon.ico";
-              APP_PROVIDER_WOPI_APP_URL = "http://ocis-collabora:9980";
-              APP_PROVIDER_WOPI_INSECURE = "true";
-              APP_PROVIDER_WOPI_WOPI_SERVER_EXTERNAL_URL = "http://ocis-wopi";
+                "${cfg.collabora.collaboraUrl}/favicon.ico";
+              APP_PROVIDER_WOPI_APP_URL = cfg.collabora.collaboraUrl;
+              APP_PROVIDER_WOPI_INSECURE = "false";
+              APP_PROVIDER_WOPI_WOPI_SERVER_EXTERNAL_URL =
+                cfg.collabora.wopiUrl;
               APP_PROVIDER_WOPI_FOLDER_URL_BASE_URL = cfg.url;
 
               # share the registry with the ocis container
@@ -134,9 +147,10 @@ in {
             ];
             environmentFiles = cfg.environmentFiles;
             environment = {
-              WOPISERVER_INSECURE = "true";
-              WOPISERVER_DOMAIN = "wopi";
+              WOPISERVER_INSECURE = "false";
+              WOPISERVER_DOMAIN = cfg.collabora.wopiUrl;
             };
+            ports = [ "${toString cfg.collabora.wopiPort}:8880" ];
           };
 
           ocis-collabora = {
@@ -148,6 +162,7 @@ in {
               extra_params =
                 "--o:ssl.enable=false --o:ssl.termination=false --o:welcome.enable=false --o:net.frame_ancestors=${cfg.url}";
             };
+            ports = [ "${toString cfg.collabora.wopiPort}:9980" ];
           };
         })
 

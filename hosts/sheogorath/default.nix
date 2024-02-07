@@ -30,8 +30,13 @@ in {
         email = "xavgroleau@gmail.com";
         reverseProxies = {
           "authentik.${domain}" = "localhost:9000";
+
           "immich.${domain}" = "localhost:10300";
+
           "ocis.${domain}" = "localhost:11200";
+          "wopi.${domain}" = "localhost:11210";
+          "collabora.${domain}" = "localhost:11220";
+
           "overseerr.${domain}" = "unraid:5055"; # Temporary
           "overseerr.sheogorath.duckdns.org" = "unraid:5055"; # Temporary
         };
@@ -56,7 +61,13 @@ in {
 
       ocis = {
         enable = true;
-        collabora = true;
+        collabora = {
+          enable = true;
+          wopiUrl = "wopi.${domain}";
+          wopiPort = 11210;
+          collaboraUrl = "collabora.${domain}";
+          collaboraPort = 11220;
+        };
         port = 11200;
         configDir = "/vault/ocis";
         dataDir = "/documents/ocis";
