@@ -63,16 +63,16 @@ in {
         enable = true;
         collabora = {
           enable = true;
-          wopiUrl = "wopi.${domain}";
+          wopiDomain = "wopi.${domain}";
           wopiPort = 11210;
-          collaboraUrl = "collabora.${domain}";
+          collaboraDomain = "collabora.${domain}";
           collaboraPort = 11220;
         };
         port = 11200;
         configDir = "/vault/ocis";
         dataDir = "/documents/ocis";
         environmentFiles = [ config.age.secrets.ocisEnv.path ];
-        url = "https://ocis.${domain}";
+        domain = "ocis.${domain}";
       };
 
       msmtp = {

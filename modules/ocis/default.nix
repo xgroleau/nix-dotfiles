@@ -23,10 +23,10 @@ in {
         options = {
           enable = mkEnableOption
             "Enables collabora with the OCIS instance, WOPISECRET envinronment variables in the environmentFiles needs to be enabled";
-          wopiUrl = mkReq types.str "URL of the WOPI instance";
+          wopiDomain = mkReq types.str "URL of the WOPI instance";
           wopiPort =
             mkOpt' types.port 8880 "the port to use for the WOPI server";
-          collaboraUrl = mkReq types.str "URL of the Collabora instance";
+          collaboraDomain = mkReq types.str "URL of the Collabora instance";
           collaboraPort =
             mkOpt' types.port 9980 "the port to use for the WOPI server";
         };
@@ -44,7 +44,7 @@ in {
     environmentFiles = mkOpt' (types.listOf types.str) [ ]
       "List of environment files to pass for secrets, oidc and others";
 
-    url = mkReq types.str
+    domain = mkReq types.str
       "URL of the OCIS instance, needs to be https and the same as the OpenIDConnect proxy";
   };
 
@@ -68,7 +68,7 @@ in {
                 PROXY_HTTP_ADDR = "0.0.0.0:9200";
 
                 OCIS_INSECURE = "false";
-                OCIS_URL = cfg.url;
+                OCIS_URL = "https://${cfg.domain}";
                 OCIS_LOG_LEVEL = "info";
 
                 #Tika
@@ -119,12 +119,13 @@ in {
               APP_PROVIDER_DRIVER = "wopi";
               APP_PROVIDER_WOPI_APP_NAME = "Collabora";
               APP_PROVIDER_WOPI_APP_ICON_URI =
-                "${cfg.collabora.collaboraUrl}/favicon.ico";
-              APP_PROVIDER_WOPI_APP_URL = cfg.collabora.collaboraUrl;
+                "https://${cfg.collabora.collaboraDomain}/favicon.ico";
+              APP_PROVIDER_WOPI_APP_URL =
+                "https://${cfg.collabora.collaboraDomain}";
               APP_PROVIDER_WOPI_INSECURE = "false";
               APP_PROVIDER_WOPI_WOPI_SERVER_EXTERNAL_URL =
-                cfg.collabora.wopiUrl;
-              APP_PROVIDER_WOPI_FOLDER_URL_BASE_URL = cfg.url;
+                "https://${cfg.collabora.wopiDomain}";
+              APP_PROVIDER_WOPI_FOLDER_URL_BASE_URL = "https://${cfg.domain}";
 
               # share the registry with the ocis container
               MICRO_REGISTRY_ADDRESS = "ocis:9233";
@@ -148,7 +149,7 @@ in {
             environmentFiles = cfg.environmentFiles;
             environment = {
               WOPISERVER_INSECURE = "false";
-              WOPISERVER_DOMAIN = cfg.collabora.wopiUrl;
+              WOPISERVER_DOMAIN = cfg.collabora.wopiDomain;
             };
             ports = [ "${toString cfg.collabora.wopiPort}:8880" ];
           };
@@ -158,9 +159,10 @@ in {
             image = "collabora/code:23.05.5.2.1";
             extraOptions = [ "--network=ocis-bridge" "--cap-add=CAP_MKNOD" ];
             environment = {
+              aliasgroup1 = "https://${cfg.collabora.wopiDomain}:443";
               DONT_GEN_SSL_CERT = "YES";
               extra_params =
-                "--o:ssl.enable=false --o:ssl.termination=false --o:welcome.enable=false --o:net.frame_ancestors=${cfg.url}";
+                "--o:ssl.enable=false --o:ssl.termination=false --o:welcome.enable=false --o:net.frame_ancestors=${cfg.domain}";
             };
             ports = [ "${toString cfg.collabora.collaboraPort}:9980" ];
           };
