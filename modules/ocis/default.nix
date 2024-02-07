@@ -168,7 +168,7 @@ in {
               aliasgroup1 = "https://${cfg.collabora.wopiDomain}:443";
               DONT_GEN_SSL_CERT = "YES";
               extra_params =
-                "--o:ssl.enable=false --o:ssl.termination=false --o:welcome.enable=false --o:net.frame_ancestors=${cfg.domain}";
+                "--o:ssl.enable=false --o:ssl.termination=true --o:welcome.enable=false --o:net.frame_ancestors=${cfg.domain}";
             };
             ports = [ "${toString cfg.collabora.collaboraPort}:9980" ];
           };
