@@ -18,7 +18,7 @@ in {
         enable = true;
         port = 9000;
         dataDir = "/data/authentik";
-        backupDir = "/data/backup/authentik";
+        backupDir = "/data/backups/authentik";
         mediaDir = "/vault/authentik/media";
         envFile = config.age.secrets.authentikEnv.path;
       };
@@ -41,7 +41,7 @@ in {
         port = 10300;
         configDir = "/vault/immich";
         dataDir = "/documents/immich";
-        backupDir = "/data/backup/immich";
+        backupDir = "/data/backups/immich";
         databaseDir = "/data/immich/database";
         envFile = config.age.secrets.immichEnv.path;
       };
