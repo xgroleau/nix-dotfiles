@@ -65,7 +65,7 @@ in {
                 #Tika
                 SEARCH_EXTRACTOR_TYPE = "tika";
                 SEARCH_EXTRACTOR_TIKA_TIKA_URL = "http://ocis-tika:9998";
-
+                FRONTEND_FULL_TEXT_SEARCH_ENABLED = "true";
               }
 
               (lib.mkIf cfg.collabora {
