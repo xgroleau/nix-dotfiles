@@ -20,13 +20,16 @@ in {
 
     collabora = mkOption {
       type = types.submodule {
-        enable = mkEnableOption
-          "Enables collabora with the OCIS instance, WOPISECRET envinronment variables in the environmentFiles needs to be enabled";
-        wopiUrl = mkReq types.str "URL of the WOPI instance";
-        wopiPort = mkOpt' types.port 8880 "the port to use for the WOPI server";
-        collaboraUrl = mkReq types.str "URL of the Collabora instance";
-        collaboraPort =
-          mkOpt' types.port 9980 "the port to use for the WOPI server";
+        options = {
+          enable = mkEnableOption
+            "Enables collabora with the OCIS instance, WOPISECRET envinronment variables in the environmentFiles needs to be enabled";
+          wopiUrl = mkReq types.str "URL of the WOPI instance";
+          wopiPort =
+            mkOpt' types.port 8880 "the port to use for the WOPI server";
+          collaboraUrl = mkReq types.str "URL of the Collabora instance";
+          collaboraPort =
+            mkOpt' types.port 9980 "the port to use for the WOPI server";
+        };
       };
     };
 
@@ -40,9 +43,6 @@ in {
 
     environmentFiles = mkOpt' (types.listOf types.str) [ ]
       "List of environment files to pass for secrets, oidc and others";
-
-    wopiUrl = mkOpt' (types.listOf types.str) [ ]
-      "WopiUrl, must be set if collabora is enabled";
 
     url = mkReq types.str
       "URL of the OCIS instance, needs to be https and the same as the OpenIDConnect proxy";
@@ -162,7 +162,7 @@ in {
               extra_params =
                 "--o:ssl.enable=false --o:ssl.termination=false --o:welcome.enable=false --o:net.frame_ancestors=${cfg.url}";
             };
-            ports = [ "${toString cfg.collabora.wopiPort}:9980" ];
+            ports = [ "${toString cfg.collabora.collaboraPort}:9980" ];
           };
         })
 
