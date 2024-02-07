@@ -73,9 +73,8 @@ in {
                 GATEWAY_GRPC_ADDR = "0.0.0.0:9142";
 
                 # share the registry with the ocis container
-                MICRO_REGISTRY = if cfg.collabora then "etcd" else "";
-                MICRO_REGISTRY_ADDRESS =
-                  if cfg.collabora then "etcd:2379" else "";
+                MICRO_REGISTRY = "ocis-etcd";
+                MICRO_REGISTRY_ADDRESS = "ocis-etcd:2379";
               })
             ];
 
@@ -116,8 +115,8 @@ in {
               APP_PROVIDER_WOPI_FOLDER_URL_BASE_URL = cfg.url;
 
               # share the registry with the ocis container
-              MICRO_REGISTRY = "etcd";
-              MICRO_REGISTRY_ADDRESS = "etcd:2379";
+              MICRO_REGISTRY = "ocis-etcd";
+              MICRO_REGISTRY_ADDRESS = "ocis-etcd:2379";
             };
 
             extraOptions = [ "--network=ocis-bridge" ];
@@ -152,11 +151,11 @@ in {
                 "--o:ssl.enable=false --o:ssl.termination=false --o:welcome.enable=false --o:net.frame_ancestors=${cfg.url}";
             };
           };
-          ocsi-etcd = {
+          ocis-etcd = {
             image = "bitnami/etcd:latest";
             environment = {
               ALLOW_NONE_AUTHENTICATION = "yes";
-              ETCD_ADVERTISE_CLIENT_URLS = "http://etcd:2379";
+              ETCD_ADVERTISE_CLIENT_URLS = "http://ocis-etcd:2379";
             };
             extraOptions = [ "--network=ocis-bridge" ];
           };
