@@ -4,13 +4,9 @@ with lib;
 with lib.my.option;
 let
   cfg = config.modules.ocis;
-  ocisVersion = "4.0.5";
-  ocisHash =
-    "sha256:1bd0d3ff28b01c17964a1e71cbb410d5d82d630a7556297538723211ffce3513";
+  ocisVersion = "5.0.0-rc.3";
 
   tikaVersion = "2.9.1.0-full";
-  tikaHash =
-    "sha256:3a254453f90dd887eb77fd9f0cac5e858fcb8ad22675010d5e4562714ba4671b";
 
   containerBackendName = config.virtualisation.oci-containers.backend;
 
@@ -46,7 +42,7 @@ in {
         {
           ocis = {
             autoStart = true;
-            image = "owncloud/ocis:${ocisVersion}@${ocisHash}";
+            image = "owncloud/ocis:${ocisVersion}";
             ports = [ "${toString cfg.port}:9200" ];
             volumes =
               [ "${cfg.configDir}:/etc/ocis" "${cfg.dataDir}:/var/lib/ocis" ];
@@ -88,7 +84,7 @@ in {
 
           ocis-tika = {
             autoStart = true;
-            image = "apache/tika:${tikaVersion}@${tikaHash}";
+            image = "apache/tika:${tikaVersion}";
             extraOptions = [ "--network=ocis-bridge" ];
           };
         }
@@ -96,7 +92,7 @@ in {
         (lib.mkIf cfg.collabora {
           ocis-app-rovider-collabora = {
             autoStart = true;
-            image = "owncloud/ocis:${ocisVersion}@${ocisHash}";
+            image = "owncloud/ocis:${ocisVersion}";
             volumes = [ "${cfg.configDir}:/etc/ocis" ];
 
             environmentFiles = cfg.environmentFiles;
