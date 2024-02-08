@@ -3,8 +3,8 @@
 {
   imports = [ ./base-config.nix ];
 
+  programs.ssh.startAgent = true;
   services = {
-    programs.ssh.startAgent = true;
 
     udev = {
       enable = true;
