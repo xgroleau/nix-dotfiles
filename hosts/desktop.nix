@@ -4,6 +4,8 @@
   imports = [ ./base-config.nix ];
 
   services = {
+    programs.ssh.startAgent = true;
+
     udev = {
       enable = true;
       packages = with pkgs; [
