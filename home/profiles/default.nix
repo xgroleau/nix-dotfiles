@@ -35,6 +35,7 @@ rec {
 
       home.packages = with pkgs; [
         pkgs.element-desktop
+        pkgs.beeper
         pkgs.slack
         pkgs.spotify
       ];
