@@ -12,6 +12,7 @@ in {
   config = mkIf cfg.enable {
     services.openssh = {
       enable = true;
+      startAgent = true;
       openFirewall = true;
       settings = {
         PasswordAuthentication = false;
