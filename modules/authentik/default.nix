@@ -64,6 +64,7 @@ in {
         services = {
           authentik = {
             enable = true;
+            createDatabase = true;
             environmentFile = cfg.envFile;
             settings = {
               disable_startup_analytics = true;
