@@ -2,10 +2,13 @@
   description = "My user configuration using home-manager";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     flake-utils.url = "github:numtide/flake-utils";
+
     home-manager = {
-      url = "github:nix-community/home-manager/master";
+      url = "github:nix-community/home-manager/release-23.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     agenix = {
@@ -23,15 +26,14 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
     authentik-nix = {
       url = "github:nix-community/authentik-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, agenix, deploy-rs, disko
-    , flake-utils, authentik-nix }:
+  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, nixos-hardware
+    , home-manager, agenix, deploy-rs, disko, flake-utils, authentik-nix, ... }:
     let
       pkgs = nixpkgs;
       utils = import ./lib {
