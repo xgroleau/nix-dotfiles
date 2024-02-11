@@ -35,12 +35,6 @@
   outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, nixos-hardware
     , home-manager, agenix, deploy-rs, disko, flake-utils, authentik-nix, ... }:
     let
-      pkgs = nixpkgs;
-      utils = import ./lib {
-        inherit pkgs home-manager;
-        inherit (nixpkgs) lib;
-      };
-
       hosts = import ./hosts;
       profiles = import ./home/profiles;
       hmModule = {
@@ -49,12 +43,7 @@
           homeDirectory = "/home/${username}";
         };
       };
-
-      inherit (utils) core;
-      lib = nixpkgs.lib.extend (self: super: { my = utils; });
     in {
-      inherit profiles;
-      inherit utils;
 
       deploy = {
         remoteBuild = true;
@@ -69,13 +58,15 @@
           hosts);
       };
 
+      overlays = import ./overlays { inherit inputs; };
+
       # Generate a home configuration for each profiles
       homeConfigurations = nixpkgs.lib.mapAttrs (profileName: profileConfig:
-        core.homeConfigurationFromProfile {
-          pkgs = pkgs.legacyPackages.${flake-utils.lib.system.x86_64-linux};
-          stateVersion = "24.05";
-          profile = profileConfig;
-          modules = [ hmModule ];
+        home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.${flake-utils.lib.system.x86_64-linux};
+          modules =
+            [ hmModule ./home profileConfig { home.stateVersion = "23.11"; } ];
+          extraSpecialArgs = { inherit inputs; };
         }) profiles;
 
       # Generate a nixos configuration for each hosts
@@ -83,11 +74,8 @@
         nixpkgs.lib.nixosSystem {
           inherit (hostConfig) system;
           specialArgs = {
-            # Provide my lib to modules
-            inherit lib;
             inherit profiles;
-            inherit nixpkgs;
-            flakeInputs = inputs;
+            inherit inputs;
           };
 
           modules = [

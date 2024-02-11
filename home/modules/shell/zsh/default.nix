@@ -1,15 +1,13 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-with lib.my.option;
 let
   cfg = config.modules.shell.zsh;
   pythonCfg = config.modules.dev.python;
 in {
 
-  options.modules.shell.zsh = with types; { enable = mkBoolOpt false; };
+  options.modules.shell.zsh = { enable = lib.mkEnableOption "Enables zsh"; };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     xdg.configFile.zsh.source = ./config;
     programs.zsh = {
       enable = true;

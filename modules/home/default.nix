@@ -1,4 +1,4 @@
-{ config, lib, pkgs, profiles, ... }:
+{ config, lib, inputs, profiles, ... }:
 
 with lib;
 with lib.my.option;
@@ -23,10 +23,13 @@ in {
   };
 
   imports = [
-    (lib.my.core.nixosConfigurationFromProfile {
-      inherit (cfg) username;
-      profile = profiles."${cfg.profile}";
-    })
+    inputs.home-manager.nixosModules.home-manager
+    {
+      home-manager.users.${cfg.username} = _: {
+        imports = [ ../home profile.${cfg.profile} ] ++ extraModules;
+        config = extraConfig;
+      };
+    }
   ];
 
   config = {

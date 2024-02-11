@@ -1,6 +1,9 @@
-{ config, lib, pkgs, nixpkgs, ... }:
+{ config, lib, pkgs, nixpkgs, inputs, ... }:
 
-{
+let
+
+  overlays = import ./overlays { inherit inputs; };
+in {
   imports = [
     ./modules/applications
     ./modules/desktop
@@ -11,6 +14,9 @@
   ];
 
   config = {
+
+    nixpkgs.overlays = [ overlays.lib overlays.unstable-packages ];
+
     # User config
     targets.genericLinux.enable = true;
     systemd.user.startServices = true;

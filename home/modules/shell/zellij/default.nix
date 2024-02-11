@@ -1,12 +1,12 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-with lib.my.option;
 let cfg = config.modules.shell.zellij;
 in {
-  options.modules.shell.zellij = with types; { enable = mkBoolOpt false; };
+  options.modules.shell.zellij = {
+    enable = lib.mkEnableOption "Enables zellij";
+  };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     programs.zellij = {
       enable = true;
       settings = {

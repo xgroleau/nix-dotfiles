@@ -1,15 +1,13 @@
 { config, options, lib, pkgs, ... }:
 
-with lib;
-with lib.my.option;
 let cfg = config.modules.dev.rust;
 in {
 
-  options.modules.dev.rust = with types; {
-    enable = mkEnableOption "Enables rust development tools";
+  options.modules.dev.rust = {
+    enable = lib.mkEnableOption "Enables rust development tools";
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     home = {
       packages = with pkgs; [
         bacon

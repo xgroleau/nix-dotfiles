@@ -1,10 +1,8 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-with lib.my.option;
 let cfg = config.modules.desktop;
 in {
-  config = mkIf (cfg.active == "i3") {
+  config = lib.mkIf (cfg.active == "i3") {
     fonts.fontconfig.enable = true;
 
     home.packages = with pkgs; [

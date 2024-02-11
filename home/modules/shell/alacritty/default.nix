@@ -1,12 +1,12 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-with lib.my.option;
 let cfg = config.modules.shell.alacritty;
 in {
-  options.modules.shell.alacritty = with types; { enable = mkBoolOpt false; };
+  options.modules.shell.alacritty = {
+    enable = lib.mkEnableOption "Enables alacritty";
+  };
 
-  config = {
+  config = lib.mkIf cfg.enable {
     programs.alacritty.enable = true;
     xdg.configFile.alacritty.source = ./config;
     home.packages = with pkgs;

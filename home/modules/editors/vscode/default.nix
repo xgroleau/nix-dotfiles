@@ -1,13 +1,13 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-with lib.my.option;
 let cfg = config.modules.editors.vscode;
 in {
 
-  options.modules.editors.vscode = with types; { enable = mkBoolOpt false; };
+  options.modules.editors.vscode = {
+    enable = lib.mkEnableOption "Enables VScode with some base extensions";
+  };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     programs.vscode = {
       enable = true;
       # Need some packages for web assembly and preview in IDE

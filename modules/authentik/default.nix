@@ -1,4 +1,4 @@
-{ config, lib, pkgs, flakeInputs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 with lib;
 with lib.my.option;
@@ -26,6 +26,7 @@ in {
     port = mkOpt' types.port 9000 "the port for http access";
   };
 
+  # We use a contianer so other services can have a different PG version
   config = mkIf cfg.enable {
     containers.authentik = {
       autoStart = true;

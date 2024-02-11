@@ -1,15 +1,14 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-with lib.my.option;
 let cfg = config.modules.applications.firefox;
 in {
 
-  options.modules.applications.firefox = with types; {
-    enable = mkBoolOpt false;
+  options.modules.applications.firefox = {
+    enable =
+      lib.mkEnableOption "Enables firefox with some goodies and base config";
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     programs.firefox = {
       enable = true;
       package = pkgs.firefox.override {

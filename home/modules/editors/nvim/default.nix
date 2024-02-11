@@ -1,15 +1,13 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-with lib.my.option;
 let cfg = config.modules.editors.nvim;
 in {
 
-  options.modules.editors.nvim = with types; {
-    enable = mkEnableOption "Enables neovim with my config";
+  options.modules.editors.nvim = {
+    enable = lib.mkEnableOption "Enables neovim with my config";
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     programs.neovim = {
       enable = true;
       vimAlias = true;

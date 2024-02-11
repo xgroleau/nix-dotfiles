@@ -1,10 +1,9 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-with lib.my.option; {
+{
 
-  options.modules.desktop = with types; {
-    active = mkOption {
+  options.modules.desktop = with lib.types; {
+    active = lib.mkOption {
       type = nullOr str;
       default = null;
       description = ''

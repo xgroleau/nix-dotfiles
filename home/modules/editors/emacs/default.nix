@@ -1,16 +1,14 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-with lib.my.option;
 let cfg = config.modules.editors.emacs;
 in {
 
-  options.modules.editors.emacs = with types; {
-    enable = mkBoolOpt false;
-    defaultEditor = mkBoolOpt false;
+  options.modules.editors.emacs = {
+    enable = lib.mkEnableOption "Enables emacs";
+    defaultEditor = lib.mkEnableOption "Set as default editor";
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     xdg.configFile.doom = {
       source = ./config;
       recursive = true;

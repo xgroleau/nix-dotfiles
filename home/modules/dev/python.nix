@@ -1,17 +1,22 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-with lib.my.option;
 let cfg = config.modules.dev.python;
 in {
 
-  options.modules.dev.python = with types; {
-    enable = mkEnableOption "Enables python development tools";
-    package = mkOpt package pkgs.python3;
-    pythonPackages = mkOpt attrs pkgs.python3Packages;
+  options.modules.dev.python = with lib.types; {
+    enable = lib.mkEnableOption "Enables python development tools";
+    package = lib.mkOption {
+      type = types.package;
+      default = pkgs.python3;
+    };
+
+    pythonPackages = lib.mkOption {
+      type = types.attrs;
+      default = pkgs.python3Packages;
+    };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       poetry
       cfg.package

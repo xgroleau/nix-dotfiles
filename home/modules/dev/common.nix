@@ -1,17 +1,23 @@
 { config, options, lib, pkgs, ... }:
 
-with lib;
-with lib.my.option;
 let cfg = config.modules.dev.common;
 in {
 
-  options.modules.dev.common = with types; {
-    enable = mkEnableOption "Enable common development settings and tools";
-    gitUser = mkOpt types.str "xgroleau";
-    gitEmail = mkOpt types.str "xavgroleau@gmail.com";
+  options.modules.dev.common = with lib.types; {
+    enable = lib.mkEnableOption "Enable common development settings and tools";
+
+    gitUser = lib.mkOption {
+      type = types.str;
+      default = "xgroleau";
+    };
+
+    gitEmail = lib.mkOption {
+      type = types.str;
+      default = "xavgroleau@gmail.com";
+    };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
 
     programs = {
       git = {
