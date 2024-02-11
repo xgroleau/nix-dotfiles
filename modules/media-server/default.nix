@@ -1,7 +1,5 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-with lib.my.option;
 let
   cfg = config.modules.media-server;
   group = "media";
@@ -11,21 +9,30 @@ let
   imageHash =
     "sha256:c1b7a518298d06bc5b66c3bc875a274ad5945258455e059fc6d82152c536e86d";
 in {
-  options.modules.media-server = {
-    enable = mkEnableOption "A media server configuration";
+  options.modules.media-server = with lib.types; {
+    enable = lib.mkEnableOption "A media server configuration";
 
-    openFirewall = mkBoolOpt' false "Open the required ports in the firewall";
+    openFirewall = lib.mkEnableOption "Open the required ports in the firewall";
 
-    data = mkReq types.str "Path where the data will be stored";
+    dataDir = lib.mkOption {
+      type = types.str;
+      description = "Path where the data will be stored";
+    };
 
-    download = mkReq types.str "Path where the download will be stored";
+    downloadDir = lib.mkOption {
+      type = types.str;
+      description = "Path where the download will be stored";
+    };
 
-    ovpnFile = mkReq types.str
-      "Path to ovpn config file, auth needs to be embedded in the file";
+    ovpnFile = lib.mkOption {
+      type = types.str;
+      description =
+        "Path to ovpn config file, auth needs to be embedded in the file";
+    };
 
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     virtualisation.oci-containers = {
       containers = {
         delugevpn = {
@@ -33,8 +40,8 @@ in {
           image = "${image}:${imageVersion}@${imageHash}";
           ports = [ "8112:8112" "8118:8118" "58846:58846" "58946:58946" ];
           volumes = [
-            "${cfg.data}/deluge:/data"
-            "${cfg.download}:/download"
+            "${cfg.dataDir}/deluge:/data"
+            "${cfg.downloadDir}:/download"
             "${cfg.ovpnFile}:/config/openvpn/vpn.ovpn"
           ];
           extraOptions = [ "--cap-add=NET_ADMIN" "--privileged=true" ];
@@ -62,21 +69,21 @@ in {
     };
 
     # Expose ports for container
-    networking.firewall = mkIf cfg.openFirewall {
+    networking.firewall = lib.mkIf cfg.openFirewall {
       allowedTCPPorts = [ 8112 8118 58846 58946 ];
       allowedUDPPorts = [ 8112 8118 58846 58946 ];
     };
 
     # Create a directory for the container to properly start
     systemd.tmpfiles.settings.delugevpn = {
-      "${cfg.data}/deluge" = {
+      "${cfg.dataDir}/deluge" = {
         d = {
           inherit group;
           mode = "0750";
           user = "root";
         };
       };
-      "${cfg.download}" = {
+      "${cfg.downloadDir}" = {
         d = {
           inherit group;
           mode = "0750";
@@ -90,7 +97,7 @@ in {
         inherit group;
         enable = true;
         openFirewall = cfg.openFirewall;
-        dataDir = cfg.data + "/lidarr";
+        dataDir = cfg.dataDir + "/lidarr";
       };
 
       prowlarr = {
@@ -102,14 +109,14 @@ in {
         inherit group;
         enable = true;
         openFirewall = cfg.openFirewall;
-        dataDir = cfg.data + "/radarr";
+        dataDir = cfg.dataDir + "/radarr";
       };
 
       sonarr = {
         inherit group;
         enable = true;
         openFirewall = cfg.openFirewall;
-        dataDir = cfg.data + "/sonarr";
+        dataDir = cfg.dataDir + "/sonarr";
       };
 
       jellyfin = {

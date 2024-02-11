@@ -1,23 +1,27 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-with lib.my.option;
 let cfg = config.modules.duckdns;
 in {
 
-  options.modules.duckdns = with types; {
+  options.modules.duckdns = with lib.types; {
     enable = mkEnableOption
       "Duckdns configuration, enable to register a domain to duckdns";
 
-    domain = mkReq types.nonEmptyStr "The domain to register";
+    domain = lib.mkOption {
+      type = types.nonEmptyStr;
+      description = "The domain to register";
+    };
 
-    tokenFile = mkReq types.str ''
-      The full path to a file which contains the token for the domain.
-       The file should contain exactly one line with the token without any newline.
-    '';
+    tokenFile = lib.mkOption {
+      type = types.str;
+      description = ''
+        The full path to a file which contains the token for the domain.
+         The file should contain exactly one line with the token without any newline.
+      '';
+    };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     systemd.timers.duckdns = {
       wantedBy = [ "timers.target" ];
       wants = [ "network-online.target" ];

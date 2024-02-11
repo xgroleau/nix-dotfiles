@@ -1,33 +1,48 @@
 { config, lib, pkgs, inputs, ... }:
 
-with lib;
-with lib.my.option;
 let cfg = config.modules.authentik;
 in {
 
   imports = [ ];
 
-  options.modules.authentik = {
-    enable = mkEnableOption ''
+  options.modules.authentik = with lib.types; {
+    enable = lib.mkEnableOption ''
       Enables the authentik module, uses a nixos container under the hood so the postges db is a seperated service.
        Also uses ephemeral container, so you need to pass the media directory'';
 
-    openFirewall = mkBoolOpt' false "Open the required ports in the firewall";
+    openFirewall = lib.mkEnableOption "Open the required ports in the firewall";
 
-    envFile = mkReq types.str "Path to the environment file";
+    envFile = lib.mkOption {
+      type = types.str;
+      description = "Path to the environment file";
+    };
 
-    dataDir = mkReq types.str "Path to the database directory";
+    dataDir = lib.mkOption {
+      type = types.str;
+      description = "Path to where the data will be stored";
+    };
 
-    mediaDir = mkReq types.str "Path to the media directory";
+    mediaDir = lib.mkOption {
+      type = types.str;
+      description = "Path to the media directory";
+    };
 
-    backupDir = mkReq types.str
-      "Path to where the database will be backed up. Yes, you are required to backup your databases. Even if you think you don't, you do.";
+    backupDir = lib.mkOption {
+      type = types.str;
+      description =
+        "Path to where the database will be backed up. Yes, you are required to backup your databases. Even if you think you don't, you do.";
+    };
 
-    port = mkOpt' types.port 9000 "the port for http access";
+    port = lib.mkOption {
+      type = types.port;
+      default = 9000;
+      description = "the port for http access";
+    };
+
   };
 
   # We use a contianer so other services can have a different PG version
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     containers.authentik = {
       autoStart = true;
       ephemeral = true;
@@ -61,7 +76,7 @@ in {
 
       config = { ... }: {
         nixpkgs.pkgs = pkgs;
-        imports = [ flakeInputs.authentik-nix.nixosModules.default ];
+        imports = [ inputs.authentik-nix.nixosModules.default ];
         services = {
           authentik = {
             enable = true;
@@ -103,7 +118,7 @@ in {
     };
 
     networking.firewall =
-      mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ]; };
+      lib.mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ]; };
 
     # Create the folder if it doesn't exist
     systemd.tmpfiles.settings.authentik = {

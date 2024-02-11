@@ -1,19 +1,23 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-with lib.my.option;
 let cfg = config.modules.caddy;
 in {
 
-  options.modules.caddy = with types; {
-    enable = mkEnableOption "Caddy server as an easy to use reverse proxy";
+  options.modules.caddy = with lib.types; {
+    enable = lib.mkEnableOption "Caddy server as an easy to use reverse proxy";
 
-    openFirewall = mkBoolOpt' false "Open the required ports in the firewall";
+    openFirewall = lib.mkEnableOption "Open the required ports in the firewall";
 
-    email = mkReq types.str
-      "Email to contact if there is an issue with the certificate";
+    email = lib.mkOption {
+      type = types.str;
+      description =
+        "Email to contact if there is an issue with the certificate";
+    };
 
-    dataDir = mkReq types.str "Path to where the data will be stored";
+    dataDir = lib.mkOptin {
+      type = types.str;
+      description = "Path to where the data will be stored";
+    };
 
     reverseProxies = mkOption {
       type = types.attrsOf types.str;
@@ -29,7 +33,7 @@ in {
     };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     services.caddy = {
       enable = true;
       dataDir = cfg.dataDir;
@@ -44,7 +48,7 @@ in {
     };
 
     networking.firewall =
-      mkIf cfg.openFirewall { allowedTCPPorts = [ 80 443 ]; };
+      lib.mkIf cfg.openFirewall { allowedTCPPorts = [ 80 443 ]; };
 
     systemd.tmpfiles.settings.caddy = {
       "${cfg.dataDir}" = {

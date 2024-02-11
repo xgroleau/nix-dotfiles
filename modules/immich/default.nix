@@ -1,7 +1,5 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-with lib.my.option;
 let
 
   cfg = config.modules.immich;
@@ -26,33 +24,52 @@ let
     + containerBackendName;
 in {
 
-  options.modules.immich = with types; {
-    enable =
-      mkEnableOption "Enables immich, a self hosted google photo alternative";
+  options.modules.immich = with lib.types; {
+    enable = lib.mkEnableOption
+      "Enables immich, a self hosted google photo alternative";
 
-    openFirewall = mkBoolOpt' false "Open the required ports in the firewall";
+    openFirewall = lib.mkEnableOption "Open the required ports in the firewall";
 
-    port = mkOpt' types.port 9300 "the port to use";
+    port = lib.mkOption {
+      type = types.port;
+      default = 9300;
+      description = "The port to use";
+    };
 
-    configDir = mkReq types.str "Path to the config file";
+    configDir = lib.mkOption {
+      type = lib.types.str;
+      descriptio = "Path to the config file";
+    };
 
-    dataDir = mkReq types.str "Path to where the data will be stored";
+    dataDir = lib.mkOption {
+      type = types.str;
+      description = "Path to where the data will be stored";
+    };
 
-    backupDir = mkReq types.str
-      "Path to where the database will be backed up. Yes, you are required to backup your databases. Even if you think you don't, you do.";
+    databaseDir = lib.mkOption {
+      type = types.str;
+      description = "Path to where the database will be stored";
+    };
 
-    databaseDir = mkReq types.str "Path to where the database will be stored";
+    backupDir = lib.mkOption {
+      type = types.str;
+      description =
+        "Path to where the database will be backed up. Yes, you are required to backup your databases. Even if you think you don't, you do.";
+    };
 
-    envFile = mkReq types.str ''
-      Path to where the secrets environment file is.
-      Needs to contain the following environment values
-        DB_PASSWORD="YYYY"
-        POSTGRES_PASSWORD="YYYY"
-    '';
+    envFile = lib.mkOption {
+      type = types.str;
+      description = ''
+        Path to where the secrets environment file is.
+        Needs to contain the following environment values
+          DB_PASSWORD="YYYY"
+          POSTGRES_PASSWORD="YYYY"
+      '';
 
+    };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
 
     virtualisation.oci-containers.containers = {
       immich-server = {
@@ -166,7 +183,7 @@ in {
     };
 
     networking.firewall = {
-      allowedTCPPorts = mkIf cfg.openFirewall [ cfg.port ];
+      allowedTCPPorts = lib.mkIf cfg.openFirewall [ cfg.port ];
       interfaces."podman+".allowedUDPPorts = [ 53 ];
     };
 

@@ -1,8 +1,6 @@
 # Based off https://github.com/owncloud/ocis/blob/1515c77b7d3335d32d3c537f31f570121ea60063/deployments/examples/ocis_wopi/docker-compose.yml#L1
 { config, lib, pkgs, ... }:
 
-with lib;
-with lib.my.option;
 let
   cfg = config.modules.ocis;
   ocisVersion = "5.0.0-rc.3";
@@ -14,11 +12,13 @@ let
   containerBackend = pkgs."${containerBackendName}" + "/bin/"
     + containerBackendName;
 in {
-  options.modules.ocis = with types; {
+  options.modules.ocis = with lib.types; {
     enable =
-      mkEnableOption "OwnCloudInfiniteScale, Nextcloud but without bloat";
+      lib.mkEnableOption "OwnCloudInfiniteScale, Nextcloud but without bloat";
 
-    collabora = mkOption {
+    openFirewall = lib.mkEnableOption "Open the required ports in the firewall";
+
+    collabora = lib.mkOption {
       type = types.submodule {
         options = {
           enable = mkEnableOption
@@ -33,22 +33,38 @@ in {
       };
     };
 
-    openFirewall = mkBoolOpt' false "Open the required ports in the firewall";
+    port = lib.mkOption {
+      type = types.port;
+      default = 9200;
+      description = "The port to use";
+    };
 
-    port = mkOpt' types.port 9200 "the port to use";
+    configDir = lib.mkOption {
+      type = lib.types.str;
+      descriptio = "Path to the config file";
+    };
 
-    configDir = mkReq types.str "Path to the config file";
+    dataDir = lib.mkOption {
+      type = types.str;
+      description = "Path to where the data will be stored";
+    };
 
-    dataDir = mkReq types.str "Path to where the data will be stored";
+    environmentFiles = lib.mkOption {
+      type = types.listOf types.str;
+      default = [ ];
+      description =
+        "List of environment files to pass for secrets, oidc and others";
+    };
 
-    environmentFiles = mkOpt' (types.listOf types.str) [ ]
-      "List of environment files to pass for secrets, oidc and others";
+    domain = lib.mkOption {
+      type = types.str;
+      description =
+        "URL of the OCIS instance, needs to be https and the same as the OpenIDConnect proxy";
+    };
 
-    domain = mkReq types.str
-      "URL of the OCIS instance, needs to be https and the same as the OpenIDConnect proxy";
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
 
     virtualisation.oci-containers = {
       containers = lib.mkMerge [
@@ -198,7 +214,7 @@ in {
 
     # Expose ports for container
     networking.firewall =
-      mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ]; };
+      lib.mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ]; };
 
     systemd.tmpfiles.settings.ocis = {
       "${cfg.dataDir}" = {

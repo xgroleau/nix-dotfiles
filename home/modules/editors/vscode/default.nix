@@ -4,14 +4,15 @@ let cfg = config.modules.editors.vscode;
 in {
 
   options.modules.editors.vscode = {
-    enable = lib.mkEnableOption "Enables VScode with some base extensions";
+    enable = lib.mkEnableOption
+      "Enables vscode with a couple of extension and ready for webassembly preview";
   };
 
   config = lib.mkIf cfg.enable {
     programs.vscode = {
       enable = true;
       # Need some packages for web assembly and preview in IDE
-      package = pkgs.vscode.fhsWithPackages (ps:
+      package = pkgs.unstable.vscode.fhsWithPackages (ps:
         with ps; [
           cmake
           fontconfig

@@ -1,15 +1,13 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-with lib.my.option;
 let cfg = config.modules.kdeconnect;
 in {
 
-  options.modules.kdeconnect = with types; {
-    enable = mkEnableOption "Enables the kde connect service ports";
+  options.modules.kdeconnect = {
+    enable = lib.mkEnableOption "Enables the kde connect service ports";
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     networking.firewall = {
       allowedTCPPortRanges = [{
         from = 1714;

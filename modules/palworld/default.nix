@@ -1,35 +1,55 @@
 { config, pkgs, lib, ... }:
 
-with lib;
-with lib.my.option;
 let
   cfg = config.modules.palworld;
   join = builtins.concatStringsSep " ";
 in {
 
-  options.modules.palworld = {
-    enable = mkEnableOption "palworld";
+  options.modules.palworld = with lib.types; {
+    enable = lib.mkEnableOption "palworld";
 
-    openFirewall = mkBoolOpt' false "Open the required ports in the firewall";
+    openFirewall = lib.mkEnableOption "Open the required ports in the firewall";
 
-    user = mkOpt' types.str "palworld" "User account under which palworld runs";
+    restart = lib.mkEnableOption "Restart the service every night for updates";
 
-    group = mkOpt' types.str "palworld" "Group under which palworld runs";
+    user = lib.mkOption {
+      type = lib.types.str;
+      description = "palworld" "User account under which palworld runs";
+    };
 
-    restart = mkBoolOpt' false "Restart the service every night for updates";
+    group = lib.mkOption {
+      type = lib.types.str;
+      default = "palworld";
+      description = "Group under which palworld runs";
+    };
 
-    restartTime = mkOpt' types.str "*-*-* 04:00:00"
-      "When to do the restart. Uses systemd timer calendar format";
+    restartTime = lib.mkOption {
+      type = lib.types.str;
+      default = "*-*-* 04:00:00";
+      description =
+        "When to do the restart. Uses systemd timer calendar format";
+    };
 
-    dataDir = mkOpt' types.path "/var/lib/palworld"
-      "Where on disk to store your palworld directory";
+    dataDir = lib.mkOption {
+      type = lib.types.str;
+      default = "/var/lib/palworld";
+      description = "Where on disk to store your palworld directory";
+    };
 
-    port = mkOpt' types.port 8211 "the port to use";
+    port = lib.mkOption {
+      type = types.port;
+      default = 8211;
+      description = "the port to use";
+    };
 
-    maxPlayers = mkOpt' types.number 32 "The max amount of players to support";
+    maxPlayers = lib.mkOption {
+      type = types.number;
+      default = 32;
+      description = "The max amount of players to support";
+    };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     users.users.${cfg.user} = {
       inherit (cfg) group;
       home = cfg.dataDir;
@@ -38,7 +58,7 @@ in {
     };
     users.groups.${cfg.group} = { };
 
-    systemd = mkMerge [
+    systemd = lib.mkMerge [
       {
         services.palworld = {
           wantedBy = [ "multi-user.target" ];
@@ -76,7 +96,7 @@ in {
       }
 
       # Restart the service
-      (mkIf cfg.restart {
+      (lib.mkIf cfg.restart {
         services.palworld-restart = {
           description = "Restart palworld";
           wantedBy = [ "multi-user.target" ];
@@ -96,7 +116,7 @@ in {
       })
     ];
 
-    networking.firewall = mkIf cfg.openFirewall {
+    networking.firewall = lib.mkIf cfg.openFirewall {
       allowedUDPPorts = [
         cfg.port
         (cfg.port + 1) # For steam discovery

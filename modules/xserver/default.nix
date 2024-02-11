@@ -1,15 +1,12 @@
 { config, lib, pkgs, profiles, ... }:
 
-with lib;
-with lib.my.option;
 let cfg = config.modules.xserver;
 in {
-
-  options.modules.xserver = with types; {
-    home-manager = mkBoolOpt' false "Let home-manager manage the session";
+  options.modules.xserver = {
+    home-manager = lib.mkEnableOption "Let home-manager manage the session";
   };
 
-  config = mkIf cfg.home-manager {
+  config = lib.mkIf cfg.home-manager {
     environment.systemPackages = [ pkgs.sddm-chili-theme ];
     services = {
       xserver = {

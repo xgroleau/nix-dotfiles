@@ -1,15 +1,11 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-with lib.my.option;
 let cfg = config.modules.ssh;
 in {
 
-  options.modules.ssh = with types; {
-    enable = mkEnableOption "Enable a ssh server";
-  };
+  options.modules.ssh = { enable = lib.mkEnableOption "Enable a ssh server"; };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     services.openssh = {
       enable = true;
       openFirewall = true;
