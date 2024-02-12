@@ -26,7 +26,7 @@ in {
     };
 
     time.timeZone = "America/Toronto";
-    environment.systemPackages = with pkgs; [ vim nano curl wget ];
+    environment.systemPackages = with pkgs; [ curl git vim nano wget ];
 
     programs.zsh.enable = true;
     i18n.defaultLocale = "en_CA.UTF-8";

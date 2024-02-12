@@ -3,7 +3,6 @@
 if has('nvim')
 	let autoload_plug_path = stdpath('data') . '/site/autoload/plug.vim'
 	if !filereadable(autoload_plug_path)
-		echo "Inside if"
 		silent execute '!curl -fLo ' . autoload_plug_path . ' --create-dirs "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"'
 	endif
 	unlet autoload_plug_path
