@@ -11,6 +11,7 @@ let
 
   containerBackend = pkgs."${containerBackendName}" + "/bin/"
     + containerBackendName;
+
 in {
   options.modules.ocis = with lib.types; {
     enable =
@@ -21,14 +22,29 @@ in {
     collabora = lib.mkOption {
       type = types.submodule {
         options = {
-          enable = mkEnableOption
+          enable = lib.mkEnableOption
             "Enables collabora with the OCIS instance, WOPISECRET envinronment variables in the environmentFiles needs to be enabled";
-          wopiDomain = mkReq types.str "URL of the WOPI instance";
-          wopiPort =
-            mkOpt' types.port 8880 "the port to use for the WOPI server";
-          collaboraDomain = mkReq types.str "URL of the Collabora instance";
-          collaboraPort =
-            mkOpt' types.port 9980 "the port to use for the WOPI server";
+          wopiDomain = lib.mkOption {
+            type = types.str;
+            description = "URL of the WOPI instance";
+          };
+
+          wopiPort = lib.mkOption {
+            type = types.port;
+            default = 8880;
+            description = "The port to use for the WOPI server";
+          };
+
+          collaboraDomain = lib.mkOption {
+            type = types.str;
+            description = "URL of the Collabora instance";
+          };
+
+          collaboraPort = lib.mkOption {
+            type = types.port;
+            default = 8880;
+            description = "The port to use for the Collabora server";
+          };
         };
       };
     };
@@ -41,7 +57,7 @@ in {
 
     configDir = lib.mkOption {
       type = lib.types.str;
-      descriptio = "Path to the config file";
+      description = "Path to the config file";
     };
 
     dataDir = lib.mkOption {

@@ -14,12 +14,12 @@ in {
         "Email to contact if there is an issue with the certificate";
     };
 
-    dataDir = lib.mkOptin {
+    dataDir = lib.mkOption {
       type = types.str;
       description = "Path to where the data will be stored";
     };
 
-    reverseProxies = mkOption {
+    reverseProxies = lib.mkOption {
       type = types.attrsOf types.str;
       default = { };
       example = literalExpression ''

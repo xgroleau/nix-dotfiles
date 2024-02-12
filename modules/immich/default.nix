@@ -38,7 +38,7 @@ in {
 
     configDir = lib.mkOption {
       type = lib.types.str;
-      descriptio = "Path to the config file";
+      description = "Path to the config file";
     };
 
     dataDir = lib.mkOption {

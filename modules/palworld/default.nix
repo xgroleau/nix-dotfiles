@@ -14,7 +14,8 @@ in {
 
     user = lib.mkOption {
       type = lib.types.str;
-      description = "palworld" "User account under which palworld runs";
+      default = "palworld";
+      description = "User account under which palworld runs";
     };
 
     group = lib.mkOption {
