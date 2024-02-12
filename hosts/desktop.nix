@@ -4,6 +4,7 @@
   imports = [ ./base-config.nix ];
 
   programs.ssh.startAgent = true;
+
   services = {
 
     udev = {
@@ -15,6 +16,7 @@
         openocd
         libsigrok
       ];
+
       extraRules = ''
         # Udev rules for nrfconnect
         # https://github.com/NordicSemiconductor/nrf-udev/blob/dcd4097b4c4c00f1103f94cb8d2faba6437d8101/nrf-udev_1.0.1-all/lib/udev/rules.d/71-nrf.rules

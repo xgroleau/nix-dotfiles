@@ -1,13 +1,19 @@
-{ config, lib, pkgs, nixpkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
-let keys = import ../secrets/ssh-keys.nix;
+let
+  keys = import ../secrets/ssh-keys.nix;
+  overlays = import ../overlays { inherit inputs; };
 in {
   config = {
 
     # Custom modules
     modules = { tailscale.enable = true; };
 
-    nixpkgs.config.allowUnfree = true;
+    nixpkgs = {
+      config.allowUnfree = true;
+      overlays = [ overlays.unstable-packages ];
+    };
+
     nix = {
       package = pkgs.nixUnstable;
       extraOptions = ''
@@ -15,8 +21,8 @@ in {
       '';
 
       # Avoid always redownloading the registry
-      registry.nixpkgs.flake = nixpkgs; # For flake commands
-      nixPath = [ "nixpkgs=${nixpkgs}" ]; # For legacy commands
+      registry.nixpkgs.flake = inputs.nixpkgs; # For flake commands
+      nixPath = [ "nixpkgs=${inputs.nixpkgs}" ]; # For legacy commands
     };
 
     time.timeZone = "America/Toronto";

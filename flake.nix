@@ -33,7 +33,7 @@
   };
 
   outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, nixos-hardware
-    , home-manager, agenix, deploy-rs, disko, flake-utils, authentik-nix, ... }:
+    , flake-utils, home-manager, agenix, deploy-rs, disko, authentik-nix, ... }:
     let
       hosts = import ./hosts;
       profiles = import ./home/profiles;
@@ -73,17 +73,13 @@
       nixosConfigurations = nixpkgs.lib.mapAttrs (hostName: hostConfig:
         nixpkgs.lib.nixosSystem {
           inherit (hostConfig) system;
-          specialArgs = {
-            inherit profiles;
-            inherit inputs;
-          };
-
+          specialArgs = { inherit inputs; };
           modules = [
             ./modules
             ./secrets
             agenix.nixosModules.default
             disko.nixosModules.disko
-            # authentik-nix.nixosModules.default
+            authentik-nix.nixosModules.default
             hostConfig.cfg
           ];
         }) hosts;

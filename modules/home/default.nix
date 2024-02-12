@@ -1,6 +1,8 @@
-{ config, lib, inputs, profiles, ... }:
+{ config, pkgs, lib, inputs, ... }:
 
-let cfg = config.modules.home;
+let
+  cfg = config.modules.home;
+  profiles = import ../../home/profiles;
 in {
 
   options.modules.home = with lib.types; {
@@ -22,19 +24,20 @@ in {
 
   imports = [
     inputs.home-manager.nixosModules.home-manager
-    {
-      home-manager.users.${cfg.username} = _: {
-        imports = [ ../home profiles.${cfg.profile} ];
-      };
-    }
+    { home-manager = { extraSpecialArgs = { inherit inputs; }; }; }
   ];
 
   config = {
 
     home-manager = {
-      useGlobalPkgs = true;
       useUserPackages = true;
-      users."${cfg.username}".home.stateVersion = config.system.stateVersion;
+      sharedModules = [ ../../home ];
+
+      users.${cfg.username} = {
+        imports = [ profiles.${cfg.profile} ];
+        config = { home.stateVersion = config.system.stateVersion; };
+      };
+
     };
   };
 

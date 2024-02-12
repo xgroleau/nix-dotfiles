@@ -4,7 +4,7 @@ let cfg = config.modules.duckdns;
 in {
 
   options.modules.duckdns = with lib.types; {
-    enable = mkEnableOption
+    enable = lib.mkEnableOption
       "Duckdns configuration, enable to register a domain to duckdns";
 
     domain = lib.mkOption {
