@@ -17,7 +17,7 @@ in {
       authentik = {
         enable = true;
         port = 9000;
-        enablLdap = true;
+        enableLdap = true;
         dataDir = "/data/authentik";
         backupDir = "/data/backups/authentik";
         mediaDir = "/vault/authentik/media";
