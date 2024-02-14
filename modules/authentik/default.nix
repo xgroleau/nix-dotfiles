@@ -10,8 +10,29 @@ in {
       Enables the authentik module, uses a nixos container under the hood so the postges db is a seperated service.
        Also uses ephemeral container, so you need to pass the media directory'';
 
-    enableLdap = lib.mkEnableOption
-      "Enables the authentik ldap outpost. The envFile needs the required environment variables";
+    ldap = {
+      type = types.submodule {
+
+        enable = lib.mkEnableOption
+          "Enables the authentik ldap outpost. The envFile needs the required environment variables";
+
+        openFirewall = lib.mkEnableOption
+          "Open the required ports in the firewall for the ldap service";
+
+        ldapPort = lib.mkOption {
+          type = types.port;
+          default = 389;
+          description = "the port for ldap";
+        };
+
+        ldapsPort = lib.mkOption {
+          type = types.port;
+          default = 636;
+          description = "the port for ldaps";
+        };
+      };
+
+    };
 
     openFirewall = lib.mkEnableOption "Open the required ports in the firewall";
 
@@ -72,10 +93,22 @@ in {
         };
       };
 
-      forwardPorts = [{
-        hostPort = cfg.port;
-        protocol = "tcp";
-      }];
+      forwardPorts = [
+        {
+          hostPort = cfg.port;
+          protocol = "tcp";
+        }
+        (lib.mkIf cfg.ldap.enable {
+          containerPort = 389;
+          hostPort = cfg.ldap.ldapPort;
+          protocol = "tcp";
+        })
+        (lib.mkIf cfg.ldap.enable {
+          containerPort = 636;
+          hostPort = cfg.ldap.ldapsPort;
+          protocol = "tcp";
+        })
+      ];
 
       config = { ... }: {
         nixpkgs.pkgs = pkgs;
@@ -93,7 +126,7 @@ in {
             };
           };
 
-          authentik-ldap = lib.mkIf cfg.enableLdap {
+          authentik-ldap = lib.mkIf cfg.ldap.enable {
             enable = true;
             environmentFile = cfg.envFile;
           };
@@ -125,8 +158,13 @@ in {
       };
     };
 
-    networking.firewall =
-      lib.mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ]; };
+    networking.firewall = lib.mkIf cfg.openFirewall (lib.mkMerge [
+      { allowedTCPPorts = [ cfg.port ]; }
+      (lib.mkIf (cfg.ldap.enable && cfg.ldap.openFirewall) {
+        allowedTCPPorts = [ cfg.ldap.ldapPort cfg.ldap.ldapsPort ];
+        allowedUDPPorts = [ cfg.ldap.ldapPort cfg.ldap.ldapsPort ];
+      })
+    ]);
 
     # Create the folder if it doesn't exist
     systemd.tmpfiles.settings.authentik = {

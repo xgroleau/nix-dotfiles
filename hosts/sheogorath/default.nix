@@ -17,11 +17,15 @@ in {
       authentik = {
         enable = true;
         port = 9000;
-        enableLdap = true;
         dataDir = "/data/authentik";
         backupDir = "/data/backups/authentik";
         mediaDir = "/vault/authentik/media";
         envFile = config.age.secrets.authentikEnv.path;
+        ldap = {
+          enable = true;
+          ldapPort = 9389;
+          ldapsPort = 9636;
+        };
       };
 
       caddy = {
