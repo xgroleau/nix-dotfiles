@@ -125,7 +125,7 @@ in {
         openFirewall = cfg.openFirewall;
       };
 
-      jellyseer = {
+      jellyseerr = {
         enable = true;
         port = 5055;
         openFirewall = cfg.openFirewall;
