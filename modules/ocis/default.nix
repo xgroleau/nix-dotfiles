@@ -108,6 +108,7 @@ in {
                 SEARCH_EXTRACTOR_TIKA_TIKA_URL = "http://ocis-tika:9998";
                 FRONTEND_FULL_TEXT_SEARCH_ENABLED = "true";
 
+                # TODO:
                 # NOTIFICATIONS_SMTP_HOST: inbucket
                 # NOTIFICATIONS_SMTP_PORT: 2500
                 # NOTIFICATIONS_SMTP_SENDER: oCIS notifications <notifications@${OCIS_DOMAIN:-ocis.owncloud.test}>

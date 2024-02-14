@@ -100,12 +100,12 @@ in {
           protocol = "tcp";
         }
         (lib.mkIf cfg.ldap.enable {
-          containerPort = 389;
+          containerPort = 3389;
           hostPort = cfg.ldap.ldapPort;
           protocol = "tcp";
         })
         (lib.mkIf cfg.ldap.enable {
-          containerPort = 636;
+          containerPort = 6636;
           hostPort = cfg.ldap.ldapsPort;
           protocol = "tcp";
         })
@@ -114,6 +114,12 @@ in {
       config = { ... }: {
         nixpkgs.pkgs = pkgs;
         imports = [ inputs.authentik-nix.nixosModules.default ];
+        systemd.services.authentik-ldap.serviceConfig.Environment = [
+          "AUTHENTIK_LISTEN__METRICS=9301"
+          "AUTHENTIK_LISTEN__LDAP=3389"
+          "AUTHENTIK_LISTEN__LDAPS=6636"
+        ];
+
         services = {
           authentik = {
             enable = true;
