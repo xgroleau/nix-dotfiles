@@ -44,6 +44,8 @@ in {
           "wopi.${domain}" = "localhost:11210";
           "collabora.${domain}" = "localhost:11220";
 
+          "jellyfin.${domain}" = "localhost:8096";
+
           "overseerr.${domain}" = "unraid:5055"; # Temporary
           "overseerr.sheogorath.duckdns.org" = "unraid:5055"; # Temporary
         };

@@ -125,6 +125,12 @@ in {
         openFirewall = cfg.openFirewall;
       };
 
+      jellyseer = {
+        enable = true;
+        port = 5055;
+        openFirewall = cfg.openFirewall;
+      };
+
     };
 
     # And overwrite prowlarr's default systemd unit to run with the correct user/group
