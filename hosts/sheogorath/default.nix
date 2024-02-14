@@ -17,6 +17,7 @@ in {
       authentik = {
         enable = true;
         port = 9000;
+        metricsPort = 9300;
         dataDir = "/data/authentik";
         backupDir = "/data/backups/authentik";
         mediaDir = "/vault/authentik/media";
@@ -25,6 +26,7 @@ in {
           enable = true;
           ldapPort = 9389;
           ldapsPort = 9636;
+          metricsPort = 9301;
         };
       };
 

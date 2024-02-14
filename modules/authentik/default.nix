@@ -111,9 +111,9 @@ in {
         nixpkgs.pkgs = pkgs;
         imports = [ inputs.authentik-nix.nixosModules.default ];
         systemd.services.authentik-ldap.serviceConfig.Environment = [
-          "AUTHENTIK_LISTEN__METRICS=0.0.0.0:${cfg.ldap.metricsPort}"
-          "AUTHENTIK_LISTEN__LDAP=0.0.0.0:${cfg.ldap.ldapPort}"
-          "AUTHENTIK_LISTEN__LDAPS=0.0.0.0:${cfg.ldap.ldapsPort}"
+          "AUTHENTIK_LISTEN__LDAP=0.0.0.0:${toString cfg.ldap.ldapPort}"
+          "AUTHENTIK_LISTEN__LDAPS=0.0.0.0:${toString cfg.ldap.ldapsPort}"
+          "AUTHENTIK_LISTEN__METRICS=0.0.0.0:${toString cfg.ldap.metricsPort}"
         ];
 
         services = {
