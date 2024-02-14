@@ -45,8 +45,8 @@ in {
           image = "${image}:${imageVersion}@${imageHash}";
           ports = [ "8112:8112" "8118:8118" "58846:58846" "58946:58946" ];
           volumes = [
-            "${cfg.dataDir}/deluge:/data"
-            "${cfg.downloadDir}:/download"
+            "${cfg.dataDir}/deluge:/config"
+            "${cfg.downloadDir}:/data"
             "${cfg.ovpnFile}:/config/openvpn/vpn.ovpn"
           ];
           extraOptions = [ "--cap-add=NET_ADMIN" "--privileged=true" ];
