@@ -84,35 +84,35 @@ in {
       "${cfg.dataDir}/deluge" = {
         d = {
           inherit group;
-          mode = "0750";
+          mode = "0775";
           user = "root";
         };
       };
       "${cfg.mediaDir}/movies" = {
         d = {
           inherit group;
-          mode = "0750";
+          mode = "0775";
           user = "root";
         };
       };
       "${cfg.mediaDir}/shows" = {
         d = {
           inherit group;
-          mode = "0750";
+          mode = "0775";
           user = "root";
         };
       };
       "${cfg.mediaDir}/books" = {
         d = {
           inherit group;
-          mode = "0750";
+          mode = "0775";
           user = "root";
         };
       };
       "${cfg.downloadDir}" = {
         d = {
           inherit group;
-          mode = "0750";
+          mode = "0775";
           user = "root";
         };
       };
