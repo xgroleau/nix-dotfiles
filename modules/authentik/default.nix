@@ -93,6 +93,7 @@ in {
           isReadOnly = false;
         };
       };
+      privateNetwork = true;
 
       forwardPorts = [
         {
