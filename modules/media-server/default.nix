@@ -130,7 +130,6 @@ in {
         enable = true;
         listenPort = 6767;
         openFirewall = cfg.openFirewall;
-        dataDir = cfg.dataDir + "/bazarr";
       };
 
       radarr = {
@@ -140,17 +139,18 @@ in {
         dataDir = cfg.dataDir + "/radarr";
       };
 
+      readarr = {
+        inherit group;
+        enable = true;
+        openFirewall = cfg.openFirewall;
+        dataDir = cfg.dataDir + "/readarr";
+      };
+
       sonarr = {
         inherit group;
         enable = true;
         openFirewall = cfg.openFirewall;
         dataDir = cfg.dataDir + "/sonarr";
-      };
-
-      readarr = {
-        inherit group;
-        enable = true;
-        openFirewall = cfg.openFirewall;
       };
 
       jellyfin = {
@@ -176,9 +176,10 @@ in {
     };
 
     users.groups.media.members = with config.services; [
+      bazarr.user
       radarr.user
-      sonarr.user
       readarr.user
+      sonarr.user
       jellyfin.user
     ];
   };
