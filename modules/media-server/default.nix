@@ -151,7 +151,6 @@ in {
         inherit group;
         enable = true;
         openFirewall = cfg.openFirewall;
-        dataDir = cfg.dataDir + "/readarr";
       };
 
       jellyfin = {
