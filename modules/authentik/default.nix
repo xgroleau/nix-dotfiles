@@ -115,9 +115,9 @@ in {
         nixpkgs.pkgs = pkgs;
         imports = [ inputs.authentik-nix.nixosModules.default ];
         systemd.services.authentik-ldap.serviceConfig.Environment = [
-          "AUTHENTIK_LISTEN__METRICS=9301"
-          "AUTHENTIK_LISTEN__LDAP=3389"
-          "AUTHENTIK_LISTEN__LDAPS=6636"
+          "AUTHENTIK_LISTEN__METRICS=0.0.0.0:9301"
+          "AUTHENTIK_LISTEN__LDAP=0.0.0.0:3389"
+          "AUTHENTIK_LISTEN__LDAPS=0.0.0.0:6636"
         ];
 
         services = {
