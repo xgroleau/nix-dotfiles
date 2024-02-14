@@ -12,22 +12,24 @@ in {
 
     ldap = lib.mkOption {
       type = types.submodule {
-        enable = lib.mkEnableOption
-          "Enables the authentik ldap outpost. The envFile needs the required environment variables";
+        options = {
+          enable = lib.mkEnableOption
+            "Enables the authentik ldap outpost. The envFile needs the required environment variables";
 
-        openFirewall = lib.mkEnableOption
-          "Open the required ports in the firewall for the ldap service";
+          openFirewall = lib.mkEnableOption
+            "Open the required ports in the firewall for the ldap service";
 
-        ldapPort = lib.mkOption {
-          type = types.port;
-          default = 389;
-          description = "the port for ldap";
-        };
+          ldapPort = lib.mkOption {
+            type = types.port;
+            default = 389;
+            description = "the port for ldap";
+          };
 
-        ldapsPort = lib.mkOption {
-          type = types.port;
-          default = 636;
-          description = "the port for ldaps";
+          ldapsPort = lib.mkOption {
+            type = types.port;
+            default = 636;
+            description = "the port for ldaps";
+          };
         };
       };
 
