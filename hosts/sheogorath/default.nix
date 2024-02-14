@@ -2,7 +2,13 @@
 
 let
   domain = "xgroleau.com";
-  backupFolders = [ "/vault" "/documents" "/data/backups" ];
+  backupFolders = [
+    "/vault"
+    "/documents"
+    "/data/backups"
+    "/var/lib/jellyfin"
+    "/var/lib/jellyseerr"
+  ];
 in {
   imports = [ ../base-config.nix ./disko.nix ./hardware-configuration.nix ];
 
@@ -45,6 +51,7 @@ in {
           "collabora.${domain}" = "localhost:11220";
 
           "jellyfin.${domain}" = "localhost:8096";
+          "jellyseerr.${domain}" = "localhost:5055";
 
           "overseerr.${domain}" = "unraid:5055"; # Temporary
           "overseerr.sheogorath.duckdns.org" = "unraid:5055"; # Temporary
