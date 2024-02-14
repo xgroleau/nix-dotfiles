@@ -67,7 +67,7 @@ in {
             DEBUG = "false";
             UMASK = "000";
             PUID = "0";
-            PGID = "${config.users.groups.media.gid}";
+            PGID = "0";
           };
         };
       };
