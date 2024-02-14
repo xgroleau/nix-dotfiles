@@ -30,6 +30,13 @@ in {
             default = 636;
             description = "the port for ldaps";
           };
+
+          metricsPort = lib.mkOption {
+            type = types.port;
+            default = 9301;
+            description = "the port for http access";
+          };
+
         };
       };
 
@@ -64,6 +71,12 @@ in {
       description = "the port for http access";
     };
 
+    metricsPort = lib.mkOption {
+      type = types.port;
+      default = 9300;
+      description = "the port for http access";
+    };
+
   };
 
   # We use a contianer so other services can have a different PG version
@@ -93,32 +106,14 @@ in {
           isReadOnly = false;
         };
       };
-      privateNetwork = true;
-
-      forwardPorts = [
-        {
-          hostPort = cfg.port;
-          protocol = "tcp";
-        }
-        (lib.mkIf cfg.ldap.enable {
-          containerPort = 3389;
-          hostPort = cfg.ldap.ldapPort;
-          protocol = "tcp";
-        })
-        (lib.mkIf cfg.ldap.enable {
-          containerPort = 6636;
-          hostPort = cfg.ldap.ldapsPort;
-          protocol = "tcp";
-        })
-      ];
 
       config = { ... }: {
         nixpkgs.pkgs = pkgs;
         imports = [ inputs.authentik-nix.nixosModules.default ];
         systemd.services.authentik-ldap.serviceConfig.Environment = [
-          "AUTHENTIK_LISTEN__METRICS=0.0.0.0:9301"
-          "AUTHENTIK_LISTEN__LDAP=0.0.0.0:3389"
-          "AUTHENTIK_LISTEN__LDAPS=0.0.0.0:6636"
+          "AUTHENTIK_LISTEN__METRICS=0.0.0.0:${cfg.ldap.metricsPort}"
+          "AUTHENTIK_LISTEN__LDAP=0.0.0.0:${cfg.ldap.ldapPort}"
+          "AUTHENTIK_LISTEN__LDAPS=0.0.0.0:${cfg.ldap.ldapsPort}"
         ];
 
         services = {
@@ -129,7 +124,10 @@ in {
             settings = {
               disable_startup_analytics = true;
               avatars = "gravatar,initials";
-              listen = { http = "0.0.0.0:${toString cfg.port}"; };
+              listen = {
+                http = "0.0.0.0:${toString cfg.port}";
+                metrics = "0.0.0.0:${toString cfg.metricsPort}";
+              };
               paths.media = "/var/lib/authentik/media";
             };
           };
