@@ -10,9 +10,8 @@ in {
       Enables the authentik module, uses a nixos container under the hood so the postges db is a seperated service.
        Also uses ephemeral container, so you need to pass the media directory'';
 
-    ldap = {
+    ldap = lib.mkOption {
       type = types.submodule {
-
         enable = lib.mkEnableOption
           "Enables the authentik ldap outpost. The envFile needs the required environment variables";
 
