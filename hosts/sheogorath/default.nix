@@ -65,6 +65,7 @@ in {
         enable = true;
         dataDir = "/vault/media-server";
         downloadDir = "/media/deluge-downloads";
+        mediaDir = "/media/media";
         ovpnFile = config.age.secrets.piaOvpn.path;
       };
 

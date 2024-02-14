@@ -19,6 +19,11 @@ in {
       description = "Path where the data will be stored";
     };
 
+    mediaDir = lib.mkOption {
+      type = types.str;
+      description = "Path where the media will be stored";
+    };
+
     downloadDir = lib.mkOption {
       type = types.str;
       description = "Path where the download will be stored";
@@ -83,6 +88,27 @@ in {
           user = "root";
         };
       };
+      "${cfg.mediaDir}/movies" = {
+        d = {
+          inherit group;
+          mode = "0750";
+          user = "root";
+        };
+      };
+      "${cfg.mediaDir}/shows" = {
+        d = {
+          inherit group;
+          mode = "0750";
+          user = "root";
+        };
+      };
+      "${cfg.mediaDir}/books" = {
+        d = {
+          inherit group;
+          mode = "0750";
+          user = "root";
+        };
+      };
       "${cfg.downloadDir}" = {
         d = {
           inherit group;
@@ -93,16 +119,18 @@ in {
     };
 
     services = {
-      lidarr = {
-        inherit group;
-        enable = true;
-        openFirewall = cfg.openFirewall;
-        dataDir = cfg.dataDir + "/lidarr";
-      };
 
       prowlarr = {
         enable = true;
         openFirewall = cfg.openFirewall;
+      };
+
+      bazarr = {
+        inherit group;
+        enable = true;
+        listenPort = 6767;
+        openFirewall = cfg.openFirewall;
+        dataDir = cfg.dataDir + "/bazarr";
       };
 
       radarr = {
@@ -117,6 +145,13 @@ in {
         enable = true;
         openFirewall = cfg.openFirewall;
         dataDir = cfg.dataDir + "/sonarr";
+      };
+
+      readarr = {
+        inherit group;
+        enable = true;
+        openFirewall = cfg.openFirewall;
+        dataDir = cfg.dataDir + "/readarr";
       };
 
       jellyfin = {
@@ -142,9 +177,9 @@ in {
     };
 
     users.groups.media.members = with config.services; [
-      lidarr.user
       radarr.user
       sonarr.user
+      readarr.user
       jellyfin.user
     ];
   };
