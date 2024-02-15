@@ -17,6 +17,13 @@ in {
 
     nixpkgs.overlays = [ overlays.unstable-packages ];
 
+    programs.ssh = { enable = true; };
+    # TODO: Use home-manager option once it's available
+    home.file.".ssh/config".text = ''
+      Host *
+        AddKeysToAgent yes
+    '';
+
     # User config
     targets.genericLinux.enable = true;
     systemd.user.startServices = true;
