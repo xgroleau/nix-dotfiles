@@ -14,8 +14,6 @@ in {
       recursive = true;
     };
 
-    services.emacs.defaultEditor = cfg.defaultEditor;
-
     home = {
 
       packages = with pkgs; [
@@ -66,10 +64,17 @@ in {
         libvterm
       ];
 
-      sessionVariables = {
-        DOOM_EMACS = "${config.xdg.configHome}/emacs";
-        DOOM_EMACS_BIN = "${config.home.sessionVariables.DOOM_EMACS}/bin";
-      };
+      sessionVariables = lib.mkMerge [
+        {
+          DOOM_EMACS = "${config.xdg.configHome}/emacs";
+          DOOM_EMACS_BIN = "${config.home.sessionVariables.DOOM_EMACS}/bin";
+        }
+
+        (lib.mkIf cfg.defaultEditor {
+          VISUAL = "emacs";
+          EDITOR = "emacs -nw";
+        })
+      ];
       sessionPath = [ "${config.home.sessionVariables.DOOM_EMACS_BIN}" ];
     };
   };

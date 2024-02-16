@@ -6,7 +6,3 @@ alias df="df -h"
 
 # nvim
 alias v="nvim"
-
-# emacs aliases
-alias em="emacsclient -nw -a ''"
-alias emg="emacsclient -c -a ''"

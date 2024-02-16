@@ -4,7 +4,7 @@ let
 
   cfg = config.modules.immich;
   immichImage = "ghcr.io/imagegenius/immich";
-  immichVersion = "1.94.1-noml";
+  immichVersion = "1.94.1";
   immichHash =
     "sha256:7bd1925889b02c6579168778a4d410b98f50265130c7c9414bd2fd0ce5582cbe";
 
@@ -96,8 +96,8 @@ in {
           DB_DATABASE_NAME = "immich";
 
           # Currently noml
-          # MACHINE_LEARNING_WORKERS = "1";
-          # MACHINE_LEARNING_WORKER_TIMEout = "120";
+          MACHINE_LEARNING_WORKERS = "1";
+          MACHINE_LEARNING_WORKER_TIMEOUT = "120";
         };
 
         environmentFiles = [ cfg.envFile ];
