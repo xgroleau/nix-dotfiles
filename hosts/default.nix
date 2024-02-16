@@ -20,8 +20,8 @@
     cfg = import ./sheogorath;
     deploy = {
       hostname = "sheogorath";
-      sshUser = "root";
-      user = "root";
+      sshUser = "xgroleau";
+      user = "xgroleau";
     };
   };
 
