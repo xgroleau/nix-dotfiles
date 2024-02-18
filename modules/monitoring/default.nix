@@ -136,7 +136,7 @@ in {
 
     services.promtail = {
       enable = true;
-      config = {
+      configuration = {
         server = {
           http_listen_port = 28183;
           grpc_listen_port = 0;
