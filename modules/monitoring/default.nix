@@ -15,10 +15,10 @@ in {
 
       settings = {
         server = rec {
-          http_port = 3010;
-          http_addr = "127.0.0.1";
-          root_url = "http://${hostname}:${toString http_port}";
           protocol = "http";
+          http_port = 3010;
+          http_addr = "0.0.0.0";
+          domain = "sheogorath";
         };
 
         analytics.reporting_enabled = false;
