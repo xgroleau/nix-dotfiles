@@ -105,7 +105,7 @@ in {
         };
 
         schema_config = {
-          config = [{
+          configs = [{
             from = "2020-10-24";
             store = "tsdb";
             object_store = "filesystem";
