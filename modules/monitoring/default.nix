@@ -10,14 +10,19 @@ in {
 
   config = lib.mkIf cfg.enable {
     # MONITORING
-    services.grafana = rec {
+    services.grafana = {
       enable = true;
-      port = 3010;
 
-      addr = "127.0.0.1";
-      rootUrl = "http://${hostname}:${toString port}";
-      protocol = "http";
-      analytics.reporting.enable = false;
+      settings = {
+        server = rec {
+          http_port = 3010;
+          http_addr = "127.0.0.1";
+          root_url = "http://${hostname}:${toString http_port}";
+          protocol = "http";
+        };
+
+        analytics.reporting.enable = false;
+      };
 
       provision = {
         enable = true;
@@ -130,7 +135,7 @@ in {
           compactor_ring = { kvstore = { store = "inmemory"; }; };
         };
 
-        reporting_enabled = false;
+        analytics.reporting_enabled = false;
       };
     };
 
