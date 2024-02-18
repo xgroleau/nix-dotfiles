@@ -20,6 +20,8 @@ in {
       ssh.enable = true;
       secrets.enable = true;
 
+      monitoring.enable = true;
+
       authentik = {
         enable = true;
         port = 9000;
