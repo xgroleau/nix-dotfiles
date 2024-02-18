@@ -68,7 +68,7 @@ in {
 
     services.loki = {
       enable = true;
-      config = {
+      configuration = {
         auth_enabled = false;
         server = {
           http_listen_port = 3100;
