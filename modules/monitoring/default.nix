@@ -18,7 +18,16 @@ in {
           protocol = "http";
           http_port = 3010;
           http_addr = "0.0.0.0";
-          domain = "sheogorath";
+          domain = hostname;
+        };
+
+        smtp = {
+          enabled = true;
+          host = "mail.gmx.com:587";
+          user = "xavgroleau@gmx.com";
+          startTLS_policy = "MandatoryStartTLS";
+          from_address = "sheogorath@gmx.com";
+          password = "$__file{${config.age.secrets.gmxPass.path}}";
         };
 
         analytics.reporting_enabled = false;
@@ -26,6 +35,16 @@ in {
 
       provision = {
         enable = true;
+
+        dashboards = {
+          settings = {
+            providers = [{
+              name = "My Dashboards";
+              options.path = "/etc/grafana-dashboards";
+            }];
+          };
+        };
+
         datasources.settings.datasources = [
           {
             name = "Prometheus";
@@ -44,6 +63,8 @@ in {
               }";
           }
         ];
+
+        notifiers = [ ];
       };
     };
 

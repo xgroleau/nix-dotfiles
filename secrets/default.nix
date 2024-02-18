@@ -15,7 +15,7 @@ in {
         piaOvpn.file = ./pia-ovpn.age;
         authentikEnv.file = ./authentik-env.age;
         immichEnv.file = ./immich-env.age;
-        msmtpPass.file = ./msmtp-pass.age;
+        gmxPass.file = ./gmx-pass.age;
         cloudflareXgroleau.file = ./cloudflare-xgroleau.age;
         ocisEnv.file = ./ocis-env.age;
       };
