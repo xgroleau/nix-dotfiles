@@ -15,7 +15,7 @@ in {
       port = 3010;
 
       addr = "127.0.0.1";
-      rootUrl = "http://${hostname}:${port}";
+      rootUrl = "http://${hostname}:${toString port}";
       protocol = "http";
       analytics.reporting.enable = false;
 
@@ -142,7 +142,7 @@ in {
           grpc_listen_port = 0;
 
         };
-        positions = { filename = /tmp/positions.yaml; };
+        positions = { filename = "/tmp/positions.yaml"; };
         clients = [{
           url = "http://127.0.0.1:${
               toString
