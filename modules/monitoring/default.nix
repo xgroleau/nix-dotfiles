@@ -135,7 +135,7 @@ in {
           compactor_ring = { kvstore = { store = "inmemory"; }; };
         };
 
-        analytics.reporting_enabled = false;
+        analytics = { reporting_enabled = false; };
       };
     };
 
