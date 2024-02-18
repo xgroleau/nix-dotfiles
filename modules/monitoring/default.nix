@@ -21,7 +21,7 @@ in {
           protocol = "http";
         };
 
-        analytics.reporting.enable = false;
+        analytics.reporting_enabled = false;
       };
 
       provision = {
@@ -134,6 +134,8 @@ in {
           shared_store = "filesystem";
           compactor_ring = { kvstore = { store = "inmemory"; }; };
         };
+
+        analytics = { reporting_enabled = false; };
       };
     };
 
