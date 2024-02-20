@@ -4,10 +4,11 @@ ZGENOM_SOURCE="${ZGENOM_DIR}/zgenom.zsh";
 [ -d "$ZGENOM_DIR" ] || git clone https://github.com/jandamm/zgenom "$ZGENOM_DIR"
 source $ZGENOM_SOURCE
 
+zgenom autoupdate
+
 if ! zgenom saved; then
     zgenom load Aloxaf/fzf-tab
     zgenom load djui/alias-tips
-    zgenom load unixorn/autoupdate-zgen
     zgenom load romkatv/powerlevel10k powerlevel10k
     zgenom load zsh-users/zsh-syntax-highlighting
     zgenom load zsh-users/zsh-completions
