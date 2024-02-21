@@ -4,14 +4,14 @@ let
 
   cfg = config.modules.immich;
   immichImage = "ghcr.io/imagegenius/immich";
-  immichVersion = "1.94.1";
+  immichVersion = "1.95.1";
   immichHash =
-    "sha256:7bd1925889b02c6579168778a4d410b98f50265130c7c9414bd2fd0ce5582cbe";
+    "sha256:da2da5db2c89fbac4b5e8842424b45116c21d6123ed539725f7d991ea2752e7b";
 
   postgresImage = "tensorchord/pgvecto-rs";
-  postgresVersion = "pg16-v0.1.11";
+  postgresVersion = "pg16-v0.2.0";
   postgresHash =
-    "sha256:6102a989f03361b4f1f36057888405597bc5b9851aa237cc3216f40c23f9853a";
+    "sha256:8d06268ab0c5f76b43b510a728796367a2ddb7f1d302a26c0e50bcb0bc20e69e";
 
   redisImage = "redis";
   redisVersion = "6.2-alpine";

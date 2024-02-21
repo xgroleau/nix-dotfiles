@@ -21,29 +21,19 @@ in {
           domain = hostname;
         };
 
-        smtp = {
-          enabled = true;
-          host = "mail.gmx.com:587";
-          user = "xavgroleau@gmx.com";
-          startTLS_policy = "MandatoryStartTLS";
-          from_address = "sheogorath@gmx.com";
-          password = "$__file{${config.age.secrets.gmxPass.path}}";
-        };
-
         analytics.reporting_enabled = false;
       };
 
       provision = {
         enable = true;
-
-        dashboards = {
-          settings = {
-            providers = [{
-              name = "My Dashboards";
-              options.path = "/etc/grafana-dashboards";
-            }];
-          };
-        };
+        # dashboards = {
+        #   settings = {
+        #     providers = [{
+        #       name = "My Dashboards";
+        #       options.path = "/etc/grafana-dashboards";
+        #     }];
+        #   };
+        # };
 
         datasources.settings.datasources = [
           {
@@ -72,14 +62,129 @@ in {
       enable = true;
       port = 3020;
 
-      # MONITOREE
-      exporters = {
-        node = {
-          enable = true;
-          enabledCollectors = [ "systemd" ];
-          port = 3021;
+      rules = [''
+        ALERT node_down
+        IF up == 0
+        FOR 5m
+        LABELS {
+          severity="page"
+        }
+        ANNOTATIONS {
+          summary = "{{$labels.alias}}: Node is down.",
+          description = "{{$labels.alias}} has been down for more than 5 minutes."
+        }
+        ALERT node_systemd_service_failed
+        IF node_systemd_unit_state{state="failed"} == 1
+        FOR 4m
+        LABELS {
+          severity="page"
+        }
+        ANNOTATIONS {
+          summary = "{{$labels.alias}}: Service {{$labels.name}} failed to start.",
+          description = "{{$labels.alias}} failed to (re)start service {{$labels.name}}."
+        }
+        ALERT node_filesystem_full_90percent
+        IF sort(node_filesystem_free{device!="ramfs"} < node_filesystem_size{device!="ramfs"} * 0.1) / 1024^3
+        FOR 5m
+        LABELS {
+          severity="page"
+        }
+        ANNOTATIONS {
+          summary = "{{$labels.alias}}: Filesystem is running out of space soon.",
+          description = "{{$labels.alias}} device {{$labels.device}} on {{$labels.mountpoint}} got less than 10% space left on its filesystem."
+        }
+        ALERT node_filesystem_full_in_4h
+        IF predict_linear(node_filesystem_free{device!="ramfs"}[1h], 4*3600) <= 0
+        FOR 5m
+        LABELS {
+          severity="page"
+        }
+        ANNOTATIONS {
+          summary = "{{$labels.alias}}: Filesystem is running out of space in 4 hours.",
+          description = "{{$labels.alias}} device {{$labels.device}} on {{$labels.mountpoint}} is running out of space of in approx. 4 hours"
+        }
+        ALERT node_filedescriptors_full_in_3h
+        IF predict_linear(node_filefd_allocated[1h], 3*3600) >= node_filefd_maximum
+        FOR 20m
+        LABELS {
+          severity="page"
+        }
+        ANNOTATIONS {
+          summary = "{{$labels.alias}} is running out of available file descriptors in 3 hours.",
+          description = "{{$labels.alias}} is running out of available file descriptors in approx. 3 hours"
+        }
+        ALERT node_load1_90percent
+        IF node_load1 / on(alias) count(node_cpu{mode="system"}) by (alias) >= 0.9
+        FOR 1h
+        LABELS {
+          severity="page"
+        }
+        ANNOTATIONS {
+          summary = "{{$labels.alias}}: Running on high load.",
+          description = "{{$labels.alias}} is running with > 90% total load for at least 1h."
+        }
+        ALERT node_cpu_util_90percent
+        IF 100 - (avg by (alias) (irate(node_cpu{mode="idle"}[5m])) * 100) >= 90
+        FOR 1h
+        LABELS {
+          severity="page"
+        }
+        ANNOTATIONS {
+          summary = "{{$labels.alias}}: High CPU utilization.",
+          description = "{{$labels.alias}} has total CPU utilization over 90% for at least 1h."
+        }
+        ALERT node_ram_using_90percent
+        IF node_memory_MemFree + node_memory_Buffers + node_memory_Cached < node_memory_MemTotal * 0.1
+        FOR 30m
+        LABELS {
+          severity="page"
+        }
+        ANNOTATIONS {
+          summary="{{$labels.alias}}: Using lots of RAM.",
+          description="{{$labels.alias}} is using at least 90% of its RAM for at least 30 minutes now.",
+        }
+        ALERT node_swap_using_80percent
+        IF node_memory_SwapTotal - (node_memory_SwapFree + node_memory_SwapCached) > node_memory_SwapTotal * 0.8
+        FOR 10m
+        LABELS {
+          severity="page"
+        }
+        ANNOTATIONS {
+          summary="{{$labels.alias}}: Running out of swap soon.",
+          description="{{$labels.alias}} is using 80% of its swap space for at least 10 minutes now."
+        }
+      ''];
+
+      alertmanager = {
+        enabled = true;
+        port = 3024;
+        listenAddress = "0.0.0.0";
+        configuration = {
+          global = {
+            smtp_smarthost = "mail.gmx.com:587";
+            smtp_require_tls = true;
+            smtp_from = "sheogorath@gmx.com";
+            smtp_auth_username = "xavgroleau@gmx.com";
+            smtp_auth_password_file = config.age.secrets.gmxPass.path;
+          };
+          route = {
+            group_by = [ "alertname" "alias" ];
+            group_wait = "30s";
+            group_interval = "2m";
+            repeat_interval = "4h";
+            receiver = "admin";
+          };
+          receivers = [{
+            name = "admin";
+            email_configs = [{
+              to = "xavgroleau@gmail.com";
+              send_resolved = false;
+            }];
+          }];
         };
+
       };
+
       scrapeConfigs = [{
         job_name = "nodes";
         static_configs = [{
@@ -90,6 +195,16 @@ in {
           ];
         }];
       }];
+
+      # MONITOREE
+      exporters = {
+        node = {
+          enable = true;
+          enabledCollectors = [ "systemd" ];
+          port = 3021;
+        };
+      };
+
     };
 
     services.loki = {
