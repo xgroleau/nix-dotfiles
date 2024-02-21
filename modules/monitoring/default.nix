@@ -160,25 +160,25 @@ in {
         port = 3024;
         listenAddress = "0.0.0.0";
         configuration = {
-          global = {
-            smtp_smarthost = "mail.gmx.com:587";
-            smtp_require_tls = true;
-            smtp_from = "sheogorath@gmx.com";
-            smtp_auth_username = "xavgroleau@gmx.com";
-            smtp_auth_password_file = config.age.secrets.gmxPass.path;
+          "global" = {
+            "smtp_smarthost" = "mail.gmx.com:587";
+            "smtp_require_tls" = true;
+            "smtp_from" = "sheogorath@gmx.com";
+            "smtp_auth_username" = "xavgroleau@gmx.com";
+            "smtp_auth_password_file" = config.age.secrets.gmxPass.path;
           };
-          route = {
-            group_by = [ "alertname" "alias" ];
-            group_wait = "30s";
-            group_interval = "2m";
-            repeat_interval = "4h";
-            receiver = "admin";
+          "route" = {
+            "group_by" = [ "alertname" "alias" ];
+            "group_wait" = "30s";
+            "group_interval" = "2m";
+            "repeat_interval" = "4h";
+            "receiver" = "admin";
           };
-          receivers = [{
-            name = "admin";
-            email_configs = [{
-              to = "xavgroleau@gmail.com";
-              send_resolved = false;
+          "receivers" = [{
+            "name" = "admin";
+            "email_configs" = [{
+              "to" = "xavgroleau@gmail.com";
+              "send_resolved" = false;
             }];
           }];
         };
