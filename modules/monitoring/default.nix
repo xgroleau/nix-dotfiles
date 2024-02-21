@@ -156,7 +156,7 @@ in {
       ''];
 
       alertmanager = {
-        enabled = true;
+        enable = true;
         port = 3024;
         listenAddress = "0.0.0.0";
         configuration = {
