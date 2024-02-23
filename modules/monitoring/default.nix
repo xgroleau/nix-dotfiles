@@ -184,7 +184,18 @@ in {
         })
 
       ];
+      # Send notifications to
+      alertmanagers = [{
+        scheme = "http";
+        path_prefix = "/";
+        static_configs = [{
+          targets = [
+            "127.0.0.1:${toString config.services.prometheus.alertmanager.port}"
+          ];
+        }];
+      }];
 
+      #Receive notifications
       alertmanager = {
         enable = true;
         port = 3024;
