@@ -206,25 +206,25 @@ in {
             smtp_require_tls = true;
             smtp_from = "sheogorath@gmx.com";
             smtp_auth_username = "xavgroleau@gmx.com";
-            smtp_auth_password_file = config.age.secrets.gmxPass.path;
+            smtp_auth_password_file = "$CREDENTIALS_DIRECTORY/smtp-password";
           };
           route = {
             group_by = [ "alertname" "alias" ];
-            group_wait = "30s";
-            group_interval = "2m";
-            repeat_interval = "4h";
-            receiver = "admin";
+            group_wait = "10s";
+            receiver = "admin-smtp";
           };
           receivers = [{
-            name = "admin";
+            name = "admin-smtp";
             email_configs = [{
               to = "xavgroleau@gmail.com";
               send_resolved = false;
             }];
           }];
         };
-
       };
+      # Add secret
+      systemd.services.alertmanager.serviceConfig.LoadCredential =
+        [ "smtp-password:${config.age.secrets.gmxPass.path}" ];
 
       scrapeConfigs = [{
         job_name = "nodes";
