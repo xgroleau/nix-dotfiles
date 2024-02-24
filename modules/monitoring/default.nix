@@ -6,10 +6,44 @@ in {
 
   options.modules.monitoring = with lib.types; {
     enable = lib.mkEnableOption "Monitoring module";
+
+    prometheus_target = lib.mkOption {
+      type = types.str;
+      default =
+        "127.0.0.1:${toString config.services.prometheus.exporters.node.port}";
+      description = "Prometheus node to scrape";
+    };
+
+    smtp = lib.mkOption {
+      type = types.submodule {
+        options = {
+          host = lib.mkOption {
+            type = types.str;
+            description = "Host to use with the port eg. smtp.gmail.com:587";
+          };
+          from = lib.mkOption {
+            type = types.str;
+            description = "Email to use to send";
+          };
+          username = lib.mkOption {
+            type = types.str;
+            description = "Username to authenticate";
+          };
+          passwordFile = lib.mkOption {
+            type = types.str;
+            description = "Path to the password file";
+          };
+          to = lib.mkOption {
+            type = types.str;
+            description = "Email to receive  alerts";
+          };
+        };
+        description = "Email alerting configuration";
+      };
+    };
   };
 
   config = lib.mkIf cfg.enable {
-    # MONITORING
     services.grafana = {
       enable = true;
 
@@ -20,21 +54,11 @@ in {
           http_addr = "0.0.0.0";
           domain = hostname;
         };
-
         analytics.reporting_enabled = false;
       };
 
       provision = {
         enable = true;
-        # dashboards = {
-        #   settings = {
-        #     providers = [{
-        #       name = "My Dashboards";
-        #       options.path = "/etc/grafana-dashboards";
-        #     }];
-        #   };
-        # };
-
         datasources.settings.datasources = [
           {
             name = "Prometheus";
@@ -53,8 +77,6 @@ in {
               }";
           }
         ];
-
-        notifiers = [ ];
       };
     };
 
@@ -200,7 +222,7 @@ in {
         enable = true;
         port = 3024;
         environmentFile = config.age.secrets.authentikEnv.path;
-        listenAddress = "0.0.0.0";
+        listenAddress = "127.0.0.1";
         configuration = {
           global = {
             smtp_smarthost = "mail.gmx.com:587";
@@ -235,25 +257,13 @@ in {
         }];
       }];
 
-      # MONITOREE
-      exporters = {
-        node = {
-          enable = true;
-          enabledCollectors = [ "systemd" ];
-          port = 3021;
-        };
-      };
-
     };
 
     services.loki = {
       enable = true;
       configuration = {
         auth_enabled = false;
-        server = {
-          http_listen_port = 3100;
-          grpc_listen_port = 9096;
-        };
+        server = { http_listen_port = 3100; };
 
         common = {
           instance_addr = "127.0.0.1";
@@ -313,41 +323,5 @@ in {
         analytics = { reporting_enabled = false; };
       };
     };
-
-    services.promtail = {
-      enable = true;
-      configuration = {
-        server = {
-          http_listen_port = 28183;
-          grpc_listen_port = 0;
-
-        };
-        positions = { filename = "/tmp/positions.yaml"; };
-        clients = [{
-          url = "http://127.0.0.1:${
-              toString
-              config.services.loki.configuration.server.http_listen_port
-            }/loki/api/v1/push";
-        }];
-        scrape_configs = [{
-          job_name = "journal";
-          journal = {
-            max_age = "12h";
-            labels = {
-              job = "systemd-journal";
-              host = hostname;
-            };
-          };
-          relabel_configs = [{
-            source_labels = [ "__journal__systemd_unit" ];
-            target_label = "unit";
-          }];
-
-        }];
-      };
-
-    };
-
   };
-
 }
