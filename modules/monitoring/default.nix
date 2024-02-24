@@ -58,9 +58,6 @@ in {
       };
     };
 
-    # Add secret to alertmanager
-    systemd.services.alertmanager.serviceConfig.LoadCredential =
-      [ "smtp-password:${config.age.secrets.gmxPass.path}" ];
     services.prometheus = {
       enable = true;
       port = 3020;
@@ -202,6 +199,7 @@ in {
       alertmanager = {
         enable = true;
         port = 3024;
+        environmentFile = config.age.secrets.authentikEnv.path;
         listenAddress = "0.0.0.0";
         configuration = {
           global = {
@@ -209,7 +207,7 @@ in {
             smtp_require_tls = true;
             smtp_from = "sheogorath@gmx.com";
             smtp_auth_username = "xavgroleau@gmx.com";
-            smtp_auth_password_file = "$CREDENTIALS_DIRECTORY/smtp-password";
+            smtp_auth_password = "$AUTHENTIK_EMAIL__PASSWORD";
           };
           route = {
             group_by = [ "alertname" "alias" ];
