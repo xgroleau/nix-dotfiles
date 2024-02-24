@@ -58,6 +58,9 @@ in {
       };
     };
 
+    # Add secret to alertmanager
+    systemd.services.alertmanager.serviceConfig.LoadCredential =
+      [ "smtp-password:${config.age.secrets.gmxPass.path}" ];
     services.prometheus = {
       enable = true;
       port = 3020;
@@ -222,9 +225,6 @@ in {
           }];
         };
       };
-      # Add secret
-      systemd.services.alertmanager.serviceConfig.LoadCredential =
-        [ "smtp-password:${config.age.secrets.gmxPass.path}" ];
 
       scrapeConfigs = [{
         job_name = "nodes";
