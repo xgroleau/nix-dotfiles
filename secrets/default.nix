@@ -16,6 +16,7 @@ in {
         authentikEnv.file = ./authentik-env.age;
         immichEnv.file = ./immich-env.age;
         gmxPass.file = ./gmx-pass.age;
+        alertmanagerEnv.file = ./alertmanager-env.age;
         cloudflareXgroleau.file = ./cloudflare-xgroleau.age;
         ocisEnv.file = ./ocis-env.age;
       };

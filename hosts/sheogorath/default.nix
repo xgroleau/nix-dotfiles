@@ -20,7 +20,18 @@ in {
       ssh.enable = true;
       secrets.enable = true;
 
-      monitoring.enable = true;
+      monitoring = {
+        # TODO: Move the monitoring server to another system
+        server = {
+          enable = true;
+          alerting = {
+            enable = true;
+            envFile = config.age.secrets.alertmanagerEnv.path;
+            emailTo = "xavgroleau@gmail.com";
+          };
+        };
+        target = { enable = true; };
+      };
 
       authentik = {
         enable = true;
@@ -138,7 +149,7 @@ in {
 
       duplicati = {
         enable = true;
-        port = 13000;
+        port = 14000;
       };
 
       fail2ban.enable = true;

@@ -1,13 +1,26 @@
 { config, lib, pkgs, ... }:
 let
-  cfg = config.modules.monitoring;
+  cfg = config.modules.monitoring.target;
   hostname = config.networking.hostName;
 in {
 
-  options.modules.monitoring = with lib.types; {
-    enable = lib.mkEnableOption "Monitoring module";
+  options.modules.monitoring.target = with lib.types; {
+    enable = lib.mkEnableOption
+      "The target that will be monitored. Enables promtail and prometheus node exporter for systemd ";
 
-    loki_address = lib.mkOption {
+    promtailPort = lib.mkOption {
+      type = types.port;
+      default = 13200;
+      description = "Port for the promtail server";
+    };
+
+    prometheusPort = lib.mkOption {
+      type = types.port;
+      default = 13050;
+      description = "Port for the prometheus exporter";
+    };
+
+    lokiAddress = lib.mkOption {
       type = types.str;
       default = "http://127.0.0.1:${
           toString config.services.loki.configuration.server.http_listen_port
@@ -22,7 +35,7 @@ in {
         node = {
           enable = true;
           enabledCollectors = [ "systemd" ];
-          port = 3021;
+          port = cfg.prometheusPort;
         };
       };
     };
@@ -31,12 +44,12 @@ in {
       enable = true;
       configuration = {
         server = {
-          http_listen_port = 28183;
+          http_listen_port = cfg.promtailPort;
           grpc_listen_port = 0;
 
         };
         positions = { filename = "/tmp/positions.yaml"; };
-        clients = [{ url = cfg.loki_address; }];
+        clients = [{ url = cfg.lokiAddress; }];
         scrape_configs = [{
           job_name = "journal";
           journal = {
