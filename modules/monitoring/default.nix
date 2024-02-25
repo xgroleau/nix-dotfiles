@@ -1,5 +1,5 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = [ ./server ./target ];
+  imports = [ ./server.nix ./target.nix ];
 }

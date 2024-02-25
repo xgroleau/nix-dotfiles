@@ -228,14 +228,11 @@ in {
       }];
 
       # Send notifications to
-      alertmanagers = if lib.cfg.alerting.enable then [{
+      alertmanagers = if cfg.alerting.enable then [{
         scheme = "http";
         path_prefix = "/";
-        static_configs = [{
-          targets = [
-            "127.0.0.1:${toString config.services.prometheus.alertmanager.port}"
-          ];
-        }];
+        static_configs =
+          [{ targets = [ "127.0.0.1:${toString cfg.alerting.port}" ]; }];
       }] else
         [ ];
 
@@ -261,7 +258,7 @@ in {
           receivers = [{
             name = "admin-smtp";
             email_configs = [{
-              to = cfg.alerting.to;
+              to = cfg.alerting.emailTo;
               send_resolved = false;
             }];
           }];
