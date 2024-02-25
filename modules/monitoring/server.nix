@@ -47,11 +47,11 @@ in {
             type = types.str;
             description = ''
               Path to the environment file for sending email notifications, must contain
-              NOTIFICATIONS_SMTP_HOST,
-              NOTIFICATIONS_SMTP_PORT,
-              NOTIFICATIONS_SMTP_SENDER,
-              NOTIFICATIONS_SMTP_USERNAME,
-              NOTIFICATIONS_SMTP_PASSWORD,
+              SMTP_HOST,
+              SMTP_PORT,
+              SMTP_SENDER,
+              SMTP_USERNAME,
+              SMTP_PASSWORD,
             '';
           };
           emailTo = lib.mkOption {
@@ -245,10 +245,10 @@ in {
         configuration = {
           global = {
             smtp_require_tls = true;
-            smtp_smarthost = "SMTP_HOST:SMTP_PORT";
-            smtp_from = "SMTP_SENDER";
-            smtp_auth_username = "SMTP_USERNAME";
-            smtp_auth_password = "SMTP_PASSWORD";
+            smtp_smarthost = "$SMTP_HOST:$SMTP_PORT";
+            smtp_from = "$SMTP_SENDER";
+            smtp_auth_username = "$SMTP_USERNAME";
+            smtp_auth_password = "$SMTP_PASSWORD";
           };
           route = {
             group_by = [ "alertname" "alias" ];
