@@ -241,7 +241,7 @@ in {
         enable = true;
         port = cfg.alerting.port;
         environmentFile = cfg.alerting.envFile;
-        listenAddress = "127.0.0.1";
+        listenAddress = "0.0.0.0";
         configuration = {
           global = {
             smtp_require_tls = true;
