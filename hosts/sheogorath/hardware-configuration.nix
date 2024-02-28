@@ -6,12 +6,13 @@
 {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
+  environment.systemPackages = with pkgs; [ nfs-utils ];
   boot = {
     initrd.availableKernelModules =
       [ "xhci_pci" "ehci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
     initrd.kernelModules = [ ];
-    kernelModules = [ "kvm-intel" ];
-    supportedFilesystems = [ "zfs" ];
+    kernelModules = [ "kvm-intel" "nfs" ];
+    supportedFilesystems = [ "nfs" "zfs" ];
     kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
     extraModulePackages = [ ];
     zfs.forceImportRoot = false;
