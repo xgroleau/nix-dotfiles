@@ -176,6 +176,19 @@ in {
       hostName = "sheogorath";
     };
 
+    # nfs mounts
+    fileSystems."/mnt/nfs/shows" = {
+      device = "unraid:/shows";
+      fsType = "nfs";
+      options = [ "x-systemd.automount" "noauto" ];
+    };
+
+    fileSystems."/mnt/nfs/movies" = {
+      device = "unraid:/movies";
+      fsType = "nfs";
+      options = [ "x-systemd.automount" "noauto" ];
+    };
+
     system.stateVersion = "23.11";
   };
 }
