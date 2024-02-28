@@ -178,13 +178,13 @@ in {
 
     # nfs mounts
     fileSystems."/mnt/nfs/shows" = {
-      device = "unraid:/shows";
+      device = "unraid:/mnt/user/shows";
       fsType = "nfs";
       options = [ "x-systemd.automount" "noauto" ];
     };
 
     fileSystems."/mnt/nfs/movies" = {
-      device = "unraid:/movies";
+      device = "unraid:/mnt/user/movies";
       fsType = "nfs";
       options = [ "x-systemd.automount" "noauto" ];
     };
