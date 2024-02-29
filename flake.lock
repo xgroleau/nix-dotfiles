@@ -37,11 +37,11 @@
         "poetry2nix": "poetry2nix"
       },
       "locked": {
-        "lastModified": 1707216650,
-        "narHash": "sha256-ZICu38u3oVEQENvWYwTZpQNLBAmOdgM2obW5svxUM10=",
+        "lastModified": 1708941619,
+        "narHash": "sha256-oBbGVMRkKEKMKhLOXkJAU8gtcnScQf+a6I4MpONWmC4=",
         "owner": "nix-community",
         "repo": "authentik-nix",
-        "rev": "497c207488ad72ab55dc9912bda055cbeed47a92",
+        "rev": "1392167355edc901975cfd9ab92e5501fcb6b2ff",
         "type": "github"
       },
       "original": {
@@ -53,16 +53,16 @@
     "authentik-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1706546688,
-        "narHash": "sha256-+1IdXRt28UZ2KTa0zsmjneNUOcutP99UUwqcYyVyqTI=",
+        "lastModified": 1708611974,
+        "narHash": "sha256-M1LykpaKAHX9pLlueHufj2RcbNZRcCnhzbhek87EWFs=",
         "owner": "goauthentik",
         "repo": "authentik",
-        "rev": "e095e9f694d2a427940bc8616bc4025fef502a8b",
+        "rev": "8256f1897df0a741a81dcb066d4edae879c30408",
         "type": "github"
       },
       "original": {
         "owner": "goauthentik",
-        "ref": "version/2023.10.7",
+        "ref": "version/2024.2.1",
         "repo": "authentik",
         "type": "github"
       }
@@ -120,11 +120,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1708305517,
-        "narHash": "sha256-WYnEspeTTksC21obnnxWOGOAQbnBD0GES0S0XOLsJjs=",
+        "lastModified": 1708910350,
+        "narHash": "sha256-cTuJVlOm05aQFIgGuYikgkrI61P2vTO2OfXwIRWEzUg=",
         "owner": "nix-community",
         "repo": "disko",
-        "rev": "1ae1f57dad13595600dd57b6a55fcbaef6673804",
+        "rev": "a13f36255cf4ce99cc4236a34251c2e7106e101d",
         "type": "github"
       },
       "original": {
@@ -206,11 +206,11 @@
         "systems": "systems_4"
       },
       "locked": {
-        "lastModified": 1705309234,
-        "narHash": "sha256-uNRRNRKmJyCRC/8y1RqBkqWBLM034y4qN7EprSdmgyA=",
+        "lastModified": 1709126324,
+        "narHash": "sha256-q6EQdSeUZOG26WelxqkmR7kArjgWCdw5sfJVHPH/7j8=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "1ef2e671c3b0c19053962c07dbda38332dcebf26",
+        "rev": "d465f4819400de7c8d874d50b982301f28a84605",
         "type": "github"
       },
       "original": {
@@ -310,11 +310,11 @@
     },
     "nixos-hardware": {
       "locked": {
-        "lastModified": 1708091350,
-        "narHash": "sha256-o28BJYi68qqvHipT7V2jkWxDiMS1LF9nxUsou+eFUPQ=",
+        "lastModified": 1709147990,
+        "narHash": "sha256-vpXMWoaCtMYJ7lisJedCRhQG9BSsInEyZnnG5GfY9tQ=",
         "owner": "NixOS",
         "repo": "nixos-hardware",
-        "rev": "106d3fec43bcea19cb2e061ca02531d54b542ce3",
+        "rev": "33a97b5814d36ddd65ad678ad07ce43b1a67f159",
         "type": "github"
       },
       "original": {
@@ -326,11 +326,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1708294118,
-        "narHash": "sha256-evZzmLW7qoHXf76VCepvun1esZDxHfVRFUJtumD7L2M=",
+        "lastModified": 1709128929,
+        "narHash": "sha256-GWrv9a+AgGhG4/eI/CyVVIIygia7cEy68Huv3P8oyaw=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "e0da498ad77ac8909a980f07eff060862417ccf7",
+        "rev": "c8e74c2f83fe12b4e5a8bd1abbc090575b0f7611",
         "type": "github"
       },
       "original": {
@@ -376,11 +376,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1708296515,
-        "narHash": "sha256-FyF489fYNAUy7b6dkYV6rGPyzp+4tThhr80KNAaF/yY=",
+        "lastModified": 1709150264,
+        "narHash": "sha256-HofykKuisObPUfj0E9CJVfaMhawXkYx3G8UIFR/XQ38=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "b98a4e1746acceb92c509bc496ef3d0e5ad8d4aa",
+        "rev": "9099616b93301d5cf84274b184a3a5ec69e94e08",
         "type": "github"
       },
       "original": {
@@ -405,11 +405,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1707195113,
-        "narHash": "sha256-xPFxTMe4rKE/ZWLlOWv22qpGwpozpR+U1zhyf1040Zk=",
+        "lastModified": 1708175019,
+        "narHash": "sha256-B7wY2pNrLc3X9uYRo1LUmVzI6oH6fX8oi+96GdUpayU=",
         "owner": "nix-community",
         "repo": "poetry2nix",
-        "rev": "4eb2ac54029af42a001c9901194e9ce19cbd8a40",
+        "rev": "403d923ea8e2e6cedce3a0f04a9394c4244cb806",
         "type": "github"
       },
       "original": {
