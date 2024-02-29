@@ -25,7 +25,7 @@ jobs:
           oauth-client-id: ${{ secrets.TAILSCALE_OAUTH_CLIENT_ID }}
           oauth-secret: ${{ secrets.TAILSCALE_OAUTH_CLIENT_SECRET }}
           tags: tag:deploy-rs
-          version: 1.52.0
+          version: 1.58.2
 
       - name: SshKey
         uses: shimataro/ssh-key-action@v2
