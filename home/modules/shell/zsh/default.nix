@@ -15,7 +15,6 @@ in {
       initExtra = "source ${config.xdg.configHome}/zsh/zshrc";
     };
     home = {
-      sessionVariables.SHELL = "zsh";
       packages = with pkgs; [ nix-zsh-completions git pythonCfg.package ];
       sessionPath = [
         "${config.home.homeDirectory}/.local/bin"
