@@ -3,6 +3,8 @@
 let
   keys = import ../secrets/ssh-keys.nix;
   overlays = import ../overlays { inherit inputs; };
+  gh_key =
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKUOB6V43misoDCzmVnVeuXJpCq/uHtPksVknOH67laS";
 in {
   config = {
 
@@ -48,7 +50,7 @@ in {
         openssh.authorizedKeys.keys = [ keys.users.xgroleau ];
       };
 
-      users.root = { openssh.authorizedKeys.keys = [ keys.users.xgroleau ]; };
+      users.root = { openssh.authorizedKeys.keys = [ gh_key ]; };
     };
   };
 }
