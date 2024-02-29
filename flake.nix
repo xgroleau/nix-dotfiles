@@ -102,6 +102,21 @@
             type = "app";
             program = "${app}/bin/${app.name}";
           };
+
+          deploy = let
+            app = pkgs.writeShellApplication {
+              name = "deploy";
+              runtimeInputs = with pkgs;
+                [ deploy-rs.packages.${system}.default ];
+              text = ''
+                deploy .# --remote-build "$@"
+              '';
+            };
+          in {
+            type = "app";
+            program = "${app}/bin/${app.name}";
+          };
+
         };
 
         checks = {

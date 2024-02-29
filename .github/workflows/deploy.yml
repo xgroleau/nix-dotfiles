@@ -16,6 +16,9 @@ jobs:
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@v4
 
+      - name: Setup cache
+        uses: DeterminateSystems/magic-nix-cache-action@v0.1
+
       - name: Install SSH key
         uses: shimataro/ssh-key-action@v2
         with:
