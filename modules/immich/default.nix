@@ -4,9 +4,9 @@ let
 
   cfg = config.modules.immich;
   immichImage = "ghcr.io/imagegenius/immich";
-  immichVersion = "1.95.1";
+  immichVersion = "1.97.0";
   immichHash =
-    "sha256:da2da5db2c89fbac4b5e8842424b45116c21d6123ed539725f7d991ea2752e7b";
+    "sha256:37601e5e39cc17f8b50e1cc84967dbcfad1c32f3d99c0396f283e21cc9439b6e";
 
   postgresImage = "tensorchord/pgvecto-rs";
   postgresVersion = "pg16-v0.2.0";
