@@ -189,6 +189,15 @@ in {
       options = [ "x-systemd.automount" "noauto" ];
     };
 
+    # Container backend
+    virtualisation = {
+      oci-containers.backend = "podman";
+      podman = {
+        enable = true;
+        autoPrune.enable = true;
+      };
+    };
+
     system.stateVersion = "23.11";
   };
 }
