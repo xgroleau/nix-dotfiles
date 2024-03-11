@@ -194,7 +194,11 @@ in {
       oci-containers.backend = "podman";
       podman = {
         enable = true;
-        autoPrune.enable = true;
+        autoPrune = {
+          enable = true;
+          dates = "weekly";
+          flags = [ "--all" "--volumes" ];
+        };
       };
     };
 
