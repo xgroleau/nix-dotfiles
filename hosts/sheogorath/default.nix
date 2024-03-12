@@ -83,7 +83,7 @@ in {
 
       media-server = {
         enable = true;
-        dataDir = "/vault/media-server";
+        dataDir = "/data/media-server";
         downloadDir = "/media/deluge-downloads";
         mediaDir = "/media/media";
         ovpnFile = config.age.secrets.piaOvpn.path;
@@ -126,7 +126,7 @@ in {
 
     services = {
       borgbackup.jobs."unraid" = {
-        paths = [ "/vault" "/documents" "/data/backups" ];
+        paths = backupFolders;
         exclude = [ ];
         repo = "ssh://borg@unraid:2222/backup/sheogorath";
         encryption = { mode = "none"; };
