@@ -83,6 +83,7 @@ in {
 
       media-server = {
         enable = true;
+        # Each services export backups to /data/backups
         dataDir = "/data/media-server";
         downloadDir = "/media/deluge-downloads";
         mediaDir = "/media/media";
