@@ -88,6 +88,12 @@ in {
 
       # Access to the host data
       bindMounts = {
+        # Needed to have dns
+        "/etc/resolv.conf" = {
+          hostPath = "/etc/resolv.conf";
+          isReadOnly = true;
+        };
+
         "${cfg.envFile}" = {
           hostPath = cfg.envFile;
           isReadOnly = true;
