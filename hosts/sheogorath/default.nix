@@ -68,6 +68,7 @@ in {
 
           "overseerr.${domain}" = "unraid:5055"; # Temporary
           "overseerr.sheogorath.duckdns.org" = "unraid:5055"; # Temporary
+          "nextcloud.sheogorath.duckdns.org" = "unraid:4443"; # Temporary
         };
       };
 
@@ -115,13 +116,13 @@ in {
         passwordFile = config.age.secrets.gmxPass.path;
       };
 
-      palworld = {
-        enable = true;
-        restart = true;
-        port = 8211;
-        openFirewall = true;
-        dataDir = "/data/palworld";
-      };
+      # palworld = {
+      #   enable = true;
+      #   restart = true;
+      #   port = 8211;
+      #   openFirewall = true;
+      #   dataDir = "/data/palworld";
+      # };
 
     };
 

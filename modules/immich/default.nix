@@ -4,7 +4,7 @@ let
 
   cfg = config.modules.immich;
   immichImage = "ghcr.io/imagegenius/immich";
-  immichVersion = "1.98.2";
+  immichVersion = "1.99.0";
 
   postgresImage = "tensorchord/pgvecto-rs";
   postgresVersion = "pg16-v0.2.0";
