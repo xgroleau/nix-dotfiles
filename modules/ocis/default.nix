@@ -3,7 +3,7 @@
 
 let
   cfg = config.modules.ocis;
-  ocisVersion = "5.0.0-rc.3";
+  ocisVersion = "5.0.0";
 
   tikaVersion = "2.9.1.0-full";
 
