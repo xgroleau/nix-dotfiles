@@ -33,7 +33,7 @@ bindsym $mod+w exec --no-startup-id rofi -show window -modi window
 bindsym $mod+x exec --no-startup-id rofi -show combi -modi combi
 bindsym $mod+c exec --no-startup-id rofi -show calc -modi calc -no-show-match -no-sort -calc-command "echo {result}" | xclip -selection clipboard
 bindsym $mod+p exec --no-startup-id rofi -show p:rofi-power-menu
-bindsym $mod+semicolon exec --no-startup-id rofi -show emoji -modi emoji -emoji-format "{emoji}: {name} [ <span size='small'>({keywords})</span>][ <span size='small'>@{group}@</span>][ <span size='small'>#{subgroup}#</span>]"
+bindsym $mod+semicolon exec --no-startup-id rofi -show emoji -modi emoji -emoji-format "{emoji}: {name}"
 
 #start snipping tool
 bindsym $mod+Shift+s exec --no-startup-id flameshot gui
