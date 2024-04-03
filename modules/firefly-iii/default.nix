@@ -102,21 +102,20 @@ in {
       };
 
       # Folder
-      tmpfiles.settings.firefly = {
-        "${cfg.dataDir}" = {
-          d = {
-            mode = "0777";
-            user = "root";
-          };
-        };
+      systemd.tmpfiles.rules = [
+        "d ${cfg.dataDir} 0777 root - - -"
+        "d ${cfg.dataDir}/app 0777 root - - -"
+        "d ${cfg.dataDir}/database 0777 root - - -"
+        "d ${cfg.dataDir}/export 0777 root - - -"
+        "d ${cfg.dataDir}/framework 0777 root - - -"
+        "d ${cfg.dataDir}/framework/cache 0777 root - - -"
+        "d ${cfg.dataDir}/framework/sessions 0777 root - - -"
+        "d ${cfg.dataDir}/framework/views 0777 root - - -"
+        "d ${cfg.dataDir}/logs 0777 root - - -"
+        "d ${cfg.dataDir}/upload 0777 root - - -"
 
-        "${cfg.dataDir}/database/database.sqlite" = {
-          f = {
-            mode = "0777";
-            user = "root";
-          };
-        };
-      };
+        "f ${cfg.dataDir}/storage/database/database.sqlite 0777 root - - -"
+      ];
 
     };
   };
