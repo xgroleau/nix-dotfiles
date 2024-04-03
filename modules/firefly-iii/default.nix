@@ -44,7 +44,7 @@ in {
         image = "fireflyiii/core:latest";
         environment = {
           environment = {
-            APP_URL = cfg.appURL;
+            APP_URL = cfg.appUrl;
             APP_KEY_FILE = cfg.appKeyFile;
             DB_CONNECTION = "sqlite";
 
