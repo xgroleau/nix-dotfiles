@@ -57,8 +57,6 @@ in {
         reverseProxies = {
           "authentik.${domain}" = "localhost:9000";
 
-          "firefly.${domain}" = "localhost:12300";
-
           "immich.${domain}" = "localhost:10300";
 
           "ocis.${domain}" = "localhost:11200";
@@ -74,13 +72,13 @@ in {
         };
       };
 
-      firefly-iii = {
-        enable = true;
-        port = 12300;
-        dataDir = "/data/firefly-iii";
-        appKeyFile = config.age.secrets.fireflyAppKey.path;
-        appUrl = "https://firefly.${domain}";
-      };
+      # firefly-iii = {
+      #   enable = true;
+      #   port = 12300;
+      #   dataDir = "/data/firefly-iii";
+      #   appKeyFile = config.age.secrets.fireflyAppKey.path;
+      #   appUrl = "https://firefly.${domain}";
+      # };
 
       immich = {
         enable = true;

@@ -57,7 +57,7 @@ in {
         };
         volumes = [
           "${cfg.dataDir}:/var/www/html/storage:rw"
-          "${cfg.appKeyFile}:${cfg.appKeyFile}"
+          "${cfg.appKeyFile}:${cfg.appKeyFile}:r"
         ];
         ports = [ "${toString cfg.port}:8080/tcp" ];
         extraOptions = [ "--network=firefly-iii-bridge" ];
