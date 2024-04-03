@@ -46,6 +46,7 @@ in {
           APP_URL = cfg.appUrl;
           APP_KEY_FILE = cfg.appKeyFile;
           DB_CONNECTION = "sqlite";
+          TRUSTED_PROXIES = "*";
 
           # MAIL_MAILER = mail.driver;
           # MAIL_HOST = mail.host;
