@@ -55,7 +55,10 @@ in {
           # MAIL_PASSWORD._secret = mail.passwordFile;
           # MAIL_ENCRYPTION = mail.encryption;
         };
-        volumes = [ "${cfg.dataDir}:/var/www/html/storage:rw" ];
+        volumes = [
+          "${cfg.dataDir}:/var/www/html/storage:rw"
+          "${cfg.appKeyFile}:${cfg.appKeyFile}"
+        ];
         ports = [ "${toString cfg.port}:8080/tcp" ];
         extraOptions = [ "--network=firefly-iii-bridge" ];
       };
