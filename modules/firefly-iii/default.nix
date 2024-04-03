@@ -43,19 +43,17 @@ in {
       firefly-iii-core = {
         image = "fireflyiii/core:latest";
         environment = {
-          environment = {
-            APP_URL = cfg.appUrl;
-            APP_KEY_FILE = cfg.appKeyFile;
-            DB_CONNECTION = "sqlite";
+          APP_URL = cfg.appUrl;
+          APP_KEY_FILE = cfg.appKeyFile;
+          DB_CONNECTION = "sqlite";
 
-            # MAIL_MAILER = mail.driver;
-            # MAIL_HOST = mail.host;
-            # MAIL_PORT = mail.port;
-            # MAIL_FROM = mail.from;
-            # MAIL_USERNAME = mail.user;
-            # MAIL_PASSWORD._secret = mail.passwordFile;
-            # MAIL_ENCRYPTION = mail.encryption;
-          };
+          # MAIL_MAILER = mail.driver;
+          # MAIL_HOST = mail.host;
+          # MAIL_PORT = mail.port;
+          # MAIL_FROM = mail.from;
+          # MAIL_USERNAME = mail.user;
+          # MAIL_PASSWORD._secret = mail.passwordFile;
+          # MAIL_ENCRYPTION = mail.encryption;
         };
         volumes = [ "${cfg.dataDir}:/var/www/html/storage:rw" ];
         ports = [ "${toString cfg.port}:8080/tcp" ];
