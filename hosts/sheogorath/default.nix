@@ -79,7 +79,7 @@ in {
         port = 12300;
         dataDir = "/data/firefly-iii";
         appKeyFile = config.age.secrets.fireflyAppKey.path;
-        appUrl = "firefly.${domain}";
+        appUrl = "https://firefly.${domain}";
       };
 
       immich = {
