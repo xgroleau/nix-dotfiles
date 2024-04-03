@@ -57,6 +57,8 @@ in {
         reverseProxies = {
           "authentik.${domain}" = "localhost:9000";
 
+          "firefly.${domain}" = "localhost:12300";
+
           "immich.${domain}" = "localhost:10300";
 
           "ocis.${domain}" = "localhost:11200";
@@ -70,6 +72,14 @@ in {
           "overseerr.sheogorath.duckdns.org" = "unraid:5055"; # Temporary
           "nextcloud.sheogorath.duckdns.org" = "unraid:4443"; # Temporary
         };
+      };
+
+      firefly-iii = {
+        enable = true;
+        port = 12300;
+        dataDir = "/data/firefly-iii";
+        appKeyFile = config.age.secrets.fireflyAppKey.path;
+        appUrl = "firefly.${domain}";
       };
 
       immich = {

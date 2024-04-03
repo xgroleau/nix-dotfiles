@@ -9,6 +9,7 @@
     ./home
     ./immich
     ./kdeconnect
+    ./firefly-iii
     ./media-server
     ./monitoring
     ./msmtp

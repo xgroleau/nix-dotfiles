@@ -9,4 +9,5 @@ in with keys; {
   "alertmanager-env.age".publicKeys = [ users.xgroleau machines.sheogorath ];
   "cloudflare-xgroleau.age".publicKeys = [ users.xgroleau machines.sheogorath ];
   "ocis-env.age".publicKeys = [ users.xgroleau machines.sheogorath ];
+  "firefly-iii-appkey.age".publicKeys = [ users.xgroleau machines.sheogorath ];
 }
