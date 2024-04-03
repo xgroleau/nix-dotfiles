@@ -102,7 +102,7 @@ in {
       };
 
       # Folder
-      systemd.tmpfiles.rules = [
+      tmpfiles.rules = [
         "d ${cfg.dataDir} 0777 root - - -"
         "d ${cfg.dataDir}/app 0777 root - - -"
         "d ${cfg.dataDir}/database 0777 root - - -"
