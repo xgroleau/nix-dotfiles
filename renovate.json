@@ -19,5 +19,18 @@
       ],
       "datasourceTemplate": "docker"
     }
+  ],
+
+  "packageRules": [
+    {
+      "matchPackagePatterns": [
+        "postgres",
+        "mysql",
+        "mariadb",
+        "mongodb",
+        "pgvecto-rs"
+      ],
+      "enabled": false
+    }
   ]
 }
