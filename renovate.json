@@ -14,8 +14,8 @@
     {
       "fileMatch": ["^.*\\.nix$"],
       "matchStrings": [
-        "image *= *\"(?<depName>[^\"]+):(?<currentValue>[^\"]+)(@(?<currentDigest>sha256:[a-f0-9]+))?\";",
-        "Image *= *\"(?<depName>[^\"]+):(?<currentValue>[^\"]+)(@(?<currentDigest>sha256:[a-f0-9]+))?\";"
+        "image *=(\r\n|\r|\n)? *\"(?<depName>[^\"]+):(?<currentValue>[^\"]+)(@(?<currentDigest>sha256:[a-f0-9]+))?\";",
+        "Image *=(\r\n|\r|\n)? *\"(?<depName>[^\"]+):(?<currentValue>[^\"]+)(@(?<currentDigest>sha256:[a-f0-9]+))?\";"
       ],
       "datasourceTemplate": "docker"
     }
