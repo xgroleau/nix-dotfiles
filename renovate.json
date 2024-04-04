@@ -1,6 +1,26 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:recommended"
+
+  "extends": ["config:recommended"],
+  "lockFileMaintenance": {
+    "enabled": true,
+    "extends": ["schedule:weekly"]
+  },
+  "nix": {
+    "enabled": true,
+    "lockFileMaintenance": {
+      "enabled": true
+    }
+  },
+
+  "regexManagers": [
+    {
+      "fileMatch": ["^.*\\.nix$"],
+      "matchStrings": [
+        "*image *= *\"(?<depName>[^\"]+):(?<currentValue>[^\"]+)(@(?<currentDigest>sha256:[a-f0-9]+))?\";",
+        "*Image *= *\"(?<depName>[^\"]+):(?<currentValue>[^\"]+)(@(?<currentDigest>sha256:[a-f0-9]+))?\";"
+      ],
+      "datasourceTemplate": "docker"
+    }
   ]
 }

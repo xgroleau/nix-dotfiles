@@ -3,11 +3,6 @@
 let
 
   cfg = config.modules.immich;
-  immichImage = "ghcr.io/imagegenius/immich";
-  immichVersion = "1.100.0";
-
-  postgresImage = "tensorchord/pgvecto-rs";
-  postgresVersion = "pg16-v0.2.0";
 
   redisImage = "redis";
   redisVersion = "6.2-alpine";
@@ -68,7 +63,8 @@ in {
     virtualisation.oci-containers.containers = {
       immich-server = {
         autoStart = true;
-        image = "${immichImage}:${immichVersion}";
+        image =
+          "ghcr.io/imagegenius/immich:1.100.0@sha256:7d5cea7f5b32b1d839099ac241277ec201e347441a599c6dafcd8d0fa78e6777";
         volumes = [
           "/etc/localtime:/etc/localtime:ro"
           "${cfg.configDir}:/config"
@@ -102,14 +98,16 @@ in {
 
       immich-redis = {
         autoStart = true;
-        image = "${redisImage}:${redisVersion}";
+        image =
+          "redis:6.2-alpine@sha256:3fcb624d83a9c478357f16dc173c58ded325ccc5fd2a4375f3916c04cc579f70";
         environmentFiles = [ cfg.envFile ];
         extraOptions = [ "--network=immich-bridge" ];
       };
 
       immich-postgres = {
         autoStart = true;
-        image = "${postgresImage}:${postgresVersion}";
+        image =
+          "tensorchord/pgvecto-rs:pg16-v0.2.0@sha256:b33e0490b24fad3925294ee8d9e87b52ae64445e8772ad30f9f80091523795a5";
 
         volumes = [
           "/etc/localtime:/etc/localtime:ro"

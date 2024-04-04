@@ -40,7 +40,8 @@ in {
       containers = {
         delugevpn = {
           autoStart = true;
-          image = "${image}:${imageVersion}";
+          image =
+            "binhex/arch-delugevpn:2.1.1-4-09@sha256:3beb3a6d8894233e1278473dd4295350b0c02498b405fc950fff2768dddc8fea";
           ports = [ "8112:8112" "8118:8118" "58846:58846" "58946:58946" ];
           volumes = [
             "${cfg.dataDir}/deluge:/config"

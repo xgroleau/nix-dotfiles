@@ -41,7 +41,8 @@ in {
 
     virtualisation.oci-containers.containers = {
       firefly-iii-core = {
-        image = "fireflyiii/core:latest";
+        image =
+          "fireflyiii/core:version-6.1.13@sha256:b69e9d94e0c068fe9381ddedb70d8ab57f5a8daecc9e1d3f629ad6b20a525473";
         environment = {
           APP_URL = cfg.appUrl;
           APP_KEY_FILE = cfg.appKeyFile;

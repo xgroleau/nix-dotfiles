@@ -3,7 +3,6 @@
 
 let
   cfg = config.modules.ocis;
-  ocisVersion = "5.0.0";
 
   tikaVersion = "2.9.1.0-full";
 
@@ -87,7 +86,8 @@ in {
         {
           ocis = {
             autoStart = true;
-            image = "owncloud/ocis:${ocisVersion}";
+            image =
+              "owncloud/ocis:5.0.0@sha256:a1ccc58f4d6888d137519af66d390d5bc12393e5d8fd7437643ea500058fbfbd";
             ports = [ "${toString cfg.port}:9200" ];
             volumes =
               [ "${cfg.configDir}:/etc/ocis" "${cfg.dataDir}:/var/lib/ocis" ];
@@ -129,7 +129,8 @@ in {
 
           ocis-tika = {
             autoStart = true;
-            image = "apache/tika:${tikaVersion}";
+            image =
+              "apache/tika:2.9.2.0-full@sha256:05ecf380b926fd558a3604a401c7c823667419afbdc94153adfb1244d97790fb";
             extraOptions = [ "--network=ocis-bridge" ];
           };
         }
@@ -137,7 +138,8 @@ in {
         (lib.mkIf cfg.collabora.enable {
           ocis-app-provider-collabora = {
             autoStart = true;
-            image = "owncloud/ocis:${ocisVersion}";
+            image =
+              "owncloud/ocis:5.0.0@sha256:a1ccc58f4d6888d137519af66d390d5bc12393e5d8fd7437643ea500058fbfbd";
             volumes = [ "${cfg.configDir}:/etc/ocis" ];
 
             environmentFiles = cfg.environmentFiles;
@@ -171,7 +173,8 @@ in {
 
           ocis-wopi = {
             autoStart = true;
-            image = "cs3org/wopiserver:v10.3.1";
+            image =
+              "cs3org/wopiserver:v10.3.2@sha256:5128f682edd915dfecab75d731853988a9d730cf6f5038bd80d1d4f0a82b050d";
             extraOptions = [ "--network=ocis-bridge" ];
 
             volumes = [
@@ -188,7 +191,8 @@ in {
 
           ocis-collabora = {
             autoStart = true;
-            image = "collabora/code:23.05.5.2.1";
+            image =
+              "collabora/code:23.05.5.2.1@sha256:dfce9fabc4fbf7888fa493e6688457eece14cba710ff32378667787c38916bdb";
             extraOptions = [ "--network=ocis-bridge" "--cap-add=CAP_MKNOD" ];
             environment = {
               aliasgroup1 = "https://${cfg.collabora.wopiDomain}:443";
