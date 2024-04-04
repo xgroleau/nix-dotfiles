@@ -4,10 +4,7 @@
 let
   cfg = config.modules.ocis;
 
-  tikaVersion = "2.9.1.0-full";
-
   containerBackendName = config.virtualisation.oci-containers.backend;
-
   containerBackend = pkgs."${containerBackendName}" + "/bin/"
     + containerBackendName;
 
