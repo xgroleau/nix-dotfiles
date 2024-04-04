@@ -4,6 +4,7 @@ let
   cfg = config.modules.media-server;
   group = "media";
   delugeUser = "delugevpn";
+  binhexImage = "binhex/arch-delugevpn:2.1.1-4-04";
 in {
   options.modules.media-server = with lib.types; {
     enable = lib.mkEnableOption "A media server configuration";
