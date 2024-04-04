@@ -3,12 +3,11 @@
 
   "extends": ["config:recommended"],
 
-  "lockFileMaintenance": {
-    "enabled": true,
-    "extends": ["schedule:weekly"]
-  },
   "nix": {
-    "enabled": true
+    "enabled": true,
+    "lockFileMaintenance": {
+      "enabled": true
+    }
   },
 
   "regexManagers": [
