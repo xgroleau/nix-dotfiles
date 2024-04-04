@@ -4,9 +4,6 @@ let
 
   cfg = config.modules.immich;
 
-  redisImage = "redis";
-  redisVersion = "6.2-alpine";
-
   containerBackendName = config.virtualisation.oci-containers.backend;
 
   containerBackend = pkgs."${containerBackendName}" + "/bin/"
