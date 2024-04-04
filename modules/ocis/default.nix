@@ -192,7 +192,7 @@ in {
           ocis-collabora = {
             autoStart = true;
             image =
-              "collabora/code:23.05.5.2.1@sha256:dfce9fabc4fbf7888fa493e6688457eece14cba710ff32378667787c38916bdb";
+              "collabora/code:23.05.10.1.1@sha256:05299b452f7f177bcad7654ac665ef7fe8cd69f151061e252575464ecfb5d4b3";
             extraOptions = [ "--network=ocis-bridge" "--cap-add=CAP_MKNOD" ];
             environment = {
               aliasgroup1 = "https://${cfg.collabora.wopiDomain}:443";
