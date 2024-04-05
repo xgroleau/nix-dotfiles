@@ -118,7 +118,7 @@ in {
 
       firefly-iii-importer = {
         image =
-          "fireflyiii/data-importer:version-1.4.5@sha256:sha256:e5d5ad021a4b61519f1917707ac7a5dc3598a0782b676f4782cd47f90c0ea49a";
+          "fireflyiii/data-importer:version-1.4.5@sha256:e5d5ad021a4b61519f1917707ac7a5dc3598a0782b676f4782cd47f90c0ea49a";
         environment = {
           VANITY_URL = cfg.appUrl;
           FIREFLY_III_URL = "http://firefly-iii-core:8080";
