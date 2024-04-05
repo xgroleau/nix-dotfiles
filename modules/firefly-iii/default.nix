@@ -21,6 +21,12 @@ in {
       description = "The port to use";
     };
 
+    exporterPort = lib.mkOption {
+      type = types.port;
+      default = 9301;
+      description = "The port to use";
+    };
+
     dataDir = lib.mkOption {
       type = types.str;
       description = "Path to where the data will be stored";
@@ -126,6 +132,7 @@ in {
         };
         dependsOn = [ "firefly-iii-core" ];
         volumes = [ "${cfg.importerTokenFile}:${cfg.importerTokenFile}:ro" ];
+        ports = [ "${toString cfg.exporterPort}:8080/tcp" ];
         extraOptions = [ "--network=firefly-iii-bridge" ];
       };
     };

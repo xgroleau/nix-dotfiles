@@ -77,6 +77,7 @@ in {
       firefly-iii = {
         enable = true;
         port = 12300;
+        exporterPort = 12301;
         dataDir = "/data/firefly-iii";
         appUrl = "https://firefly.${domain}";
         appKeyFile = config.age.secrets.fireflyAppKey.path;
