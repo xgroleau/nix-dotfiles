@@ -35,6 +35,52 @@ in {
       type = types.str;
       description = "URL of the firefly-iii instance";
     };
+
+    importerTokenFile = lib.mkOption {
+      type = types.str;
+      description = "Path to where the importer token is stored";
+    };
+
+    mail = lib.mkOption {
+      type = types.submodule {
+        options = {
+          enable = lib.mkEnableOption "Enable mail support";
+
+          host = lib.mkOption {
+            type = types.str;
+            description = "Host to use";
+          };
+
+          from = lib.mkOption {
+            type = types.str;
+            description = "Email to use to send";
+          };
+
+          username = lib.mkOption {
+            type = types.str;
+            description = "Username to authenticate";
+          };
+
+          passwordFile = lib.mkOption {
+            type = types.str;
+            description = "Path to the password file";
+          };
+
+          port = lib.mkOption {
+            type = types.port;
+            default = 587;
+            description = "The port to use to send the email";
+          };
+
+          to = lib.mkOption {
+            type = types.str;
+            description =
+              "Email to receive system notificaiton (e.g. zfs errors)";
+          };
+        };
+      };
+    };
+
   };
 
   config = lib.mkIf cfg.enable {
@@ -43,20 +89,25 @@ in {
       firefly-iii-core = {
         image =
           "fireflyiii/core:version-6.1.13@sha256:b69e9d94e0c068fe9381ddedb70d8ab57f5a8daecc9e1d3f629ad6b20a525473";
-        environment = {
-          APP_URL = cfg.appUrl;
-          APP_KEY_FILE = cfg.appKeyFile;
-          DB_CONNECTION = "sqlite";
-          TRUSTED_PROXIES = "*";
+        environment = lib.mkMerge [
+          {
+            APP_URL = cfg.appUrl;
+            APP_KEY_FILE = cfg.appKeyFile;
+            DB_CONNECTION = "sqlite";
+            TRUSTED_PROXIES = "*";
+          }
 
-          # MAIL_MAILER = mail.driver;
-          # MAIL_HOST = mail.host;
-          # MAIL_PORT = mail.port;
-          # MAIL_FROM = mail.from;
-          # MAIL_USERNAME = mail.user;
-          # MAIL_PASSWORD._secret = mail.passwordFile;
-          # MAIL_ENCRYPTION = mail.encryption;
-        };
+          # Mail config
+          (lib.mkIf cfg.mail.enable {
+            MAIL_MAILER = "smtp";
+            MAIL_HOST = cfg.mail.host;
+            MAIL_PORT = (toString cfg.mail.port);
+            MAIL_FROM = cfg.mail.from;
+            MAIL_USERNAME = cfg.mail.username;
+            MAIL_PASSWORD_FILE = cfg.mail.passwordFile;
+            MAIL_ENCRYPTION = "tls";
+          })
+        ];
         volumes = [
           "${cfg.dataDir}:/var/www/html/storage:rw"
           "${cfg.appKeyFile}:${cfg.appKeyFile}:ro"
@@ -65,19 +116,18 @@ in {
         extraOptions = [ "--network=firefly-iii-bridge" ];
       };
 
-      # firefly-iii-cron = {
-      #   image = "alpine";
-      #   # TODO:  FIX
-      #   cmd = [
-      #     "sh"
-      #     "-c"
-      #     ''
-      #       echo "0 3 * * * wget -qO- http://app:8080/api/v1/cron/REPLACEME" | crontab - && crond -f -L /dev/stdout''
-      #   ];
-      #   log-driver = "journald";
-      #   extraOptions = [ "--network=firefly-iii-bridge" ];
-      # };
-
+      firefly-iii-importer = {
+        image =
+          "fireflyiii/data-importer:version-1.4.5@sha256:sha256:e5d5ad021a4b61519f1917707ac7a5dc3598a0782b676f4782cd47f90c0ea49a";
+        environment = {
+          VANITY_URL = cfg.appUrl;
+          FIREFLY_III_URL = "http://firefly-iii-core:8080";
+          FIREFLY_III_ACCESS_TOKEN_FILE = cfg.importerTokenFile;
+        };
+        dependsOn = [ "firefly-iii-core" ];
+        volumes = [ "${cfg.importerTokenFile}:${cfg.importerTokenFile}:ro" ];
+        extraOptions = [ "--network=firefly-iii-bridge" ];
+      };
     };
     networking.firewall = {
       allowedTCPPorts = lib.mkIf cfg.openFirewall [ cfg.port ];

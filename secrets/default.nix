@@ -25,7 +25,8 @@ let
     alertmanagerEnv.file = ./alertmanager-env.age;
     cloudflareXgroleau.file = ./cloudflare-xgroleau.age;
     ocisEnv.file = ./ocis-env.age;
-    fireflyAppKey.file = ./firefly-iii-appkey.age;
+    fireflyAppKey.file = ./firefly-appkey.age;
+    fireflyImporterToken.file = ./firefly-importer-token.age;
   };
 
   # Only secrets that have the machine ssh key in them

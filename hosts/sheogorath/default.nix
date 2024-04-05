@@ -78,8 +78,17 @@ in {
         enable = true;
         port = 12300;
         dataDir = "/data/firefly-iii";
-        appKeyFile = config.age.secrets.fireflyAppKey.path;
         appUrl = "https://firefly.${domain}";
+        appKeyFile = config.age.secrets.fireflyAppKey.path;
+        importerTokenFile = config.age.secrets.fireflyImporterToken.path;
+        mail = {
+          enable = true;
+          host = "mail.gmx.com";
+          from = "sheogorath@gmx.com";
+          to = "xavgroleau@gmail.com";
+          username = "xavgroleau@gmx.com";
+          passwordFile = config.age.secrets.gmxPass.path;
+        };
       };
 
       immich = {
