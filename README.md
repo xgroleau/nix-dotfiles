@@ -27,7 +27,7 @@ Simply run the command with flakes enabled to get my full NixOS configuration
 
 #### Hosts
 
-The configs
+Diffrent hosts are available.
 
 ##### Namira
 
@@ -37,9 +37,13 @@ My old Ideapad Y580 from 2012. A thick boy but still fully functionning. NixOS g
 
 My main tower for development, work and games.
 
+##### Sheogorath
+
+Server for hosting a couple services for the family and myself.
+
 ##### Jyggalag
 
-The free oracle A1 vm tier. For doing random projects.
+The free tier oracle A1 vm. For doing random projects and monitors `Sheogorath`.
 
 ## Profiles
 
@@ -58,18 +62,18 @@ To use as a nixos module
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager/master";
-    nix-config.url = "github:xgroleau/nix-config";
+    nix-dotfiles.url = "github:xgroleau/nix-dotfiles";
   };
 
-  outputs = { nixpkgs, home-manager, dotfiles, ... }: {
+  outputs = { nixpkgs, home-manager, nix-dotfiles, ... }: {
     nixosConfigurations = {
       example = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
-          nix-config.utils.nixosConfigurationFromProfile {
-            username = "xgroleau";
-            profile = nix-config.profile.desktop; # Replace with desired config
-            # You can use extraSpecialArgs, extraConfig and extraModules to customize
+          nix-dotfiles.nixosModules
+          # Enable some modules
+          {
+            modules.kdeconnect.enable = true;
           }
         ];
       };
@@ -80,27 +84,34 @@ To use as a nixos module
 
 ### Home-Manager module
 
-To use for your home-manager configuration
+To use for your home-manager configuration.
 
 ``` nix
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager/master";
-    nix-config.url = "github:xgroleau/nix-config";
+    nix-dotfiles.url = "github:xgroleau/nix-dotfiles";
   };
 
-  outputs = { nixpkgs, home-manager, dotfiles, ... }: {
+  outputs = { nixpkgs, home-manager, nix-dotfiles, ... }: {
     homeConfigurations = {
-      example = nix-config.utils.homeConfigurationFromProfile {
-          pkgs = pkgs.legacyPackages.${system};
-          profile = nix-config.profile.desktop; #Replace with the desired profile
-          modules = [ {
-            home = {
-              username = "xgroleau";
-              homeDirectory = "/home/xgroleau";
-            };
-          }];
+      example = nix-dotfiles.utils.homeConfigurationFromProfile {
+        home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.${flake-utils.lib.system.x86_64-linux};
+          modules = [ 
+            nix-dotfiles.homeManagerModules
+            # Enable some modules
+            {
+              # Minimum HM requirements
+              home = {
+                username = "xgroleau";
+                homeDirectory = "/home/xgroleau";
+                stateVersion = "23.11";
+              };
+              modules.shell.zsh.enable = true;
+            }
+          ];
       };
     };
   };

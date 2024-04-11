@@ -37,12 +37,25 @@
     let
       hosts = import ./hosts;
       profiles = import ./home/profiles;
-      hmModule = {
+      hmBaseConfig = {
         home = rec {
           username = "xgroleau";
           homeDirectory = "/home/${username}";
+          stateVersion = "23.11";
         };
       };
+
+      hmModule = import ./home/modules;
+
+      nixosModule = _: {
+        imports = [
+          ./modules
+          agenix.nixosModules.default
+          disko.nixosModules.disko
+          authentik-nix.nixosModules.default
+        ];
+      };
+
     in {
 
       deploy = {
@@ -58,14 +71,17 @@
           hosts);
       };
 
-      overlays = import ./overlays { inherit inputs; };
+      homeManagerModules.default = hmModule;
+
+      nixosModules.default = nixosModule;
+
+      overlays.default = import ./overlays { inherit inputs; };
 
       # Generate a home configuration for each profiles
       homeConfigurations = nixpkgs.lib.mapAttrs (profileName: profileConfig:
         home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.${flake-utils.lib.system.x86_64-linux};
-          modules =
-            [ hmModule ./home profileConfig { home.stateVersion = "23.11"; } ];
+          modules = [ hmBaseConfig hmModule profileConfig ];
           extraSpecialArgs = { inherit inputs; };
         }) profiles;
 
@@ -74,14 +90,7 @@
         nixpkgs.lib.nixosSystem {
           inherit (hostConfig) system;
           specialArgs = { inherit inputs; };
-          modules = [
-            ./modules
-            ./secrets
-            agenix.nixosModules.default
-            disko.nixosModules.disko
-            authentik-nix.nixosModules.default
-            hostConfig.cfg
-          ];
+          modules = [ ./secrets hostConfig.cfg nixosModule ];
         }) hosts;
     }
 

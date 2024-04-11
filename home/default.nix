@@ -1,8 +1,6 @@
 { config, lib, pkgs, inputs, ... }:
 
-let
-
-  overlays = import ../overlays { inherit inputs; };
+let overlays = import ../overlays { inherit inputs; };
 in {
   imports = [
     ./modules/applications
