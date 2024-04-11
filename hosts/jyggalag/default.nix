@@ -11,7 +11,7 @@ in {
       home = {
         enable = true;
         username = "xgroleau";
-        profile = "desktop";
+        profile = "minimal";
       };
 
       ssh.enable = true;
