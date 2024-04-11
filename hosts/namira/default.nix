@@ -5,8 +5,12 @@
 
   config = {
     modules = {
-      home.username = "xgroleau";
-      home.profile = "desktop";
+      home = {
+        enable = true;
+        username = "xgroleau";
+        profile = "desktop";
+      };
+
       kdeconnect.enable = true;
 
       # Let home manager setup the session and the X11 windowing system.

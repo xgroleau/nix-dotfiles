@@ -9,8 +9,9 @@ in {
   config = lib.mkMerge ([{
     modules = {
       home = {
+        enable = true;
         username = "xgroleau";
-        profile = "minimal";
+        profile = "desktop";
       };
 
       ssh.enable = true;

@@ -6,6 +6,8 @@ let
 in {
 
   options.modules.home = with lib.types; {
+
+    enable = lib.mkEnableOption "Enables the home manager module and profile";
     profile = lib.mkOption {
       type = nullOr str;
       default = null;
@@ -27,7 +29,7 @@ in {
     { home-manager = { extraSpecialArgs = { inherit inputs; }; }; }
   ];
 
-  config = {
+  config = lib.mkIf cfg.enable {
 
     home-manager = {
       useUserPackages = true;

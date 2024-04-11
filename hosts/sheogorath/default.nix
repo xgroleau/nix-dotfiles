@@ -15,8 +15,12 @@ in {
   config = {
     # Custom modules
     modules = {
-      home.username = "xgroleau";
-      home.profile = "minimal";
+      home = {
+        enable = true;
+        username = "xgroleau";
+        profile = "desktop";
+      };
+
       ssh.enable = true;
       secrets.enable = true;
 
