@@ -70,7 +70,6 @@ in {
 
           "overseerr.${domain}" = "unraid:5055"; # Temporary
           "overseerr.sheogorath.duckdns.org" = "unraid:5055"; # Temporary
-          "nextcloud.sheogorath.duckdns.org" = "unraid:4443"; # Temporary
         };
       };
 
