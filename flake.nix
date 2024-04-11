@@ -75,7 +75,7 @@
 
       nixosModules.default = nixosModule;
 
-      overlays.default = import ./overlays { inherit inputs; };
+      overlays = import ./overlays { inherit inputs; };
 
       # Generate a home configuration for each profiles
       homeConfigurations = nixpkgs.lib.mapAttrs (profileName: profileConfig:
