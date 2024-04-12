@@ -64,271 +64,274 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    services.grafana = {
-      enable = true;
-      settings = {
-        server = rec {
-          protocol = "http";
-          http_port = cfg.grafanaPort;
-          http_addr = "0.0.0.0";
-          domain = hostname;
+    services = {
+
+      grafana = {
+        enable = true;
+        settings = {
+          server = rec {
+            protocol = "http";
+            http_port = cfg.grafanaPort;
+            http_addr = "0.0.0.0";
+            domain = hostname;
+          };
+          analytics.reporting_enabled = false;
         };
-        analytics.reporting_enabled = false;
+
+        provision = {
+          enable = true;
+          datasources.settings.datasources = [
+            {
+              name = "Prometheus";
+              type = "prometheus";
+              access = "proxy";
+              url = "http://127.0.0.1:${toString cfg.prometheusPort}";
+            }
+            {
+              name = "Loki";
+              type = "loki";
+              access = "proxy";
+              url = "http://127.0.0.1:${toString cfg.lokiPort}";
+            }
+          ];
+        };
       };
 
-      provision = {
+      prometheus = {
         enable = true;
-        datasources.settings.datasources = [
-          {
-            name = "Prometheus";
-            type = "prometheus";
-            access = "proxy";
-            url = "http://127.0.0.1:${toString cfg.prometheusPort}";
-          }
-          {
-            name = "Loki";
-            type = "loki";
-            access = "proxy";
-            url = "http://127.0.0.1:${toString cfg.lokiPort}";
-          }
-        ];
-      };
-    };
+        port = cfg.prometheusPort;
 
-    services.prometheus = {
-      enable = true;
-      port = cfg.prometheusPort;
+        rules = [
+          (builtins.toJSON {
+            groups = [{
+              name = "nixos-monitoring";
+              rules = [
+                {
+                  alert = "NodeDown";
+                  expr = "up == 0";
+                  for = "5m";
+                  annotations = {
+                    summary = "{{$labels.alias}}: Node is down.";
+                    description =
+                      "{{$labels.alias}} has been down for more than 5 minutes.";
+                  };
+                }
+                {
+                  alert = "Node90Full";
+                  expr = ''
+                    sort(node_filesystem_free{device!="ramfs"} < node_filesystem_size{device!="ramfs"} * 0.1) / 1024^3'';
+                  for = "5m";
+                  annotations = {
+                    summary =
+                      "{{$labels.alias}}: Filesystem is running out of space soon.";
+                    description =
+                      "{{$labels.alias}} device {{$labels.device}} on {{$labels.mountpoint}} got less than 10% space left on its filesystem.";
+                  };
+                }
+                {
+                  alert = "Node90FullIn4H";
+                  expr = ''
+                    predict_linear(node_filesystem_free{device!="ramfs"}[1h], 4*3600) <= 0'';
+                  for = "5m";
+                  annotations = {
+                    summary =
+                      "{{$labels.alias}}: Filesystem is running out of space in 4 hours.";
+                    description =
+                      "{{$labels.alias}} device {{$labels.device}} on {{$labels.mountpoint}} is running out of space of in approx. 4 hours";
+                  };
+                }
+                {
+                  alert = "NodeFiledescriptorsFull3h";
+                  expr =
+                    "predict_linear(node_filefd_allocated[1h], 3*3600) >= node_filefd_maximum";
+                  for = "10m";
+                  annotations = {
+                    summary =
+                      "{{$labels.alias}} is running out of available file descriptors in 3 hours.";
+                    description =
+                      "{{$labels.alias}} is running out of available file descriptors in approx. 3 hours";
+                  };
+                }
+                {
+                  alert = "NodeLoad1At90percent";
+                  expr = ''
+                    node_load1 / on(alias) count(node_cpu{mode="system"}) by (alias) >= 0.9'';
+                  for = "1h";
+                  annotations = {
+                    summary = "{{$labels.alias}}: Running on high load.";
+                    description =
+                      "{{$labels.alias}} is running with > 90% total load for at least 1h.";
+                  };
+                }
+                {
+                  alert = "NodeCpuUtil90Percent";
+                  expr = ''
+                    100 - (avg by (alias) (irate(node_cpu{mode="idle"}[5m])) * 100) >= 90'';
+                  for = "1h";
+                  annotations = {
+                    summary = "{{$labels.alias}}: High CPU utilization.";
+                    description =
+                      "{{$labels.alias}} has total CPU utilization over 90% for at least 1h.";
+                  };
+                }
+                {
+                  alert = "NodeRamUsing90Percent";
+                  expr = ''
+                    node_memory_MemFree + node_memory_Buffers + node_memory_Cached < node_memory_MemTotal * 0.1
+                  '';
+                  for = "130m";
+                  annotations = {
+                    summary = "{{$labels.alias}}: Using lots of RAM.";
+                    description =
+                      "{{$labels.alias}} is using at least 90% of its RAM for at least 130 minutes now.";
+                  };
+                }
+                {
+                  alert = "NodeSwapUsing80Percent";
+                  expr = ''
+                    node_memory_SwapTotal - (node_memory_SwapFree + node_memory_SwapCached) > node_memory_SwapTotal * 0.8
+                  '';
+                  for = "10m";
+                  annotations = {
+                    summary = "{{$labels.alias}}: Running out of swap soon.";
+                    description =
+                      "{{$labels.alias}} is using 80% of its swap space for at least 10 minutes now.";
+                  };
+                }
 
-      rules = [
-        (builtins.toJSON {
-          groups = [{
-            name = "nixos-monitoring";
-            rules = [
-              {
-                alert = "NodeDown";
-                expr = "up == 0";
-                for = "5m";
-                annotations = {
-                  summary = "{{$labels.alias}}: Node is down.";
-                  description =
-                    "{{$labels.alias}} has been down for more than 5 minutes.";
-                };
-              }
-              {
-                alert = "Node90Full";
-                expr = ''
-                  sort(node_filesystem_free{device!="ramfs"} < node_filesystem_size{device!="ramfs"} * 0.1) / 1024^3'';
-                for = "5m";
-                annotations = {
-                  summary =
-                    "{{$labels.alias}}: Filesystem is running out of space soon.";
-                  description =
-                    "{{$labels.alias}} device {{$labels.device}} on {{$labels.mountpoint}} got less than 10% space left on its filesystem.";
-                };
-              }
-              {
-                alert = "Node90FullIn4H";
-                expr = ''
-                  predict_linear(node_filesystem_free{device!="ramfs"}[1h], 4*3600) <= 0'';
-                for = "5m";
-                annotations = {
-                  summary =
-                    "{{$labels.alias}}: Filesystem is running out of space in 4 hours.";
-                  description =
-                    "{{$labels.alias}} device {{$labels.device}} on {{$labels.mountpoint}} is running out of space of in approx. 4 hours";
-                };
-              }
-              {
-                alert = "NodeFiledescriptorsFull3h";
-                expr =
-                  "predict_linear(node_filefd_allocated[1h], 3*3600) >= node_filefd_maximum";
-                for = "10m";
-                annotations = {
-                  summary =
-                    "{{$labels.alias}} is running out of available file descriptors in 3 hours.";
-                  description =
-                    "{{$labels.alias}} is running out of available file descriptors in approx. 3 hours";
-                };
-              }
-              {
-                alert = "NodeLoad1At90percent";
-                expr = ''
-                  node_load1 / on(alias) count(node_cpu{mode="system"}) by (alias) >= 0.9'';
-                for = "1h";
-                annotations = {
-                  summary = "{{$labels.alias}}: Running on high load.";
-                  description =
-                    "{{$labels.alias}} is running with > 90% total load for at least 1h.";
-                };
-              }
-              {
-                alert = "NodeCpuUtil90Percent";
-                expr = ''
-                  100 - (avg by (alias) (irate(node_cpu{mode="idle"}[5m])) * 100) >= 90'';
-                for = "1h";
-                annotations = {
-                  summary = "{{$labels.alias}}: High CPU utilization.";
-                  description =
-                    "{{$labels.alias}} has total CPU utilization over 90% for at least 1h.";
-                };
-              }
-              {
-                alert = "NodeRamUsing90Percent";
-                expr = ''
-                  node_memory_MemFree + node_memory_Buffers + node_memory_Cached < node_memory_MemTotal * 0.1
-                '';
-                for = "130m";
-                annotations = {
-                  summary = "{{$labels.alias}}: Using lots of RAM.";
-                  description =
-                    "{{$labels.alias}} is using at least 90% of its RAM for at least 130 minutes now.";
-                };
-              }
-              {
-                alert = "NodeSwapUsing80Percent";
-                expr = ''
-                  node_memory_SwapTotal - (node_memory_SwapFree + node_memory_SwapCached) > node_memory_SwapTotal * 0.8
-                '';
-                for = "10m";
-                annotations = {
-                  summary = "{{$labels.alias}}: Running out of swap soon.";
-                  description =
-                    "{{$labels.alias}} is using 80% of its swap space for at least 10 minutes now.";
-                };
-              }
-
-              {
-                alert = "SystemDUnitDown";
-                expr = ''node_systemd_unit_state{state="failed"} == 1'';
-                for = "5m";
-                annotations = {
-                  summary =
-                    "{{$labels.instance}} failed to (re)start the following service {{$labels.name}}.";
-                };
-              }
-              {
-                alert = "RootPartitionFull";
-                for = "10m";
-                expr = ''
-                  (node_filesystem_free_bytes{mountpoint="/"} * 100) / node_filesystem_size_bytes{mountpoint="/"} < 10'';
-                annotations = {
-                  summary = ''
-                    {{ $labels.job }} running out of space: {{ $value | printf "%.2f" }}% < 10%'';
-                };
-              }
-            ];
-          }];
-        })
-
-      ];
-
-      scrapeConfigs = [{
-        job_name = "nodes";
-        static_configs = [{ targets = [ cfg.prometheusScrapeUrl ]; }];
-      }];
-
-      # Send notifications to
-      alertmanagers = if cfg.alerting.enable then [{
-        scheme = "http";
-        path_prefix = "/";
-        static_configs =
-          [{ targets = [ "127.0.0.1:${toString cfg.alerting.port}" ]; }];
-      }] else
-        [ ];
-
-      #Receive notifications
-      alertmanager = lib.mkIf cfg.alerting.enable {
-        enable = true;
-        port = cfg.alerting.port;
-        environmentFile = cfg.alerting.envFile;
-        listenAddress = "0.0.0.0";
-        configuration = {
-          global = {
-            smtp_require_tls = true;
-            smtp_smarthost = "$SMTP_HOST:$SMTP_PORT";
-            smtp_from = "$SMTP_SENDER";
-            smtp_auth_username = "$SMTP_USERNAME";
-            smtp_auth_password = "$SMTP_PASSWORD";
-          };
-          route = {
-            group_by = [ "alertname" "alias" ];
-            group_wait = "10s";
-            receiver = "admin-smtp";
-          };
-          receivers = [{
-            name = "admin-smtp";
-            email_configs = [{
-              to = cfg.alerting.emailTo;
-              send_resolved = false;
+                {
+                  alert = "SystemDUnitDown";
+                  expr = ''node_systemd_unit_state{state="failed"} == 1'';
+                  for = "5m";
+                  annotations = {
+                    summary =
+                      "{{$labels.instance}} failed to (re)start the following service {{$labels.name}}.";
+                  };
+                }
+                {
+                  alert = "RootPartitionFull";
+                  for = "10m";
+                  expr = ''
+                    (node_filesystem_free_bytes{mountpoint="/"} * 100) / node_filesystem_size_bytes{mountpoint="/"} < 10'';
+                  annotations = {
+                    summary = ''
+                      {{ $labels.job }} running out of space: {{ $value | printf "%.2f" }}% < 10%'';
+                  };
+                }
+              ];
             }];
-          }];
+          })
+
+        ];
+
+        scrapeConfigs = [{
+          job_name = "nodes";
+          static_configs = [{ targets = [ cfg.prometheusScrapeUrl ]; }];
+        }];
+
+        # Send notifications to
+        alertmanagers = if cfg.alerting.enable then [{
+          scheme = "http";
+          path_prefix = "/";
+          static_configs =
+            [{ targets = [ "127.0.0.1:${toString cfg.alerting.port}" ]; }];
+        }] else
+          [ ];
+
+        #Receive notifications
+        alertmanager = lib.mkIf cfg.alerting.enable {
+          enable = true;
+          port = cfg.alerting.port;
+          environmentFile = cfg.alerting.envFile;
+          listenAddress = "0.0.0.0";
+          configuration = {
+            global = {
+              smtp_require_tls = true;
+              smtp_smarthost = "$SMTP_HOST:$SMTP_PORT";
+              smtp_from = "$SMTP_SENDER";
+              smtp_auth_username = "$SMTP_USERNAME";
+              smtp_auth_password = "$SMTP_PASSWORD";
+            };
+            route = {
+              group_by = [ "alertname" "alias" ];
+              group_wait = "10s";
+              receiver = "admin-smtp";
+            };
+            receivers = [{
+              name = "admin-smtp";
+              email_configs = [{
+                to = cfg.alerting.emailTo;
+                send_resolved = false;
+              }];
+            }];
+          };
         };
+
       };
 
-    };
+      loki = {
+        enable = true;
+        configuration = {
+          auth_enabled = false;
+          server = { http_listen_port = cfg.lokiPort; };
 
-    services.loki = {
-      enable = true;
-      configuration = {
-        auth_enabled = false;
-        server = { http_listen_port = cfg.lokiPort; };
-
-        common = {
-          instance_addr = "127.0.0.1";
-          path_prefix = "/tmp/loki";
-          storage = {
-            filesystem = {
-              chunks_directory = "/tmp/loki/chunks";
-              rules_directory = "/tmp/loki/rules";
+          common = {
+            instance_addr = "127.0.0.1";
+            path_prefix = "/tmp/loki";
+            storage = {
+              filesystem = {
+                chunks_directory = "/tmp/loki/chunks";
+                rules_directory = "/tmp/loki/rules";
+              };
             };
+            replication_factor = 1;
+            ring = { kvstore.store = "inmemory"; };
           };
-          replication_factor = 1;
-          ring = { kvstore.store = "inmemory"; };
-        };
 
-        query_range = {
-          results_cache = {
-            cache = {
-              embedded_cache = {
-                enabled = true;
-                max_size_mb = 100;
+          query_range = {
+            results_cache = {
+              cache = {
+                embedded_cache = {
+                  enabled = true;
+                  max_size_mb = 100;
+                };
               };
             };
           };
+
+          schema_config = {
+            configs = [{
+              from = "2020-10-24";
+              store = "tsdb";
+              object_store = "filesystem";
+              schema = "v12";
+              index = {
+                prefix = "index_";
+                period = "24h";
+              };
+            }];
+          };
+
+          limits_config = {
+            reject_old_samples = true;
+            reject_old_samples_max_age = "168h";
+          };
+
+          chunk_store_config = { max_look_back_period = "0s"; };
+
+          table_manager = {
+            retention_deletes_enabled = false;
+            retention_period = "0s";
+          };
+
+          compactor = {
+            working_directory = "/var/lib/loki";
+            shared_store = "filesystem";
+            compactor_ring = { kvstore = { store = "inmemory"; }; };
+          };
+
+          analytics = { reporting_enabled = false; };
         };
-
-        schema_config = {
-          configs = [{
-            from = "2020-10-24";
-            store = "tsdb";
-            object_store = "filesystem";
-            schema = "v12";
-            index = {
-              prefix = "index_";
-              period = "24h";
-            };
-          }];
-        };
-
-        limits_config = {
-          reject_old_samples = true;
-          reject_old_samples_max_age = "168h";
-        };
-
-        chunk_store_config = { max_look_back_period = "0s"; };
-
-        table_manager = {
-          retention_deletes_enabled = false;
-          retention_period = "0s";
-        };
-
-        compactor = {
-          working_directory = "/var/lib/loki";
-          shared_store = "filesystem";
-          compactor_ring = { kvstore = { store = "inmemory"; }; };
-        };
-
-        analytics = { reporting_enabled = false; };
       };
     };
   };

@@ -14,11 +14,16 @@ rec {
     imports = [ minimal ];
     config = {
       modules = {
-        editors.emacs.enable = true;
-        editors.emacs.defaultEditor = true;
-        dev.cc.enable = true;
-        dev.python.enable = true;
-        dev.rust.enable = true;
+        editors.emacs = {
+          enable = true;
+          defaultEditor = true;
+        };
+
+        dev = {
+          cc.enable = true;
+          python.enable = true;
+          rust.enable = true;
+        };
       };
     };
   };

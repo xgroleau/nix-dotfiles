@@ -104,7 +104,8 @@
               name = "fmt";
               runtimeInputs = with pkgs; [ nixfmt statix ];
               text = ''
-                nixfmt ./**/*.nix
+                nixfmt ./**/*.nix && \
+                statix fix --config ${./statix.toml}
               '';
             };
           in {
@@ -133,6 +134,7 @@
             buildInputs = with pkgs; [ nixfmt statix ];
           } ''
             ${pkgs.nixfmt}/bin/nixfmt --check ${./.}/**/*.nix && \
+            ${pkgs.statix}/bin/statix check --config ${./statix.toml} && \
             touch $out
           '';
         };
