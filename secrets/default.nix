@@ -12,7 +12,7 @@ let
   # Filter for the secrets to only have the ones that have the host key
   filterSecrets = name: att:
     let keyName = builtins.baseNameOf att.file;
-    in builtins.elem machineKey (ageSecrets."${keyName}".publicKeys);
+    in builtins.elem machineKey ageSecrets."${keyName}".publicKeys;
 
   # attrset of the secrets
   secrets = {
