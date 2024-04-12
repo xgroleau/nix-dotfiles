@@ -61,7 +61,7 @@ in {
       immich-server = {
         autoStart = true;
         image =
-          "ghcr.io/imagegenius/immich:1.101.0@sha256:f13c58520284b42c76e6b3b5f79402fe980975fc90b498619dc99d6c0025d6e7";
+          "ghcr.io/imagegenius/immich:1.101.0@sha256:07494a98d61d11d6b9362102c12cc5fdbc0c1b4fa41d28643252d3bb7fdaef89";
         volumes = [
           "/etc/localtime:/etc/localtime:ro"
           "${cfg.configDir}:/config"
