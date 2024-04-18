@@ -53,5 +53,8 @@ in {
       users.root = { openssh.authorizedKeys.keys = [ gh_key ]; };
     };
 
+    #Increase number of file descriptor
+    systemd.extraConfig = "DefaultLimitNOFILE=32768";
+
   };
 }
