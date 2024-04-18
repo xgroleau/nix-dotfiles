@@ -52,5 +52,14 @@ in {
 
       users.root = { openssh.authorizedKeys.keys = [ gh_key ]; };
     };
+
+    #Increase number of file descriptor
+    security.pam.loginLimits = [{
+      domain = "*";
+      item = "nofile";
+      type = "-";
+      value = "32768";
+    }];
+
   };
 }
