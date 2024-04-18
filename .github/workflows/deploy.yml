@@ -21,7 +21,7 @@ jobs:
 
       - name: ulimit debug
         run: |
-          ulimit
+          ulimit -n
 
       - name: Tailscale
         uses: tailscale/github-action@v2
