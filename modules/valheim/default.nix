@@ -80,7 +80,8 @@ in {
               "+force_install_dir ${cfg.dataDir}"
               "+login anonymous"
               "+app_update 896660"
-              "-beta none"
+              "-beta public-test"
+              "-betapassword yesimadebackups"
               "validate"
               "+quit"
             ];
