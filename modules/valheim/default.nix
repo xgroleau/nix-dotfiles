@@ -74,6 +74,7 @@ in {
           wantedBy = [ "multi-user.target" ];
 
           serviceConfig = {
+            TimeoutStartSec = "20min";
             ExecStartPre = join [
               "${pkgs.steamcmd}/bin/steamcmd"
               "+force_install_dir ${cfg.dataDir}"

@@ -66,6 +66,7 @@ in {
           requires = [ "network.target" ];
           wantedBy = [ "multi-user.target" ];
           serviceConfig = {
+            TimeoutStartSec = "20min";
             ExecStartPre = join [
               "${pkgs.steamcmd}/bin/steamcmd"
               "+force_install_dir ${cfg.dataDir}"
@@ -93,8 +94,7 @@ in {
 
           environment = {
             # linux64 directory is required by palworld.
-            LD_LIBRARY_PATH = with pkgs;
-              lib.makeLibraryPath [ glibc libatomic_ops libpulseaudio.dev ];
+            LD_LIBRARY_PATH = with pkgs; lib.makeLibraryPath [ glibc ];
           };
         };
       }
