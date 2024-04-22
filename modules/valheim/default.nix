@@ -86,7 +86,7 @@ in {
             ];
             ExecStart = join [
               "${pkgs.steam-run}/bin/steam-run ${cfg.dataDir}/valheim_server.x86_64"
-              "-port ${ cfg.port}"
+              "-port ${toString cfg.port}"
               "-nographics"
               "-batchmode"
               "-name ${cfg.name}"
