@@ -86,7 +86,7 @@ in {
             ];
             ExecStart = join [
               "${pkgs.steam-run}/bin/steam-run ${cfg.dataDir}/valheim_server.x86_64"
-              "-port ${toString cfg.port}"
+              "-port ${ cfg.port}"
               "-nographics"
               "-batchmode"
               "-name ${cfg.name}"
@@ -102,7 +102,7 @@ in {
           };
 
           environment = {
-            LD_LIBRARY_PATH = "/var/lib/steam-app-${steam-app}/linux64:${pkgs.glibc}/lib";
+            LD_LIBRARY_PATH = with pkgs; "/var/lib/steam-app-${steam-app}/linux64:${pkgs.glibc}/lib";
 			      SteamAppId = "892970";
           };
         };
