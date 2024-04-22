@@ -92,7 +92,7 @@ in {
               "-name ${toString cfg.name}"
               "-world ${toString cfg.name}"
               "-password ${toString cfg.password}"
-              "-public 1"
+              "-public 0"
             ];
 
             Restart = "always";
@@ -102,8 +102,8 @@ in {
           };
 
           environment = {
-            LD_LIBRARY_PATH = with pkgs;
-              lib.makeLibraryPath [ glibc libatomic_ops libpulseaudio.dev ];
+            LD_LIBRARY_PATH = "/var/lib/steam-app-${steam-app}/linux64:${pkgs.glibc}/lib";
+			      SteamAppId = "892970";
           };
         };
       }
