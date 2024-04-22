@@ -1,12 +1,12 @@
 { config, pkgs, lib, ... }:
 
 let
-  cfg = config.modules.palworld;
+  cfg = config.modules.valheim;
   join = builtins.concatStringsSep " ";
 in {
 
-  options.modules.palworld = with lib.types; {
-    enable = lib.mkEnableOption "palworld";
+  options.modules.valheim = with lib.types; {
+    enable = lib.mkEnableOption "valheim";
 
     openFirewall = lib.mkEnableOption "Open the required ports in the firewall";
 
@@ -14,14 +14,26 @@ in {
 
     user = lib.mkOption {
       type = lib.types.str;
-      default = "palworld";
-      description = "User account under which palworld runs";
+      default = "valheim";
+      description = "User account under which valheim runs";
     };
 
     group = lib.mkOption {
       type = lib.types.str;
-      default = "palworld";
-      description = "Group under which palworld runs";
+      default = "valheim";
+      description = "Group under which valheim runs";
+    };
+
+    name = lib.mkOption {
+      type = lib.types.str;
+      default = "valheim";
+      description = "Name for the server";
+    };
+
+    password = lib.mkOption {
+      type = lib.types.str;
+      default = "valheim";
+      description = "Password for the server";
     };
 
     restartTime = lib.mkOption {
@@ -33,21 +45,16 @@ in {
 
     dataDir = lib.mkOption {
       type = lib.types.str;
-      default = "/var/lib/palworld";
-      description = "Where on disk to store your palworld directory";
+      default = "/var/lib/valheim";
+      description = "Where on disk to store your valheim directory";
     };
 
     port = lib.mkOption {
       type = types.port;
-      default = 8211;
+      default = 2456;
       description = "the port to use";
     };
 
-    maxPlayers = lib.mkOption {
-      type = types.number;
-      default = 32;
-      description = "The max amount of players to support";
-    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -61,38 +68,39 @@ in {
 
     systemd = lib.mkMerge [
       {
-        services.palworld = {
+        services.valheim = {
           after = [ "network.target" ];
           requires = [ "network.target" ];
           wantedBy = [ "multi-user.target" ];
+
           serviceConfig = {
             ExecStartPre = join [
               "${pkgs.steamcmd}/bin/steamcmd"
               "+force_install_dir ${cfg.dataDir}"
               "+login anonymous"
-              "+app_update 2394010"
+              "+app_update 896660"
+              "-beta none"
+              "validate"
               "+quit"
             ];
             ExecStart = join [
-              "${pkgs.steam-run}/bin/steam-run ${cfg.dataDir}/Pal/Binaries/Linux/PalServer-Linux-Test Pal"
-              "--port ${toString cfg.port}"
-              "--players ${toString cfg.maxPlayers}"
-              "--useperfthreads"
-              "-NoAsyncLoadingThread"
-              "-UseMultithreadForDS"
+              "${pkgs.steam-run}/bin/steam-run ${cfg.dataDir}/valheim_server.x86_64"
+              "-port ${toString cfg.port}"
+              "-nographics"
+              "-batchmode"
+              "-name ${toString cfg.name}"
+              "-world ${toString cfg.name}"
+              "-password ${toString cfg.password}"
+              "-public 1"
             ];
 
-            # Palworld has a massive memoryleak, let's limit the memory to keep the system up
-            MemoryMax = "16G";
-
             Restart = "always";
-            StateDirectory = "palworld:${cfg.dataDir}";
+            StateDirectory = "valheim:${cfg.dataDir}";
             User = cfg.user;
             WorkingDirectory = cfg.dataDir;
           };
 
           environment = {
-            # linux64 directory is required by palworld.
             LD_LIBRARY_PATH = with pkgs;
               lib.makeLibraryPath [ glibc libatomic_ops libpulseaudio.dev ];
           };
@@ -101,10 +109,10 @@ in {
 
       # Restart the service
       (lib.mkIf cfg.restart {
-        services.palworld-restart = {
-          description = "Restart palworld";
+        services.valheim-restart = {
+          description = "Restart valheim";
           wantedBy = [ "multi-user.target" ];
-          script = "systemctl restart palworld.service ";
+          script = "systemctl restart valheim.service ";
           serviceConfig = {
             User = "root";
             Type = "oneshot";
@@ -112,9 +120,9 @@ in {
 
         };
 
-        timers.palworld-restart = {
+        timers.valheim-restart = {
           wantedBy = [ "timers.target" ];
-          partOf = [ "palworld-restart.service" ];
+          partOf = [ "valheim-restart.service" ];
           timerConfig = { OnCalendar = [ cfg.restartTime ]; };
         };
       })

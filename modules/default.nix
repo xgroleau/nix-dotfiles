@@ -17,6 +17,7 @@
     ./palworld
     ./ssh
     ./tailscale
+    ./valheim
     ./xserver
   ];
 }

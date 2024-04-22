@@ -147,6 +147,16 @@ in {
       #   dataDir = "/data/palworld";
       # };
 
+      valheim = {
+        enable = true;
+        restart = true;
+        port = 2456;
+        name = "Yofo";
+        password = "noobreport";
+        openFirewall = true;
+        dataDir = "/data/valheim";
+      };
+
     };
 
     services = {
