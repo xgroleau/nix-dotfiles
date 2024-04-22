@@ -175,6 +175,7 @@ in {
       duplicati = {
         enable = true;
         port = 14000;
+        interface = "0.0.0.0";
       };
 
       fail2ban.enable = true;
