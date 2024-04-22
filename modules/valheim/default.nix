@@ -102,7 +102,7 @@ in {
           };
 
           environment = {
-            LD_LIBRARY_PATH = with pkgs; "/var/lib/steam-app-${steam-app}/linux64:${pkgs.glibc}/lib";
+            LD_LIBRARY_PATH = with pkgs; "/var/lib/steam-app-${steam-app}/linux64:${glibc}/lib";
 			      SteamAppId = "892970";
           };
         };
