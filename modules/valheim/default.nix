@@ -89,9 +89,9 @@ in {
               "-port ${toString cfg.port}"
               "-nographics"
               "-batchmode"
-              "-name ${toString cfg.name}"
-              "-world ${toString cfg.name}"
-              "-password ${toString cfg.password}"
+              "-name ${cfg.name}"
+              "-world ${cfg.name}"
+              "-password ${cfg.password}"
               "-public 0"
             ];
 
