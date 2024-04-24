@@ -87,7 +87,9 @@ in {
               "owncloud/ocis:5.0.2@sha256:4b8545200dce57538cff90c25e054e5244ec619f55c7f6f00e61eeb08e057372";
             ports = [ "${toString cfg.port}:9200" ];
             volumes =
-              [ "${cfg.configDir}:/etc/ocis" "${cfg.dataDir}:/var/lib/ocis" ];
+              [ "${cfg.configDir}:/etc/ocis" "${cfg.dataDir}:/var/lib/ocis" ]
+              ++ lib.optionals cfg.collabora.enable
+              [ "${./appregistry.yaml}:/etc/ocis/app-registry.yaml" ];
 
             environment = lib.mkMerge [
               {
