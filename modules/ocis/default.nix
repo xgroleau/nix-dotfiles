@@ -89,7 +89,7 @@ in {
             volumes =
               [ "${cfg.configDir}:/etc/ocis" "${cfg.dataDir}:/var/lib/ocis" ]
               ++ lib.optionals cfg.collabora.enable
-              [ "${./appregistry.yaml}:/etc/ocis/app-registry.yaml" ];
+              [ "${./app-registry.yaml}:/etc/ocis/app-registry.yaml" ];
 
             environment = lib.mkMerge [
               {

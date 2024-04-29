@@ -19,10 +19,6 @@ jobs:
       - name: MagicNixCache
         uses: DeterminateSystems/magic-nix-cache-action@main
 
-      - name: ulimit debug
-        run: |
-          ulimit -n
-
       - name: Tailscale
         uses: tailscale/github-action@v2
         with:
