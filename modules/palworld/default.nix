@@ -108,6 +108,7 @@ in {
           serviceConfig = {
             User = "root";
             Type = "oneshot";
+            RemainAfterExit = "true";
           };
 
         };

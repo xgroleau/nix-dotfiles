@@ -103,8 +103,8 @@ in {
           };
 
           environment = {
-			      LD_LIBRARY_PATH = "linux64:${pkgs.glibc}/lib";
-			      SteamAppId = "892970";
+            LD_LIBRARY_PATH = "linux64:${pkgs.glibc}/lib";
+            SteamAppId = "892970";
           };
         };
       }
@@ -118,6 +118,11 @@ in {
           serviceConfig = {
             User = "root";
             Type = "oneshot";
+
+            # Valheim needs sigint to to shutdown gracefully for some reason
+            # https://valheimbugs.featureupvote.com/suggestions/159711/dedicated-server-does-not-save-world-on-sigterm
+            KillSignal = "SIGINT";
+            RemainAfterExit = "true";
           };
 
         };
