@@ -26,10 +26,7 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    authentik-nix = {
-      url = "github:nix-community/authentik-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    authentik-nix.url = "github:nix-community/authentik-nix";
   };
 
   outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, nixos-hardware
