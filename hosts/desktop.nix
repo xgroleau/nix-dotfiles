@@ -15,10 +15,9 @@
     ];
     config.common.default = "*";
   };
-  services.flatpak.enable = true;
-
   services = {
-
+    flatpak.enable = true;
+    passSecretService.enable = true;
     udev = {
       enable = true;
       packages = with pkgs; [
