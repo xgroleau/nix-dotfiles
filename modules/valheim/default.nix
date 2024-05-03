@@ -96,9 +96,8 @@ in {
               "-public 0"
             ];
 
-            Restart = "always";
-            StateDirectory = "valheim:${cfg.dataDir}";
             User = cfg.user;
+            Restart = "always";
             WorkingDirectory = cfg.dataDir;
           };
 
@@ -118,11 +117,11 @@ in {
           serviceConfig = {
             User = "root";
             Type = "oneshot";
+            RemainAfterExit = "true";
 
             # Valheim needs sigint to to shutdown gracefully for some reason
             # https://valheimbugs.featureupvote.com/suggestions/159711/dedicated-server-does-not-save-world-on-sigterm
             KillSignal = "SIGINT";
-            RemainAfterExit = "true";
           };
 
         };
