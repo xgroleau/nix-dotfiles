@@ -13,7 +13,7 @@ in {
 
   config = {
 
-    nixpkgs.overlays = [ overlays.unstable-packages ];
+    nixpkgs.overlays = [ overlays.unstable-packages overlays.roam ];
 
     programs.ssh = {
       enable = true;

@@ -6,5 +6,6 @@
       config.allowUnfree = true;
     };
   };
+  roam = inputs.roam.overlays.default;
 
 }

@@ -27,10 +27,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     authentik-nix.url = "github:nix-community/authentik-nix";
+    roam = {
+      url = "github:xgroleau/roam-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, nixos-hardware
-    , flake-utils, home-manager, agenix, deploy-rs, disko, authentik-nix, ... }:
+    , flake-utils, home-manager, agenix, deploy-rs, disko, authentik-nix, roam
+    , ... }:
     let
       hosts = import ./hosts;
       profiles = import ./home/profiles;

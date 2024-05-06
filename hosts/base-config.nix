@@ -13,7 +13,7 @@ in {
 
     nixpkgs = {
       config.allowUnfree = true;
-      overlays = [ overlays.unstable-packages ];
+      overlays = [ overlays.unstable-packages overlays.roam ];
     };
 
     nix = {

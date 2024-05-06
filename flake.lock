@@ -415,6 +415,26 @@
         "type": "github"
       }
     },
+    "roam": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1714764228,
+        "narHash": "sha256-RfTdaVCYOdLVUy0Sxn3Bd0L/HCmHrRan67VpwST7O3o=",
+        "owner": "xgroleau",
+        "repo": "roam-flake",
+        "rev": "2509bf134162573cc0341e0f05360a79651c503b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "xgroleau",
+        "repo": "roam-flake",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "agenix": "agenix",
@@ -425,7 +445,8 @@
         "home-manager": "home-manager_2",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",
-        "nixpkgs-unstable": "nixpkgs-unstable"
+        "nixpkgs-unstable": "nixpkgs-unstable",
+        "roam": "roam"
       }
     },
     "systems": {
