@@ -17,8 +17,13 @@
     };
 
 
-    wsl.enable = true;
-    wsl.defaultUser = "xgroleau";
+    wsl = {
+      enable = true;
+      defaultUser = "xgroleau";
+
+      usbip.enalbe = true;
+      docker-desktop.enable = true;
+    }
 
     system.stateVersion = "22.11";
 
