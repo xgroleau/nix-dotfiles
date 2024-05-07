@@ -24,7 +24,7 @@
 
       usbip.enalbe = true;
       docker-desktop.enable = true;
-    }
+    };
 
     system.stateVersion = "22.11";
 
