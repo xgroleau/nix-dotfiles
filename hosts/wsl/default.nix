@@ -3,6 +3,7 @@
 {
 
   imports = [
+    ../base-config.nix
     # include NixOS-WSL modules
     inputs.nixos-wsl.nixosModules.default
   ];
