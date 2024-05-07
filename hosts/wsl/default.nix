@@ -22,7 +22,7 @@
       enable = true;
       defaultUser = "xgroleau";
 
-      usbip.enalbe = true;
+      usbip.enable = true;
       docker-desktop.enable = true;
     };
 
