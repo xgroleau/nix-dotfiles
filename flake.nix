@@ -7,6 +7,10 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     flake-utils.url = "github:numtide/flake-utils";
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
+    nix-darwin = {
+      url = "github:LnL7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     home-manager = {
       url = "github:nix-community/home-manager/release-23.11";
@@ -34,7 +38,7 @@
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, nixos-hardware
+  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, nixos-hardware, nix-darwin
     , flake-utils, home-manager, agenix, deploy-rs, disko, authentik-nix, roam
     , ... }:
     let
@@ -48,7 +52,7 @@
         };
       };
 
-      hmModule = import ./home/modules;
+      hmModule = import ./home;
 
       nixosModule = _: {
         imports = [
@@ -80,6 +84,11 @@
 
       overlays = import ./overlays { inherit inputs; };
 
+      darwinConfigurations."Xaviers-Laptop" = nix-darwin.lib.darwinSystem {
+        modules = [ ./darwin ];
+        specialArgs = { inherit inputs; };
+      };
+
       # Generate a home configuration for each profiles
       homeConfigurations = nixpkgs.lib.mapAttrs (profileName: profileConfig:
         home-manager.lib.homeManagerConfiguration {
@@ -95,6 +104,7 @@
           specialArgs = { inherit inputs; };
           modules = [ ./secrets hostConfig.cfg nixosModule ];
         }) hosts;
+
     }
 
     # Utils of each system
@@ -146,7 +156,6 @@
           buildInputs = with pkgs; [
             agenix.packages.${system}.default
             deploy-rs.packages.${system}.default
-            disko.packages.${system}.default
             git
             nixfmt
             statix

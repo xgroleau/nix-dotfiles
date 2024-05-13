@@ -31,7 +31,7 @@ in {
     environment.systemPackages = with pkgs; [ curl git vim nano wget ];
 
     programs.zsh.enable = true;
-    i18n.defaultLocale = "en_CA.UTF-8";
+    #i18n.defaultLocale = "en_CA.UTF-8";
     users = {
       users.xgroleau = {
         isNormalUser = true;

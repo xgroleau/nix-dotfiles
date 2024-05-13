@@ -12,7 +12,6 @@ in {
   ];
 
   config = {
-
     nixpkgs.overlays = [ overlays.unstable-packages overlays.roam ];
 
     programs.ssh = {
@@ -23,7 +22,7 @@ in {
     };
 
     # User config
-    targets.genericLinux.enable = stdenv.isLinux;
+    targets.genericLinux.enable = pkgs.stdenv.isLinux;
     systemd.user.startServices = true;
     nixpkgs.config.allowUnfree = true;
     manual.manpages.enable = false;
