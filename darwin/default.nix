@@ -1,7 +1,7 @@
 { config, pkgs, inputs, ... }:
 
-let 
-profiles = import ../home/profiles;
+let
+  profiles = import ../home/profiles;
   overlays = import ../overlays { inherit inputs; };
 in {
 
