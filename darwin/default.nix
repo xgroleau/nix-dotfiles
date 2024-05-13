@@ -1,13 +1,35 @@
 { config, pkgs, inputs, ... }:
 
-let profiles = import ../home/profiles;
+let 
+profiles = import ../home/profiles;
+  overlays = import ../overlays { inherit inputs; };
 in {
 
   imports = [ inputs.home-manager.darwinModules.home-manager ];
 
   config = {
-    nixpkgs.hostPlatform = "aarch64-darwin";
-    services.nix-daemon.enable = true;
+
+    nixpkgs = {
+      config.allowUnfree = true;
+      hostPlatform = "aarch64-darwin";
+      overlays = [ overlays.unstable-packages overlays.roam ];
+    };
+
+    nix = {
+      package = pkgs.nixUnstable;
+      extraOptions = ''
+        experimental-features = nix-command flakes
+      '';
+
+      # Avoid always redownloading the registry
+      registry.nixpkgs.flake = inputs.nixpkgs; # For flake commands
+      nixPath = [ "nixpkgs=${inputs.nixpkgs}" ]; # For legacy commands
+    };
+
+    services = {
+      nix-daemon.enable = true;
+      tailscale.enable = true;
+    };
 
     users.users.xgroleau.home = "/Users/xgroleau";
     home-manager = {
@@ -24,7 +46,6 @@ in {
           };
         };
       };
-
     };
   };
 }
