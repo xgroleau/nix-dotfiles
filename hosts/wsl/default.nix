@@ -17,7 +17,6 @@
       };
     };
 
-
     wsl = {
       enable = true;
       defaultUser = "xgroleau";

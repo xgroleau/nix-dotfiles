@@ -14,7 +14,7 @@
 
   imports = [ ./i3 ];
 
-  config = {
+  config = lib.mkIf (config.modules.desktop.active != null) {
     fonts.fontconfig.enable = true;
     xdg.enable = true;
     xsession.enable = true;

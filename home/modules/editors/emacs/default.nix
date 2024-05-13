@@ -16,53 +16,56 @@ in {
 
     home = {
 
-      packages = with pkgs; [
-        # Emacs
-        ((emacsPackagesFor emacs29).emacsWithPackages
-          (epkgs: [ epkgs.editorconfig epkgs.vterm epkgs.xclip ]))
+      packages = with pkgs;
+        [
+          # Emacs
+          ((emacsPackagesFor emacs29).emacsWithPackages
+            (epkgs: [ epkgs.editorconfig epkgs.vterm epkgs.xclip ]))
 
-        # Font
-        (nerdfonts.override { fonts = [ "FiraCode" "NerdFontsSymbolsOnly" ]; })
+          # Font
+          (nerdfonts.override {
+            fonts = [ "FiraCode" "NerdFontsSymbolsOnly" ];
+          })
 
-        # general tools
-        fd
-        git
-        gnutls
-        imagemagick
-        ripgrep
+          # general tools
+          fd
+          git
+          gnutls
+          imagemagick
+          ripgrep
 
-        # apps
-        ## everywhere
-        xclip
-        xdotool
-        xorg.xprop
-        xorg.xwininfo
+          # lang
+          nixfmt
+          nodePackages.pyright
+          rustup
 
-        # lang
-        nixfmt
-        nodePackages.pyright
-        rustup
+          dune_3
+          ocamlPackages.utop
+          ocamlPackages.merlin
+          ocamlPackages.ocamlformat
+          ocamlPackages.ocp-indent
 
-        dune_3
-        ocamlPackages.utop
-        ocamlPackages.merlin
-        ocamlPackages.ocamlformat
-        ocamlPackages.ocp-indent
+          html-tidy
+          nodePackages.stylelint
+          nodePackages.js-beautify
 
-        html-tidy
-        nodePackages.stylelint
-        nodePackages.js-beautify
+          nodePackages.textlint
+          nodePackages.prettier
+          nodePackages.markdownlint-cli
+          multimarkdown
+          ispell
 
-        nodePackages.textlint
-        nodePackages.prettier
-        nodePackages.markdownlint-cli
-        multimarkdown
-        ispell
+        ] ++ lib.optionals stdenv.isLinux [
+          # everywhere
+          xclip
+          xdotool
+          xorg.xprop
+          xorg.xwininfo
 
-        # term
-        libtool
-        libvterm
-      ];
+          # term
+          libtool
+          libvterm
+        ];
 
       sessionVariables = lib.mkMerge [
         {

@@ -23,7 +23,7 @@ in {
     };
 
     # User config
-    targets.genericLinux.enable = true;
+    targets.genericLinux.enable = stdenv.isLinux;
     systemd.user.startServices = true;
     nixpkgs.config.allowUnfree = true;
     manual.manpages.enable = false;

@@ -8,6 +8,8 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [ clang clang-tools cmake gdb gnumake ];
+    home.packages = with pkgs;
+      [ clang clang-tools cmake gnumake ]
+      ++ lib.optionals stdenv.isLinux [ gdb ];
   };
 }
