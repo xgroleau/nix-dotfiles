@@ -84,7 +84,7 @@ in {
           ocis = {
             autoStart = true;
             image =
-              "owncloud/ocis:5.0.3@sha256:9b4ee3d15a79d579b0040488df4a5591e3e2912e7d0c6974bde1ef6e7fe196c8";
+              "owncloud/ocis:5.0.4@sha256:eb060992567084a11de2f82a501f01bd842d9f881c2675a77cc68245d9cd41e8";
             ports = [ "${toString cfg.port}:9200" ];
             volumes =
               [ "${cfg.configDir}:/etc/ocis" "${cfg.dataDir}:/var/lib/ocis" ]
@@ -138,7 +138,7 @@ in {
           ocis-app-provider-collabora = {
             autoStart = true;
             image =
-              "owncloud/ocis:5.0.3@sha256:9b4ee3d15a79d579b0040488df4a5591e3e2912e7d0c6974bde1ef6e7fe196c8";
+              "owncloud/ocis:5.0.4@sha256:eb060992567084a11de2f82a501f01bd842d9f881c2675a77cc68245d9cd41e8";
             volumes = [ "${cfg.configDir}:/etc/ocis" ];
 
             environmentFiles = cfg.environmentFiles;
