@@ -11,6 +11,7 @@
         profile = "desktop";
       };
 
+      docker.enable = true;
       kdeconnect.enable = true;
 
       # Let home manager setup the session and the X11 windowing system.

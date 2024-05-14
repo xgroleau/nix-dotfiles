@@ -513,11 +513,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1714764228,
-        "narHash": "sha256-RfTdaVCYOdLVUy0Sxn3Bd0L/HCmHrRan67VpwST7O3o=",
+        "lastModified": 1715607802,
+        "narHash": "sha256-ABkuAY5RpbMdOc6xe9W1fOj01MghYm3XPzRH2QL0HZM=",
         "owner": "xgroleau",
         "repo": "roam-flake",
-        "rev": "2509bf134162573cc0341e0f05360a79651c503b",
+        "rev": "5e12cd6d96e85d0805946177afb646f3cdffa3f0",
         "type": "github"
       },
       "original": {
