@@ -23,8 +23,8 @@ in {
       '';
 
       # Avoid always redownloading the registry
-      registry.nixpkgs.flake = inputs.nixpkgs; # For flake commands
-      nixPath = [ "nixpkgs=${inputs.nixpkgs}" ]; # For legacy commands
+      registry.nixpkgs.flake = inputs.nixpkgs-unstable; # For flake commands
+      nixPath = [ "nixpkgs=${inputs.nixpkgs-unstable}" ]; # For legacy commands
     };
 
     time.timeZone = "America/Toronto";
