@@ -62,7 +62,7 @@ rec {
         pkgs.element-desktop
         pkgs.beeper
         pkgs.mattermost-desktop
-        # pkgs.roam
+        pkgs.roam
         pkgs.slack
         pkgs.spotify
       ];
