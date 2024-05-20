@@ -29,22 +29,14 @@ rec {
   };
 
   macos = { pkgs, ... }: {
-    config.modules = {
-      dev.common.enable = true;
-      editors.nvim.enable = true;
-      nixpkgs.enable = true;
-      shell.zellij.enable = true;
-      shell.zsh.enable = true;
-      editors.emacs = {
-        enable = true;
-        defaultEditor = true;
+    imports = [ dev ];
+    config = {
+      modules = {
+        applications.discord.enable = true;
+        shell.alacritty.enable = true;
       };
 
-      dev = {
-        cc.enable = true;
-        python.enable = true;
-        rust.enable = true;
-      };
+      home.packages = with pkgs; [ element-desktop spotify ];
     };
   };
 
@@ -59,12 +51,12 @@ rec {
       };
 
       home.packages = with pkgs; [
-        pkgs.element-desktop
-        pkgs.beeper
-        pkgs.mattermost-desktop
-        pkgs.roam
-        pkgs.slack
-        pkgs.spotify
+        element-desktop
+        beeper
+        mattermost-desktop
+        roam
+        slack
+        spotify
       ];
     };
   };
