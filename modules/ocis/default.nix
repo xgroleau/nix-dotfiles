@@ -129,7 +129,7 @@ in {
           ocis-tika = {
             autoStart = true;
             image =
-              "apache/tika:2.9.2.0-full@sha256:05ecf380b926fd558a3604a401c7c823667419afbdc94153adfb1244d97790fb";
+              "apache/tika:2.9.2.1-full@sha256:ae0b86d3c4d06d8997407fcb08f31a7259fff91c43e0c1d7fffdad1e9ade3fe8";
             extraOptions = [ "--network=ocis-bridge" ];
           };
         }
