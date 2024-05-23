@@ -41,8 +41,8 @@ in {
           AppleMetricUnits = 1;
           AppleShowAllExtensions = true;
           AppleTemperatureUnit = "Celsius";
-          KeyRepeat = 0;
-          InitialKeyRepeat = 0;
+          KeyRepeat = 2;
+          InitialKeyRepeat = 20;
           NSAutomaticCapitalizationEnabled = false;
         };
       };
