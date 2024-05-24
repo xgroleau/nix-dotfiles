@@ -21,7 +21,7 @@ in {
   config = lib.mkIf cfg.enable {
     users.users."${cfg.username}".home = "/Users/${cfg.username}";
     home-manager = {
-      sharedModules = [ ../home ];
+      sharedModules = [ ../../home ];
       extraSpecialArgs = { inherit inputs; };
 
       users."${cfg.username}" = {
