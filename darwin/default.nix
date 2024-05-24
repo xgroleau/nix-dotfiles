@@ -31,6 +31,27 @@ in {
       tailscale.enable = true;
     };
 
+    system = {
+      startup.chime = false;
+      defaults = {
+        dock.autohide = true;
+        NSGlobalDomain = {
+          AppleEnableSwipeNavigateWithScrolls = true;
+          AppleInterfaceStyle = "Dark";
+          AppleMetricUnits = 1;
+          AppleShowAllExtensions = true;
+          AppleTemperatureUnit = "Celsius";
+          KeyRepeat = 2;
+          InitialKeyRepeat = 20;
+          NSAutomaticCapitalizationEnabled = false;
+        };
+      };
+      keyboard = {
+        enableKeyMapping = true;
+        remapCapsLockToEscape = true;
+      };
+    };
+
     users.users.xgroleau.home = "/Users/xgroleau";
     home-manager = {
       sharedModules = [ ../home ];
