@@ -3,7 +3,7 @@
 let overlays = import ../overlays { inherit inputs; };
 in {
 
-  imports = [ ./home ];
+  imports = [ ./home ./homebrew ];
 
   config = {
     modules.darwin = {
