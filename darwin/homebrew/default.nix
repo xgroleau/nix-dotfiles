@@ -32,9 +32,11 @@ in {
         "firefox"
         "google-chrome"
         "visual-studio-code"
+        "spotify"
 
         # IM & audio & remote desktop & meeting
         "discord"
+        "element"
         "mattermost"
         "slack"
         "roam"

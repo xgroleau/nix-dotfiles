@@ -30,14 +30,7 @@ rec {
 
   macos = { pkgs, ... }: {
     imports = [ dev ];
-    config = {
-      modules = {
-        applications.discord.enable = true;
-        shell.alacritty.enable = true;
-      };
-
-      home.packages = with pkgs; [ element-desktop spotify ];
-    };
+    config = { modules = { shell.alacritty.enable = true; }; };
   };
 
   graphical = { pkgs, ... }: {
