@@ -1,18 +1,23 @@
 { config, pkgs, inputs, ... }:
 
-let
-  profiles = import ../home/profiles;
-  overlays = import ../overlays { inherit inputs; };
+let overlays = import ../overlays { inherit inputs; };
 in {
 
-  imports = [ inputs.home-manager.darwinModules.home-manager ];
+  imports = [ ./home ];
 
   config = {
+    modules.darwin = {
+      home = {
+        enable = true;
+        username = "xgroleau";
+      };
+      homebrew.enable = true;
+    };
 
     nixpkgs = {
       config.allowUnfree = true;
       hostPlatform = "aarch64-darwin";
-      overlays = [ overlays.unstable-packages overlays.roam ];
+      overlays = [ overlays.unstable-packages ];
     };
 
     nix = {
@@ -33,56 +38,60 @@ in {
 
     system = {
       startup.chime = false;
+
+      # activateSettings -u will reload the settings from the database and apply them to the current session,
+      # so we do not need to logout and login again to make the changes take effect.
+      activationScripts.postUserActivation.text = ''
+        /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
+      '';
+
       defaults = {
-        dock.autohide = true;
+        dock = {
+          autohide = true;
+          show-recents = false;
+        };
+
+        trackpad = {
+          Clicking = true;
+          TrackpadRightClick = true;
+          TrackpadThreeFingerDrag = true;
+        };
+
         NSGlobalDomain = {
+          # UI settings
           AppleEnableSwipeNavigateWithScrolls = true;
           AppleInterfaceStyle = "Dark";
           AppleMetricUnits = 1;
           AppleShowAllExtensions = true;
           AppleTemperatureUnit = "Celsius";
+          "com.apple.sound.beep.feedback" = 0;
+
+          # Trackpad
+          "com.apple.swipescrolldirection" = true;
+
+          # Keyboard
           KeyRepeat = 2;
-          InitialKeyRepeat = 20;
+          InitialKeyRepeat = 15;
+          AppleKeyboardUIMode = 3;
+          ApplePressAndHoldEnabled = true;
+
+          # Char Substitutaion
           NSAutomaticCapitalizationEnabled = false;
+          NSAutomaticDashSubstitutionEnabled = false;
+          NSAutomaticPeriodSubstitutionEnabled = false;
+          NSAutomaticQuoteSubstitutionEnabled = false;
+          NSAutomaticSpellingCorrectionEnabled = false;
+          NSNavPanelExpandedStateForSaveMode = true;
+          NSNavPanelExpandedStateForSaveMode2 = true;
+
         };
       };
+
       keyboard = {
         enableKeyMapping = true;
         remapCapsLockToEscape = true;
       };
     };
 
-    users.users.xgroleau.home = "/Users/xgroleau";
-    home-manager = {
-      sharedModules = [ ../home ];
-      extraSpecialArgs = { inherit inputs; };
-
-      users.xgroleau = {
-        imports = [ profiles."macos" ];
-        config = {
-          home = {
-            stateVersion = "23.11";
-            homeDirectory = "/Users/xgroleau";
-
-            activation = {
-              # This should be removed once
-              # https://github.com/nix-community/home-manager/issues/1341 is closed.
-              aliasHomeManagerApplications =
-                inputs.home-manager.lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-                  app_folder="/Users/xgroleau/Applications/Home Manager Trampolines"
-                  rm -rf "$app_folder"
-                  mkdir -p "$app_folder"
-                  find "$genProfilePath/home-path/Applications" -type l -print | while read -r app; do
-                      app_target="$app_folder/$(basename "$app")"
-                      real_app="$(readlink "$app")"
-                      echo "mkalias \"$real_app\" \"$app_target\"" >&2
-                      $DRY_RUN_CMD ${pkgs.mkalias}/bin/mkalias "$real_app" "$app_target"
-                  done
-                '';
-            };
-          };
-        };
-      };
-    };
   };
 }

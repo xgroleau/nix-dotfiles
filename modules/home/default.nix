@@ -29,6 +29,7 @@ in {
   config = lib.mkIf cfg.enable {
 
     home-manager = {
+      useGlobalPkgs = true;
       useUserPackages = true;
       sharedModules = [ ../../home ];
       extraSpecialArgs = { inherit inputs; };
