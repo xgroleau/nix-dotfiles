@@ -9,7 +9,18 @@ exec.inherit-env-vars = true
 enable-normalization-flatten-containers = false
 enable-normalization-opposite-orientation-for-nested-containers = false
 
+# Run Sketchybar together with AeroSpace
+after-startup-command = ['exec-and-forget /opt/homebrew/opt/sketchybar/bin/sketchybar']
+exec-on-workspace-change = ['/bin/bash', '-c',
+    '/opt/homebrew/opt/sketchybar/bin/sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
+]
+
+
 [mode.main.binding]
+# Disable hide
+cmd-h = []
+
+
 alt-enter = 'exec-and-forget alacritty'
 
 alt-j = 'focus left'
@@ -66,6 +77,7 @@ alt-shift-0 = ['move-node-to-workspace 10', 'workspace 10']
 alt-shift-r = 'reload-config'
 
 alt-r = 'mode resize'
+
 
 [mode.resize.binding]
 h = 'resize width -50'
