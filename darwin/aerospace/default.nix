@@ -34,7 +34,7 @@ in {
         # aerospace
         "nikitabobko/tap"
       ];
-      brews = [ "sketchybar" ];
+      brews = [ "borders" "sketchybar" ];
       casks = [ "aerospace" ];
     };
   };

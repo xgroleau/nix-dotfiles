@@ -53,6 +53,9 @@ in {
           program = "zellij";
         };
 
+        window =
+          if pkgs.stdenv.isDarwin then { option_as_alt = "Both"; } else { };
+
       };
     };
 
