@@ -4,7 +4,7 @@ let cfg = config.modules.darwin.homebrew;
 in {
 
   options.modules.darwin.homebrew = with lib.types; {
-    enable = lib.mkEnableOption "Enables the home manager module and profile";
+    enable = lib.mkEnableOption "Enables the homebrew apps";
   };
 
   config = lib.mkIf cfg.enable {
@@ -39,7 +39,6 @@ in {
         "element"
         "mattermost"
         "slack"
-        "roam"
 
         # Development
         "insomnia" # REST client

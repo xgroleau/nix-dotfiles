@@ -16,6 +16,14 @@ in {
         The username of the user
       '';
     };
+    extraHomeModules = lib.mkOption {
+      type = with types; listOf attrs;
+      default = [ ];
+      description = ''
+        Additionnal modules to add to the home configuration
+      '';
+    };
+
   };
 
   config = lib.mkIf cfg.enable {
@@ -25,7 +33,7 @@ in {
       extraSpecialArgs = { inherit inputs; };
 
       users."${cfg.username}" = {
-        imports = [ profiles."macos" ];
+        imports = [ profiles."macos" ] ++ cfg.extraHomeModules;
         config = {
           home = {
             stateVersion = "23.11";

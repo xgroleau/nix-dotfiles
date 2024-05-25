@@ -3,7 +3,7 @@
 let overlays = import ../overlays { inherit inputs; };
 in {
 
-  imports = [ ./home ./homebrew ];
+  imports = [ ./aerospace ./home ./homebrew ];
 
   config = {
     modules.darwin = {
@@ -12,6 +12,7 @@ in {
         username = "xgroleau";
       };
       homebrew.enable = true;
+      aerospace.enable = true;
     };
 
     nixpkgs = {
