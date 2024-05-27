@@ -45,6 +45,15 @@ Server for hosting a couple services for the family and myself.
 
 The free tier oracle A1 vm. For doing random projects and monitors `Sheogorath`.
 
+### Nix-Darwin
+
+Only one configuration is available for MacOS for now.
+
+```sh
+nix develop
+darwin-rebuild switch --flake .#
+```
+
 ## Profiles
 
 Different profiles are available in the `profiles` directory. Namely `minimal` for TUI headless server, `dev` for headless development, `graphical` for GUI and `desktop` for GUI and DE. Each profile is a superset of the other.
