@@ -23,7 +23,10 @@ in {
     })];
     system.defaults = {
       spaces.spans-displays = false;
-      NSGlobalDomain = { NSWindowShouldDragOnGesture = true; };
+      NSGlobalDomain = {
+        _HIHideMenuBar = true;
+        NSWindowShouldDragOnGesture = true;
+      };
     };
 
     homebrew = {
