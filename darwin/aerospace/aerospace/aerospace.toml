@@ -20,7 +20,7 @@ exec-on-workspace-change = ['/bin/bash', '-c',
 ]
 
 [exec.env-vars]
-PATH = '${HOME}/.nix-profile/bin:${PATH}'
+PATH = '${HOME}/.nix-profile/bin:/opt/homebrew/bin:/opt/homebrew/sbin:${PATH}'
 
 [mode.main.binding]
 cmd-enter = 'exec-and-forget alacritty'

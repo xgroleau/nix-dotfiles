@@ -20,6 +20,9 @@ in {
         recursive = true;
       };
 
+      home.packages = with pkgs;
+        [ (nerdfonts.override { fonts = [ "FiraCode" ]; }) ];
+
     })];
     system.defaults = {
       spaces.spans-displays = false;
