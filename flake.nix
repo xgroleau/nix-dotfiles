@@ -153,14 +153,16 @@
         };
 
         devShells.default = pkgs.mkShell {
-          buildInputs = with pkgs; [
-            agenix.packages.${system}.default
-            deploy-rs.packages.${system}.default
-            git
-            nixfmt
-            statix
-            home-manager.defaultPackage.${system}
-          ];
+          buildInputs = with pkgs;
+            [
+              agenix.packages.${system}.default
+              deploy-rs.packages.${system}.default
+              git
+              nixfmt
+              statix
+              home-manager.defaultPackage.${system}
+            ] ++ (lib.optionals stdenv.isDarwin
+              [ nix-darwin.packages.${system}.default ]);
         };
       }));
 }
