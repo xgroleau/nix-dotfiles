@@ -107,7 +107,7 @@ in {
           (lib.mkIf cfg.mail.enable {
             MAIL_MAILER = "smtp";
             MAIL_HOST = cfg.mail.host;
-            MAIL_PORT = (toString cfg.mail.port);
+            MAIL_PORT = toString cfg.mail.port;
             MAIL_FROM = cfg.mail.from;
             MAIL_USERNAME = cfg.mail.username;
             MAIL_PASSWORD_FILE = cfg.mail.passwordFile;

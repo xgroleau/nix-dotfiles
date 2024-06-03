@@ -38,7 +38,7 @@ in {
 
       eza = {
         enable = true;
-        enableAliases = true;
+        enableZshIntegration = true;
       };
 
       fzf = {

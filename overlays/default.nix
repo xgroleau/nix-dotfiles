@@ -1,4 +1,5 @@
-{ inputs, ... }: {
+{ inputs, ... }:
+{
 
   unstable-packages = final: _prev: {
     unstable = import inputs.nixpkgs-unstable {
@@ -7,5 +8,4 @@
     };
   };
   roam = inputs.roam.overlays.default;
-
 }

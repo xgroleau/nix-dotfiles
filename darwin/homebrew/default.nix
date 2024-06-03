@@ -9,13 +9,13 @@ in {
 
   config = lib.mkIf cfg.enable {
 
-    modules.darwin.home.extraHomeModules = [({
+    modules.darwin.home.extraHomeModules = [{
       programs.zsh = {
         initExtra = ''
           eval "$(/opt/homebrew/bin/brew shellenv)"
         '';
       };
-    })];
+    }];
 
     homebrew = {
       enable = true;

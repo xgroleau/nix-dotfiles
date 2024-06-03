@@ -34,7 +34,7 @@ in {
           ripgrep
 
           # lang
-          nixfmt
+          nixfmt-rfc-style
           nodePackages.pyright
           rustup
 

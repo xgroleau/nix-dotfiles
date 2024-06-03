@@ -39,11 +39,9 @@
     services = {
       # Enable CUPS to print documents. Add driver if needed
       printing.enable = true;
-      xserver = {
-        enable = true;
-        # Enable touchpad
-        libinput.enable = true;
-      };
+
+      # Enable touchpad
+      libinput.enable = true;
     };
 
     hardware.bluetooth.enable = true;

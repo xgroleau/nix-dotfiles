@@ -1,7 +1,15 @@
-{ config, lib, pkgs, inputs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 
-let overlays = import ../overlays { inherit inputs; };
-in {
+let
+  overlays = import ../overlays { inherit inputs; };
+in
+{
   imports = [
     ./modules/applications
     ./modules/desktop
@@ -12,7 +20,10 @@ in {
   ];
 
   config = {
-    nixpkgs.overlays = [ overlays.unstable-packages overlays.roam ];
+    nixpkgs.overlays = [
+      overlays.unstable-packages
+      overlays.roam
+    ];
 
     programs.ssh = {
       enable = true;
@@ -37,5 +48,4 @@ in {
       language.base = "en_CA.UTF-8";
     };
   };
-
 }

@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   imports = [ ./base-config.nix ];
@@ -50,5 +55,4 @@
       magicOrExtension = "\\x7fELF....AI\\x02";
     };
   };
-
 }

@@ -6,10 +6,7 @@
   };
 
   machines = {
-    jyggalag =
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMAIwytbvcA1fJJbeCC5pFCrIL1QdEeEu9eAz87YsP4q";
-    sheogorath =
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOuwT6qqxP57fqNw5vrmsrwbFCF3FhFokJQXrW9ku3AR";
+    jyggalag = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMAIwytbvcA1fJJbeCC5pFCrIL1QdEeEu9eAz87YsP4q";
+    sheogorath = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOuwT6qqxP57fqNw5vrmsrwbFCF3FhFokJQXrW9ku3AR";
   };
-
 }

@@ -9,20 +9,23 @@ in {
   config = lib.mkIf cfg.home-manager {
     environment.systemPackages = [ pkgs.sddm-chili-theme ];
     services = {
-      xserver = {
 
+      displayManager = {
         enable = true;
-        # Setup the display manager
+        defaultSession = "none+fake";
+
+        # Setup lightdm
+        sddm = {
+          enable = true;
+          theme = "chili";
+        };
+
+      };
+
+      # Use a fake session. The actual session is managed by Home Manager.
+      xserver = {
+        enable = true;
         displayManager = {
-          defaultSession = "none+fake";
-
-          # Setup lightdm
-          sddm = {
-            enable = true;
-            theme = "chili";
-          };
-
-          # Use a fake session. The actual session is managed by Home Manager.
           session = let
             fakeSession = {
               manage = "window";

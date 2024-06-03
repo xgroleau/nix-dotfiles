@@ -129,7 +129,7 @@ To use for your home-manager configuration.
 
 ## Checks
 
-To check formatting with [nixfmt](https://github.com/serokell/nixfmt) and analyze with [statix](https://github.com/nerdypepper/statix) you can run
+To check formatting with [nixfmt](https://github.com/NixOS/nixfmt) and analyze with [statix](https://github.com/nerdypepper/statix) you can run
 
 ```sh
 nix flake check

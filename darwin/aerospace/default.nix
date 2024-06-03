@@ -9,7 +9,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    modules.darwin.home.extraHomeModules = [({
+    modules.darwin.home.extraHomeModules = [{
       xdg.configFile.aerospace = {
         source = ./aerospace;
         recursive = true;
@@ -23,7 +23,7 @@ in {
       home.packages = with pkgs;
         [ (nerdfonts.override { fonts = [ "FiraCode" ]; }) ];
 
-    })];
+    }];
     system.defaults = {
       spaces.spans-displays = false;
       NSGlobalDomain = {

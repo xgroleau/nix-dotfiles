@@ -1,9 +1,20 @@
-{ config, pkgs, inputs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 
-let overlays = import ../overlays { inherit inputs; };
-in {
+let
+  overlays = import ../overlays { inherit inputs; };
+in
+{
 
-  imports = [ ./aerospace ./home ./homebrew ];
+  imports = [
+    ./aerospace
+    ./home
+    ./homebrew
+  ];
 
   config = {
     modules.darwin = {
@@ -22,14 +33,14 @@ in {
     };
 
     nix = {
-      package = pkgs.nixUnstable;
+      package = pkgs.nixVersions.latest;
       extraOptions = ''
         experimental-features = nix-command flakes
       '';
 
       # Avoid always redownloading the registry
-      registry.nixpkgs.flake = inputs.nixpkgs; # For flake commands
-      nixPath = [ "nixpkgs=${inputs.nixpkgs}" ]; # For legacy commands
+      registry.nixpkgsu.flake = inputs.nixpkgs; # For flake commands
+      nixPath = [ "nixpkgsu=${inputs.nixpkgs}" ]; # For legacy commands
     };
 
     services = {
@@ -84,7 +95,6 @@ in {
           NSAutomaticSpellingCorrectionEnabled = false;
           NSNavPanelExpandedStateForSaveMode = true;
           NSNavPanelExpandedStateForSaveMode2 = true;
-
         };
       };
 
@@ -93,6 +103,5 @@ in {
         remapCapsLockToEscape = true;
       };
     };
-
   };
 }

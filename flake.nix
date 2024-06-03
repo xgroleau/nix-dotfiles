@@ -2,7 +2,7 @@
   description = "My user configuration using home-manager";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     flake-utils.url = "github:numtide/flake-utils";
@@ -13,7 +13,7 @@
     };
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-23.11";
+      url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     agenix = {
@@ -115,7 +115,7 @@
           fmt = let
             app = pkgs.writeShellApplication {
               name = "fmt";
-              runtimeInputs = with pkgs; [ nixfmt statix ];
+              runtimeInputs = with pkgs; [ nixfmt-rfc-style statix ];
               text = ''
                 nixfmt ./**/*.nix && \
                 statix fix --config ${./statix.toml}
@@ -142,11 +142,13 @@
 
         };
 
+        formatter = pkgs.nixfmt-rfc-style;
+
         checks = {
           fmt = pkgs.runCommand "fmt" {
-            buildInputs = with pkgs; [ nixfmt statix ];
+            buildInputs = with pkgs; [ nixfmt-rfc-style statix ];
           } ''
-            ${pkgs.nixfmt}/bin/nixfmt --check ${./.}/**/*.nix && \
+            ${pkgs.nixfmt-rfc-style}/bin/nixfmt --check ${./.}/**/*.nix && \
             ${pkgs.statix}/bin/statix check --config ${./statix.toml} && \
             touch $out
           '';
@@ -158,7 +160,7 @@
               agenix.packages.${system}.default
               deploy-rs.packages.${system}.default
               git
-              nixfmt
+              nixfmt-rfc-style
               statix
               home-manager.defaultPackage.${system}
             ] ++ (lib.optionals stdenv.isDarwin

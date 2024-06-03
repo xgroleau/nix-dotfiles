@@ -1,4 +1,11 @@
-{ options, config, inputs, lib, pkgs, ... }:
+{
+  options,
+  config,
+  inputs,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.modules.secrets;
@@ -6,13 +13,15 @@ let
   ageSecrets = import ./secrets.nix;
 
   # Get key or invalid key if doesn't exist in the ssh-keys.nix
-  machineKey =
-    keys.machines."${config.networking.hostName}" or "INVALID SSH KEY";
+  machineKey = keys.machines."${config.networking.hostName}" or "INVALID SSH KEY";
 
   # Filter for the secrets to only have the ones that have the host key
-  filterSecrets = name: att:
-    let keyName = builtins.baseNameOf att.file;
-    in builtins.elem machineKey ageSecrets."${keyName}".publicKeys;
+  filterSecrets =
+    name: att:
+    let
+      keyName = builtins.baseNameOf att.file;
+    in
+    builtins.elem machineKey ageSecrets."${keyName}".publicKeys;
 
   # attrset of the secrets
   secrets = {
@@ -31,13 +40,16 @@ let
 
   # Only secrets that have the machine ssh key in them
   filteredSecrets = lib.attrsets.filterAttrs filterSecrets secrets;
-
-in {
+in
+{
 
   options.modules.secrets = {
     enable = lib.mkEnableOption "Enables secrets management";
   };
 
-  config = lib.mkIf cfg.enable { age = { secrets = filteredSecrets; }; };
+  config = lib.mkIf cfg.enable {
+    age = {
+      secrets = filteredSecrets;
+    };
+  };
 }
-

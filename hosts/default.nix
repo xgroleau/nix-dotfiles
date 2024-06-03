@@ -29,5 +29,4 @@
     system = "x86_64-linux";
     cfg = import ./wsl;
   };
-
 }
