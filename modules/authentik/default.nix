@@ -1,7 +1,15 @@
-{ config, lib, pkgs, inputs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 
-let cfg = config.modules.authentik;
-in {
+let
+  cfg = config.modules.authentik;
+in
+{
 
   imports = [ ];
 
@@ -13,11 +21,9 @@ in {
     ldap = lib.mkOption {
       type = types.submodule {
         options = {
-          enable = lib.mkEnableOption
-            "Enables the authentik ldap outpost. The envFile needs the required environment variables";
+          enable = lib.mkEnableOption "Enables the authentik ldap outpost. The envFile needs the required environment variables";
 
-          openFirewall = lib.mkEnableOption
-            "Open the required ports in the firewall for the ldap service";
+          openFirewall = lib.mkEnableOption "Open the required ports in the firewall for the ldap service";
 
           ldapPort = lib.mkOption {
             type = types.port;
@@ -36,10 +42,8 @@ in {
             default = 9301;
             description = "the port for http access";
           };
-
         };
       };
-
     };
 
     openFirewall = lib.mkEnableOption "Open the required ports in the firewall";
@@ -61,8 +65,7 @@ in {
 
     backupDir = lib.mkOption {
       type = types.str;
-      description =
-        "Path to where the database will be backed up. Yes, you are required to backup your databases. Even if you think you don't, you do.";
+      description = "Path to where the database will be backed up. Yes, you are required to backup your databases. Even if you think you don't, you do.";
     };
 
     port = lib.mkOption {
@@ -76,7 +79,6 @@ in {
       default = 9300;
       description = "the port for http access";
     };
-
   };
 
   # We use a contianer so other services can have a different PG version
@@ -113,70 +115,78 @@ in {
         };
       };
 
-      config = { ... }: {
-        nixpkgs.pkgs = pkgs;
-        imports = [ inputs.authentik-nix.nixosModules.default ];
-        systemd.services.authentik-ldap.serviceConfig.Environment = [
-          "AUTHENTIK_LISTEN__LDAP=0.0.0.0:${toString cfg.ldap.ldapPort}"
-          "AUTHENTIK_LISTEN__LDAPS=0.0.0.0:${toString cfg.ldap.ldapsPort}"
-          "AUTHENTIK_LISTEN__METRICS=0.0.0.0:${toString cfg.ldap.metricsPort}"
-        ];
+      config =
+        { ... }:
+        {
+          nixpkgs.pkgs = pkgs;
+          imports = [ inputs.authentik-nix.nixosModules.default ];
+          systemd.services.authentik-ldap.serviceConfig.Environment = [
+            "AUTHENTIK_LISTEN__LDAP=0.0.0.0:${toString cfg.ldap.ldapPort}"
+            "AUTHENTIK_LISTEN__LDAPS=0.0.0.0:${toString cfg.ldap.ldapsPort}"
+            "AUTHENTIK_LISTEN__METRICS=0.0.0.0:${toString cfg.ldap.metricsPort}"
+          ];
 
-        services = {
-          authentik = {
-            enable = true;
-            createDatabase = true;
-            environmentFile = cfg.envFile;
-            settings = {
-              disable_startup_analytics = true;
-              avatars = "gravatar,initials";
-              listen = {
-                http = "0.0.0.0:${toString cfg.port}";
-                metrics = "0.0.0.0:${toString cfg.metricsPort}";
+          services = {
+            authentik = {
+              enable = true;
+              createDatabase = true;
+              environmentFile = cfg.envFile;
+              settings = {
+                disable_startup_analytics = true;
+                avatars = "gravatar,initials";
+                listen = {
+                  http = "0.0.0.0:${toString cfg.port}";
+                  metrics = "0.0.0.0:${toString cfg.metricsPort}";
+                };
+                paths.media = "/var/lib/authentik/media";
               };
-              paths.media = "/var/lib/authentik/media";
+            };
+
+            authentik-ldap = lib.mkIf cfg.ldap.enable {
+              enable = true;
+              environmentFile = cfg.envFile;
+            };
+
+            # Some override of the internal services
+            postgresql.dataDir = "${cfg.dataDir}/postgres";
+
+            postgresqlBackup = {
+              enable = true;
+              backupAll = true;
+              location = cfg.backupDir;
             };
           };
 
-          authentik-ldap = lib.mkIf cfg.ldap.enable {
-            enable = true;
-            environmentFile = cfg.envFile;
-          };
+          # Create the sub folder
+          systemd.tmpfiles.settings.authentik = {
 
-          # Some override of the internal services
-          postgresql.dataDir = "${cfg.dataDir}/postgres";
-
-          postgresqlBackup = {
-            enable = true;
-            backupAll = true;
-            location = cfg.backupDir;
-          };
-
-        };
-
-        # Create the sub folder
-        systemd.tmpfiles.settings.authentik = {
-
-          "${cfg.dataDir}/postgres" = {
-            d = {
-              user = "postgres";
-              group = "postgres";
+            "${cfg.dataDir}/postgres" = {
+              d = {
+                user = "postgres";
+                group = "postgres";
+              };
             };
           };
 
+          system.stateVersion = "23.11";
         };
-
-        system.stateVersion = "23.11";
-      };
     };
 
-    networking.firewall = lib.mkIf cfg.openFirewall (lib.mkMerge [
-      { allowedTCPPorts = [ cfg.port ]; }
-      (lib.mkIf (cfg.ldap.enable && cfg.ldap.openFirewall) {
-        allowedTCPPorts = [ cfg.ldap.ldapPort cfg.ldap.ldapsPort ];
-        allowedUDPPorts = [ cfg.ldap.ldapPort cfg.ldap.ldapsPort ];
-      })
-    ]);
+    networking.firewall = lib.mkIf cfg.openFirewall (
+      lib.mkMerge [
+        { allowedTCPPorts = [ cfg.port ]; }
+        (lib.mkIf (cfg.ldap.enable && cfg.ldap.openFirewall) {
+          allowedTCPPorts = [
+            cfg.ldap.ldapPort
+            cfg.ldap.ldapsPort
+          ];
+          allowedUDPPorts = [
+            cfg.ldap.ldapPort
+            cfg.ldap.ldapsPort
+          ];
+        })
+      ]
+    );
 
     # Create the folder if it doesn't exist
     systemd.tmpfiles.settings.authentik = {
@@ -201,6 +211,5 @@ in {
         };
       };
     };
-
   };
 }

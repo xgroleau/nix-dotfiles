@@ -1,7 +1,15 @@
-{ config, options, lib, pkgs, ... }:
+{
+  config,
+  options,
+  lib,
+  pkgs,
+  ...
+}:
 
-let cfg = config.modules.dev.rust;
-in {
+let
+  cfg = config.modules.dev.rust;
+in
+{
 
   options.modules.dev.rust = {
     enable = lib.mkEnableOption "Enables rust development tools";
@@ -22,8 +30,6 @@ in {
         CARGO_HOME = "${config.xdg.dataHome}/cargo";
       };
       sessionPath = [ "${config.home.sessionVariables.CARGO_HOME}/bin" ];
-
     };
   };
-
 }

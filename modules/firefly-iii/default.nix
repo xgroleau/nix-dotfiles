@@ -1,17 +1,20 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
 
   cfg = config.modules.firefly-iii;
   containerBackendName = config.virtualisation.oci-containers.backend;
-  containerBackend = pkgs."${containerBackendName}" + "/bin/"
-    + containerBackendName;
-
-in {
+  containerBackend = pkgs."${containerBackendName}" + "/bin/" + containerBackendName;
+in
+{
 
   options.modules.firefly-iii = with lib.types; {
-    enable = lib.mkEnableOption
-      "Enables immich, a self hosted google photo alternative";
+    enable = lib.mkEnableOption "Enables immich, a self hosted google photo alternative";
 
     openFirewall = lib.mkEnableOption "Open the required ports in the firewall";
 
@@ -80,21 +83,18 @@ in {
 
           to = lib.mkOption {
             type = types.str;
-            description =
-              "Email to receive system notificaiton (e.g. zfs errors)";
+            description = "Email to receive system notificaiton (e.g. zfs errors)";
           };
         };
       };
     };
-
   };
 
   config = lib.mkIf cfg.enable {
 
     virtualisation.oci-containers.containers = {
       firefly-iii-core = {
-        image =
-          "fireflyiii/core:version-6.1.13@sha256:b69e9d94e0c068fe9381ddedb70d8ab57f5a8daecc9e1d3f629ad6b20a525473";
+        image = "fireflyiii/core:version-6.1.13@sha256:b69e9d94e0c068fe9381ddedb70d8ab57f5a8daecc9e1d3f629ad6b20a525473";
         environment = lib.mkMerge [
           {
             APP_URL = cfg.appUrl;
@@ -123,8 +123,7 @@ in {
       };
 
       firefly-iii-importer = {
-        image =
-          "fireflyiii/data-importer:version-1.4.5@sha256:e5d5ad021a4b61519f1917707ac7a5dc3598a0782b676f4782cd47f90c0ea49a";
+        image = "fireflyiii/data-importer:version-1.4.5@sha256:e5d5ad021a4b61519f1917707ac7a5dc3598a0782b676f4782cd47f90c0ea49a";
         environment = {
           VANITY_URL = cfg.appUrl;
           FIREFLY_III_URL = "http://firefly-iii-core:8080";
@@ -157,7 +156,6 @@ in {
                echo "firefly-iii-bridge already exists in docker"
            fi
         '';
-
       };
 
       # Folder
@@ -175,7 +173,6 @@ in {
 
         "f ${cfg.dataDir}/storage/database/database.sqlite 0777 root - - -"
       ];
-
     };
   };
 }

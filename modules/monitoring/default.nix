@@ -1,5 +1,13 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
-  imports = [ ./server.nix ./target.nix ];
+  imports = [
+    ./server.nix
+    ./target.nix
+  ];
 }

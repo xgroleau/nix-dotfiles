@@ -1,11 +1,19 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.modules.shell.zsh;
   pythonCfg = config.modules.dev.python;
-in {
+in
+{
 
-  options.modules.shell.zsh = { enable = lib.mkEnableOption "Enables zsh"; };
+  options.modules.shell.zsh = {
+    enable = lib.mkEnableOption "Enables zsh";
+  };
 
   config = lib.mkIf cfg.enable {
     xdg.configFile.zsh.source = ./config;
@@ -15,7 +23,11 @@ in {
       initExtra = "source ${config.xdg.configHome}/zsh/zshrc";
     };
     home = {
-      packages = with pkgs; [ nix-zsh-completions git pythonCfg.package ];
+      packages = with pkgs; [
+        nix-zsh-completions
+        git
+        pythonCfg.package
+      ];
       sessionPath = [
         "${config.home.homeDirectory}/.local/bin"
         "${config.home.homeDirectory}/bin"

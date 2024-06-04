@@ -1,11 +1,17 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-let cfg = config.modules.msmtp;
-in {
+let
+  cfg = config.modules.msmtp;
+in
+{
 
   options.modules.msmtp = with lib.types; {
-    enable = lib.mkEnableOption
-      "Enables msmtp to send emails and notifications. Also enables system notification to an email";
+    enable = lib.mkEnableOption "Enables msmtp to send emails and notifications. Also enables system notification to an email";
 
     host = lib.mkOption {
       type = types.str;
@@ -43,7 +49,9 @@ in {
     programs.msmtp = {
       enable = true;
       setSendmail = true;
-      defaults = { aliases = "/etc/aliases"; };
+      defaults = {
+        aliases = "/etc/aliases";
+      };
       accounts = {
         default = {
           auth = true;

@@ -1,7 +1,14 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-let cfg = config.modules.desktop;
-in {
+let
+  cfg = config.modules.desktop;
+in
+{
   config = lib.mkIf (cfg.active == "i3") {
     fonts.fontconfig.enable = true;
 
@@ -11,7 +18,12 @@ in {
       flameshot
       (nerdfonts.override { fonts = [ "FiraCode" ]; })
       xclip
-      (rofi.override { plugins = [ rofi-emoji rofi-calc ]; })
+      (rofi.override {
+        plugins = [
+          rofi-emoji
+          rofi-calc
+        ];
+      })
       rofi-power-menu
       playerctl
       pulseaudio
@@ -23,7 +35,9 @@ in {
       libsForQt5.breeze-icons
     ];
 
-    home.sessionVariables = { XDG_CURRENT_DESKTOP = "i3"; };
+    home.sessionVariables = {
+      XDG_CURRENT_DESKTOP = "i3";
+    };
 
     programs.autorandr = {
       enable = true;
@@ -68,11 +82,18 @@ in {
             shadow = false;
             opacity = 0.8;
           };
-          dnd = { shadow = false; };
-          menu = { shadow = false; };
-          popup_menu = { opacity = 0.95; };
-          dropdown_menu = { opacity = 0.8; };
-
+          dnd = {
+            shadow = false;
+          };
+          menu = {
+            shadow = false;
+          };
+          popup_menu = {
+            opacity = 0.95;
+          };
+          dropdown_menu = {
+            opacity = 0.8;
+          };
         };
         settings = {
           blur = true;
@@ -80,9 +101,15 @@ in {
         };
         inactiveOpacity = 0.95;
         shadow = true;
-        shadowOffsets = [ (-5) (-5) ];
+        shadowOffsets = [
+          (-5)
+          (-5)
+        ];
         shadowOpacity = 1.0;
-        shadowExclude = [ "class_g = 'i3-frame'" "name = 'noshadow'" ];
+        shadowExclude = [
+          "class_g = 'i3-frame'"
+          "name = 'noshadow'"
+        ];
         vSync = true;
       };
 
@@ -139,7 +166,9 @@ in {
 
     xsession = {
       enable = true;
-      windowManager.i3 = { enable = true; };
+      windowManager.i3 = {
+        enable = true;
+      };
     };
   };
 }

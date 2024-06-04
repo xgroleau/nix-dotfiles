@@ -1,11 +1,17 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-let cfg = config.modules.applications.discord;
-in {
+let
+  cfg = config.modules.applications.discord;
+in
+{
 
   options.modules.applications.discord = {
-    enable =
-      lib.mkEnableOption "Enables discord and ignores the auto update check";
+    enable = lib.mkEnableOption "Enables discord and ignores the auto update check";
   };
 
   config = lib.mkIf cfg.enable {

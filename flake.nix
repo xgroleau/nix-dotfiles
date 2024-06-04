@@ -38,9 +38,22 @@
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, nixos-hardware, nix-darwin
-    , flake-utils, home-manager, agenix, deploy-rs, disko, authentik-nix, roam
-    , ... }:
+  outputs =
+    inputs@{
+      self,
+      nixpkgs,
+      nixpkgs-unstable,
+      nixos-hardware,
+      nix-darwin,
+      flake-utils,
+      home-manager,
+      agenix,
+      deploy-rs,
+      disko,
+      authentik-nix,
+      roam,
+      ...
+    }:
     let
       hosts = import ./hosts;
       profiles = import ./home/profiles;
@@ -62,8 +75,8 @@
           authentik-nix.nixosModules.default
         ];
       };
-
-    in {
+    in
+    {
 
       deploy = {
         remoteBuild = true;
@@ -71,11 +84,9 @@
           inherit (hostConfig.deploy) hostname;
           profiles.system = {
             inherit (hostConfig.deploy) user sshUser;
-            path = deploy-rs.lib.${hostConfig.system}.activate.nixos
-              self.nixosConfigurations.${hostName};
+            path = deploy-rs.lib.${hostConfig.system}.activate.nixos self.nixosConfigurations.${hostName};
           };
-        }) (nixpkgs.lib.filterAttrs (hostName: hostConfig: hostConfig ? deploy)
-          hosts);
+        }) (nixpkgs.lib.filterAttrs (hostName: hostConfig: hostConfig ? deploy) hosts);
       };
 
       homeManagerModules.default = hmModule;
@@ -86,76 +97,108 @@
 
       darwinConfigurations."Xaviers-Laptop" = nix-darwin.lib.darwinSystem {
         modules = [ ./darwin ];
-        specialArgs = { inherit inputs; };
+        specialArgs = {
+          inherit inputs;
+        };
       };
 
       # Generate a home configuration for each profiles
-      homeConfigurations = nixpkgs.lib.mapAttrs (profileName: profileConfig:
+      homeConfigurations = nixpkgs.lib.mapAttrs (
+        profileName: profileConfig:
         home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.${flake-utils.lib.system.x86_64-linux};
-          modules = [ hmBaseConfig hmModule profileConfig ];
-          extraSpecialArgs = { inherit inputs; };
-        }) profiles;
+          modules = [
+            hmBaseConfig
+            hmModule
+            profileConfig
+          ];
+          extraSpecialArgs = {
+            inherit inputs;
+          };
+        }
+      ) profiles;
 
       # Generate a nixos configuration for each hosts
-      nixosConfigurations = nixpkgs.lib.mapAttrs (hostName: hostConfig:
+      nixosConfigurations = nixpkgs.lib.mapAttrs (
+        hostName: hostConfig:
         nixpkgs.lib.nixosSystem {
           inherit (hostConfig) system;
-          specialArgs = { inherit inputs; };
-          modules = [ ./secrets hostConfig.cfg nixosModule ];
-        }) hosts;
-
+          specialArgs = {
+            inherit inputs;
+          };
+          modules = [
+            ./secrets
+            hostConfig.cfg
+            nixosModule
+          ];
+        }
+      ) hosts;
     }
 
     # Utils of each system
-    // (flake-utils.lib.eachDefaultSystem (system:
-      let pkgs = import nixpkgs { inherit system; };
-      in {
+    // (flake-utils.lib.eachDefaultSystem (
+      system:
+      let
+        pkgs = import nixpkgs { inherit system; };
+      in
+      {
         apps = {
-          fmt = let
-            app = pkgs.writeShellApplication {
-              name = "fmt";
-              runtimeInputs = with pkgs; [ nixfmt-rfc-style statix ];
-              text = ''
-                nixfmt ./**/*.nix && \
-                statix fix --config ${./statix.toml}
-              '';
+          fmt =
+            let
+              app = pkgs.writeShellApplication {
+                name = "fmt";
+                runtimeInputs = with pkgs; [
+                  nixfmt-rfc-style
+                  statix
+                ];
+                text = ''
+                  nixfmt ./**/*.nix && \
+                  statix fix --config ${./statix.toml}
+                '';
+              };
+            in
+            {
+              type = "app";
+              program = "${app}/bin/${app.name}";
             };
-          in {
-            type = "app";
-            program = "${app}/bin/${app.name}";
-          };
 
-          deploy = let
-            app = pkgs.writeShellApplication {
-              name = "deploy";
-              runtimeInputs = with pkgs;
-                [ deploy-rs.packages.${system}.default ];
-              text = ''
-                deploy .# --remote-build "$@"
-              '';
+          deploy =
+            let
+              app = pkgs.writeShellApplication {
+                name = "deploy";
+                runtimeInputs = with pkgs; [ deploy-rs.packages.${system}.default ];
+                text = ''
+                  deploy .# --remote-build "$@"
+                '';
+              };
+            in
+            {
+              type = "app";
+              program = "${app}/bin/${app.name}";
             };
-          in {
-            type = "app";
-            program = "${app}/bin/${app.name}";
-          };
-
         };
 
         formatter = pkgs.nixfmt-rfc-style;
 
         checks = {
-          fmt = pkgs.runCommand "fmt" {
-            buildInputs = with pkgs; [ nixfmt-rfc-style statix ];
-          } ''
-            ${pkgs.nixfmt-rfc-style}/bin/nixfmt --check ${./.}/**/*.nix && \
-            ${pkgs.statix}/bin/statix check --config ${./statix.toml} && \
-            touch $out
-          '';
+          fmt =
+            pkgs.runCommand "fmt"
+              {
+                buildInputs = with pkgs; [
+                  nixfmt-rfc-style
+                  statix
+                ];
+              }
+              ''
+                ${pkgs.nixfmt-rfc-style}/bin/nixfmt --check ${./.}/**/*.nix && \
+                ${pkgs.statix}/bin/statix check --config ${./statix.toml} && \
+                touch $out
+              '';
         };
 
         devShells.default = pkgs.mkShell {
-          buildInputs = with pkgs;
+          buildInputs =
+            with pkgs;
             [
               agenix.packages.${system}.default
               deploy-rs.packages.${system}.default
@@ -163,8 +206,9 @@
               nixfmt-rfc-style
               statix
               home-manager.defaultPackage.${system}
-            ] ++ (lib.optionals stdenv.isDarwin
-              [ nix-darwin.packages.${system}.default ]);
+            ]
+            ++ (lib.optionals stdenv.isDarwin [ nix-darwin.packages.${system}.default ]);
         };
-      }));
+      }
+    ));
 }

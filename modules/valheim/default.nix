@@ -1,9 +1,15 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   cfg = config.modules.valheim;
   join = builtins.concatStringsSep " ";
-in {
+in
+{
 
   options.modules.valheim = with lib.types; {
     enable = lib.mkEnableOption "valheim";
@@ -39,8 +45,7 @@ in {
     restartTime = lib.mkOption {
       type = lib.types.str;
       default = "*-*-* 04:00:00";
-      description =
-        "When to do the restart. Uses systemd timer calendar format";
+      description = "When to do the restart. Uses systemd timer calendar format";
     };
 
     dataDir = lib.mkOption {
@@ -54,7 +59,6 @@ in {
       default = 2456;
       description = "the port to use";
     };
-
   };
 
   config = lib.mkIf cfg.enable {
@@ -123,13 +127,14 @@ in {
             # https://valheimbugs.featureupvote.com/suggestions/159711/dedicated-server-does-not-save-world-on-sigterm
             KillSignal = "SIGINT";
           };
-
         };
 
         timers.valheim-restart = {
           wantedBy = [ "timers.target" ];
           partOf = [ "valheim-restart.service" ];
-          timerConfig = { OnCalendar = [ cfg.restartTime ]; };
+          timerConfig = {
+            OnCalendar = [ cfg.restartTime ];
+          };
         };
       })
     ];
@@ -140,6 +145,5 @@ in {
         (cfg.port + 1) # For steam discovery
       ];
     };
-
   };
 }

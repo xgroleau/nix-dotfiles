@@ -1,7 +1,10 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ ../desktop.nix ./hardware-configuration.nix ];
+  imports = [
+    ../desktop.nix
+    ./hardware-configuration.nix
+  ];
 
   config = {
     # Custom modules

@@ -3,8 +3,7 @@ _: {
     disk = {
       boot = {
         type = "disk";
-        device =
-          "/dev/disk/by-id/ata-Samsung_SSD_850_EVO_500GB_S21HNXAG817146W";
+        device = "/dev/disk/by-id/ata-Samsung_SSD_850_EVO_500GB_S21HNXAG817146W";
         content = {
           type = "gpt";
           partitions = {
@@ -27,7 +26,9 @@ _: {
             };
             plainSwap = {
               size = "100%";
-              content = { type = "swap"; };
+              content = {
+                type = "swap";
+              };
             };
           };
         };
@@ -161,7 +162,6 @@ _: {
               recordsize = "1M"; # for better sequential reads
               atime = "off";
             };
-
           };
 
           # As per https://nixos.wiki/wiki/ZFS#Reservations

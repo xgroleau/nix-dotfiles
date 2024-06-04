@@ -1,9 +1,16 @@
-{ config, pkgs, lib, inputs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
 
 let
   cfg = config.modules.home;
   profiles = import ../../home/profiles;
-in {
+in
+{
 
   options.modules.home = with lib.types; {
 
@@ -31,14 +38,16 @@ in {
     home-manager = {
       useUserPackages = true;
       sharedModules = [ ../../home ];
-      extraSpecialArgs = { inherit inputs; };
+      extraSpecialArgs = {
+        inherit inputs;
+      };
 
       users.${cfg.username} = {
         imports = [ profiles.${cfg.profile} ];
-        config = { home.stateVersion = config.system.stateVersion; };
+        config = {
+          home.stateVersion = config.system.stateVersion;
+        };
       };
-
     };
   };
-
 }

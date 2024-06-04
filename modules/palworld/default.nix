@@ -1,9 +1,15 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   cfg = config.modules.palworld;
   join = builtins.concatStringsSep " ";
-in {
+in
+{
 
   options.modules.palworld = with lib.types; {
     enable = lib.mkEnableOption "palworld";
@@ -27,8 +33,7 @@ in {
     restartTime = lib.mkOption {
       type = lib.types.str;
       default = "*-*-* 04:00:00";
-      description =
-        "When to do the restart. Uses systemd timer calendar format";
+      description = "When to do the restart. Uses systemd timer calendar format";
     };
 
     dataDir = lib.mkOption {
@@ -109,13 +114,14 @@ in {
             Type = "oneshot";
             RemainAfterExit = "true";
           };
-
         };
 
         timers.palworld-restart = {
           wantedBy = [ "timers.target" ];
           partOf = [ "palworld-restart.service" ];
-          timerConfig = { OnCalendar = [ cfg.restartTime ]; };
+          timerConfig = {
+            OnCalendar = [ cfg.restartTime ];
+          };
         };
       })
     ];
@@ -126,6 +132,5 @@ in {
         (cfg.port + 1) # For steam discovery
       ];
     };
-
   };
 }

@@ -1,25 +1,27 @@
 # Based off https://github.com/owncloud/ocis/blob/1515c77b7d3335d32d3c537f31f570121ea60063/deployments/examples/ocis_wopi/docker-compose.yml#L1
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.modules.ocis;
 
   containerBackendName = config.virtualisation.oci-containers.backend;
-  containerBackend = pkgs."${containerBackendName}" + "/bin/"
-    + containerBackendName;
-
-in {
+  containerBackend = pkgs."${containerBackendName}" + "/bin/" + containerBackendName;
+in
+{
   options.modules.ocis = with lib.types; {
-    enable =
-      lib.mkEnableOption "OwnCloudInfiniteScale, Nextcloud but without bloat";
+    enable = lib.mkEnableOption "OwnCloudInfiniteScale, Nextcloud but without bloat";
 
     openFirewall = lib.mkEnableOption "Open the required ports in the firewall";
 
     collabora = lib.mkOption {
       type = types.submodule {
         options = {
-          enable = lib.mkEnableOption
-            "Enables collabora with the OCIS instance, WOPISECRET envinronment variables in the environmentFiles needs to be enabled";
+          enable = lib.mkEnableOption "Enables collabora with the OCIS instance, WOPISECRET envinronment variables in the environmentFiles needs to be enabled";
           wopiDomain = lib.mkOption {
             type = types.str;
             description = "URL of the WOPI instance";
@@ -64,16 +66,13 @@ in {
     environmentFiles = lib.mkOption {
       type = types.listOf types.str;
       default = [ ];
-      description =
-        "List of environment files to pass for secrets, oidc and others";
+      description = "List of environment files to pass for secrets, oidc and others";
     };
 
     domain = lib.mkOption {
       type = types.str;
-      description =
-        "URL of the OCIS instance, needs to be https and the same as the OpenIDConnect proxy";
+      description = "URL of the OCIS instance, needs to be https and the same as the OpenIDConnect proxy";
     };
-
   };
 
   config = lib.mkIf cfg.enable {
@@ -83,13 +82,12 @@ in {
         {
           ocis = {
             autoStart = true;
-            image =
-              "owncloud/ocis:5.0.5@sha256:a9a2125caceea5868f70c6b22a624f4263322b3495974b41941a5e376ce867af";
+            image = "owncloud/ocis:5.0.5@sha256:a9a2125caceea5868f70c6b22a624f4263322b3495974b41941a5e376ce867af";
             ports = [ "${toString cfg.port}:9200" ];
-            volumes =
-              [ "${cfg.configDir}:/etc/ocis" "${cfg.dataDir}:/var/lib/ocis" ]
-              ++ lib.optionals cfg.collabora.enable
-              [ "${./app-registry.yaml}:/etc/ocis/app-registry.yaml" ];
+            volumes = [
+              "${cfg.configDir}:/etc/ocis"
+              "${cfg.dataDir}:/var/lib/ocis"
+            ] ++ lib.optionals cfg.collabora.enable [ "${./app-registry.yaml}:/etc/ocis/app-registry.yaml" ];
 
             environment = lib.mkMerge [
               {
@@ -123,13 +121,15 @@ in {
 
             entrypoint = "/bin/sh";
             extraOptions = [ "--network=ocis-bridge" ];
-            cmd = [ "-c" "ocis init | true; ocis server" ];
+            cmd = [
+              "-c"
+              "ocis init | true; ocis server"
+            ];
           };
 
           ocis-tika = {
             autoStart = true;
-            image =
-              "apache/tika:2.9.2.1-full@sha256:ae0b86d3c4d06d8997407fcb08f31a7259fff91c43e0c1d7fffdad1e9ade3fe8";
+            image = "apache/tika:2.9.2.1-full@sha256:ae0b86d3c4d06d8997407fcb08f31a7259fff91c43e0c1d7fffdad1e9ade3fe8";
             extraOptions = [ "--network=ocis-bridge" ];
           };
         }
@@ -137,8 +137,7 @@ in {
         (lib.mkIf cfg.collabora.enable {
           ocis-app-provider-collabora = {
             autoStart = true;
-            image =
-              "owncloud/ocis:5.0.5@sha256:a9a2125caceea5868f70c6b22a624f4263322b3495974b41941a5e376ce867af";
+            image = "owncloud/ocis:5.0.5@sha256:a9a2125caceea5868f70c6b22a624f4263322b3495974b41941a5e376ce867af";
             volumes = [ "${cfg.configDir}:/etc/ocis" ];
 
             environmentFiles = cfg.environmentFiles;
@@ -146,18 +145,14 @@ in {
               REVA_GATEWAY = "com.owncloud.api.gateway";
 
               APP_PROVIDER_GRPC_ADDR = "0.0.0.0:9164";
-              APP_PROVIDER_EXTERNAL_ADDR =
-                "com.owncloud.api.app-provider-collabora";
+              APP_PROVIDER_EXTERNAL_ADDR = "com.owncloud.api.app-provider-collabora";
               APP_PROVIDER_SERVICE_NAME = "app-provider-collabora";
               APP_PROVIDER_DRIVER = "wopi";
               APP_PROVIDER_WOPI_APP_NAME = "Collabora";
-              APP_PROVIDER_WOPI_APP_ICON_URI =
-                "https://${cfg.collabora.collaboraDomain}/favicon.ico";
-              APP_PROVIDER_WOPI_APP_URL =
-                "https://${cfg.collabora.collaboraDomain}";
+              APP_PROVIDER_WOPI_APP_ICON_URI = "https://${cfg.collabora.collaboraDomain}/favicon.ico";
+              APP_PROVIDER_WOPI_APP_URL = "https://${cfg.collabora.collaboraDomain}";
               APP_PROVIDER_WOPI_INSECURE = "false";
-              APP_PROVIDER_WOPI_WOPI_SERVER_EXTERNAL_URL =
-                "https://${cfg.collabora.wopiDomain}";
+              APP_PROVIDER_WOPI_WOPI_SERVER_EXTERNAL_URL = "https://${cfg.collabora.wopiDomain}";
               APP_PROVIDER_WOPI_FOLDER_URL_BASE_URL = "https://${cfg.domain}";
 
               # share the registry with the ocis container
@@ -167,13 +162,15 @@ in {
             extraOptions = [ "--network=ocis-bridge" ];
 
             entrypoint = "/bin/sh";
-            cmd = [ "-c" "ocis app-provider server" ];
+            cmd = [
+              "-c"
+              "ocis app-provider server"
+            ];
           };
 
           ocis-wopi = {
             autoStart = true;
-            image =
-              "cs3org/wopiserver:v10.4.0@sha256:7389a17cda3fd3920ffc93a916fb64aaf9747e643e4ac381294fd5bfb2e1ebab";
+            image = "cs3org/wopiserver:v10.4.0@sha256:7389a17cda3fd3920ffc93a916fb64aaf9747e643e4ac381294fd5bfb2e1ebab";
             extraOptions = [ "--network=ocis-bridge" ];
 
             volumes = [
@@ -190,19 +187,19 @@ in {
 
           ocis-collabora = {
             autoStart = true;
-            image =
-              "collabora/code:24.04.1.4.1@sha256:84121bf447871dd4aa5d5627808ba76509c8103ba35d67e07cf803a2f730c012";
-            extraOptions = [ "--network=ocis-bridge" "--cap-add=CAP_MKNOD" ];
+            image = "collabora/code:24.04.1.4.1@sha256:84121bf447871dd4aa5d5627808ba76509c8103ba35d67e07cf803a2f730c012";
+            extraOptions = [
+              "--network=ocis-bridge"
+              "--cap-add=CAP_MKNOD"
+            ];
             environment = {
               aliasgroup1 = "https://${cfg.collabora.wopiDomain}:443";
               DONT_GEN_SSL_CERT = "YES";
-              extra_params =
-                "--o:ssl.enable=false --o:ssl.termination=true --o:welcome.enable=false --o:net.frame_ancestors=${cfg.domain}";
+              extra_params = "--o:ssl.enable=false --o:ssl.termination=true --o:welcome.enable=false --o:net.frame_ancestors=${cfg.domain}";
             };
             ports = [ "${toString cfg.collabora.collaboraPort}:9980" ];
           };
         })
-
       ];
     };
 
@@ -222,12 +219,10 @@ in {
              echo "ocis-bridge already exists in docker"
          fi
       '';
-
     };
 
     # Expose ports for container
-    networking.firewall =
-      lib.mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ]; };
+    networking.firewall = lib.mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ]; };
 
     systemd.tmpfiles.settings.ocis = {
       "${cfg.dataDir}" = {

@@ -1,7 +1,15 @@
-{ config, options, lib, pkgs, ... }:
+{
+  config,
+  options,
+  lib,
+  pkgs,
+  ...
+}:
 
-let cfg = config.modules.dev.common;
-in {
+let
+  cfg = config.modules.dev.common;
+in
+{
 
   options.modules.dev.common = with lib.types; {
     enable = lib.mkEnableOption "Enable common development settings and tools";
@@ -45,7 +53,6 @@ in {
         enable = true;
         enableZshIntegration = true;
       };
-
     };
     home = {
       packages = with pkgs; [
@@ -61,7 +68,6 @@ in {
         ripgrep
         tldr
       ];
-
     };
   };
 }

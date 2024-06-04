@@ -1,10 +1,16 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.modules.media-server;
   group = "media";
   delugeUser = "delugevpn";
-in {
+in
+{
   options.modules.media-server = with lib.types; {
     enable = lib.mkEnableOption "A media server configuration";
 
@@ -27,10 +33,8 @@ in {
 
     ovpnFile = lib.mkOption {
       type = types.str;
-      description =
-        "Path to ovpn config file, auth needs to be embedded in the file";
+      description = "Path to ovpn config file, auth needs to be embedded in the file";
     };
-
   };
 
   config = lib.mkIf cfg.enable {
@@ -39,13 +43,21 @@ in {
         delugevpn = {
           autoStart = true;
           image = "binhex/arch-delugevpn:2.1.1-4-05";
-          ports = [ "8112:8112" "8118:8118" "58846:58846" "58946:58946" ];
+          ports = [
+            "8112:8112"
+            "8118:8118"
+            "58846:58846"
+            "58946:58946"
+          ];
           volumes = [
             "${cfg.dataDir}/deluge:/config"
             "${cfg.downloadDir}:/data"
             "${cfg.ovpnFile}:/config/openvpn/vpn.ovpn"
           ];
-          extraOptions = [ "--cap-add=NET_ADMIN" "--privileged=true" ];
+          extraOptions = [
+            "--cap-add=NET_ADMIN"
+            "--privileged=true"
+          ];
           environment = {
             VPN_ENABLED = "yes";
             VPN_PROV = "custom";
@@ -53,8 +65,7 @@ in {
             STRICT_PORT_FORWARD = "yes";
             ENABLE_PRIVOXY = "yes";
             LAN_NETWORK = "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16";
-            NAME_SERVERS =
-              "84.200.69.80,37.235.1.174,1.1.1.1,37.235.1.177,84.200.70.40,1.0.0.1,8.8.8.8";
+            NAME_SERVERS = "84.200.69.80,37.235.1.174,1.1.1.1,37.235.1.177,84.200.70.40,1.0.0.1,8.8.8.8";
             DELUGE_DAEMON_LOG_LEVEL = "info";
             DELUGE_WEB_LOG_LEVEL = "info";
             DELUGE_ENABLE_WEBUI_PASSWORD = "yes";
@@ -71,8 +82,18 @@ in {
 
     # Expose ports for container
     networking.firewall = lib.mkIf cfg.openFirewall {
-      allowedTCPPorts = [ 8112 8118 58846 58946 ];
-      allowedUDPPorts = [ 8112 8118 58846 58946 ];
+      allowedTCPPorts = [
+        8112
+        8118
+        58846
+        58946
+      ];
+      allowedUDPPorts = [
+        8112
+        8118
+        58846
+        58946
+      ];
     };
 
     # Create a directory for the container to properly start
@@ -160,7 +181,6 @@ in {
         port = 5055;
         openFirewall = cfg.openFirewall;
       };
-
     };
 
     # And overwrite prowlarr's default systemd unit to run with the correct user/group

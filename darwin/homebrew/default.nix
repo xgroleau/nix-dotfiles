@@ -1,7 +1,14 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-let cfg = config.modules.darwin.homebrew;
-in {
+let
+  cfg = config.modules.darwin.homebrew;
+in
+{
 
   options.modules.darwin.homebrew = with lib.types; {
     enable = lib.mkEnableOption "Enables the homebrew apps";
@@ -9,13 +16,15 @@ in {
 
   config = lib.mkIf cfg.enable {
 
-    modules.darwin.home.extraHomeModules = [{
-      programs.zsh = {
-        initExtra = ''
-          eval "$(/opt/homebrew/bin/brew shellenv)"
-        '';
-      };
-    }];
+    modules.darwin.home.extraHomeModules = [
+      {
+        programs.zsh = {
+          initExtra = ''
+            eval "$(/opt/homebrew/bin/brew shellenv)"
+          '';
+        };
+      }
+    ];
 
     homebrew = {
       enable = true;

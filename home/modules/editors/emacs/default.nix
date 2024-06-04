@@ -1,7 +1,14 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-let cfg = config.modules.editors.emacs;
-in {
+let
+  cfg = config.modules.editors.emacs;
+in
+{
 
   options.modules.editors.emacs = {
     enable = lib.mkEnableOption "Enables emacs";
@@ -15,15 +22,22 @@ in {
     };
 
     home = {
-      packages = with pkgs;
+      packages =
+        with pkgs;
         [
           # Emacs
-          ((emacsPackagesFor emacs29).emacsWithPackages
-            (epkgs: [ epkgs.editorconfig epkgs.vterm epkgs.xclip ]))
+          ((emacsPackagesFor emacs29).emacsWithPackages (epkgs: [
+            epkgs.editorconfig
+            epkgs.vterm
+            epkgs.xclip
+          ]))
 
           # Font
           (nerdfonts.override {
-            fonts = [ "FiraCode" "NerdFontsSymbolsOnly" ];
+            fonts = [
+              "FiraCode"
+              "NerdFontsSymbolsOnly"
+            ];
           })
 
           # general tools
@@ -53,8 +67,8 @@ in {
           nodePackages.markdownlint-cli
           multimarkdown
           ispell
-
-        ] ++ lib.optionals stdenv.isLinux [
+        ]
+        ++ lib.optionals stdenv.isLinux [
           # everywhere
           xclip
           xdotool

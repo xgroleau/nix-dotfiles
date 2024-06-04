@@ -1,11 +1,17 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-let cfg = config.modules.duckdns;
-in {
+let
+  cfg = config.modules.duckdns;
+in
+{
 
   options.modules.duckdns = with lib.types; {
-    enable = lib.mkEnableOption
-      "Duckdns configuration, enable to register a domain to duckdns";
+    enable = lib.mkEnableOption "Duckdns configuration, enable to register a domain to duckdns";
 
     domain = lib.mkOption {
       type = types.nonEmptyStr;
@@ -25,7 +31,10 @@ in {
     systemd.timers.duckdns = {
       wantedBy = [ "timers.target" ];
       wants = [ "network-online.target" ];
-      after = [ "network.target" "network-online.target" ];
+      after = [
+        "network.target"
+        "network-online.target"
+      ];
       timerConfig = {
         OnBootSec = "5m";
         OnUnitActiveSec = "5m";
@@ -35,7 +44,10 @@ in {
 
     systemd.services.duckdns = {
       wants = [ "network-online.target" ];
-      after = [ "network.target" "network-online.target" ];
+      after = [
+        "network.target"
+        "network-online.target"
+      ];
       script = ''
         set -eu
         ${pkgs.curl}/bin/curl "https://www.duckdns.org/update?domains=${cfg.domain}&token=$(${pkgs.coreutils}/bin/cat $CREDENTIALS_DIRECTORY/duckdnsToken)&ip="

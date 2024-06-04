@@ -1,7 +1,14 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-let cfg = config.modules.nixpkgs;
-in {
+let
+  cfg = config.modules.nixpkgs;
+in
+{
 
   options.modules.nixpkgs = {
     enable = lib.mkEnableOption "Enable common nix configurations";

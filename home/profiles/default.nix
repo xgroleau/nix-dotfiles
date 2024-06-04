@@ -28,34 +28,46 @@ rec {
     };
   };
 
-  macos = { pkgs, ... }: {
-    imports = [ dev ];
-    config = { modules = { shell.alacritty.enable = true; }; };
-  };
-
-  graphical = { pkgs, ... }: {
-    imports = [ dev ];
-    config = {
-      modules = {
-        applications.firefox.enable = true;
-        applications.discord.enable = true;
-        editors.vscode.enable = true;
-        shell.alacritty.enable = true;
+  macos =
+    { pkgs, ... }:
+    {
+      imports = [ dev ];
+      config = {
+        modules = {
+          shell.alacritty.enable = true;
+        };
       };
-
-      home.packages = with pkgs; [
-        element-desktop
-        beeper
-        mattermost-desktop
-        roam
-        slack
-        spotify
-      ];
     };
-  };
+
+  graphical =
+    { pkgs, ... }:
+    {
+      imports = [ dev ];
+      config = {
+        modules = {
+          applications.firefox.enable = true;
+          applications.discord.enable = true;
+          editors.vscode.enable = true;
+          shell.alacritty.enable = true;
+        };
+
+        home.packages = with pkgs; [
+          element-desktop
+          beeper
+          mattermost-desktop
+          roam
+          slack
+          spotify
+        ];
+      };
+    };
 
   desktop = _: {
     imports = [ graphical ];
-    config = { modules = { desktop.active = "i3"; }; };
+    config = {
+      modules = {
+        desktop.active = "i3";
+      };
+    };
   };
 }

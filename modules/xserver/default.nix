@@ -1,7 +1,15 @@
-{ config, lib, pkgs, profiles, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  profiles,
+  ...
+}:
 
-let cfg = config.modules.xserver;
-in {
+let
+  cfg = config.modules.xserver;
+in
+{
   options.modules.xserver = {
     home-manager = lib.mkEnableOption "Let home-manager manage the session";
   };
@@ -19,20 +27,21 @@ in {
           enable = true;
           theme = "chili";
         };
-
       };
 
       # Use a fake session. The actual session is managed by Home Manager.
       xserver = {
         enable = true;
         displayManager = {
-          session = let
-            fakeSession = {
-              manage = "window";
-              name = "fake";
-              start = "";
-            };
-          in [ fakeSession ];
+          session =
+            let
+              fakeSession = {
+                manage = "window";
+                name = "fake";
+                start = "";
+              };
+            in
+            [ fakeSession ];
         };
       };
     };

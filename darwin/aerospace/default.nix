@@ -1,29 +1,35 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-let cfg = config.modules.darwin.aerospace;
-in {
+let
+  cfg = config.modules.darwin.aerospace;
+in
+{
 
   options.modules.darwin.aerospace = with lib.types; {
-    enable = lib.mkEnableOption
-      "Enables the aerospace and configures it, requires the home and homebrew modules";
+    enable = lib.mkEnableOption "Enables the aerospace and configures it, requires the home and homebrew modules";
   };
 
   config = lib.mkIf cfg.enable {
-    modules.darwin.home.extraHomeModules = [{
-      xdg.configFile.aerospace = {
-        source = ./aerospace;
-        recursive = true;
-      };
+    modules.darwin.home.extraHomeModules = [
+      {
+        xdg.configFile.aerospace = {
+          source = ./aerospace;
+          recursive = true;
+        };
 
-      xdg.configFile.sketchybar = {
-        source = ./sketchybar;
-        recursive = true;
-      };
+        xdg.configFile.sketchybar = {
+          source = ./sketchybar;
+          recursive = true;
+        };
 
-      home.packages = with pkgs;
-        [ (nerdfonts.override { fonts = [ "FiraCode" ]; }) ];
-
-    }];
+        home.packages = with pkgs; [ (nerdfonts.override { fonts = [ "FiraCode" ]; }) ];
+      }
+    ];
     system.defaults = {
       spaces.spans-displays = false;
       NSGlobalDomain = {
@@ -40,7 +46,10 @@ in {
         # aerospace
         "nikitabobko/tap"
       ];
-      brews = [ "borders" "sketchybar" ];
+      brews = [
+        "borders"
+        "sketchybar"
+      ];
       casks = [ "aerospace" ];
     };
   };

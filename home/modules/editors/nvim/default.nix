@@ -1,7 +1,14 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-let cfg = config.modules.editors.nvim;
-in {
+let
+  cfg = config.modules.editors.nvim;
+in
+{
 
   options.modules.editors.nvim = {
     enable = lib.mkEnableOption "Enables neovim with my config";
@@ -14,7 +21,6 @@ in {
       vimdiffAlias = true;
     };
     xdg.configFile.nvim.source = ./config;
-    home.packages = with pkgs;
-      [ (nerdfonts.override { fonts = [ "FiraCode" ]; }) ];
+    home.packages = with pkgs; [ (nerdfonts.override { fonts = [ "FiraCode" ]; }) ];
   };
 }

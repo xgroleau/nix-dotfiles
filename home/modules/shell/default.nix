@@ -1,5 +1,15 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
-  imports = [ ./alacritty ./tmux ./zellij ./zsh ];
+  imports = [
+    ./alacritty
+    ./tmux
+    ./zellij
+    ./zsh
+  ];
 }

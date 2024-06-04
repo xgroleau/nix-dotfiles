@@ -1,5 +1,14 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
-  imports = [ ./emacs ./nvim ./vscode ];
+  imports = [
+    ./emacs
+    ./nvim
+    ./vscode
+  ];
 }

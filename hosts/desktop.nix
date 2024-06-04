@@ -23,6 +23,8 @@
     };
     services = {
       flatpak.enable = true;
+
+      gnome.gnome-keyring.enable = true;
       passSecretService.enable = true;
       udev = {
         enable = true;

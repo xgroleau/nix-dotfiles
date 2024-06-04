@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
 
@@ -6,13 +11,12 @@ let
 
   containerBackendName = config.virtualisation.oci-containers.backend;
 
-  containerBackend = pkgs."${containerBackendName}" + "/bin/"
-    + containerBackendName;
-in {
+  containerBackend = pkgs."${containerBackendName}" + "/bin/" + containerBackendName;
+in
+{
 
   options.modules.immich = with lib.types; {
-    enable = lib.mkEnableOption
-      "Enables immich, a self hosted google photo alternative";
+    enable = lib.mkEnableOption "Enables immich, a self hosted google photo alternative";
 
     openFirewall = lib.mkEnableOption "Open the required ports in the firewall";
 
@@ -39,8 +43,7 @@ in {
 
     backupDir = lib.mkOption {
       type = types.str;
-      description =
-        "Path to where the database will be backed up. Yes, you are required to backup your databases. Even if you think you don't, you do.";
+      description = "Path to where the database will be backed up. Yes, you are required to backup your databases. Even if you think you don't, you do.";
     };
 
     envFile = lib.mkOption {
@@ -51,7 +54,6 @@ in {
           DB_PASSWORD="YYYY"
           POSTGRES_PASSWORD="YYYY"
       '';
-
     };
   };
 
@@ -60,8 +62,7 @@ in {
     virtualisation.oci-containers.containers = {
       immich-server = {
         autoStart = true;
-        image =
-          "ghcr.io/imagegenius/immich:1.105.1@sha256:e939387eb15b12f31b3a40220146f601444adafb0f0c4579e104691c5c7f6392";
+        image = "ghcr.io/imagegenius/immich:1.105.1@sha256:e939387eb15b12f31b3a40220146f601444adafb0f0c4579e104691c5c7f6392";
         volumes = [
           "/etc/localtime:/etc/localtime:ro"
           "${cfg.configDir}:/config"
@@ -89,22 +90,23 @@ in {
 
         environmentFiles = [ cfg.envFile ];
         ports = [ "${toString cfg.port}:8080" ];
-        dependsOn = [ "immich-postgres" "immich-redis" ];
+        dependsOn = [
+          "immich-postgres"
+          "immich-redis"
+        ];
         extraOptions = [ "--network=immich-bridge" ];
       };
 
       immich-redis = {
         autoStart = true;
-        image =
-          "redis:6.2-alpine@sha256:3fcb624d83a9c478357f16dc173c58ded325ccc5fd2a4375f3916c04cc579f70";
+        image = "redis:6.2-alpine@sha256:3fcb624d83a9c478357f16dc173c58ded325ccc5fd2a4375f3916c04cc579f70";
         environmentFiles = [ cfg.envFile ];
         extraOptions = [ "--network=immich-bridge" ];
       };
 
       immich-postgres = {
         autoStart = true;
-        image =
-          "tensorchord/pgvecto-rs:pg16-v0.2.0@sha256:b33e0490b24fad3925294ee8d9e87b52ae64445e8772ad30f9f80091523795a5";
+        image = "tensorchord/pgvecto-rs:pg16-v0.2.0@sha256:b33e0490b24fad3925294ee8d9e87b52ae64445e8772ad30f9f80091523795a5";
 
         volumes = [
           "/etc/localtime:/etc/localtime:ro"
@@ -120,7 +122,6 @@ in {
 
         extraOptions = [ "--network=immich-bridge" ];
       };
-
     };
 
     systemd = {
@@ -137,7 +138,10 @@ in {
       services.immich-postgres-backup = {
         description = "Creates a backup for the immich database";
         wantedBy = [ "multi-user.target" ];
-        path = with pkgs; [ containerBackend gzip ];
+        path = with pkgs; [
+          containerBackend
+          gzip
+        ];
 
         script = ''
           ${containerBackend} exec -t immich-postgres pg_dumpall -c -U postgres | gzip > "${cfg.backupDir}/immich.sql.gz"
@@ -147,7 +151,6 @@ in {
           User = "root";
           Type = "oneshot";
         };
-
       };
 
       # Network creation
@@ -166,9 +169,7 @@ in {
                echo "immich-bridge already exists in docker"
            fi
         '';
-
       };
-
     };
 
     networking.firewall = {

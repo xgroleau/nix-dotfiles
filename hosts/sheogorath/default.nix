@@ -9,8 +9,13 @@ let
     "/var/lib/jellyfin"
     "/var/lib/jellyseerr"
   ];
-in {
-  imports = [ ../base-config.nix ./disko.nix ./hardware-configuration.nix ];
+in
+{
+  imports = [
+    ../base-config.nix
+    ./disko.nix
+    ./hardware-configuration.nix
+  ];
 
   config = {
     # Custom modules
@@ -34,7 +39,9 @@ in {
             emailTo = "xavgroleau@gmail.com";
           };
         };
-        target = { enable = true; };
+        target = {
+          enable = true;
+        };
       };
 
       authentik = {
@@ -156,7 +163,6 @@ in {
         openFirewall = true;
         dataDir = "/data/valheim";
       };
-
     };
 
     services = {
@@ -164,7 +170,9 @@ in {
         paths = backupFolders;
         exclude = [ ];
         repo = "ssh://borg@unraid:2222/backup/sheogorath";
-        encryption = { mode = "none"; };
+        encryption = {
+          mode = "none";
+        };
         environment.BORG_RSH = "ssh -i /etc/ssh/ssh_host_ed25519_key";
         compression = "auto,lzma";
         startAt = "daily";
@@ -189,7 +197,6 @@ in {
       };
 
       fail2ban.enable = true;
-
     };
 
     nix.gc = {
@@ -216,13 +223,19 @@ in {
     fileSystems."/mnt/nfs/shows" = {
       device = "unraid:/mnt/user/shows";
       fsType = "nfs";
-      options = [ "x-systemd.automount" "noauto" ];
+      options = [
+        "x-systemd.automount"
+        "noauto"
+      ];
     };
 
     fileSystems."/mnt/nfs/movies" = {
       device = "unraid:/mnt/user/movies";
       fsType = "nfs";
-      options = [ "x-systemd.automount" "noauto" ];
+      options = [
+        "x-systemd.automount"
+        "noauto"
+      ];
     };
 
     # Container backend
@@ -233,7 +246,10 @@ in {
         autoPrune = {
           enable = true;
           dates = "weekly";
-          flags = [ "--all" "--volumes" ];
+          flags = [
+            "--all"
+            "--volumes"
+          ];
         };
       };
     };

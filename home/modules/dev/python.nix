@@ -1,7 +1,14 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-let cfg = config.modules.dev.python;
-in {
+let
+  cfg = config.modules.dev.python;
+in
+{
 
   options.modules.dev.python = with lib.types; {
     enable = lib.mkEnableOption "Enables python development tools";
