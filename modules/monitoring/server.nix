@@ -307,7 +307,7 @@ in
                 from = "2020-10-24";
                 store = "tsdb";
                 object_store = "filesystem";
-                schema = "v12";
+                schema = "v13";
                 index = {
                   prefix = "index_";
                   period = "24h";
@@ -321,10 +321,6 @@ in
             reject_old_samples_max_age = "168h";
           };
 
-          chunk_store_config = {
-            max_look_back_period = "0s";
-          };
-
           table_manager = {
             retention_deletes_enabled = false;
             retention_period = "0s";
@@ -332,7 +328,6 @@ in
 
           compactor = {
             working_directory = "/var/lib/loki";
-            shared_store = "filesystem";
             compactor_ring = {
               kvstore = {
                 store = "inmemory";
