@@ -64,7 +64,7 @@ You can use this flake as a module to your home-manager configuration or your Ni
 
 ### NixOS module
 
-  * [ ] To use as a nixos module
+To use as a nixos module
 
 ``` nix
 {
