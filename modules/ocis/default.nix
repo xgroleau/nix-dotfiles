@@ -187,7 +187,7 @@ in
 
           ocis-collabora = {
             autoStart = true;
-            image = "collabora/code:24.04.1.4.1@sha256:84121bf447871dd4aa5d5627808ba76509c8103ba35d67e07cf803a2f730c012";
+            image = "collabora/code:24.04.4.2.1@sha256:07da8a191b37058514dfdf921ea8c2270c6634fa659acee774cf8594f86950e4";
             extraOptions = [
               "--network=ocis-bridge"
               "--cap-add=CAP_MKNOD"
