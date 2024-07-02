@@ -7,7 +7,8 @@ start-at-login = true
 exec.inherit-env-vars = true
 
 enable-normalization-flatten-containers = false
-enable-normalization-opposite-orientation-for-nested-containers = false
+enable-normalization-opposite-orientation-for-nested-containers = true
+non-empty-workspaces-root-containers-layout-on-startup = 'smart'
 
 # Run Sketchybar together with AeroSpace
 after-startup-command = [
@@ -25,10 +26,10 @@ PATH = '${HOME}/.nix-profile/bin:/opt/homebrew/bin:/opt/homebrew/sbin:${PATH}'
 [mode.main.binding]
 cmd-enter = 'exec-and-forget alacritty'
 
-cmd-h = 'focus left'
-cmd-j = 'focus down'
-cmd-k = 'focus up'
-cmd-l = 'focus right'
+cmd-h = 'focus --boundaries all-monitors-outer-frame --boundaries-action wrap-around-all-monitors left'
+cmd-j = 'focus --boundaries all-monitors-outer-frame --boundaries-action wrap-around-all-monitors down'
+cmd-k = 'focus --boundaries all-monitors-outer-frame --boundaries-action wrap-around-all-monitors up'
+cmd-l = 'focus --boundaries all-monitors-outer-frame --boundaries-action wrap-around-all-monitors right'
 
 cmd-shift-h = 'move left'
 cmd-shift-j = 'move down'
@@ -45,6 +46,9 @@ cmd-alt-t = 'layout h_accordion' # 'layout tabbed' in i3
 cmd-e = 'layout tiles horizontal vertical' # 'layout toggle split' in i3
 
 cmd-shift-f = 'layout floating tiling' # 'floating toggle' in i3
+
+cmd-shift-m = 'move-workspace-to-monitor --wrap-around next'
+cmd-shift-n = 'move-workspace-to-monitor --wrap-around prev'
 
 # Not supported, because this command is redundant in AeroSpace mental model.
 # See: https://nikitabobko.github.io/AeroSpace/guide#floating-windows
@@ -75,6 +79,7 @@ cmd-shift-7 = ['move-node-to-workspace 7', 'workspace 7']
 cmd-shift-8 = ['move-node-to-workspace 8', 'workspace 8']
 cmd-shift-9 = ['move-node-to-workspace 9', 'workspace 9']
 cmd-shift-0 = ['move-node-to-workspace 10', 'workspace 10']
+
 
 cmd-shift-r = 'reload-config'
 

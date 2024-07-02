@@ -20,6 +20,7 @@ sketchybar --bar position=top height=40 blur_radius=30 color=0x40000000
 # https://felixkratz.github.io/SketchyBar/config/items
 
 default=(
+  display="all"
   padding_left=5
   padding_right=5
   icon.font="FiraCode Nerd Font:Bold:17.0"
