@@ -26,15 +26,11 @@ in
       description = "The port to use";
     };
 
-    serverDataDir = lib.mkOption {
+    dataDir = lib.mkOption {
       type = types.str;
       description = "Path to where the server data will be stored";
     };
 
-    clusterDataDir = lib.mkOption {
-      type = types.str;
-      description = "Path to where the cluster data will be stored";
-    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -47,12 +43,11 @@ in
         user = "gameserver";
         volumes = [
           "/etc/localtime:/etc/localtime:ro"
-          "asa-steam:/home/gameserver/Steam:rw"
-          "asa-steamcmd:/home/gameserver/steamcmd:rw"
-          "${cfg.serverDataDir}:/home/gameserver/server-files:rw"
-          "${cfg.clusterDataDir}:/home/gameserver/cluster-shared:rw"
+          "${cfg.dataDir}/steam:/home/gameserver/Steam:rw"
+          "${cfg.dataDir}/steamcmd:/home/gameserver/steamcmd:rw"
+          "${cfg.dataDir}/server:/home/gameserver/server-files:rw"
+          "${cfg.dataDir}/cluster:/home/gameserver/cluster-shared:rw"
         ];
-        dependsOn = ["asa-1-set-permissions"];
 
         environment = {
           PUID = "25000";
@@ -64,18 +59,6 @@ in
 
         ports = [ "${toString cfg.port}:7777/udp" ];
       };
-
-      asa-1-set-permissions = {
-        entrypoint = "/bin/bash -c 'chown -R 25000:25000 /steam ; chown -R 25000:25000 /steamcmd ; chown -R 25000:25000 /server-files ; chown -R 25000:25000 /cluster-shared'";
-        user = "root";
-        image = "opensuse/leap";
-        volumes = [
-          "asa-steam:/steam:rw"
-          "asa-steamcmd:/steamcmd:rw"
-          "${cfg.serverDataDir}:/server-files:rw"
-          "${cfg.clusterDataDir}:/cluster-shared:rw"
-        ];
-      };
     };
 
     networking.firewall = {
@@ -83,20 +66,35 @@ in
     };
 
     systemd.tmpfiles.settings.arkSurvivalAscended = {
-      "${cfg.serverDataDir}" = {
+      "${cfg.dataDir}/steam" = {
         d = {
           mode = "0777";
           user = "25000";
           group = "25000";
         };
       };
-      "${cfg.clusterDataDir}" = {
+      "${cfg.dataDir}/steamcmd" = {
         d = {
           mode = "0777";
           user = "25000";
           group = "25000";
         };
       };
+      "${cfg.dataDir}/server" = {
+        d = {
+          mode = "0777";
+          user = "25000";
+          group = "25000";
+        };
+      };
+      "${cfg.dataDir}/cluster" = {
+        d = {
+          mode = "0777";
+          user = "25000";
+          group = "25000";
+        };
+      };
+      
     };
   };
 }

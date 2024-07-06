@@ -46,8 +46,7 @@ in
       arkSurvivalAscended = {
         enable = true;
         port = 7777;
-        serverDataDir = "/data/arkSurvivalAscended/server1";
-        clusterDataDir = "/data/arkSurvivalAscended/cluster1";
+        dataDir = "/data/arkSurvivalAscended";
       };
 
       authentik = {
