@@ -43,7 +43,7 @@ in
       asa-1 = {
         autoStart = true;
         image = "mschnitzer/asa-linux-server:latest";   
-        entrypoint - "/usr/bin/start_server";
+        entrypoint = "/usr/bin/start_server";
         user = "gameserver";
         volumes = [
           "/etc/localtime:/etc/localtime:ro"
