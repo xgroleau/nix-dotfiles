@@ -46,6 +46,7 @@ in
       arkSurvivalAscended = {
         enable = true;
         port = 7777;
+        openFirewall = true;
         dataDir = "/data/arkSurvivalAscended";
       };
 
