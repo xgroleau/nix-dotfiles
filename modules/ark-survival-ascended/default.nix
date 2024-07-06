@@ -70,8 +70,8 @@ in
         user = "root";
         image = "opensuse/leap";
         volumes = [
-          "steam-1:/steam:rw"
-          "steamcmd-1:/steamcmd:rw"
+          "asa-steam:/steam:rw"
+          "asa-steamcmd:/steamcmd:rw"
           "${cfg.serverDataDir}:/server-files:rw"
           "${cfg.clusterDataDir}:/cluster-shared:rw"
         ];
@@ -86,13 +86,15 @@ in
       "${cfg.serverDataDir}" = {
         d = {
           mode = "0777";
-          user = "root";
+          user = "25000";
+          group = "25000";
         };
       };
       "${cfg.clusterDataDir}" = {
         d = {
           mode = "0777";
-          user = "root";
+          user = "25000";
+          group = "25000";
         };
       };
     };
