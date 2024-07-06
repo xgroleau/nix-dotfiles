@@ -52,7 +52,7 @@ in
           "${cfg.serverDataDir}:/home/gameserver/server-files:rw"
           "${cfg.clusterDataDir}:/home/gameserver/cluster-shared:rw"
         ];
-        dependsOn: ["asa-1-set-permissions"];
+        dependsOn = ["asa-1-set-permissions"];
 
         environment = {
           PUID = "25000";
