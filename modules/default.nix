@@ -7,6 +7,7 @@
 
 {
   imports = [
+    ./ark-survival-ascended
     ./authentik
     ./caddy
     ./docker

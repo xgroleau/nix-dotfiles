@@ -43,6 +43,12 @@ in
           enable = true;
         };
       };
+      arkSurvivalAscended = {
+        enable = true;
+        port = 7777;
+        serverDataDir = "/data/arkSurvivalAscended/server1";
+        clusterDataDir = "/data/arkSurvivalAscended/cluster1";
+      };
 
       authentik = {
         enable = true;
@@ -154,15 +160,15 @@ in
       #   dataDir = "/data/palworld";
       # };
 
-      valheim = {
-        enable = true;
-        restart = true;
-        port = 2456;
-        name = "Yofo";
-        password = "noobreport";
-        openFirewall = true;
-        dataDir = "/data/valheim";
-      };
+      # valheim = {
+      #   enable = true;
+      #   restart = true;
+      #   port = 2456;
+      #   name = "Yofo";
+      #   password = "noobreport";
+      #   openFirewall = true;
+      #   dataDir = "/data/valheim";
+      # };
     };
 
     services = {
