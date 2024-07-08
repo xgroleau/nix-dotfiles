@@ -26,6 +26,7 @@ in
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       poetry
+      rye
       cfg.package
       cfg.pythonPackages.pip
       cfg.pythonPackages.black
