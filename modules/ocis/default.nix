@@ -170,7 +170,7 @@ in
 
           ocis-wopi = {
             autoStart = true;
-            image = "cs3org/wopiserver:v10.4.0@sha256:7389a17cda3fd3920ffc93a916fb64aaf9747e643e4ac381294fd5bfb2e1ebab";
+            image = "cs3org/wopiserver:v10.5.1@sha256:79c33070b1872e767f4acf06cc6a8d9736e482ab9d72309b1565c39567dc08a1";
             extraOptions = [ "--network=ocis-bridge" ];
 
             volumes = [
