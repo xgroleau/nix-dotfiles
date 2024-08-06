@@ -45,11 +45,6 @@
  :n "C-k" #'evil-window-up
  :n "C-l" #'evil-window-right)
 
-;; leader mapping
-(map!
- :leader
- :desc "Switch workspace buffer in new window " "b w" #'+ivy/switch-workspace-buffer-other-window
- :desc "Switch buffer in new window " "b W" #'+ivy/switch-buffer-other-window)
 
 ;; The greatest splash screen of all
 (defun splash-screen-surpised-pikachu ()
@@ -105,4 +100,3 @@
 
 ;; Modes settings
 (add-to-list 'auto-mode-alist '("\\.tpp\\'" . c++-mode))
-(add-to-list 'auto-mode-alist '("\\.bzz\\'" . buzz-mode))
