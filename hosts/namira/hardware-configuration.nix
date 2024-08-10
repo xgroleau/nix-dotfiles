@@ -22,7 +22,7 @@
       "sdhci_pci"
     ];
     initrd.kernelModules = [ ];
-    kernelModules = [ "kvm-intel" ];
+    kernelModules = [ "fuse" "kvm-intel" ];
     extraModulePackages = [ ];
   };
 
