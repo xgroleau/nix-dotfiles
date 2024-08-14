@@ -14,7 +14,7 @@ in
     enable = lib.mkEnableOption "Monitoring module, will monitor another server, see config.modules.monitoring.target for the target system to monitor";
 
     prometheusScrapeUrls = lib.mkOption {
-      type = types.list types.str;
+      type = types.listOf types.str;
       description = "Prometheus nodes to scrape";
     };
 

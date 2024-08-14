@@ -6,6 +6,11 @@ on:
     branches: [main]
     types:
       - completed
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   deploy:
     runs-on: ubuntu-22.04
