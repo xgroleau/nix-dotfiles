@@ -26,7 +26,6 @@ let
   # attrset of the secrets
   secrets = {
     duckdnsToken.file = ./duckdns-token.age;
-    ghRunner.file = ./gh-runner.age;
     piaOvpn.file = ./pia-ovpn.age;
     authentikEnv.file = ./authentik-env.age;
     immichEnv.file = ./immich-env.age;

@@ -30,24 +30,11 @@ in
       secrets.enable = true;
 
       monitoring = {
-        # TODO: Move the monitoring server to another system
-        server = {
-          enable = true;
-          alerting = {
-            enable = true;
-            envFile = config.age.secrets.alertmanagerEnv.path;
-            emailTo = "xavgroleau@gmail.com";
-          };
-        };
+        # Jyggalag monitors this server
         target = {
           enable = true;
+          default = "jyggalag:13100/loki/api/v1/push";
         };
-      };
-      arkSurvivalAscended = {
-        enable = true;
-        port = 7777;
-        openFirewall = true;
-        dataDir = "/data/arkSurvivalAscended";
       };
 
       authentik = {
@@ -151,6 +138,13 @@ in
         username = "xavgroleau@gmx.com";
         passwordFile = config.age.secrets.gmxPass.path;
       };
+
+      # arkSurvivalAscended = {
+      #   enable = true;
+      #   port = 7777;
+      #   openFirewall = true;
+      #   dataDir = "/data/arkSurvivalAscended";
+      # };
 
       # palworld = {
       #   enable = true;

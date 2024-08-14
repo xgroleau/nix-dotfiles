@@ -7,10 +7,6 @@ with keys;
     users.xgroleau
     machines.jyggalag
   ];
-  "gh-runner.age".publicKeys = [
-    users.xgroleau
-    machines.jyggalag
-  ];
   "pia-ovpn.age".publicKeys = [
     users.xgroleau
     machines.sheogorath
@@ -29,7 +25,7 @@ with keys;
   ];
   "alertmanager-env.age".publicKeys = [
     users.xgroleau
-    machines.sheogorath
+    machines.jyggalag
   ];
   "cloudflare-xgroleau.age".publicKeys = [
     users.xgroleau

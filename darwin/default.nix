@@ -45,7 +45,6 @@ in
 
     services = {
       nix-daemon.enable = true;
-      tailscale.enable = true;
     };
 
     system = {

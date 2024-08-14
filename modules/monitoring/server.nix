@@ -13,10 +13,9 @@ in
   options.modules.monitoring.server = with lib.types; {
     enable = lib.mkEnableOption "Monitoring module, will monitor another server, see config.modules.monitoring.target for the target system to monitor";
 
-    prometheusScrapeUrl = lib.mkOption {
-      type = types.str;
-      default = "127.0.0.1:${toString config.services.prometheus.exporters.node.port}";
-      description = "Prometheus node to scrape, defaults to local instance";
+    prometheusScrapeUrls = lib.mkOption {
+      type = types.list types.str;
+      description = "Prometheus nodes to scrape";
     };
 
     grafanaPort = lib.mkOption {
@@ -28,7 +27,7 @@ in
     prometheusPort = lib.mkOption {
       type = types.port;
       default = 13020;
-      description = "Port for the prometheus server";
+      description = "Port for the prometheus server UI";
     };
 
     lokiPort = lib.mkOption {
@@ -213,7 +212,7 @@ in
         scrapeConfigs = [
           {
             job_name = "nodes";
-            static_configs = [ { targets = [ cfg.prometheusScrapeUrl ]; } ];
+            static_configs = [ { targets = cfg.prometheusScrapeUrls; } ];
           }
         ];
 

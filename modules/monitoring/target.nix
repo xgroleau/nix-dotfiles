@@ -16,19 +16,18 @@ in
     promtailPort = lib.mkOption {
       type = types.port;
       default = 13200;
-      description = "Port for the promtail server";
+      description = "HTTP port for the promtail UI";
     };
 
     prometheusPort = lib.mkOption {
       type = types.port;
-      default = 13050;
-      description = "Port for the prometheus exporter";
+      default = 13150;
+      description = "HTTP port for the prometheus exporter";
     };
 
     lokiAddress = lib.mkOption {
       type = types.str;
-      default = "http://127.0.0.1:${toString config.services.loki.configuration.server.http_listen_port}/loki/api/v1/push";
-      description = "Loki address, defaults to local instance";
+      description = "Loki address";
     };
   };
 
