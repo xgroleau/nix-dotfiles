@@ -52,9 +52,6 @@ in
       };
     };
 
-    # Enable docker
-    virtualisation.docker.enable = true;
-
     networking.hostName = hostname;
 
     system.stateVersion = "22.11";

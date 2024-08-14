@@ -8,6 +8,11 @@
   jyggalag = {
     system = "aarch64-linux";
     cfg = import ./jyggalag;
+    deploy = {
+      hostname = "sheogorath";
+      sshUser = "root";
+      user = "root";
+    };
   };
 
   namira = {
