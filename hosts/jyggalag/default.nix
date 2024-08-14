@@ -29,11 +29,11 @@ in
       monitoring = {
         server = {
           enable = true;
+          prometheusScrapeUrls = [ "sheogorath:13150" ];
           alerting = {
             enable = true;
             envFile = config.age.secrets.alertmanagerEnv.path;
             emailTo = "xavgroleau@gmail.com";
-            prometheusScrapeUrls = [ "sheogorath:13150" ];
           };
         };
       };
