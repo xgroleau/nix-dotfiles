@@ -33,7 +33,7 @@ in
         # Jyggalag monitors this server
         target = {
           enable = true;
-          lokiAddress = "jyggalag:13100/loki/api/v1/push";
+          lokiAddress = "http://jyggalag:13100/loki/api/v1/push";
           prometheusPort = 13150;
           promtailPort = 13030;
         };
