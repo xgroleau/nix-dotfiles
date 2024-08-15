@@ -9,7 +9,7 @@
     system = "aarch64-linux";
     cfg = import ./jyggalag;
     deploy = {
-      hostname = "sheogorath";
+      hostname = "jyggalag";
       sshUser = "root";
       user = "root";
     };
