@@ -30,10 +30,14 @@ in
         server = {
           enable = true;
           prometheusScrapeUrls = [ "sheogorath:13150" ];
+          prometheusPort = 13020;
+          grafanaPort = 13010;
+          lokiPort = 13100;
           alerting = {
             enable = true;
             envFile = config.age.secrets.alertmanagerEnv.path;
             emailTo = "xavgroleau@gmail.com";
+            port = 13024;
           };
         };
       };
