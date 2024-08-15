@@ -275,7 +275,7 @@ in
           };
 
           common = {
-            instance_addr = "127.0.0.1";
+            instance_addr = "0.0.0.0";
             path_prefix = "/tmp/loki";
             storage = {
               filesystem = {
