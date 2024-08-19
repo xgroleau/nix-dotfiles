@@ -43,6 +43,10 @@ in
       };
     };
 
+    services = {
+      jmusicbot.enable = true;
+    };
+
     nix.gc = {
       automatic = true;
       dates = "weekly";
