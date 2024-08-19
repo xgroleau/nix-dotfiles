@@ -68,10 +68,7 @@ in
       };
 
       users.root = {
-        openssh.authorizedKeys.keys = [
-          keys.users.xgroleau
-          gh_key
-        ];
+        openssh.authorizedKeys.keys = [ gh_key ];
       };
     };
 
