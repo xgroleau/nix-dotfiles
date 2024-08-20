@@ -84,7 +84,7 @@ in
           openssh.authorizedKeys.keys = [
             "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHq19Q+mExYg51j28CB7lgOk66ZLvKSCx2EKbNDqBuqf"
           ];
-          group = "nixdist";
+          group = "builder";
           useDefaultShell = true;
         };
 
