@@ -36,6 +36,10 @@ in
       # Avoid always redownloading the registry
       registry.nixpkgsu.flake = inputs.nixpkgs-unstable; # For flake commands
       nixPath = [ "nixpkgsu=${inputs.nixpkgs-unstable}" ]; # For legacy commands
+      settings.trusted-users = [
+        "root"
+        "builder"
+      ];
     };
 
     time.timeZone = "America/Toronto";
@@ -67,8 +71,27 @@ in
         openssh.authorizedKeys.keys = [ keys.users.xgroleau ];
       };
 
-      users.root = {
-        openssh.authorizedKeys.keys = [ gh_key ];
+      users = {
+        root = {
+          openssh.authorizedKeys.keys = [ gh_key ];
+
+        };
+
+        builder = {
+          isSystemUser = true;
+          createHome = false;
+          uid = 500;
+          openssh.authorizedKeys.keys = [
+            "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHq19Q+mExYg51j28CB7lgOk66ZLvKSCx2EKbNDqBuqf"
+          ];
+          group = "nixdist";
+          useDefaultShell = true;
+        };
+
+      };
+
+      groups.builder = {
+        gid = 500;
       };
     };
 
