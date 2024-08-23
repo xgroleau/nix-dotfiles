@@ -200,11 +200,6 @@ in
       };
 
       fail2ban.enable = true;
-
-      jmusicbot = {
-        enable = true;
-        stateDir = "/vault/jmusicbot";
-      };
     };
 
     nix.gc = {
