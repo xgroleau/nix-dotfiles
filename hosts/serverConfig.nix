@@ -16,16 +16,19 @@ in
     };
 
     users = {
-      root = {
-        openssh.authorizedkeys.keys = [ keys.deployer.ghAction ];
-      };
+      users = {
+        root = {
+          openssh.authorizedKeys.keys = [ keys.deployer.ghAction ];
+        };
 
-      builder = {
-        isSystemUser = true;
-        createHome = false;
-        uid = 500;
-        openssh.authorizedKeys.keys = [ keys.users.builder ];
-        useDefaultShell = true;
+        builder = {
+          isSystemUser = true;
+          createHome = false;
+          uid = 500;
+          openssh.authorizedKeys.keys = [ keys.users.builder ];
+          useDefaultShell = true;
+          group = "builder";
+        };
       };
 
       groups.builder = {
