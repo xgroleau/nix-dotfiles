@@ -11,6 +11,7 @@ in
 {
   imports = [
     ../base-config.nix
+    ../serverConfig.nix
     ./hardware-configuration.nix
   ];
 
@@ -41,10 +42,6 @@ in
           };
         };
       };
-    };
-
-    services = {
-      jmusicbot.enable = true;
     };
 
     nix.gc = {

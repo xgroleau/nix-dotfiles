@@ -8,6 +8,7 @@
 
 let
   overlays = import ../overlays { inherit inputs; };
+  keys = import ../secrets/ssh-keys.nix;
 in
 {
   imports = [
@@ -17,6 +18,7 @@ in
     ./modules/editors
     ./modules/nixpkgs
     ./modules/shell
+    ./modules/nix
   ];
 
   config = {
@@ -27,9 +29,14 @@ in
 
     programs.ssh = {
       enable = true;
-      extraConfig = ''
-        AddKeysToAgent yes
-      '';
+      addKeysToAgent = "yes";
+      userKnownHostsFile = "~/.ssh/known_hosts ~/.ssh/hm_hosts";
+    };
+
+    home.file.".ssh/hm_known_hosts" = {
+      text = ''
+        jyggalag ${keys.machines.jyggalag}
+        sheogorath ${keys.machines.sheogorath}'';
     };
 
     # User config

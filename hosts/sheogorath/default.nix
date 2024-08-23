@@ -13,6 +13,7 @@ in
 {
   imports = [
     ../base-config.nix
+    ../serverConfig.nix
     ./disko.nix
     ./hardware-configuration.nix
   ];
@@ -199,6 +200,11 @@ in
       };
 
       fail2ban.enable = true;
+
+      jmusicbot = {
+        enable = true;
+        stateDir = "/vault/jmusicbot";
+      };
     };
 
     nix.gc = {

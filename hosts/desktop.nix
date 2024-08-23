@@ -47,6 +47,7 @@
       };
       udisks2.enable = true;
     };
+
     # Allows the use of app image directly
     boot.binfmt.registrations.appimage = {
       wrapInterpreterInShell = false;
