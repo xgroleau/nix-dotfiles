@@ -27,10 +27,10 @@ in
         openssh.authorizedKeys.keys = [ keys.users.builder ];
         useDefaultShell = true;
       };
-    };
 
-    groups.builder = {
-      name = "builder";
+      groups.builder = {
+        name = "builder";
+      };
     };
   };
 }
