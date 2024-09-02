@@ -60,7 +60,7 @@ in
         port = cfg.port;
         credentialsFile = cfg.credentialsFile;
         settings = {
-          DATA_DIR = cfg.dataDir;
+          # DATA_DIR = cfg.dataDir;
         } // cfg.settings;
       };
     };
