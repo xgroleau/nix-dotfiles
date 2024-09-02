@@ -18,12 +18,12 @@ rec {
           enable = true;
           defaultEditor = true;
         };
-
         dev = {
           cc.enable = true;
           python.enable = true;
           rust.enable = true;
         };
+        nix.builders = true;
       };
     };
   };
@@ -49,7 +49,6 @@ rec {
           applications.discord.enable = true;
           editors.vscode.enable = true;
           shell.alacritty.enable = true;
-          nix.enable = true;
         };
 
         home.packages = with pkgs; [
