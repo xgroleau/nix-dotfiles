@@ -16,7 +16,7 @@ in
 
     port = lib.mkOption {
       type = types.port;
-      port = 10400;
+      default = 10400;
       description = "The port to use";
     };
 
