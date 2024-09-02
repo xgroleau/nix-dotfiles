@@ -10,7 +10,6 @@ let
 in
 
 {
-
   options.modules.mealie = with lib.types; {
     enable = lib.mkEnableOption "OwnCloudInfiniteScale, Nextcloud but without bloat";
 
@@ -54,13 +53,15 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    mealie = {
-      enable = true;
-      port = cfg.port;
-      credentialsFile = cfg.credentialsFile;
-      settings = {
-        DATA_DIR = cfg.dataDir;
-      } // cfg.settings;
+    services = {
+      mealie = {
+        enable = true;
+        port = cfg.port;
+        credentialsFile = cfg.credentialsFile;
+        settings = {
+          DATA_DIR = cfg.dataDir;
+        } // cfg.settings;
+      };
     };
 
     systemd.tmpfiles.settings.ocis = {
