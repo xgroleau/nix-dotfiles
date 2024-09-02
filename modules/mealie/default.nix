@@ -61,7 +61,7 @@ in
         ports = [ "${toString cfg.port}:9000" ];
         volumes = [ "${cfg.dataDir}:/app/data/" ];
 
-        environmentFiles = cfg.environmentFiles;
+        environmentFiles = [ cfg.credentialsFile ];
         environment = {
           ALLOW_SIGNUP = "false";
           MAX_WORKERS = "1";
