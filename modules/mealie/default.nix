@@ -54,29 +54,44 @@ in
 
   config = lib.mkIf cfg.enable {
 
-    systemd.services.mealie.serviceConfig = {
-      StateDirectory = cfg.dataDir;
-    };
+    # virtualisation.oci-containers = {
+    #   containers.mealie = {
+    #     autoStart = true;
+    #     image = "ghcr.io/mealie-recipes/mealie:v1.12.0 ";
+    #     ports = [ "${toString cfg.port}:9000" ];
+    #     volumes = [ "${cfg.dataDir}:/app/data/" ];
+
+    #     environmentFiles = cfg.environmentFiles;
+    #     environment = {
+    #       ALLOW_SIGNUP = "false";
+    #       PUID = "1000";
+    #       PGID = "1000";
+    #       MAX_WORKERS = "1";
+    #       WEB_CONCURRENCY = "1";
+    #     } // cfg.settings;
+
+    #   };
+    # };
 
     services = {
       mealie = {
         enable = true;
         port = cfg.port;
         credentialsFile = cfg.credentialsFile;
-        settings = {
-          DATA_DIR = cfg.dataDir;
-        } // cfg.settings;
+        # settings = {
+        #   DATA_DIR = cfg.dataDir;
+        # } // cfg.settings;
       };
 
     };
 
-    systemd.tmpfiles.settings.ocis = {
-      "${cfg.dataDir}" = {
-        d = {
-          mode = "0755";
-          user = "root";
-        };
-      };
-    };
+    # systemd.tmpfiles.settings.ocis = {
+    #   "${cfg.dataDir}" = {
+    #     d = {
+    #       mode = "0755";
+    #       user = "root";
+    #     };
+    #   };
+    # };
   };
 }
