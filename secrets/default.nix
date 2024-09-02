@@ -25,16 +25,17 @@ let
 
   # attrset of the secrets
   secrets = {
-    duckdnsToken.file = ./duckdns-token.age;
-    piaOvpn.file = ./pia-ovpn.age;
-    authentikEnv.file = ./authentik-env.age;
-    immichEnv.file = ./immich-env.age;
-    gmxPass.file = ./gmx-pass.age;
     alertmanagerEnv.file = ./alertmanager-env.age;
+    authentikEnv.file = ./authentik-env.age;
     cloudflareXgroleau.file = ./cloudflare-xgroleau.age;
-    ocisEnv.file = ./ocis-env.age;
+    duckdnsToken.file = ./duckdns-token.age;
     fireflyAppKey.file = ./firefly-appkey.age;
     fireflyImporterToken.file = ./firefly-importer-token.age;
+    gmxPass.file = ./gmx-pass.age;
+    immichEnv.file = ./immich-env.age;
+    mealieEnv.file = ./mealie-env.age;
+    ocisEnv.file = ./ocis-env.age;
+    piaOvpn.file = ./pia-ovpn.age;
   };
 
   # Only secrets that have the machine ssh key in them

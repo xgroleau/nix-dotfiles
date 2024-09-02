@@ -67,6 +67,7 @@ in
           "firefly.${domain}" = "localhost:12300";
 
           "immich.${domain}" = "localhost:10300";
+          "mealie.${domain}" = "localhost:10400";
 
           "ocis.${domain}" = "localhost:11200";
           "wopi.${domain}" = "localhost:11210";
@@ -169,6 +170,15 @@ in
     };
 
     services = {
+      mealie = {
+        enable = true;
+        port = 10400;
+        credentialsFile = config.age.secrets.mealieEnv.path;
+        settings = {
+          DATA_DIR = "/data/mealie";
+        };
+      };
+
       borgbackup.jobs."unraid" = {
         paths = backupFolders;
         exclude = [ ];
