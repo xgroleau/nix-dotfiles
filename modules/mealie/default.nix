@@ -55,6 +55,7 @@ in
   config = lib.mkIf cfg.enable {
     services = {
       mealie = {
+        package = pkgs.unstable.mealie;
         enable = true;
         port = cfg.port;
         credentialsFile = cfg.credentialsFile;
@@ -67,7 +68,7 @@ in
     systemd.tmpfiles.settings.ocis = {
       "${cfg.dataDir}" = {
         d = {
-          mode = "0777";
+          mode = "0755";
           user = "root";
         };
       };
