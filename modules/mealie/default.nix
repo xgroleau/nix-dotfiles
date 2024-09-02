@@ -53,16 +53,21 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+
+    systemd.services.mealie.serviceConfig = {
+      StateDirectory = cfg.dataDir;
+    };
+
     services = {
       mealie = {
-        package = pkgs.unstable.mealie;
         enable = true;
         port = cfg.port;
         credentialsFile = cfg.credentialsFile;
         settings = {
-          # DATA_DIR = cfg.dataDir;
+          DATA_DIR = cfg.dataDir;
         } // cfg.settings;
       };
+
     };
 
     systemd.tmpfiles.settings.ocis = {
