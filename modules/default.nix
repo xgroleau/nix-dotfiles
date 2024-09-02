@@ -16,6 +16,7 @@
     ./immich
     ./kdeconnect
     ./firefly-iii
+    ./mealie
     ./media-server
     ./monitoring
     ./msmtp

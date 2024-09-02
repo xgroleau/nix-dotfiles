@@ -134,6 +134,13 @@ in
         domain = "ocis.${domain}";
       };
 
+      mealie = {
+        enable = true;
+        port = 10400;
+        credentialsFile = config.age.secrets.mealieEnv.path;
+        dataDir = "/data/mealie";
+      };
+
       msmtp = {
         enable = true;
         host = "mail.gmx.com";
@@ -170,14 +177,6 @@ in
     };
 
     services = {
-      mealie = {
-        enable = true;
-        port = 10400;
-        credentialsFile = config.age.secrets.mealieEnv.path;
-        settings = {
-          DATA_DIR = "/data/mealie";
-        };
-      };
 
       borgbackup.jobs."unraid" = {
         paths = backupFolders;
