@@ -57,7 +57,7 @@ in
     mealie = {
       enable = true;
       port = cfg.port;
-      credentialFile = cfg.credentialFile;
+      credentialsFile = cfg.credentialsFile;
       settings = {
         DATA_DIR = cfg.dataDir;
       } // cfg.settings;
