@@ -11,7 +11,7 @@ in
 
 {
   options.modules.mealie = with lib.types; {
-    enable = lib.mkEnableOption "OwnCloudInfiniteScale, Nextcloud but without bloat";
+    enable = lib.mkEnableOption "Mealie, a meal planner and grocery shopping list manager";
 
     port = lib.mkOption {
       type = types.port;
@@ -57,7 +57,7 @@ in
     virtualisation.oci-containers = {
       containers.mealie = {
         autoStart = true;
-        image = "ghcr.io/mealie-recipes/mealie:v1.12.0@sha256:88e8e12542e9a2733c07f175682dc69e7360becb6137d604bb087a71ab33c5fe";
+        image = "ghcr.io/mealie-recipes/mealie:v1.11.0@sha256:797df6808afb5883a374c701099ea68a77461fc734f12cade3b76c002f171b9a";
         ports = [ "${toString cfg.port}:9000" ];
         volumes = [ "${cfg.dataDir}:/app/data/" ];
 
@@ -70,18 +70,6 @@ in
 
       };
     };
-
-    # services = {
-    #   mealie = {
-    #     enable = true;
-    #     port = cfg.port;
-    #     credentialsFile = cfg.credentialsFile;
-    #     # settings = {
-    #     #   DATA_DIR = cfg.dataDir;
-    #     # } // cfg.settings;
-    #   };
-
-    # };
 
     systemd.tmpfiles.settings.mealie = {
       "${cfg.dataDir}" = {
