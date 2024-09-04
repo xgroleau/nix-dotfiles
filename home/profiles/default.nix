@@ -4,6 +4,7 @@ rec {
     config.modules = {
       dev.common.enable = true;
       editors.nvim.enable = true;
+      nix.caches = true;
       nixpkgs.enable = true;
       shell.zellij.enable = true;
       shell.zsh.enable = true;

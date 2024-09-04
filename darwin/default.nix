@@ -41,6 +41,7 @@ in
       # Avoid always redownloading the registry
       registry.nixpkgsu.flake = inputs.nixpkgs; # For flake commands
       nixPath = [ "nixpkgsu=${inputs.nixpkgs}" ]; # For legacy commands
+      settings.trusted-users = [ "@admin" ];
     };
 
     services = {
