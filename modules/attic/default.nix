@@ -45,12 +45,13 @@ in
       user = "atticd";
       group = "atticd";
 
+      credentialsFile = cfg.credentialsFile;
+
       # Replace with absolute path to your credentials file
 
       settings = {
         listen = "[::]:${cfg.port}";
 
-        credentialsFile = cfg.credentialsFile;
         database.url = "sqlite://${cfg.dataDir}/server.db?mode=rwc";
         require-proof-of-possession = false;
         default-retention-period = "1 months";
