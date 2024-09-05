@@ -54,7 +54,6 @@ in
 
         database.url = "sqlite://${cfg.dataDir}/server.db?mode=rwc";
         require-proof-of-possession = false;
-        default-retention-period = "1 months";
 
         chunking = {
           nar-size-threshold = 64 * 1024; # 64 KiB
@@ -70,6 +69,11 @@ in
 
         compression = {
           type = "zstd";
+        };
+
+        garbage-collection = {
+          interval = "12 hours";
+          default-retention-period = "1 months";
         };
 
       };
