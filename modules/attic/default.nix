@@ -52,7 +52,7 @@ in
       settings = {
         listen = "[::]:${toString cfg.port}";
 
-        database.url = "sqlite://${cfg.dataDir}/server.db?mode=rwc";
+        database.url = "sqlite://${cfg.dataDir}/server.db";
         require-proof-of-possession = false;
 
         chunking = {
