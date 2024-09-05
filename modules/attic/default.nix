@@ -50,7 +50,7 @@ in
       # Replace with absolute path to your credentials file
 
       settings = {
-        listen = "[::]:${cfg.port}";
+        listen = "[::]:${toString cfg.port}";
 
         database.url = "sqlite://${cfg.dataDir}/server.db?mode=rwc";
         require-proof-of-possession = false;
