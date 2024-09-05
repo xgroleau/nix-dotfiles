@@ -52,7 +52,6 @@ in
       settings = {
         listen = "[::]:${toString cfg.port}";
 
-        database.url = "sqlite://${cfg.dataDir}/server.db";
         require-proof-of-possession = false;
 
         chunking = {
@@ -64,7 +63,7 @@ in
 
         storage = {
           type = "local";
-          path = "${cfg.dataDir}/storage";
+          path = "${cfg.dataDir}";
         };
 
         compression = {
@@ -80,16 +79,9 @@ in
     };
 
     systemd.tmpfiles.settings.attic = {
-      "${cfg.dataDir}" = {
+      "${cfg.dataDir}/" = {
         d = {
-          mode = "0777";
-          user = "root";
-        };
-      };
-
-      "${cfg.dataDir}/storage" = {
-        d = {
-          mode = "0777";
+          mode = "0755";
           user = "root";
         };
       };
