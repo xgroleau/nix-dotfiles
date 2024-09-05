@@ -7,6 +7,10 @@ with keys;
     users.xgroleau
     machines.jyggalag
   ];
+  "attic-env.age".publicKeys = [
+    users.xgroleau
+    machines.sheogorath
+  ];
   "authentik-env.age".publicKeys = [
     users.xgroleau
     machines.sheogorath

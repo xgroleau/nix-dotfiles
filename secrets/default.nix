@@ -26,6 +26,7 @@ let
   # attrset of the secrets
   secrets = {
     alertmanagerEnv.file = ./alertmanager-env.age;
+    atticEnv.file = ./attic-env.age;
     authentikEnv.file = ./authentik-env.age;
     cloudflareXgroleau.file = ./cloudflare-xgroleau.age;
     duckdnsToken.file = ./duckdns-token.age;
