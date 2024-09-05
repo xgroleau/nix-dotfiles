@@ -18,7 +18,7 @@ in
       description = "The port to use";
     };
 
-    dataDir = lib.mkoption {
+    dataDir = lib.mkOption {
       type = lib.types.str;
       description = "Path where the data and the sklite will be stored";
 
