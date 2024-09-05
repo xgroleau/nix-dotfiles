@@ -40,7 +40,7 @@ in
 
   config = lib.mkIf cfg.enable {
 
-    environment.systemPackages = with pkgs; [ atticadm ];
+    environment.systemPackages = with pkgs; [ attic-server ];
 
     services.atticd = {
 
