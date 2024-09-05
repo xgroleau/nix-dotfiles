@@ -31,6 +31,7 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    attic.url = "github:zhaofengli/attic";
     authentik-nix.url = "github:nix-community/authentik-nix";
     roam = {
       url = "github:xgroleau/roam-flake";
@@ -50,6 +51,7 @@
       agenix,
       deploy-rs,
       disko,
+      attic,
       authentik-nix,
       roam,
       ...
@@ -72,6 +74,7 @@
           ./modules
           agenix.nixosModules.default
           disko.nixosModules.disko
+          attic.nixosModules.atticd
           authentik-nix.nixosModules.default
         ];
       };
