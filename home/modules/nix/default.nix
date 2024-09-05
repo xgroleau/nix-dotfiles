@@ -36,8 +36,9 @@ in
       })
 
       (lib.mkIf cfg.attic {
-        substituters = [ "http://localhost:8080/xgroleau" ];
-        trusted-public-keys = [ "xgroleau:TFq4PFa5qGGFCPHmvwz94TP++W8hZAmoxopPWV6k7Ok=" ];
+        # TODO:
+        # substituters = [ "http://localhost:8080/xgroleau" ];
+        # trusted-public-keys = [ "xgroleau:TFq4PFa5qGGFCPHmvwz94TP++W8hZAmoxopPWV6k7Ok=" ];
         netrc-file = "${config.xdg.configHome}/nix/netrc";
       })
     ];

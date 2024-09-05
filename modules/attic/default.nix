@@ -5,11 +5,11 @@
   ...
 }:
 let
-  cfg = config.modules.attic.server;
+  cfg = config.modules.attic;
 in
 
 {
-  options.modules.attic.server = {
+  options.modules.attic = {
     enable = lib.mkEnableOption "Monitoring module, will monitor another server, see config.modules.monitoring.target for the target system to monitor";
 
     port = lib.mkOption {
@@ -23,9 +23,17 @@ in
       description = "Path where the data and the sklite will be stored";
 
     };
-    endpoint = lib.mkoption {
-      type = lib.types.str;
-      description = "Endpoint url, must end with a slash, e.g. https://your.domain.tld/";
+
+    credentialsFile = lib.mkOption {
+      type = lib.types.nullOr lib.types.path;
+      example = "/etc/atticd.env";
+      description = ''
+        Path to an EnvironmentFile containing required environment
+        variables:
+
+        - ATTIC_SERVER_TOKEN_HS256_SECRET_BASE64: The Base64-encoded version of the
+          HS256 JWT secret. Generate it with `openssl rand 64 | base64 -w0`.
+      '';
     };
 
   };
@@ -42,9 +50,8 @@ in
       settings = {
         listen = "[::]:${cfg.port}";
 
-        credentialsFile = "/etc/atticd.env";
+        credentialsFile = cfg.credentialsFile;
         database.url = "sqlite://${cfg.dataDir}/server.db?mode=rwc";
-        api-endpoint = cfg.endpoint;
         require-proof-of-possession = false;
         default-retention-period = "1 months";
 
@@ -67,7 +74,7 @@ in
       };
     };
 
-    systemd.tmpfiles.settings.caddy = {
+    systemd.tmpfiles.settings.attic = {
       "${cfg.dataDir}" = {
         d = {
           mode = "0750";
