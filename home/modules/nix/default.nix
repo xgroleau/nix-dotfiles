@@ -12,6 +12,7 @@ in
 
   options.modules.nix = {
     caches = lib.mkEnableOption "Enable common caches";
+    attic = lib.mkEnableOption "Enable selfhosted attic cache";
     builders = lib.mkEnableOption "Enable remote builders";
   };
 
@@ -34,6 +35,11 @@ in
         builders = ''ssh-ng://builder@sheogorath x86_64-linux - 1 2 nixos-test,benchmark,big-parallel,kvm - -; ssh-ng://builder@jyggalag aarch64-linux - 1 2 - - -'';
       })
 
+      (lib.mkIf cfg.attic {
+        substituters = [ "http://localhost:8080/xgroleau" ];
+        trusted-public-keys = [ "xgroleau:TFq4PFa5qGGFCPHmvwz94TP++W8hZAmoxopPWV6k7Ok=" ];
+        netrc-file = "${config.xdg.configHome}/nix/netrc";
+      })
     ];
   };
 }
