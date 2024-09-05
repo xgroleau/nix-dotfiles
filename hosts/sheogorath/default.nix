@@ -44,7 +44,7 @@ in
         enable = true;
         port = 14000;
         dataDir = "/data/attic";
-        cendentialsFile = config.age.secrets.atticEnv.path;
+        credentialsFile = config.age.secrets.atticEnv.path;
       };
 
       authentik = {
