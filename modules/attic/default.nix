@@ -84,7 +84,7 @@ in
     systemd.tmpfiles.settings.attic = {
       "${cfg.dataDir}/" = {
         d = {
-          mode = "0755";
+          mode = "0777";
           user = "root";
         };
       };
