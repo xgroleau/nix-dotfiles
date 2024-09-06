@@ -1,21 +1,30 @@
-name: CI
+name: Populate cache
 on:
-  push:
+  workflow_dispatch:
+  workflow_run:
+    workflows: ["CI"]
     branches: [main]
-  pull_request:
+    types:
+      - completed
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
-  ci:
+  deploy:
     runs-on: ubuntu-22.04
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    strategy:
+      matrix:
+        system:
+          - { name: azura, platform: x86_64-linux }
+          - { name: namira, platform: x86_64-linux }
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install Nix
+      - name: NixInstaller
         uses: DeterminateSystems/nix-installer-action@main
 
       - name: Tailscale
@@ -32,6 +41,6 @@ jobs:
           cache: ${{ env.ATTIC_CACHE }}
           token: ${{ secrets.ATTIC_TOKEN }}
 
-      - name: Run ci checks
+      - name: Build ${{ matrix.system.name }}
         run: |
-          nix flake check
+          nixos-rebuild build --flake .#${{ matrix.system.name }}
