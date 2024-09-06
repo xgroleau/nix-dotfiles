@@ -6,57 +6,49 @@ This configuration **should** work in all distribution in theory, but because ni
 
 ## Installation
 
+### NixOS
+
+Simply run the command with flakes enabled to get my full NixOS configuration
+
+ ```sh
+ nixos-rebuild switch -flake .#<host> -use-remote-sudo
+ ```
+
+#### Hosts
+
+||Type|Name|Hardware|Purpose|
+|-|-|-|-|-|
+|💻|Laptop|WSL|Surface pro 4|Build for WSL for my old surface pro 4.|
+|💻|Laptop|namira|Ideapad Y580, 16GB ram|Super old laptop that I still use on the go|
+|🖥️|Desktop|azura|AMD Ryzen 5 7600, 32GB ram|Main dev machine and gaming rig|
+|☁️️|Server|Sheogorath|i5-4690K, 32GB ram, 24TB raidz1|Main server for media and services. Previous desktop.|
+|☁️|Server|Jyggalag|Oracle A1 free tier, 4 cores, 24GB ram|Mostly to monitor Sheogorath services and trigger alerts.|
+
+### Nix-Darwin
+
+```sh
+nix develop
+darwin-rebuild switch -flake .#
+```
+
+
 ### Home manager
 
 Make sure [flakes are enabled on your system](https://nixos.wiki/wiki/Flakes#Installing_flakes). 
 
 ```sh
 nix develop
-home-manager switch --flake .#<profile>
+home-manager switch -flake .#<profile>
 ```
 
 where `<profile>` is your desired profile.
 
-### NixOS
-
-Simply run the command with flakes enabled to get my full NixOS configuration
-
- ```sh
- sudo nixos-rebuild switch --flake .#<host>
- ```
-
-#### Hosts
-
-Diffrent hosts are available.
-
-##### Namira
-
-My old Ideapad Y580 from 2012. A thick boy but still fully functionning. NixOS gave it a breath of fresh air. 
-
-##### Azura
-
-My main tower for development, work and games.
-
-##### Sheogorath
-
-Server for hosting a couple services for the family and myself.
-
-##### Jyggalag
-
-The free tier oracle A1 vm. For doing random projects and monitors `Sheogorath`.
-
-### Nix-Darwin
-
-Only one configuration is available for MacOS for now.
-
-```sh
-nix develop
-darwin-rebuild switch --flake .#
-```
-
-## Profiles
-
-Different profiles are available in the `profiles` directory. Namely `minimal` for TUI headless server, `dev` for headless development, `graphical` for GUI and `desktop` for GUI and DE. Each profile is a superset of the other.
+|Name|Description|
+|-|-|
+|minimal|Minimal TUI headless server|
+|dev|Headless development|
+|graphical|GUI applications|
+|desktop|Full fledge DE and GUI apps|
 
 ## Usage as module
 
@@ -64,7 +56,7 @@ You can use this flake as a module to your home-manager configuration or your Ni
 
 ### NixOS module
 
-To use as a nixos module
+To use as a NixOS module
 
 ``` nix
 {
@@ -82,7 +74,11 @@ To use as a nixos module
           nix-dotfiles.nixosModules
           # Enable some modules
           {
-            modules.kdeconnect.enable = true;
+            home = {
+              enable = true;
+              username = "xgroleau";
+              profile = "minimal";
+            };
           }
         ];
       };
