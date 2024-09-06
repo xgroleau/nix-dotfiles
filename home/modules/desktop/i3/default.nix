@@ -16,6 +16,7 @@ in
       arandr
       brightnessctl
       flameshot
+      flashfocus
       (nerdfonts.override { fonts = [ "FiraCode" ]; })
       xclip
       (rofi.override {
@@ -159,16 +160,137 @@ in
           recursive = true;
           source = ./config/autorandr;
         };
-        i3.source = ./config/i3;
         rofi.source = ./config/rofi;
       };
     };
 
     xsession = {
       enable = true;
-      windowManager.i3 = {
-        enable = true;
-      };
+      windowManager.i3 =
+        let
+          mod = "Mod4";
+          alt = "Mod1";
+        in
+        {
+          enable = true;
+          config = {
+            modifier = mod;
+
+            bars = [
+              {
+                id = "bar-tray";
+                position = "bottom";
+                workspaceButtons = false;
+                mode = "hide";
+                hiddenState = "hide";
+                command = "i3bar --transparency";
+                trayOutput = "primary";
+                trayPadding = 0;
+
+                colors = {
+                  background = "#00000001";
+                };
+
+                extraConfig = ''
+                  modifier ${mod}+${alt}
+                '';
+              }
+            ];
+
+            # Keybindings using the requested format
+            keybindings = lib.mkOptionDefault {
+              "${mod}+h" = "exec $focus_on; focus left";
+              "${mod}+j" = "exec $focus_on; focus down";
+              "${mod}+k" = "exec $focus_on; focus up";
+              "${mod}+l" = "exec $focus_on; focus right";
+
+              "${mod}+Shift+h" = "exec $focus_on; move left";
+              "${mod}+Shift+j" = "exec $focus_on; move down";
+              "${mod}+Shift+k" = "exec $focus_on; move up";
+              "${mod}+Shift+l" = "exec $focus_on; move right";
+
+              "${mod}+Return" = "exec alacritty";
+              "${mod}+space" = "exec --no-startup-id rofi -show drun -modi drun";
+              "${mod}+w" = "exec --no-startup-id rofi -show window -modi window";
+              "${mod}+x" = "exec --no-startup-id rofi -show combi -modi combi";
+              "${mod}+c" = "exec --no-startup-id rofi -show calc -modi calc -no-show-match -no-sort -calc-command 'echo {result}' | xclip -selection clipboard";
+              "${mod}+p" = "exec --no-startup-id rofi -show p:rofi-power-menu";
+              "${mod}+semicolon" = "exec --no-startup-id rofi -show emoji -modi emoji -emoji-format '{emoji}: {name}'";
+              "${mod}+Shift+s" = "exec --no-startup-id flameshot gui";
+              "${mod}+d" = "exec --no-startup-id emacsclient --eval '(emacs-everywhere)'";
+
+              # Notification control
+              "${alt}+space" = "exec dunstctl close";
+              "${alt}+Shift+space" = "exec dunstctl close-all";
+              "${alt}+period" = "exec dunstctl history";
+              "${alt}+Shift+period" = "exec dunstctl context";
+              "${mod}+${alt}+r" = "exec systemctl --user restart polybar.service";
+
+              # Volume and Media Control
+              "XF86AudioRaiseVolume" = "exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10%";
+              "XF86AudioLowerVolume" = "exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10%";
+              "XF86AudioMute" = "exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle";
+              "XF86AudioMicMute" = "exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle";
+              "XF86MonBrightnessUp" = "exec brightnessctl set +10%";
+              "XF86MonBrightnessDown" = "exec brightnessctl set 10%-";
+              "XF86AudioPlay" = "exec playerctl play-pause";
+              "XF86AudioNext" = "exec playerctl next";
+              "XF86AudioPrev" = "exec playerctl previous";
+
+              # Window Management
+              "${mod}+f" = "fullscreen toggle";
+              "${mod}+t" = "layout tabbed";
+              "${mod}+Shift+f" = "floating toggle";
+              "${mod}+Shift+d" = "focus mode_toggle";
+            };
+
+            # Window Rules for Specific Applications
+            window = {
+              border = 0;
+              titlebar = false;
+
+              commands = [
+                {
+                  criteria = {
+                    title = "Microsoft Teams Notification";
+                  };
+                  command = "floating enable";
+                }
+                {
+                  criteria = {
+                    class = "plasmashell";
+                    window_type = "notification";
+                  };
+                  command = "floating enable, border none, move right 700px, move down 450px";
+                }
+                {
+                  criteria = {
+                    title = "Desktop — Plasma";
+                  };
+                  command = "kill; floating enable; border none";
+                }
+                {
+                  criteria = {
+                    class = "Steam";
+                  };
+                  command = "floating enable";
+                }
+                {
+                  criteria = {
+                    class = "Steam";
+                    title = "^Steam$";
+                  };
+                  command = "floating disable";
+                }
+              ];
+            };
+          };
+          extraConfig = ''
+            exec_always --no-startup-id autorandr -c
+            exec_always --no-startup-id systemctl --user restart polybar
+            exec_always --no-startup-id flashfocus
+          '';
+        };
     };
   };
 }

@@ -20,7 +20,5 @@ in
       vimAlias = true;
       vimdiffAlias = true;
     };
-    xdg.configFile.nvim.source = ./config;
-    home.packages = with pkgs; [ (nerdfonts.override { fonts = [ "FiraCode" ]; }) ];
   };
 }

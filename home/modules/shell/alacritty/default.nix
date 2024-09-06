@@ -19,33 +19,6 @@ in
       settings = {
         colors = {
           draw_bold_text_with_bright_colors = true;
-          cursor = {
-            cursor = "0xff2600";
-            text = "0xf1c1c1";
-          };
-          primary = {
-
-            background = "0x191919";
-            foreground = "0xeaeaea";
-          };
-        };
-
-        font = {
-          size = 10;
-          bold = {
-            family = "FiraCode Nerd Font";
-            style = "Bold";
-          };
-
-          italic = {
-            family = "FiraCode Nerd Font";
-            style = "Light,Regular";
-          };
-
-          normal = {
-            family = "FiraCode Nerd Font";
-            style = "Regular";
-          };
         };
 
         env = {

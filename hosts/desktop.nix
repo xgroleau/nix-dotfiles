@@ -21,6 +21,8 @@
       ];
       config.common.default = "*";
     };
+
+    programs.dconf.enable = true;
     services = {
       flatpak.enable = true;
 

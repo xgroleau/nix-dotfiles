@@ -33,6 +33,8 @@
     };
     attic.url = "github:zhaofengli/attic";
     authentik-nix.url = "github:nix-community/authentik-nix";
+    stylix.url = "github:danth/stylix";
+
     roam = {
       url = "github:xgroleau/roam-flake";
       inputs.nixpkgs.follows = "nixpkgs";

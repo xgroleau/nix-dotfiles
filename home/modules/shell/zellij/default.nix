@@ -18,7 +18,6 @@ in
       enable = true;
       settings = {
         on_force_close = "detach";
-        theme = "gruvbox-dark";
         pane_frames = false;
       };
     };

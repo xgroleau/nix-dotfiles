@@ -14,19 +14,9 @@ set $alt Mod1
 set $show_tray Mod1+Mod4
 
 set $transparent #00000001 #idk why but it doesn't work with a  transparency of 0
-set $focus_on i3-msg border pixel 2
-set $focus_off i3-msg border pixel 0
-
-font pango:FiraCode Nerd Font 10
-
-# Use Mouse+$mod to drag floating windows to their wanted position
-floating_modifier $mod
 
 # start a terminal
 bindsym $mod+Return exec alacritty
-
-# kill focused window
-bindsym $mod+Shift+q kill
 
 bindsym $mod+space exec --no-startup-id rofi -show drun -modi drun
 bindsym $mod+w exec --no-startup-id rofi -show window -modi window
@@ -64,151 +54,17 @@ bindsym XF86AudioPause exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
-# border on, see where focus is
-bindsym $mod+period exec $focus_on
-bindsym --release $mod+period exec $focus_off
-
-# change focus
-bindsym $mod+h exec $focus_on; focus left
-bindsym $mod+j exec $focus_on; focus down
-bindsym $mod+k exec $focus_on; focus up
-bindsym $mod+l exec $focus_on; focus right
-bindsym --release $mod+h exec $focus_off
-bindsym --release $mod+j exec $focus_off
-bindsym --release $mod+k exec $focus_off
-bindsym --release $mod+l exec $focus_off
-# alt-tab focus
-bindsym $mod+Tab exec $focus_on; focus right 
-bindsym --release $mod+Tab exec $focus_off
-
-# move focused window
-bindsym $mod+Shift+h exec $focus_on; move left
-bindsym $mod+Shift+j exec $focus_on; move down
-bindsym $mod+Shift+k exec $focus_on; move up
-bindsym $mod+Shift+l exec $focus_on; move right
-bindsym --release $mod+Shift+h exec $focus_off
-bindsym --release $mod+Shift+j exec $focus_off
-bindsym --release $mod+Shift+k exec $focus_off
-bindsym --release $mod+Shift+l exec $focus_off
-
-# split in horizontal orientation
-bindsym $mod+b split h
-
-# split in vertical orientation
-bindsym $mod+v split v
-
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
 bindsym $mod+t layout tabbed
-bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
 bindsym $mod+Shift+f floating toggle
 
 # change focus between tiling / floating windows
 bindsym $mod+Shift+d focus mode_toggle
-
-# focus the parent container
-bindsym $mod+a focus parent
-
-
-# Define names for default workspaces for which we configure key bindings later on.
-# We use variables to avoid repeating the names in multiple places.
-set $ws1 "1"
-set $ws2 "2"
-set $ws3 "3"
-set $ws4 "4"
-set $ws5 "5"
-set $ws6 "6"
-set $ws7 "7"
-set $ws8 "8"
-set $ws9 "9"
-set $ws10 "10"
-
-# switch to workspace
-bindsym $mod+1 workspace number $ws1; exec $focus_on; workspace number $ws1;
-bindsym $mod+2 workspace number $ws2; exec $focus_on; workspace number $ws2;
-bindsym $mod+3 workspace number $ws3; exec $focus_on; workspace number $ws3;
-bindsym $mod+4 workspace number $ws4; exec $focus_on; workspace number $ws4;
-bindsym $mod+5 workspace number $ws5; exec $focus_on; workspace number $ws5;
-bindsym $mod+6 workspace number $ws6; exec $focus_on; workspace number $ws6;
-bindsym $mod+7 workspace number $ws7; exec $focus_on; workspace number $ws7;
-bindsym $mod+8 workspace number $ws8; exec $focus_on; workspace number $ws8;
-bindsym $mod+9 workspace number $ws9; exec $focus_on; workspace number $ws9;
-bindsym $mod+0 workspace number $ws10; exec $focus_on; workspace number $ws10;
-bindsym --release $mod+1 exec $focus_off
-bindsym --release $mod+2 exec $focus_off
-bindsym --release $mod+3 exec $focus_off
-bindsym --release $mod+4 exec $focus_off
-bindsym --release $mod+5 exec $focus_off
-bindsym --release $mod+6 exec $focus_off
-bindsym --release $mod+7 exec $focus_off
-bindsym --release $mod+8 exec $focus_off
-bindsym --release $mod+9 exec $focus_off
-bindsym --release $mod+0 exec $focus_off
-
-
-# move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace number $ws1; workspace number $ws1
-bindsym $mod+Shift+2 move container to workspace number $ws2; workspace number $ws2
-bindsym $mod+Shift+3 move container to workspace number $ws3; workspace number $ws3
-bindsym $mod+Shift+4 move container to workspace number $ws4; workspace number $ws4
-bindsym $mod+Shift+5 move container to workspace number $ws5; workspace number $ws5
-bindsym $mod+Shift+6 move container to workspace number $ws6; workspace number $ws6
-bindsym $mod+Shift+7 move container to workspace number $ws7; workspace number $ws7
-bindsym $mod+Shift+8 move container to workspace number $ws8; workspace number $ws8
-bindsym $mod+Shift+9 move container to workspace number $ws9; workspace number $ws9
-bindsym $mod+Shift+0 move container to workspace number $ws10; workspace number $ws10
-
-#i3 shortcut
-bindsym $mod+Shift+c reload
-bindsym $mod+Shift+r restart
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
-
-
-# resize window (you can also use the mouse for that)
-bindsym $mod+r mode "resize"
-mode "resize" {
-    # These bindings trigger as soon as you enter the resize mode
-
-    # Pressing left will shrink the window’s width.
-    # Pressing right will grow the window’s width.
-    # Pressing up will shrink the window’s height.
-    # Pressing down will grow the window’s height.
-    bindsym h resize shrink width 10 px or 10 ppt
-    bindsym j resize grow height 10 px or 10 ppt
-    bindsym k resize shrink height 10 px or 10 ppt
-    bindsym l resize grow width 10 px or 10 ppt
-
-    # same bindings, but for the arrow
-    bindsym Left resize shrink width 10 px or 10
-    bindsym Down resize grow height 10 px or 10
-    bindsym Up resize shrink height 10 px or 10 ppt
-    bindsym Right resize grow width 10 px or 10 ppt
-
-    # back to normal: Enter or Escape or $mod+
-    bindsym Return mode "default
-    bindsym Escape mode "default
-    bindsym $mod+r mode "default"
-}
-
-# window colors
-#
-set $text_active    #f8f4e8
-set $text_inactive  #aea79f
-set $focus          #516fa8
-set $urgent         #771f3f
-set $active         #314366
-set $inactive       #282c33
-
-#                       border      background  text
-client.focused          $focus      $focus      $text_active
-client.focused_inactive $active     $active     $text_inactive
-client.unfocused        $inactive   $inactive   $text_inactive
-client.urgent           $urgent     $urgent     $text_inactive
 
 bar {
     id bar-tray
