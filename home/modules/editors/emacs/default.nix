@@ -22,7 +22,7 @@ in
     };
 
     home = {
-      fontconfig.enable = true;
+      fonts.fontconfig.enable = true;
       packages =
         with pkgs;
         [
