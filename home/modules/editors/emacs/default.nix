@@ -20,9 +20,9 @@ in
       source = ./config;
       recursive = true;
     };
+    fonts.fontconfig.enable = true;
 
     home = {
-      fonts.fontconfig.enable = true;
       packages =
         with pkgs;
         [
