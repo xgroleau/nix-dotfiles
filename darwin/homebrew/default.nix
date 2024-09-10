@@ -40,9 +40,9 @@ in
       # For details, see https://github.com/mas-cli/mas
       masApps = { };
 
-      taps = [ 
-         "homebrew/services" 
-         "FelixKratz/formulae"
+      taps = [
+        "homebrew/services"
+        "FelixKratz/formulae"
       ];
 
       brews = [

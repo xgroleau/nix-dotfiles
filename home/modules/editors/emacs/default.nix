@@ -22,6 +22,7 @@ in
     };
 
     home = {
+      fontconfig.enable = true;
       packages =
         with pkgs;
         [
