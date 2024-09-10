@@ -11,7 +11,7 @@ This configuration **should** work in all distribution in theory, but because ni
 Simply run the command with flakes enabled to get my full NixOS configuration
 
  ```sh
- nixos-rebuild switch -flake .#<host> -use-remote-sudo
+ nixos-rebuild switch --flake .#<host> -use-remote-sudo
  ```
 
 #### Hosts
@@ -28,7 +28,7 @@ Simply run the command with flakes enabled to get my full NixOS configuration
 
 ```sh
 nix develop
-darwin-rebuild switch -flake .#
+darwin-rebuild switch --flake .#
 ```
 
 
@@ -38,7 +38,7 @@ Make sure [flakes are enabled on your system](https://nixos.wiki/wiki/Flakes#Ins
 
 ```sh
 nix develop
-home-manager switch -flake .#<profile>
+home-manager switch --flake .#<profile>
 ```
 
 where `<profile>` is your desired profile.

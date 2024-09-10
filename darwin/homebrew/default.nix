@@ -40,7 +40,10 @@ in
       # For details, see https://github.com/mas-cli/mas
       masApps = { };
 
-      taps = [ "homebrew/services" ];
+      taps = [ 
+         "homebrew/services" 
+         "FelixKratz/formulae"
+      ];
 
       brews = [
         "curl" # no not install curl via nixpkgs, it's not working well on macOS!

@@ -100,7 +100,7 @@
 
       overlays = import ./overlays { inherit inputs; };
 
-      darwinConfigurations."Xaviers-MacBook-Pro" = nix-darwin.lib.darwinSystem {
+      darwinConfigurations."Xaviers-Laptop" = nix-darwin.lib.darwinSystem {
         modules = [ ./darwin ];
         specialArgs = {
           inherit inputs;
