@@ -16,6 +16,16 @@
       url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    stylix = {
+      url = "github:danth/stylix/release-24.05";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        # Fix base16 not cross compiling
+        base16.url = "github:SenchoPens/base16.nix";
+      };
+    };
+
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -33,7 +43,6 @@
     };
     attic.url = "github:zhaofengli/attic";
     authentik-nix.url = "github:nix-community/authentik-nix";
-    stylix.url = "github:danth/stylix";
 
     roam = {
       url = "github:xgroleau/roam-flake";
