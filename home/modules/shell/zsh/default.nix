@@ -22,6 +22,7 @@ in
       envExtra = "source ${config.xdg.configHome}/zsh/zshenv";
       initExtra = "source ${config.xdg.configHome}/zsh/zshrc";
     };
+
     home = {
       packages = with pkgs; [
         nix-zsh-completions

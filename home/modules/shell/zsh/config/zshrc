@@ -7,21 +7,19 @@ source $ZGENOM_SOURCE
 zgenom autoupdate
 
 if ! zgenom saved; then
-    zgenom load Aloxaf/fzf-tab
-    zgenom load djui/alias-tips
-    zgenom load romkatv/powerlevel10k powerlevel10k
-    zgenom load zsh-users/zsh-syntax-highlighting
-    zgenom load zsh-users/zsh-completions
-    zgenom load zsh-users/zsh-autosuggestions
-
+   # We load omz before since it's override by some of our plugins (e.g. fzf)
     zgenom oh-my-zsh
     zgenom oh-my-zsh plugins/colored-man-pages
     zgenom oh-my-zsh plugins/git
     zgenom oh-my-zsh plugins/sudo
 
-    [ -z "$SSH_CONNECTION" ] && zgenom load zsh-users/fast-syntax-highlighting
-
-    zgenom load unixorn/fzf-zsh-plugin
+    zgenom load Aloxaf/fzf-tab
+    zgenom load djui/alias-tips
+    zgenom load joshskidmore/zsh-fzf-history-search
+    zgenom load romkatv/powerlevel10k powerlevel10k
+    zgenom load zsh-users/zsh-syntax-highlighting
+    zgenom load zsh-users/zsh-completions
+    zgenom load zsh-users/zsh-autosuggestions
 
     zgenom save
 fi
@@ -41,9 +39,6 @@ source ~/.config/zsh/aliases
 # Functions
 fpath=(~/.config/zsh/zshfn "${fpath[@]}")
 autoload Uz ~/.config/zsh/zshfn/*(.:t)
-
-# Enable fzf tab from Aloxaf/fzf-tab
-enable-fzf-tab
 
 #-- Local configuration --
 # Loading local configuration
