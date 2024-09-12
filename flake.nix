@@ -21,8 +21,6 @@
       url = "github:danth/stylix/release-24.05";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        # Fix base16 not cross compiling
-        base16.url = "github:SenchoPens/base16.nix";
       };
     };
 
