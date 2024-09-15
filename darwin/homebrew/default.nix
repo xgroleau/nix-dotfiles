@@ -60,6 +60,7 @@ in
         "element"
         "mattermost"
         "slack"
+        "zulip"
 
         # Development
         "insomnia" # REST client
