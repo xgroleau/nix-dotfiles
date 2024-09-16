@@ -31,7 +31,6 @@ in
 
       onActivation = {
         autoUpdate = false;
-        cleanup = "zap";
       };
 
       # Applications to install from Mac App Store using mas.
