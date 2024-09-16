@@ -59,10 +59,12 @@ in
         "element"
         "mattermost"
         "slack"
+        "zoom"
         "zulip"
 
         # Development
         "insomnia" # REST client
+        "saleae-logic" # logic analyzer
       ];
     };
   };
