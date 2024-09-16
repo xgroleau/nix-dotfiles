@@ -59,6 +59,8 @@ in
           ocamlPackages.ocamlformat
           ocamlPackages.ocp-indent
 
+          nodePackages.nodejs
+
           html-tidy
           nodePackages.stylelint
           nodePackages.js-beautify
