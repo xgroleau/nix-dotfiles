@@ -64,6 +64,7 @@ in
         gh
         jq
         killall
+        pre-commit
         ranger
         ripgrep
         tldr

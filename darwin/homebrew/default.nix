@@ -57,7 +57,6 @@ in
         # IM & audio & remote desktop & meeting
         "discord"
         "element"
-        "mattermost"
         "slack"
         "zoom"
         "zulip"
