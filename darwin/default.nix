@@ -103,5 +103,7 @@ in
         remapCapsLockToEscape = true;
       };
     };
+
+    system.stateVersion = 5;
   };
 }
