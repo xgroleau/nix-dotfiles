@@ -90,6 +90,7 @@
           attic.nixosModules.atticd
           authentik-nix.nixosModules.default
           nix-minecraft.nixosModules.minecraft-servers
+          { nixpkgs.overlays = [ inputs.nix-minecraft.overlay ]; }
         ];
       };
 
@@ -148,7 +149,6 @@
             ./secrets
             hostConfig.cfg
             nixosModule
-            { nixpkgs.overlays = [ (import ./overlay.nix) ]; }
           ];
         }
       ) hosts;
