@@ -37,7 +37,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    minecraft-servers.servers."${cfg.name}" = {
+    services.minecraft-servers.servers."${cfg.name}" = {
       enable = true;
       eula = true;
       autostart = true;
