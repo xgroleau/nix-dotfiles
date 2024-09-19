@@ -43,6 +43,8 @@
     attic.url = "github:zhaofengli/attic";
     authentik-nix.url = "github:nix-community/authentik-nix";
 
+    nix-minecraft.url = "github:Infinidoge/nix-minecraft";
+
     roam = {
       url = "github:xgroleau/roam-flake";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -63,6 +65,7 @@
       disko,
       attic,
       authentik-nix,
+      nix-minecraft,
       roam,
       ...
     }:
@@ -86,6 +89,7 @@
           disko.nixosModules.disko
           attic.nixosModules.atticd
           authentik-nix.nixosModules.default
+          nix-minecraft.nixosModules.minecraft-servers
         ];
       };
     in

@@ -19,6 +19,7 @@
     ./firefly-iii
     ./mealie
     ./media-server
+    ./minecraft
     ./monitoring
     ./msmtp
     ./ocis
