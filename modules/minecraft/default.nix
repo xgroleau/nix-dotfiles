@@ -39,6 +39,7 @@ in
   config = lib.mkIf cfg.enable {
     minecraft-servers.servers."${cfg.name}" = {
       enable = true;
+      eula = true;
       autostart = true;
       enableReload = true;
       restart = "always";
@@ -70,7 +71,7 @@ in
       symlinks = {
         mods = pkgs.linkFarmFromDrvs "mods" (
           builtins.attrValues {
-            vicPointBlack = pkgs.lib.fetchurl {
+            vicPointBlank = pkgs.lib.fetchurl {
               url = "https://cdn.modrinth.com/data/og4KPYmA/versions/HiwllvyQ/pointblank-fabric-1.21-1.6.7.jar";
               sha512 = "562c87a50f380c6cd7312f90b957f369625b3cf5f948e7bee286cd8075694a7206af4d0c8447879daa7a3bfe217c5092a7847247f0098cb1f5417e41c678f0c1";
             };

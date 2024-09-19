@@ -148,6 +148,7 @@
             ./secrets
             hostConfig.cfg
             nixosModule
+            { nixpkgs.overlays = [ (import ./overlay.nix) ]; }
           ];
         }
       ) hosts;
@@ -157,11 +158,7 @@
     // (flake-utils.lib.eachDefaultSystem (
       system:
       let
-        pkgs = import nixpkgs {
-          inherit system;
-
-          overlays = [ inputs.nix-minecraft.overlay ];
-        };
+        pkgs = import nixpkgs { inherit system; };
       in
       {
         apps = {
