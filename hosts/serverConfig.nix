@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }:
 
@@ -11,6 +12,10 @@ in
 {
 
   config = {
+
+    nixpkgs = {
+      overlays = [ inputs.nix-minecraft.overlay ];
+    };
     nix = {
       settings.trusted-users = [ "@builder" ];
     };

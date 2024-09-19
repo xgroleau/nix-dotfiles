@@ -92,6 +92,7 @@
           nix-minecraft.nixosModules.minecraft-servers
         ];
       };
+
     in
     {
 
