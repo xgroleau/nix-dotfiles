@@ -11,7 +11,7 @@ in
 
 {
 
-  options.modules.minecaft = with lib.types; {
+  options.modules.minecraft = with lib.types; {
     enable = lib.mkEnableOption "valheim";
 
     openFirewall = lib.mkEnableOption "Open the required ports in the firewall";
