@@ -12,7 +12,7 @@ in
 {
 
   options.modules.minecraft = with lib.types; {
-    enable = lib.mkEnableOption "valheim";
+    enable = lib.mkEnableOption "Minecraft";
 
     openFirewall = lib.mkEnableOption "Open the required ports in the firewall";
 
@@ -31,55 +31,58 @@ in
     dataDir = lib.mkOption {
       type = lib.types.str;
       default = "/var/lib/minecraft";
-      description = "Where on disk to store your valheim directory";
+      description = "Where on disk to store your minecraft directory";
     };
 
   };
 
   config = lib.mkIf cfg.enable {
-    services.minecraft-servers.servers."${cfg.name}" = {
+    services.minecraft-servers = {
       enable = true;
-      eula = true;
-      autostart = true;
-      enableReload = true;
-      restart = "always";
-      openFirewall = cfg.openFirewall;
-      package = pkgs.fabricServers.fabric-1_21;
-
       dataDir = cfg.dataDir;
       runDir = cfg.dataDir;
 
-      serverProperties = {
-        enable-command-block = true;
-        enforce-whitelist = true;
-        gamemode = "survival";
-        generate-structures = "true";
-        hide-online-players = false;
-        initial-enabled-packs = "vanilla";
-        level-name = cfg.name;
-        motd = "${cfg.name} server :)";
-        online-mode = false;
-        pvp = true;
-        require-resource-pack = false;
-        # resource-pack=
-        # resource-pack-id=
-        # resource-pack-prompt=
-        # resource-pack-sha1=
-        server-port = cfg.port;
-        white-list = false;
-      };
-      symlinks = {
-        mods = pkgs.linkFarmFromDrvs "mods" (
-          builtins.attrValues {
-            vicPointBlank = pkgs.lib.fetchurl {
-              url = "https://cdn.modrinth.com/data/og4KPYmA/versions/HiwllvyQ/pointblank-fabric-1.21-1.6.7.jar";
-              sha512 = "562c87a50f380c6cd7312f90b957f369625b3cf5f948e7bee286cd8075694a7206af4d0c8447879daa7a3bfe217c5092a7847247f0098cb1f5417e41c678f0c1";
-            };
-          }
-        );
-      };
-    };
+      servers."${cfg.name}" = {
+        enable = true;
+        eula = true;
+        autostart = true;
+        enableReload = true;
+        restart = "always";
+        openFirewall = cfg.openFirewall;
+        package = pkgs.fabricServers.fabric-1_21;
 
+        serverProperties = {
+          enable-command-block = true;
+          enforce-whitelist = true;
+          gamemode = "survival";
+          generate-structures = "true";
+          hide-online-players = false;
+          initial-enabled-packs = "vanilla";
+          level-name = cfg.name;
+          motd = "${cfg.name} server :)";
+          online-mode = false;
+          pvp = true;
+          require-resource-pack = false;
+          # resource-pack=
+          # resource-pack-id=
+          # resource-pack-prompt=
+          # resource-pack-sha1=
+          server-port = cfg.port;
+          white-list = false;
+        };
+        symlinks = {
+          mods = pkgs.linkFarmFromDrvs "mods" (
+            builtins.attrValues {
+              vicPointBlank = pkgs.lib.fetchurl {
+                url = "https://cdn.modrinth.com/data/og4KPYmA/versions/HiwllvyQ/pointblank-fabric-1.21-1.6.7.jar";
+                sha512 = "d02b4e037c2a5863978f2a7535c920b3fe39fcb6b7603c1c23e0597daad41ab038c014aa02d0414aa4c2b1a67d237c575458d70adee89cc0e2b8f8967e3d8efd";
+              };
+            }
+          );
+        };
+      };
+
+    };
     # Create the folder if it doesn't exist
     systemd.tmpfiles.settings."mineraft-${cfg.name}" = {
       "${cfg.dataDir}/data" = {
