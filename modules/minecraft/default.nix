@@ -40,7 +40,7 @@ in
     services.minecraft-servers = {
       enable = true;
       dataDir = "${cfg.dataDir}/data";
-      runDir = "${cfg.dataDir}/${cfg.name}.sock";
+      runDir = "${cfg.dataDir}/";
 
       eula = true;
 
