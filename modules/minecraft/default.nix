@@ -88,7 +88,8 @@ in
     systemd.tmpfiles.settings."mineraft-${cfg.name}" = {
       "${cfg.dataDir}/data" = {
         d = {
-          user = "root";
+          user = "minecraft";
+          group = "minecraft";
           mode = "777";
         };
       };
