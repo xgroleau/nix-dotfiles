@@ -46,10 +46,10 @@ in
 
       servers."${cfg.name}" = {
         enable = true;
-        autoStart = true;
-        enableReload = true;
-        restart = "always";
-        openFirewall = cfg.openFirewall;
+        # autoStart = true;
+        # # enableReload = true;
+        # restart = "always";
+        # openFirewall = cfg.openFirewall;
         # package = pkgs.vanillaServers.vanilla-1_21;
 
         # serverProperties = {
