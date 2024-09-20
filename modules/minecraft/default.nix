@@ -41,6 +41,7 @@ in
       enable = true;
       dataDir = cfg.dataDir;
       runDir = cfg.dataDir;
+      eula = true;
 
       servers."${cfg.name}" = {
         enable = true;
