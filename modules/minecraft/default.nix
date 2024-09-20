@@ -90,7 +90,7 @@ in
         d = {
           user = "minecraft";
           group = "minecraft";
-          mode = "777";
+          mode = "755";
         };
       };
     };
