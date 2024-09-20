@@ -39,8 +39,8 @@ in
   config = lib.mkIf cfg.enable {
     services.minecraft-servers = {
       enable = true;
-      dataDir = "${cfg.dataDir}/data";
-      runDir = "${cfg.dataDir}";
+      # dataDir = "${cfg.dataDir}/data";
+      # runDir = "${cfg.dataDir}";
 
       eula = true;
 
