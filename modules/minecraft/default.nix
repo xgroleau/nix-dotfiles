@@ -45,7 +45,7 @@ in
       servers."${cfg.name}" = {
         enable = true;
         eula = true;
-        autostart = true;
+        autoStart = true;
         enableReload = true;
         restart = "always";
         openFirewall = cfg.openFirewall;
