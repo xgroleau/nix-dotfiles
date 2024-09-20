@@ -81,10 +81,9 @@ in
 
               # VPC dep
               geckoLib = pkgs.fetchurl {
-                url = "https://cdn.modrinth.com/data/8BmcQJ2H/versions/DCJ4wE6H/geckolib-forge-1.21.1-4.6.5.jar";
-                sha512 = "f74bbf02828aae3bc1198f2cc972c913d0a896744af9290b4419193f29c3e7a2852ffc11991245c1238baee102c4f2476d37d87434334dc551b5e8cb27ac0eca";
+                url = "https://cdn.modrinth.com/data/8BmcQJ2H/versions/5jcq814u/geckolib-fabric-1.21.1-4.6.5.jar";
+                sha512 = "f8275fc0fe9cdd9e598bf3b0ad94313f89092abb95c5a03ae3f37ac1a24a01d6630d1af962079b264ec2f976ef581f134ca0dd0c7b95ebf6242efb2f9472d28f";
               };
-
               vicPointBlank = pkgs.fetchurl {
                 url = "https://cdn.modrinth.com/data/og4KPYmA/versions/HiwllvyQ/pointblank-fabric-1.21-1.6.7.jar";
                 sha512 = "d02b4e037c2a5863978f2a7535c920b3fe39fcb6b7603c1c23e0597daad41ab038c014aa02d0414aa4c2b1a67d237c575458d70adee89cc0e2b8f8967e3d8efd";
