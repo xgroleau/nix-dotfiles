@@ -48,7 +48,6 @@ in
         enable = true;
         autoStart = true;
         enableReload = true;
-        declarative = true;
         restart = "always";
         openFirewall = cfg.openFirewall;
         package = pkgs.fabricServers.fabric-1_21.override { loaderVersion = "0.15.11"; };
