@@ -49,7 +49,7 @@ in
         autoStart = true;
         restart = "always";
         openFirewall = cfg.openFirewall;
-        package = pkgs.fabric-1_21.override { loaderVersion = "0.15.11"; };
+        package = pkgs.fabricServers.fabric-1_21.override { loaderVersion = "0.15.11"; };
 
         serverProperties = {
           enable-command-block = true;
