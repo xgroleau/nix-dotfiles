@@ -50,37 +50,37 @@ in
         enableReload = true;
         restart = "always";
         openFirewall = cfg.openFirewall;
-        package = pkgs.vanillaServers.vanilla-1_21;
+        # package = pkgs.vanillaServers.vanilla-1_21;
 
-        serverProperties = {
-          enable-command-block = true;
-          enforce-whitelist = true;
-          gamemode = "survival";
-          generate-structures = "true";
-          hide-online-players = false;
-          initial-enabled-packs = "vanilla";
-          level-name = cfg.name;
-          motd = "${cfg.name} server :)";
-          online-mode = false;
-          pvp = true;
-          require-resource-pack = false;
-          # resource-pack=
-          # resource-pack-id=
-          # resource-pack-prompt=
-          # resource-pack-sha1=
-          server-port = cfg.port;
-          white-list = false;
-        };
-        symlinks = {
-          mods = pkgs.linkFarmFromDrvs "mods" (
-            builtins.attrValues {
-              vicPointBlank = pkgs.fetchurl {
-                url = "https://cdn.modrinth.com/data/og4KPYmA/versions/HiwllvyQ/pointblank-fabric-1.21-1.6.7.jar";
-                sha512 = "d02b4e037c2a5863978f2a7535c920b3fe39fcb6b7603c1c23e0597daad41ab038c014aa02d0414aa4c2b1a67d237c575458d70adee89cc0e2b8f8967e3d8efd";
-              };
-            }
-          );
-        };
+        # serverProperties = {
+        #   enable-command-block = true;
+        #   enforce-whitelist = true;
+        #   gamemode = "survival";
+        #   generate-structures = "true";
+        #   hide-online-players = false;
+        #   initial-enabled-packs = "vanilla";
+        #   level-name = cfg.name;
+        #   motd = "${cfg.name} server :)";
+        #   online-mode = false;
+        #   pvp = true;
+        #   require-resource-pack = false;
+        #   # resource-pack=
+        #   # resource-pack-id=
+        #   # resource-pack-prompt=
+        #   # resource-pack-sha1=
+        #   server-port = cfg.port;
+        #   white-list = false;
+        # };
+        # symlinks = {
+        #   mods = pkgs.linkFarmFromDrvs "mods" (
+        #     builtins.attrValues {
+        #       vicPointBlank = pkgs.fetchurl {
+        #         url = "https://cdn.modrinth.com/data/og4KPYmA/versions/HiwllvyQ/pointblank-fabric-1.21-1.6.7.jar";
+        #         sha512 = "d02b4e037c2a5863978f2a7535c920b3fe39fcb6b7603c1c23e0597daad41ab038c014aa02d0414aa4c2b1a67d237c575458d70adee89cc0e2b8f8967e3d8efd";
+        #       };
+        #     }
+        #   );
+        # };
       };
 
     };
