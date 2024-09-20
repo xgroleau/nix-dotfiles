@@ -44,7 +44,6 @@ in
 
       servers."${cfg.name}" = {
         enable = true;
-        eula = true;
         autoStart = true;
         enableReload = true;
         restart = "always";
