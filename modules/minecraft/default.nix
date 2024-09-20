@@ -48,29 +48,29 @@ in
         enable = true;
         autoStart = true;
         # # enableReload = true;
-        # restart = "always";
-        # openFirewall = cfg.openFirewall;
-        # package = pkgs.vanillaServers.vanilla-1_21;
+        restart = "always";
+        openFirewall = cfg.openFirewall;
+        package = pkgs.vanillaServers.vanilla-1_21;
 
-        # serverProperties = {
-        #   enable-command-block = true;
-        #   enforce-whitelist = true;
-        #   gamemode = "survival";
-        #   generate-structures = "true";
-        #   hide-online-players = false;
-        #   initial-enabled-packs = "vanilla";
-        #   level-name = cfg.name;
-        #   motd = "${cfg.name} server :)";
-        #   online-mode = false;
-        #   pvp = true;
-        #   require-resource-pack = false;
-        #   # resource-pack=
-        #   # resource-pack-id=
-        #   # resource-pack-prompt=
-        #   # resource-pack-sha1=
-        #   server-port = cfg.port;
-        #   white-list = false;
-        # };
+        serverProperties = {
+          enable-command-block = true;
+          enforce-whitelist = true;
+          gamemode = "survival";
+          generate-structures = "true";
+          hide-online-players = false;
+          initial-enabled-packs = "vanilla";
+          level-name = cfg.name;
+          motd = "${cfg.name} server :)";
+          online-mode = false;
+          pvp = true;
+          require-resource-pack = false;
+          # resource-pack=
+          # resource-pack-id=
+          # resource-pack-prompt=
+          # resource-pack-sha1=
+          server-port = cfg.port;
+          white-list = false;
+        };
         # symlinks = {
         #   mods = pkgs.linkFarmFromDrvs "mods" (
         #     builtins.attrValues {
