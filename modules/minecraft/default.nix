@@ -51,25 +51,25 @@ in
         openFirewall = cfg.openFirewall;
         package = pkgs.fabricServers.fabric-1_21.override { loaderVersion = "0.15.11"; };
 
-        # serverProperties = {
-        #   enable-command-block = true;
-        #   enforce-whitelist = true;
-        #   gamemode = "survival";
-        #   generate-structures = "true";
-        #   hide-online-players = false;
-        #   initial-enabled-packs = "vanilla";
-        #   level-name = cfg.name;
-        #   motd = "${cfg.name} server :)";
-        #   online-mode = false;
-        #   pvp = true;
-        #   require-resource-pack = false;
-        #   # resource-pack=
-        #   # resource-pack-id=
-        #   # resource-pack-prompt=
-        #   # resource-pack-sha1=
-        #   server-port = cfg.port;
-        #   white-list = false;
-        # };
+        serverProperties = {
+          enable-command-block = true;
+          enforce-whitelist = true;
+          gamemode = "survival";
+          generate-structures = "true";
+          hide-online-players = false;
+          initial-enabled-packs = "vanilla";
+          level-name = cfg.name;
+          motd = "${cfg.name} server :)";
+          online-mode = false;
+          pvp = true;
+          require-resource-pack = false;
+          # resource-pack=
+          # resource-pack-id=
+          # resource-pack-prompt=
+          # resource-pack-sha1=
+          server-port = cfg.port;
+          white-list = false;
+        };
         # symlinks = {
         #   mods = pkgs.linkFarmFromDrvs "mods" (
         #     builtins.attrValues {
