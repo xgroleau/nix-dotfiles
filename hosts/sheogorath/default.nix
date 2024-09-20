@@ -161,7 +161,7 @@ in
         port = 25665;
         name = "Yofo";
         openFirewall = true;
-        dataDir = "/data/palworld";
+        dataDir = "/data/minecraft";
       };
 
       # arkSurvivalAscended = {

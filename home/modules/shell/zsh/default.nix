@@ -21,6 +21,10 @@ in
       enable = true;
       envExtra = "source ${config.xdg.configHome}/zsh/zshenv";
       initExtra = "source ${config.xdg.configHome}/zsh/zshrc";
+      history = {
+        expireDuplicatesFirst = true;
+        ignoreAllDups = true;
+      };
     };
 
     home = {
