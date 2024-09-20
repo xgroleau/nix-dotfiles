@@ -40,7 +40,7 @@ in
     services.minecraft-servers = {
       enable = true;
       dataDir = "${cfg.dataDir}/data";
-      runDir = "${cfg.dataDir}/run";
+      runDir = "${cfg.dataDir}/${cfg.name}.sock";
 
       eula = true;
 
@@ -92,13 +92,6 @@ in
           mode = "777";
         };
       };
-      "${cfg.dataDir}/run" = {
-        d = {
-          user = "root";
-          mode = "777";
-        };
-      };
-
     };
 
   };
