@@ -52,10 +52,11 @@ in
       userKnownHostsFile = "~/.ssh/known_hosts ~/.ssh/hm_hosts";
     };
 
+    # Adding all machines to known host
     home.file.".ssh/hm_known_hosts" = {
-      text = ''
-        jyggalag ${keys.machines.jyggalag}
-        sheogorath ${keys.machines.sheogorath}'';
+      text = lib.concatMapStrings (v: v + "\n") (
+        lib.mapAttrsToList (name: value: "${name} ${value}") keys.machines
+      );
     };
 
     # User config

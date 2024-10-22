@@ -43,9 +43,11 @@ in
         services.minecraft-servers = {
           enable = true;
           dataDir = "${cfg.dataDir}/data";
-          runDir = "${cfg.dataDir}";
-
           eula = true;
+
+          managementSystem.systemd-socket = {
+            enable = true;
+          };
 
           servers."${cfg.name}" =
             let

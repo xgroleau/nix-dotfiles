@@ -1,11 +1,13 @@
 {
   config,
+  lib,
   pkgs,
   inputs,
   ...
 }:
 
 let
+  keys = import ../secrets/ssh-keys.nix;
   overlays = import ../overlays { inherit inputs; };
 in
 {
@@ -47,6 +49,9 @@ in
     services = {
       nix-daemon.enable = true;
     };
+
+    # Adding all machines to known host
+    programs.ssh.knownHosts = lib.mapAttrs (name: value: { publicKey = value; }) keys.machines;
 
     system = {
       startup.chime = false;

@@ -34,7 +34,10 @@ in
       })
 
       (lib.mkIf cfg.builders {
-        builders = ''ssh-ng://builder@sheogorath x86_64-linux - 1 2 nixos-test,benchmark,big-parallel,kvm - -; ssh-ng://builder@jyggalag aarch64-linux - 1 2 - - -'';
+        builders = lib.concatStrings [
+          "ssh-ng://builder@sheogorath x86_64-linux - 1 2 nixos-test,benchmark,big-parallel,kvm - -;"
+          "ssh-ng://builder@jyggalag aarch64-linux - 1 2 - - -"
+        ];
       })
 
     ];

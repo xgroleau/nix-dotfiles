@@ -27,6 +27,7 @@ in
     };
 
     nix = {
+
       package = pkgs.nixVersions.latest;
       extraOptions = ''
         experimental-features = nix-command flakes
@@ -35,10 +36,13 @@ in
       # Avoid always redownloading the registry
       registry.nixpkgsu.flake = inputs.nixpkgs-unstable; # For flake commands
       nixPath = [ "nixpkgsu=${inputs.nixpkgs-unstable}" ]; # For legacy commands
-      settings.trusted-users = [
-        "root"
-        "@wheel"
-      ];
+      settings = {
+        auto-optimise-store = true;
+        trusted-users = [
+          "root"
+          "@wheel"
+        ];
+      };
     };
 
     time.timeZone = "America/Toronto";
@@ -52,6 +56,10 @@ in
 
     programs.zsh.enable = true;
     i18n.defaultLocale = "en_CA.UTF-8";
+
+    # Adding all machines to known host
+    programs.ssh.knownHosts = lib.mapAttrs (name: value: { publicKey = value; }) keys.machines;
+
     users = {
       users.xgroleau = {
         isNormalUser = true;
