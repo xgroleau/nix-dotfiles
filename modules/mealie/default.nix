@@ -57,7 +57,7 @@ in
     virtualisation.oci-containers = {
       containers.mealie = {
         autoStart = true;
-        image = "ghcr.io/mealie-recipes/mealie:v1.12.0@sha256:88e8e12542e9a2733c07f175682dc69e7360becb6137d604bb087a71ab33c5fe";
+        image = "ghcr.io/mealie-recipes/mealie:v2.0.0@sha256:c2ea6f1e7fecaa7befe6f2dd02423b5ff31c4551f5afb64576fba0e65a2a4c5b";
         ports = [ "${toString cfg.port}:9000" ];
         volumes = [ "${cfg.dataDir}:/app/data/" ];
 
