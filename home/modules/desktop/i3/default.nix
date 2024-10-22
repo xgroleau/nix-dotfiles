@@ -197,17 +197,30 @@ in
               }
             ];
 
-            # Keybindings using the requested format
             keybindings = lib.mkOptionDefault {
-              "${mod}+h" = "exec $focus_on; focus left";
-              "${mod}+j" = "exec $focus_on; focus down";
-              "${mod}+k" = "exec $focus_on; focus up";
-              "${mod}+l" = "exec $focus_on; focus right";
+              # Window management
 
-              "${mod}+Shift+h" = "exec $focus_on; move left";
-              "${mod}+Shift+j" = "exec $focus_on; move down";
-              "${mod}+Shift+k" = "exec $focus_on; move up";
-              "${mod}+Shift+l" = "exec $focus_on; move right";
+              # move focused container to workspace
+              "${mod}+Shift+1" = "move container to workspace number 1; workspace number 1";
+              "${mod}+Shift+2" = "move container to workspace number 2; workspace number 2";
+              "${mod}+Shift+3" = "move container to workspace number 3; workspace number 3";
+              "${mod}+Shift+4" = "move container to workspace number 4; workspace number 4";
+              "${mod}+Shift+5" = "move container to workspace number 5; workspace number 5";
+              "${mod}+Shift+6" = "move container to workspace number 6; workspace number 6";
+              "${mod}+Shift+7" = "move container to workspace number 7; workspace number 7";
+              "${mod}+Shift+8" = "move container to workspace number 8; workspace number 8";
+              "${mod}+Shift+9" = "move container to workspace number 9; workspace number 9";
+              "${mod}+Shift+0" = "move container to workspace number 10; workspace number 10";
+
+              "${mod}+h" = "focus left";
+              "${mod}+j" = "focus down";
+              "${mod}+k" = "focus up";
+              "${mod}+l" = "focus right";
+
+              "${mod}+Shift+h" = "move left";
+              "${mod}+Shift+j" = "move down";
+              "${mod}+Shift+k" = "move up";
+              "${mod}+Shift+l" = "move right";
 
               "${mod}+Return" = "exec alacritty";
               "${mod}+space" = "exec --no-startup-id rofi -show drun -modi drun";
@@ -288,7 +301,7 @@ in
           extraConfig = ''
             exec_always --no-startup-id autorandr -c
             exec_always --no-startup-id systemctl --user restart polybar
-            exec_always --no-startup-id flashfocus
+            exec_always --no-startup-id flashfocus --time 100
           '';
         };
     };
