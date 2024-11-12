@@ -54,6 +54,7 @@ in
       wget
     ];
 
+    programs.nix-ld.enable = true;
     programs.zsh.enable = true;
     i18n.defaultLocale = "en_CA.UTF-8";
 
