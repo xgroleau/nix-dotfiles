@@ -33,7 +33,7 @@ in
     lib.mkIf cfg.enable {
       services.ollama = {
         enable = true;
-        listenAddress = "127.0.0.1:${toString cfg.port}";
+        listenAddress = "0.0.0.0:${toString cfg.port}";
         writablePaths = [
           homePath
           modelsPath
