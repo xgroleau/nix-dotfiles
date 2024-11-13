@@ -141,11 +141,6 @@ in
         domain = "ocis.${domain}";
       };
 
-      ollama = {
-        enable = true;
-        port = 11434;
-      };
-
       mealie = {
         enable = true;
         port = 10400;
