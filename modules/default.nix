@@ -17,6 +17,7 @@
     ./immich
     ./kdeconnect
     ./firefly-iii
+    ./ollama
     ./mealie
     ./media-server
     ./minecraft
