@@ -45,6 +45,8 @@
 
     hardware.bluetooth.enable = true;
 
+    programs.nix-ld.enable = true;
+
     services = {
       blueman.enable = true;
       printing.enable = true;

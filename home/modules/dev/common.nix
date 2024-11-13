@@ -32,6 +32,7 @@ in
         enable = true;
         userName = cfg.gitUser;
         userEmail = cfg.gitEmail;
+        lfs.enable = true;
       };
 
       direnv = {
