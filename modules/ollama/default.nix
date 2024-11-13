@@ -29,7 +29,7 @@ in
     lib.mkIf cfg.enable {
       services.ollama = {
         enable = true;
-        pkg = pkgs.unstable.ollama;
+        package = pkgs.unstable.ollama;
         listenAddress = "0.0.0.0:${toString cfg.port}";
         # TODO: loadModels = ["llama3.2"];
       };
