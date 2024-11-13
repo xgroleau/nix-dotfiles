@@ -46,7 +46,6 @@ in
       ollama = {
         enable = true;
         port = 11434;
-        dataDir = "/var/lib/ollama";
       };
     };
 

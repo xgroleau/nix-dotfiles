@@ -19,10 +19,6 @@ in
       description = "The port to use";
     };
 
-    dataDir = lib.mkOption {
-      type = types.str;
-      description = "Path to where the data will be stored";
-    };
   };
 
   config =
@@ -34,21 +30,7 @@ in
       services.ollama = {
         enable = true;
         listenAddress = "0.0.0.0:${toString cfg.port}";
-        writablePaths = [
-          homePath
-          modelsPath
-        ];
-        home = homePath;
-        models = modelsPath;
       };
 
-      systemd.tmpfiles.settings.ollama = {
-        "${cfg.dataDir}" = {
-          d = {
-            mode = "0755";
-            user = "root";
-          };
-        };
-      };
     };
 }
