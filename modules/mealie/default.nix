@@ -60,6 +60,7 @@ in
         image = "ghcr.io/mealie-recipes/mealie:v2.2.0@sha256:ea53ca0e874cf30c3e6bbed35f5a01a029bafb602d050ddd584fdb7defdb6f8a";
         ports = [ "${toString cfg.port}:9000" ];
         volumes = [ "${cfg.dataDir}:/app/data/" ];
+        user = "911:911";
 
         environmentFiles = [ cfg.credentialsFile ];
         environment = {
