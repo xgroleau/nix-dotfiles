@@ -6,7 +6,7 @@
 }:
 
 let
-  cfg = config.modules.mealie;
+  cfg = config.modules.ollama;
 in
 {
 
