@@ -15,6 +15,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+
     networking.firewall = {
       allowedTCPPortRanges = [
         {
@@ -29,5 +30,13 @@ in
         }
       ];
     };
+
+    services = {
+      kdeconnect = {
+        enable = true;
+        indicator = true;
+      };
+    };
+
   };
 }
