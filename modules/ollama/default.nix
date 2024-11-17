@@ -19,6 +19,11 @@ in
       description = "The port to use";
     };
 
+    dataDir = lib.mkOption {
+      type = types.str;
+      default = "/var/lib/ollama";
+      description = "Path to where the data will be stored";
+    };
   };
 
   config =
@@ -29,10 +34,22 @@ in
     lib.mkIf cfg.enable {
       services.ollama = {
         enable = true;
-        package = pkgs.unstable.ollama;
-        listenAddress = "0.0.0.0:${toString cfg.port}";
-        # TODO: loadModels = ["llama3.2"];
+        port = cfg.port;
+        host = "[::]";
+        home = cfg.dataDir;
+        loadModels = [ "llama3.2" ];
+        user = "ollama";
+        group = "ollama";
       };
 
+      systemd.tmpfiles.settings.ollama = {
+        "${cfg.dataDir}" = {
+          d = {
+            mode = "0744";
+            user = config.services.ollama.user;
+            group = config.services.ollama.group;
+          };
+        };
+      };
     };
 }

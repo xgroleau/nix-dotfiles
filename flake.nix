@@ -40,7 +40,6 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    attic.url = "github:zhaofengli/attic";
     authentik-nix.url = "github:nix-community/authentik-nix";
 
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";
@@ -63,7 +62,6 @@
       agenix,
       deploy-rs,
       disko,
-      attic,
       authentik-nix,
       nix-minecraft,
       roam,
@@ -87,7 +85,6 @@
           ./modules
           agenix.nixosModules.default
           disko.nixosModules.disko
-          attic.nixosModules.atticd
           authentik-nix.nixosModules.default
           nix-minecraft.nixosModules.minecraft-servers
           { nixpkgs.overlays = [ inputs.nix-minecraft.overlay ]; }
