@@ -64,6 +64,11 @@ in
       gnome-keyring.enable = true;
       network-manager-applet.enable = true;
 
+      kdeconnect = {
+        enable = true;
+        indicator = true;
+      };
+
       picom = {
         enable = true;
         wintypes = {
