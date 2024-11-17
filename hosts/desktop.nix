@@ -26,7 +26,7 @@
     services = {
       flatpak.enable = true;
 
-      pkg.gnome-keyring.enable = true;
+      gnome-keyring.enable = true;
       passSecretService.enable = true;
       udev = {
         enable = true;
