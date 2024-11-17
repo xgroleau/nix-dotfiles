@@ -2,7 +2,7 @@
   description = "My user configuration using home-manager";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     flake-utils.url = "github:numtide/flake-utils";
@@ -14,7 +14,7 @@
     };
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.05";
+      url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -40,7 +40,6 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    attic.url = "github:zhaofengli/attic";
     authentik-nix.url = "github:nix-community/authentik-nix";
 
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";
@@ -63,7 +62,6 @@
       agenix,
       deploy-rs,
       disko,
-      attic,
       authentik-nix,
       nix-minecraft,
       roam,
@@ -87,7 +85,6 @@
           ./modules
           agenix.nixosModules.default
           disko.nixosModules.disko
-          attic.nixosModules.atticd
           authentik-nix.nixosModules.default
           nix-minecraft.nixosModules.minecraft-servers
           { nixpkgs.overlays = [ inputs.nix-minecraft.overlay ]; }

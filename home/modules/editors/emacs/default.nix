@@ -50,7 +50,7 @@ in
 
           # lang
           nixfmt-rfc-style
-          nodePackages.pyright
+          pyright
           rustup
 
           dune_3

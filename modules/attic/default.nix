@@ -24,7 +24,7 @@ in
 
     };
 
-    credentialsFile = lib.mkOption {
+    environmentFile = lib.mkOption {
       type = lib.types.nullOr lib.types.path;
       example = "/etc/atticd.env";
       description = ''
@@ -48,7 +48,7 @@ in
       user = "atticd";
       group = "atticd";
 
-      credentialsFile = cfg.credentialsFile;
+      environmentFile = cfg.environmentFile;
 
       # Replace with absolute path to your credentials file
 
