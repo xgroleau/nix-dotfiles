@@ -61,7 +61,7 @@ in
         configFile = ./config/dunst/dunstrc;
       };
 
-      gnome.gnome-keyring.enable = true;
+      gnome-keyring.enable = true;
       network-manager-applet.enable = true;
 
       picom = {
