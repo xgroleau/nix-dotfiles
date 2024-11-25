@@ -32,7 +32,7 @@ in
           history = 10000;
           multiplier = 3;
         };
-        shell = lib.mkIf config.modules.shell.zellij.enable {
+        terminal.shell = lib.mkIf config.modules.shell.zellij.enable {
           args = [
             "attach"
             "--create"
