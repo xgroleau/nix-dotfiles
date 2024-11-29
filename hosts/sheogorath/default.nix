@@ -85,6 +85,7 @@ in
 
           "overseerr.${domain}" = "unraid:5055"; # Temporary
           "overseerr.sheogorath.duckdns.org" = "unraid:5055"; # Temporary
+          "foundry.${domain}" = "unraid:30000"; # Temporary
         };
       };
 
