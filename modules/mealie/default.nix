@@ -59,6 +59,7 @@ in
       port = cfg.port;
       credentialsFile = cfg.credentialsFile;
       settings = {
+        DATA_DIR = cfg.dataDir;
         ALLOW_SIGNUP = "false";
         MAX_WORKERS = "1";
         WEB_CONCURRENCY = "1";
@@ -66,11 +67,20 @@ in
 
     };
 
+    # Until https://github.com/NixOS/nixpkgs/pull/309969 is merged
+    systemd.services.mealie = {
+      serviceConfig = {
+        ReadWritePaths = [ cfg.dataDir ];
+        StateDirectory = null;
+      };
+
+    };
+
     systemd.tmpfiles.settings.mealie = {
       "${cfg.dataDir}" = {
         d = {
           mode = "0755";
-          user = "root";
+          user = "mealie";
         };
       };
     };
