@@ -71,7 +71,7 @@ in
     systemd.services.mealie = {
       serviceConfig = {
         ReadWritePaths = [ cfg.dataDir ];
-        StateDirectory = null;
+        StateDirectory = lib.mkForce (null);
       };
 
     };
