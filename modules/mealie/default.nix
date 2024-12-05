@@ -53,23 +53,17 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    services.mealie = {
+      pkg = pkgs.unstable.mealie;
+      enable = true;
+      ports = cfg.port;
+      credentialsFile = cfg.credentialsFile;
+      settings = {
+        ALLOW_SIGNUP = "false";
+        MAX_WORKERS = "1";
+        WEB_CONCURRENCY = "1";
+      } // cfg.settings;
 
-    virtualisation.oci-containers = {
-      containers.mealie = {
-        autoStart = true;
-        image = "ghcr.io/mealie-recipes/mealie:v2.3.0@sha256:562ba8b1c98fbfa98a019ab6e0e45c88dae9a2e9a858ec4eac8f6321e46e9227";
-        ports = [ "${toString cfg.port}:9000" ];
-        volumes = [ "${cfg.dataDir}:/app/data/" ];
-        user = "911:911";
-
-        environmentFiles = [ cfg.credentialsFile ];
-        environment = {
-          ALLOW_SIGNUP = "false";
-          MAX_WORKERS = "1";
-          WEB_CONCURRENCY = "1";
-        } // cfg.settings;
-
-      };
     };
 
     systemd.tmpfiles.settings.mealie = {
