@@ -56,7 +56,7 @@ in
     services.mealie = {
       package = pkgs.unstable.mealie;
       enable = true;
-      ports = cfg.port;
+      port = cfg.port;
       credentialsFile = cfg.credentialsFile;
       settings = {
         ALLOW_SIGNUP = "false";
