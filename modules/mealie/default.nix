@@ -54,7 +54,7 @@ in
 
   config = lib.mkIf cfg.enable {
     services.mealie = {
-      pkg = pkgs.unstable.mealie;
+      package = pkgs.unstable.mealie;
       enable = true;
       ports = cfg.port;
       credentialsFile = cfg.credentialsFile;
