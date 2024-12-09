@@ -221,6 +221,7 @@ in
         enable = true;
         port = 14000;
         interface = "0.0.0.0";
+        user = "root";
       };
 
       fail2ban.enable = true;
