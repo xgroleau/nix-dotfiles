@@ -6,7 +6,6 @@ let
     "/vault"
     "/documents"
     "/data/backups"
-    "/var/lib/jellyfin"
     "/var/lib/jellyseerr"
   ];
 in
