@@ -31,7 +31,7 @@
       "nfs"
       "zfs"
     ];
-    kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
+    kernelPackages = pkgs.linuxPackages_6_6;
     extraModulePackages = [ ];
     zfs.forceImportRoot = false;
   };
