@@ -99,7 +99,7 @@ in
 
       immich-redis = {
         autoStart = true;
-        image = "redis:6.2-alpine@sha256:3fcb624d83a9c478357f16dc173c58ded325ccc5fd2a4375f3916c04cc579f70";
+        image = "redis:7.4-alpine@sha256:1bf97f21f01b0e7bd4b7b34a26d3b9d8086e41e70c10f262e8a9e0b49b5116a0";
         environmentFiles = [ cfg.envFile ];
         extraOptions = [ "--network=immich-bridge" ];
       };
