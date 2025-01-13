@@ -25,6 +25,7 @@ PATH = '${HOME}/.nix-profile/bin:/opt/homebrew/bin:/opt/homebrew/sbin:${PATH}'
 
 [mode.main.binding]
 cmd-enter = 'exec-and-forget alacritty'
+cmd-d = 'exec-and-forget emacsclient --eval "(emacs-everywhere)"'
 
 cmd-h = 'focus --boundaries all-monitors-outer-frame --boundaries-action wrap-around-all-monitors left'
 cmd-j = 'focus --boundaries all-monitors-outer-frame --boundaries-action wrap-around-all-monitors down'
