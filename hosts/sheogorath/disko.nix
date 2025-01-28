@@ -51,7 +51,7 @@ _: {
       };
       wdc2 = {
         type = "disk";
-        device = "/dev/disk//by-id/ata-WDC_WD80EAZZ-00BKLB0_WD-CA23ZWHK";
+        device = "/dev/disk/by-id/ata-WDC_WD80EAZZ-00BKLB0_WD-CA23ZWHK";
         content = {
           type = "gpt";
           partitions = {
