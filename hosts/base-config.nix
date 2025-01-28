@@ -56,7 +56,7 @@ in
     time.timeZone = "America/Toronto";
     environment.systemPackages = with pkgs; [
       curl
-      git
+      gitMinimal
       vim
       nano
       wget
