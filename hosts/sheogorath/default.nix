@@ -12,7 +12,7 @@ in
 {
   imports = [
     ../base-config.nix
-    ../serverConfig.nix
+    ../server-config.nix
     ./disko.nix
     ./hardware-configuration.nix
   ];
@@ -231,14 +231,6 @@ in
       automatic = true;
       dates = "weekly";
       options = "--delete-older-than 30d";
-    };
-
-    # Use the systemd-boot EFI boot loader.
-    boot = {
-      loader = {
-        systemd-boot.enable = true;
-        efi.canTouchEfiVariables = true;
-      };
     };
 
     networking = {

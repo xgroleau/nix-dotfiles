@@ -11,7 +11,7 @@ in
 {
   imports = [
     ../base-config.nix
-    ../serverConfig.nix
+    ../server-config.nix
     ./hardware-configuration.nix
   ];
 

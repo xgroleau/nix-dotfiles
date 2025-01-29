@@ -23,6 +23,10 @@
     };
 
     programs.dconf.enable = true;
+    hardware.bluetooth.enable = true;
+
+    environment.systemPackages = with pkgs; [ pavucontrol ];
+
     services = {
       flatpak.enable = true;
 
@@ -47,8 +51,25 @@
           LABEL="nrf_rules_end"
         '';
       };
+
       udisks2.enable = true;
+
+      # Enable CUPS to print documents. Add driver if needed
+      printing.enable = true;
+
+      blueman.enable = true;
+
+      # Enable sound.
+      pipewire = {
+        enable = true;
+        alsa.enable = true;
+        alsa.support32Bit = true;
+        pulse.enable = true;
+      };
+
     };
+
+    security.rtkit.enable = true;
 
     # Allows the use of app image directly
     boot.binfmt.registrations.appimage = {

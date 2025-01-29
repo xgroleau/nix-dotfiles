@@ -23,44 +23,20 @@
       xserver.home-manager = true;
     };
 
-    # Use the systemd-boot EFI boot loader.
-    boot = {
-      loader = {
-        systemd-boot.enable = true;
-        efi.canTouchEfiVariables = true;
-      };
-    };
-
     networking = {
       hostName = "azura";
       networkmanager.enable = true;
       interfaces.enp12s0.useDHCP = true;
     };
 
-    environment.systemPackages = with pkgs; [ pavucontrol ];
     programs.steam.enable = false;
 
     # Dualbooting, avoids time issues
     time.hardwareClockInLocalTime = true;
 
-    hardware.bluetooth.enable = true;
-
     programs.nix-ld.enable = true;
 
-    services = {
-      blueman.enable = true;
-      printing.enable = true;
-      # Enable sound.
-      pipewire = {
-        enable = true;
-        alsa.enable = true;
-        alsa.support32Bit = true;
-        pulse.enable = true;
-      };
-
-      zerotierone.enable = true;
-    };
-    security.rtkit.enable = true;
+    services.zerotierone.enable = true;
 
     system.stateVersion = "23.11";
   };

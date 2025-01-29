@@ -22,9 +22,17 @@
       "sd_mod"
     ];
     initrd.kernelModules = [ ];
-    kernelModules = [ "fuse" "kvm-intel" ];
+    kernelModules = [
+      "fuse"
+      "kvm-intel"
+    ];
     extraModulePackages = [ ];
     supportedFilesystems = [ "ntfs" ];
+
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+    };
   };
 
   fileSystems."/" = {

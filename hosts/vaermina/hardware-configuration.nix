@@ -10,43 +10,29 @@
 }:
 
 {
-  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
+  imports = [
+    (modulesPath + "/installer/scan/not-detected.nix")
+  ];
 
   boot = {
     initrd.availableKernelModules = [
       "xhci_pci"
-      "ehci_pci"
       "ahci"
       "usb_storage"
+      "usbhid"
       "sd_mod"
-      "sdhci_pci"
     ];
     initrd.kernelModules = [ ];
-    kernelModules = [
-      "fuse"
-      "kvm-intel"
-    ];
+    kernelModules = [ "kvm-intel" ];
     extraModulePackages = [ ];
 
+    # Use the systemd-boot EFI boot loader.
     loader = {
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
   };
 
-  fileSystems."/" = {
-    device = "/dev/disk/by-label/nixos";
-    fsType = "ext4";
-  };
-
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-label/boot";
-    fsType = "vfat";
-  };
-
-  swapDevices = [ { device = "/dev/disk/by-label/swap"; } ];
-
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-
-  services.fstrim.enable = true;
 }
