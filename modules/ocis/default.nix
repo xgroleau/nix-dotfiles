@@ -82,7 +82,7 @@ in
         {
           ocis = {
             autoStart = true;
-            image = "owncloud/ocis:5.0.9@sha256:96671605863b38b0b8021400fdb2d843586dfa31451a8c7766f15eabe85d8267";
+            image = "owncloud/ocis:7.0.0@sha256:01812e1147aeb2e5b527f19f645326c0e4c8d701800b4546001d64d0ae1307dc";
             ports = [ "${toString cfg.port}:9200" ];
             volumes = [
               "/etc/localtime:/etc/localtime:ro"
@@ -138,7 +138,7 @@ in
         (lib.mkIf cfg.collabora.enable {
           ocis-app-provider-collabora = {
             autoStart = true;
-            image = "owncloud/ocis:5.0.9@sha256:96671605863b38b0b8021400fdb2d843586dfa31451a8c7766f15eabe85d8267";
+            image = "owncloud/ocis:7.0.0@sha256:01812e1147aeb2e5b527f19f645326c0e4c8d701800b4546001d64d0ae1307dc";
             volumes = [
               "/etc/localtime:/etc/localtime:ro"
               "${cfg.configDir}:/etc/ocis"
