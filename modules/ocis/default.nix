@@ -45,6 +45,7 @@ in
           };
         };
       };
+      default = { };
     };
 
     port = lib.mkOption {
