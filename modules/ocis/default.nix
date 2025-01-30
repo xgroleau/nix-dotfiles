@@ -85,6 +85,7 @@ in
             image = "owncloud/ocis:5.0.9@sha256:96671605863b38b0b8021400fdb2d843586dfa31451a8c7766f15eabe85d8267";
             ports = [ "${toString cfg.port}:9200" ];
             volumes = [
+              "/etc/localtime:/etc/localtime:ro"
               "${cfg.configDir}:/etc/ocis"
               "${cfg.dataDir}:/var/lib/ocis"
             ] ++ lib.optionals cfg.collabora.enable [ "${./app-registry.yaml}:/etc/ocis/app-registry.yaml" ];
@@ -138,7 +139,10 @@ in
           ocis-app-provider-collabora = {
             autoStart = true;
             image = "owncloud/ocis:5.0.9@sha256:96671605863b38b0b8021400fdb2d843586dfa31451a8c7766f15eabe85d8267";
-            volumes = [ "${cfg.configDir}:/etc/ocis" ];
+            volumes = [
+              "/etc/localtime:/etc/localtime:ro"
+              "${cfg.configDir}:/etc/ocis"
+            ];
 
             environmentFiles = cfg.environmentFiles;
             environment = {
@@ -174,6 +178,7 @@ in
             extraOptions = [ "--network=ocis-bridge" ];
 
             volumes = [
+              "/etc/localtime:/etc/localtime:ro"
               "${./wopiserver.conf.dist}:/etc/wopi/wopiserver.conf.dist"
               "${cfg.dataDir}:/var/lib/ocis"
             ];
@@ -188,6 +193,9 @@ in
           ocis-collabora = {
             autoStart = true;
             image = "collabora/code:24.04.11.2.1@sha256:1cf62aa5db7f7e94d0b286f5acdd2ff823f1ef87fedffef1f487abcec5d30e9a";
+            volumes = [
+              "/etc/localtime:/etc/localtime:ro"
+            ];
             extraOptions = [
               "--network=ocis-bridge"
               "--cap-add=CAP_MKNOD"
