@@ -128,13 +128,6 @@ in
 
       ocis = {
         enable = true;
-        collabora = {
-          enable = true;
-          wopiDomain = "wopi.${domain}";
-          wopiPort = 11210;
-          collaboraDomain = "collabora.${domain}";
-          collaboraPort = 11220;
-        };
         port = 11200;
         configDir = "/vault/ocis";
         dataDir = "/documents/ocis";
