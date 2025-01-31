@@ -103,7 +103,7 @@ in
                 OCIS_LOG_LEVEL = "info";
 
                 STORAGE_USERS_DRIVER = "posix";
-                STORAGE_USERS_POSIX_ROOT = "/var/lib/ocis/storage/users ";
+                STORAGE_USERS_POSIX_ROOT = "/var/lib/ocis/storage/users";
                 STORAGE_USERS_POSIX_WATCH_TYPE = "inotifywait";
                 STORAGE_USERS_ID_CACHE_STORE = "nats-js-kv";
                 STORAGE_USERS_ID_CACHE_STORE_NODES = "localhost:9233";
