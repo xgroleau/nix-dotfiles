@@ -83,7 +83,7 @@ in
         {
           ocis = {
             autoStart = true;
-            image = "owncloud/ocis:5.0.9@sha256:96671605863b38b0b8021400fdb2d843586dfa31451a8c7766f15eabe85d8267";
+            image = "owncloud/ocis:7.0.0@sha256:01812e1147aeb2e5b527f19f645326c0e4c8d701800b4546001d64d0ae1307dc";
             ports = [ "${toString cfg.port}:9200" ];
             volumes = [
               "/etc/localtime:/etc/localtime:ro"
@@ -101,6 +101,13 @@ in
                 OCIS_INSECURE = "false";
                 OCIS_URL = "https://${cfg.domain}";
                 OCIS_LOG_LEVEL = "info";
+
+                STORAGE_USERS_DRIVER = "posix";
+                STORAGE_USERS_POSIX_ROOT = "/var/lib/ocis/storage/users ";
+                STORAGE_USERS_POSIX_WATCH_TYPE = "inotifywait";
+                STORAGE_USERS_ID_CACHE_STORE = "nats-js-kv";
+                STORAGE_USERS_ID_CACHE_STORE_NODES = "localhost:9233";
+                STORAGE_USERS_POSIX_USE_SPACE_GROUPS = "true";
 
                 #Tika
                 SEARCH_EXTRACTOR_TYPE = "tika";
@@ -139,7 +146,7 @@ in
         (lib.mkIf cfg.collabora.enable {
           ocis-app-provider-collabora = {
             autoStart = true;
-            image = "owncloud/ocis:5.0.9@sha256:96671605863b38b0b8021400fdb2d843586dfa31451a8c7766f15eabe85d8267";
+            image = "owncloud/ocis:7.0.0@sha256:01812e1147aeb2e5b527f19f645326c0e4c8d701800b4546001d64d0ae1307dc";
             volumes = [
               "/etc/localtime:/etc/localtime:ro"
               "${cfg.configDir}:/etc/ocis"
