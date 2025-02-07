@@ -53,7 +53,6 @@
                 jellyfin
                 pvr-iptvsimple
                 vfs-sftp
-                kodi-retroarch-advanced-launchers
               ]
             );
           };
