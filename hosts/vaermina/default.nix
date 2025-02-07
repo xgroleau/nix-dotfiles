@@ -21,6 +21,8 @@
       };
     };
 
+    hardware.xone.enable = true; # support for the xbox controller USB dongle
+
     # Other services
     services = {
       libinput.enable = true;
@@ -39,20 +41,33 @@
       xserver = {
         enable = true;
         displayManager.lightdm.enable = true;
-
-        desktopManager = {
-          retroarch = {
-            enable = true;
-            package = pkgs.retroarchFull;
-          };
-          xterm.enable = false;
-          xfce.enable = true;
-        };
       };
     };
-    services.xserver.desktopManager.gnome.enable = true;
-    programs.steam.gamescopeSession.enable = true;
-    programs.gamescope.enable = true;
+
+    environment = {
+      # Couple of packages
+      systemPackages = with pkgs; [
+        wine
+        winetricks
+        glxinfo
+        vulkan-tools
+        mangohud
+      ];
+      loginShellInit = ''
+        [[ "$(tty)" = "/dev/tty1" ]] && ./gs.sh
+      '';
+    };
+
+    programs = {
+      steam = {
+        enable = true;
+        gamescopeSession.enable = true;
+      };
+      gamescope = {
+        enable = true;
+        capSysNice = true;
+      };
+    };
 
     users.users.console = {
       isNormalUser = true;
@@ -63,14 +78,6 @@
       ];
       initialPassword = "nixos";
     };
-
-    # Couple of packages
-    environment.systemPackages = with pkgs; [
-      wine
-      winetricks
-      glxinfo
-      vulkan-tools
-    ];
 
     nix.gc = {
       automatic = true;
