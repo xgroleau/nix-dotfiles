@@ -14,6 +14,11 @@
       ssh.enable = true;
       secrets.enable = true;
       kdeconnect.enable = true;
+      home = {
+        enable = true;
+        username = "xgroleau";
+        profile = "minimal";
+      };
     };
 
     # Other services
@@ -25,16 +30,33 @@
         KERNEL=="event*", ATTRS{id/product}=="9400", ATTRS{id/vendor}=="18d1", MODE="0660", GROUP="plugdev", SYMLINK+="input/by-id/stadia-controller-$kernel"
       '';
 
-      displayManager.autoLogin = {
-        enable = true;
-        user = "console";
+      displayManager = {
+        autoLogin = {
+          enable = true;
+          user = "console";
+        };
+        defaultSession = "RetroArch";
+        plasma6.enable = true;
       };
-
       xserver = {
         enable = true;
-        desktopManager.retroarch = {
-          enable = true;
-          package = pkgs.retroarchFull;
+        desktopManager = {
+          retroarch = {
+            enable = true;
+            package = pkgs.retroarchFull;
+          };
+
+          kodi = {
+            enable = true;
+            package = pkgs.kodi.withPackages (
+              p: with p; [
+                jellyfin
+                pvr-iptvsimple
+                vfs-sftp
+                kodi-retroarch-advanced-launchers
+              ]
+            );
+          };
         };
       };
     };
