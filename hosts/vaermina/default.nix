@@ -39,6 +39,7 @@
       };
       xserver = {
         enable = true;
+        displayManager.lightdm.enable = true;
         desktopManager = {
           retroarch = {
             enable = true;
