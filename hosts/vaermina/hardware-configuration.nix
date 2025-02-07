@@ -22,8 +22,14 @@
       "usbhid"
       "sd_mod"
     ];
+
     initrd.kernelModules = [ ];
-    kernelModules = [ "kvm-intel" ];
+    kernelModules = [
+      "kvm-intel"
+      "hid_sony"
+      "hid_playstation"
+
+    ];
     extraModulePackages = [ ];
 
     # Use the systemd-boot EFI boot loader.
