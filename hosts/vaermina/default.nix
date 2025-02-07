@@ -37,7 +37,6 @@
         };
         defaultSession = "RetroArch";
       };
-      desktopManager.plasma6.enable = true;
       xserver = {
         enable = true;
         desktopManager = {
@@ -45,17 +44,8 @@
             enable = true;
             package = pkgs.retroarchFull;
           };
-
-          kodi = {
-            enable = true;
-            package = pkgs.kodi.withPackages (
-              p: with p; [
-                jellyfin
-                pvr-iptvsimple
-                vfs-sftp
-              ]
-            );
-          };
+          xterm.enable = false;
+          xfce.enable = true;
         };
       };
     };
