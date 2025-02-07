@@ -32,11 +32,17 @@
         KERNEL=="event*", ATTRS{id/product}=="9400", ATTRS{id/vendor}=="18d1", MODE="0660", GROUP="plugdev", SYMLINK+="input/by-id/stadia-controller-$kernel"
       '';
 
-      # xserver = {
-      #   enable = true;
-      #   displayManager.lightdm.enable = true;
-      # };
-      getty.autologinUser = "console";
+      displayManager = {
+        autoLogin = {
+          enable = true;
+          user = "console";
+        };
+      };
+      xserver = {
+        enable = true;
+        displayManager.lightdm.enable = true;
+
+      };
     };
 
     environment = {
@@ -48,9 +54,9 @@
         vulkan-tools
         mangohud
       ];
-      loginShellInit = ''
-        [[ "$(tty)" = "/dev/tty1" ]] && ${./gs.sh}
-      '';
+      # loginShellInit = ''
+      #   [[ "$(tty)" = "/dev/tty1" ]] && ${./gs.sh}
+      # '';
     };
 
     programs = {
