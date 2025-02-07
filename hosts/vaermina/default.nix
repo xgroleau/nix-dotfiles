@@ -32,16 +32,11 @@
         KERNEL=="event*", ATTRS{id/product}=="9400", ATTRS{id/vendor}=="18d1", MODE="0660", GROUP="plugdev", SYMLINK+="input/by-id/stadia-controller-$kernel"
       '';
 
-      displayManager = {
-        autoLogin = {
-          enable = true;
-          user = "console";
-        };
-      };
-      xserver = {
-        enable = true;
-        displayManager.lightdm.enable = true;
-      };
+      # xserver = {
+      #   enable = true;
+      #   displayManager.lightdm.enable = true;
+      # };
+      getty.autologinUser = "console";
     };
 
     environment = {
