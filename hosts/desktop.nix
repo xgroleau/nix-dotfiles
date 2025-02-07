@@ -25,7 +25,15 @@
     programs.dconf.enable = true;
     hardware.bluetooth = {
       enable = true;
-      package = pkgs.bluezFull;
+      input = {
+
+        General = {
+          ClassicBondedOnly = true;
+          IdleTimeout = 30;
+        };
+
+      };
+
     };
 
     environment.systemPackages = with pkgs; [ pavucontrol ];
