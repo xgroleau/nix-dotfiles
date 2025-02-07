@@ -23,7 +23,10 @@
     };
 
     programs.dconf.enable = true;
-    hardware.bluetooth.enable = true;
+    hardware.bluetooth = {
+      enable = true;
+      package = pkgs.bluezFull;
+    };
 
     environment.systemPackages = with pkgs; [ pavucontrol ];
 
