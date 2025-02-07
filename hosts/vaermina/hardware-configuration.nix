@@ -21,6 +21,10 @@
       "usb_storage"
       "usbhid"
       "sd_mod"
+
+      "kvm-intel"
+      "hid_sony"
+      "hid_playstation"
     ];
 
     initrd.kernelModules = [ ];
