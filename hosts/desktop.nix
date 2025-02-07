@@ -37,8 +37,10 @@
 
       };
       saleae-logic.enable = true;
-      zsa.enable = true;
-      qmk.enable = true;
+      keyboard = {
+        zsa.enable = true;
+        qmk.enable = true;
+      };
     };
 
     environment.systemPackages = with pkgs; [ pavucontrol ];
