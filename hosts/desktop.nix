@@ -23,17 +23,22 @@
     };
 
     programs.dconf.enable = true;
-    hardware.bluetooth = {
-      enable = true;
-      input = {
+    hardware = {
+      bluetooth = {
+        enable = true;
+        input = {
 
-        General = {
-          ClassicBondedOnly = true;
-          IdleTimeout = 30;
+          General = {
+            ClassicBondedOnly = true;
+            IdleTimeout = 30;
+          };
+
         };
 
       };
-
+      saleae-logic.enable = true;
+      zsa.enable = true;
+      qmk.enable = true;
     };
 
     environment.systemPackages = with pkgs; [ pavucontrol ];
