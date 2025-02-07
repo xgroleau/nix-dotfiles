@@ -53,7 +53,11 @@
 
     users.users.console = {
       isNormalUser = true;
-      extraGroups = [ "video" ];
+      extraGroups = [
+        "video"
+        "input"
+        "plugdev"
+      ];
       initialPassword = "nixos";
     };
 
