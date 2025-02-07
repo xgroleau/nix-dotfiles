@@ -49,7 +49,7 @@
         mangohud
       ];
       loginShellInit = ''
-        [[ "$(tty)" = "/dev/tty1" ]] && ./gs.sh
+        [[ "$(tty)" = "/dev/tty1" ]] && ${./gs.sh}
       '';
     };
 
