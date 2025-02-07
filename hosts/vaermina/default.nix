@@ -50,6 +50,7 @@
         };
       };
     };
+    services.xserver.desktopManager.gnome.enable = true;
 
     users.users.console = {
       isNormalUser = true;
