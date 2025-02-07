@@ -35,11 +35,11 @@
           enable = true;
           user = "console";
         };
-        defaultSession = "RetroArch";
       };
       xserver = {
         enable = true;
         displayManager.lightdm.enable = true;
+
         desktopManager = {
           retroarch = {
             enable = true;
@@ -51,6 +51,8 @@
       };
     };
     services.xserver.desktopManager.gnome.enable = true;
+    programs.steam.gamescopeSession.enable = true;
+    programs.gamescope.enable = true;
 
     users.users.console = {
       isNormalUser = true;
