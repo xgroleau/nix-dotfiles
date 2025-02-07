@@ -21,7 +21,7 @@ _: {
               end = "-4G";
               content = {
                 type = "filesystem";
-                format = "bcachefs";
+                format = "ext4";
                 mountpoint = "/";
               };
             };
