@@ -36,8 +36,8 @@
           user = "console";
         };
         defaultSession = "RetroArch";
-        plasma6.enable = true;
       };
+      desktopManager.plasma6.enable = true;
       xserver = {
         enable = true;
         desktopManager = {
