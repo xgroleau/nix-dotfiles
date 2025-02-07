@@ -41,7 +41,8 @@
       xserver = {
         enable = true;
       };
-      displayManager.ssdm = {
+
+      displayManager.sddm = {
         enable = true;
         wayland.enable = true;
 
