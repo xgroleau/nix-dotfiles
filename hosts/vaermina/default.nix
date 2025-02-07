@@ -63,6 +63,7 @@
     users.users.console = {
       isNormalUser = true;
       extraGroups = [ "video" ];
+      initialPassword = "nixos";
     };
 
     # Couple of packages
