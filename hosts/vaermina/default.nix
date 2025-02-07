@@ -40,7 +40,11 @@
       };
       xserver = {
         enable = true;
-        displayManager.lightdm.enable = true;
+        displayManager.ssdm = {
+          enable = true;
+          wayland.enable = true;
+
+        };
       };
     };
 
