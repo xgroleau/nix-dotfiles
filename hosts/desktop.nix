@@ -23,6 +23,7 @@
     };
 
     programs.dconf.enable = true;
+    hardware.bluetooth.enable = true;
 
     environment.systemPackages = with pkgs; [ pavucontrol ];
 
@@ -50,14 +51,11 @@
           LABEL="nrf_rules_end"
         '';
       };
-
       udisks2.enable = true;
 
       # Enable CUPS to print documents. Add driver if needed
       printing.enable = true;
 
-      # Bluetooth
-      hardware.bluetooth.enable = true;
       blueman.enable = true;
 
       # Enable sound.
