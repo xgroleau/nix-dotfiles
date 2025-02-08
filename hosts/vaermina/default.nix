@@ -41,15 +41,18 @@
           enable = true;
           user = "console";
         };
+        defaultSession = "RetroArch";
       };
       xserver = {
         enable = true;
-      };
-
-      displayManager.sddm = {
-        enable = true;
-        wayland.enable = true;
-
+        displayManager.lightdm.enable = true;
+        desktopManager = {
+          retroarch = {
+            enable = true;
+            package = pkgs.retroarchFull;
+          };
+          xfce.enable = true;
+        };
       };
     };
 
@@ -60,34 +63,7 @@
         winetricks
         glxinfo
         vulkan-tools
-        mangohud
       ];
-    };
-
-    programs = {
-      steam = {
-        enable = true;
-        gamescopeSession.enable = true;
-        package = pkgs.steam.override {
-          extraPkgs =
-            pkgs: with pkgs; [
-              xorg.libXcursor
-              xorg.libXi
-              xorg.libXinerama
-              xorg.libXScrnSaver
-              libpng
-              libpulseaudio
-              libvorbis
-              stdenv.cc.cc.lib
-              libkrb5
-              keyutils
-            ];
-        };
-      };
-      gamescope = {
-        enable = true;
-        capSysNice = true;
-      };
     };
 
     users.users.console = {
