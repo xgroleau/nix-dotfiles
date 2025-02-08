@@ -25,11 +25,13 @@
       xone.enable = true; # support for the xbox controller USB dongle
       xpadneo.enable = true;
       uinput.enable = true;
+      steam-hardware.enable = true;
     };
 
     # Other services
     services = {
       libinput.enable = true;
+      joycond.enable = true;
 
       udev.extraRules = ''
         SUBSYSTEM=="vchiq",GROUP="video",MODE="0660"
