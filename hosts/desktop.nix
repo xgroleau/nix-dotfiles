@@ -47,6 +47,7 @@
 
     services = {
       flatpak.enable = true;
+      desktopManager.plasma6.enable = true;
 
       gnome.gnome-keyring.enable = true;
       passSecretService.enable = true;
