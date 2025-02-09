@@ -25,6 +25,7 @@
       "kvm-intel"
       "hid_sony"
       "hid_playstation"
+      "hid_nindento"
     ];
 
     initrd.kernelModules = [ ];
