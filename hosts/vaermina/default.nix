@@ -43,7 +43,7 @@
           enable = true;
           user = "console";
         };
-        defaultSession = "Steam";
+        defaultSession = "steam";
       };
       xserver = {
         enable = true;
