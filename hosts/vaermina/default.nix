@@ -12,12 +12,6 @@
     #Custom modules
     modules = {
       ssh.enable = true;
-      secrets.enable = true;
-      home = {
-        enable = true;
-        username = "xgroleau";
-        profile = "minimal";
-      };
     };
 
     hardware = {
