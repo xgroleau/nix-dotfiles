@@ -19,8 +19,9 @@ Simply run the command with flakes enabled to get my full NixOS configuration
 ||Type|Name|Hardware|Purpose|
 |-|-|-|-|-|
 |💻|Laptop|WSL|Surface pro 4|Build for WSL for my old surface pro 4.|
-|💻|Laptop|namira|Ideapad Y580, 16GB ram|Super old laptop that I still use on the go|
-|🖥️|Desktop|azura|AMD Ryzen 5 7600, 32GB ram|Main dev machine and gaming rig|
+|💻|Laptop|Namira|Ideapad Y580, 16GB ram|Super old laptop that I still use on the go|
+|🖥️|Desktop|Azura|AMD Ryzen 5 7600, 32GB ram|Main dev machine and gaming rig|
+|🎮|Console|Vaermina|Optiplex 3050 | Console for steam remote play and emulators.
 |☁️️|Server|Sheogorath|i5-4690K, 32GB ram, 24TB raidz1|Main server for media and services. Previous desktop.|
 |☁️|Server|Jyggalag|Oracle A1 free tier, 4 cores, 24GB ram|Mostly to monitor Sheogorath services and trigger alerts.|
 
