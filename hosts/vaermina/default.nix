@@ -43,11 +43,11 @@
           enable = true;
           user = "console";
         };
-        defaultSession = "RetroArch";
+        defaultSession = "Steam";
       };
       xserver = {
         enable = true;
-        displayManager.lightdm.enable = true;
+        # displayManager.lightdm.enable = true;
         desktopManager = {
           retroarch = {
             enable = true;
