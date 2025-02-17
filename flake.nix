@@ -87,8 +87,8 @@
         imports = [
           jovian-nixos.nixosModules.default
           # ./modules
-          # agenix.nixosModules.default
-          # disko.nixosModules.disko
+          agenix.nixosModules.default
+          disko.nixosModules.disko
           # authentik-nix.nixosModules.default
           # nix-minecraft.nixosModules.minecraft-servers
           # { nixpkgs.overlays = [ inputs.nix-minecraft.overlay ]; }
