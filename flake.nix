@@ -141,10 +141,7 @@
       # Generate a nixos configuration for each hosts
       nixosConfigurations = nixpkgs.lib.mapAttrs (
         hostName: hostConfig:
-        let
-          pkgsSource = if (hostConfig.useUnstable or false) then nixpkgs-unstable else nixpkgs;
-        in
-        nixpkgs.lib.nixosSystem {
+        nixpkgs-unstable.lib.nixosSystem {
           inherit (hostConfig) system;
           specialArgs = {
             inherit inputs;
