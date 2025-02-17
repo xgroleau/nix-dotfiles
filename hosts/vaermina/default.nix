@@ -9,7 +9,7 @@
 
   config = {
 
-    # Custom modules
+    #Custom modules
     # modules = {
     #   ssh.enable = true;
     #   secrets.enable = true;

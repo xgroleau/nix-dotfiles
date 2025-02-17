@@ -85,13 +85,18 @@
 
       nixosModule = _: {
         imports = [
-          jovian-nixos.nixosModules.default
-          # ./modules
+          ./modules
           agenix.nixosModules.default
           disko.nixosModules.disko
-          # authentik-nix.nixosModules.default
-          # nix-minecraft.nixosModules.minecraft-servers
-          # { nixpkgs.overlays = [ inputs.nix-minecraft.overlay ]; }
+          authentik-nix.nixosModules.default
+          nix-minecraft.nixosModules.minecraft-servers
+          { nixpkgs.overlays = [ inputs.nix-minecraft.overlay ]; }
+        ];
+      };
+
+      nixosUnstableModule = _: {
+        imports = [
+          jovian-nixos.nixosModules.default
         ];
       };
 
@@ -111,7 +116,7 @@
 
       homeManagerModules.default = hmModule;
 
-      nixosModules.default = nixosModule;
+      nixosModules.default = import ./modules;
 
       overlays = import ./overlays { inherit inputs; };
 
@@ -141,16 +146,24 @@
       # Generate a nixos configuration for each hosts
       nixosConfigurations = nixpkgs.lib.mapAttrs (
         hostName: hostConfig:
-        nixpkgs-unstable.lib.nixosSystem {
+        let
+          pkgsSource = if (hostConfig.useUnstable or false) then nixpkgs-unstable else nixpkgs;
+        in
+        pkgsSource.lib.nixosSystem {
           inherit (hostConfig) system;
           specialArgs = {
             inherit inputs;
           };
-          modules = [
-            ./secrets
-            hostConfig.cfg
-            nixosModule
-          ];
+          modules =
+            [
+              ./secrets
+              hostConfig.cfg
+              nixosModule
+            ]
+            # unstable modules
+            ++ (nixpkgs.lib.optionals (hostConfig.useUnstable or false) [
+              nixosUnstableModule
+            ]);
         }
       ) hosts;
     }
