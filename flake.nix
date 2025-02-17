@@ -40,6 +40,13 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Only supports unstable
+    jovian-nixos = {
+      url = "github:Jovian-Experiments/Jovian-NixOS/development";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
     authentik-nix.url = "github:nix-community/authentik-nix";
 
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";
@@ -60,6 +67,7 @@
       disko,
       authentik-nix,
       nix-minecraft,
+      jovian-nixos,
       ...
     }:
     let
@@ -77,12 +85,13 @@
 
       nixosModule = _: {
         imports = [
-          ./modules
-          agenix.nixosModules.default
-          disko.nixosModules.disko
-          authentik-nix.nixosModules.default
-          nix-minecraft.nixosModules.minecraft-servers
-          { nixpkgs.overlays = [ inputs.nix-minecraft.overlay ]; }
+          jovian-nixos.nixosModules.default
+          # ./modules
+          # agenix.nixosModules.default
+          # disko.nixosModules.disko
+          # authentik-nix.nixosModules.default
+          # nix-minecraft.nixosModules.minecraft-servers
+          # { nixpkgs.overlays = [ inputs.nix-minecraft.overlay ]; }
         ];
       };
 
@@ -132,6 +141,9 @@
       # Generate a nixos configuration for each hosts
       nixosConfigurations = nixpkgs.lib.mapAttrs (
         hostName: hostConfig:
+        let
+          pkgsSource = if (hostConfig.useUnstable or false) then nixpkgs-unstable else nixpkgs;
+        in
         nixpkgs.lib.nixosSystem {
           inherit (hostConfig) system;
           specialArgs = {
