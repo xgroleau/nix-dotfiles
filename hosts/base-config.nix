@@ -14,9 +14,9 @@ in
   config = {
 
     # Custom modules
-    modules = {
-      tailscale.enable = true;
-    };
+    # modules = {
+    #   tailscale.enable = true;
+    # };
 
     nixpkgs = {
       config = {
