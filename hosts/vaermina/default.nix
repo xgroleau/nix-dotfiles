@@ -10,16 +10,16 @@
   config = {
 
     # Custom modules
-    modules = {
-      ssh.enable = true;
-      secrets.enable = true;
-      kdeconnect.enable = true;
-      home = {
-        enable = true;
-        username = "xgroleau";
-        profile = "minimal";
-      };
-    };
+    # modules = {
+    #   ssh.enable = true;
+    #   secrets.enable = true;
+    #   kdeconnect.enable = true;
+    #   home = {
+    #     enable = true;
+    #     username = "xgroleau";
+    #     profile = "minimal";
+    #   };
+    # };
 
     hardware = {
       xone.enable = true; # support for the xbox controller USB dongle
