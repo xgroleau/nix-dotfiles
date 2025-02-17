@@ -10,22 +10,22 @@
   config = {
 
     #Custom modules
-    # modules = {
-    #   ssh.enable = true;
-    #   secrets.enable = true;
-    #   kdeconnect.enable = true;
-    #   home = {
-    #     enable = true;
-    #     username = "xgroleau";
-    #     profile = "minimal";
-    #   };
-    # };
+    modules = {
+      ssh.enable = true;
+      secrets.enable = true;
+      home = {
+        enable = true;
+        username = "xgroleau";
+        profile = "minimal";
+      };
+    };
 
     hardware = {
       xone.enable = true; # support for the xbox controller USB dongle
       xpadneo.enable = true;
       uinput.enable = true;
       steam-hardware.enable = true;
+
     };
 
     jovian = {
@@ -51,11 +51,12 @@
       # Couple of packages
       systemPackages = with pkgs; [
         retroarchFull
+        firefox
+        glxinfo
+        mangohud
+        vulkan-tools
         wine
         winetricks
-        glxinfo
-        vulkan-tools
-        mangohud
       ];
     };
 
