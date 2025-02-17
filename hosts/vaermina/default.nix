@@ -61,6 +61,7 @@
     programs.steam.gamescopeSession.enable = true;
     programs.gamescope.enable = true;
     programs.gamemode.enable = true;
+    programs.gamescope.package = pkgs.unstable.gamescope;
 
     environment = {
       # Couple of packages
