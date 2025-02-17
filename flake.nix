@@ -44,10 +44,6 @@
 
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";
 
-    roam = {
-      url = "github:xgroleau/roam-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =
@@ -64,7 +60,6 @@
       disko,
       authentik-nix,
       nix-minecraft,
-      roam,
       ...
     }:
     let

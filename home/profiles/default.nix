@@ -56,7 +56,6 @@ rec {
           element-desktop
           beeper
           mattermost-desktop
-          roam
           slack
           spotify
         ];

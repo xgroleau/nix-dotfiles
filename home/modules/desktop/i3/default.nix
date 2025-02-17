@@ -226,9 +226,11 @@ in
               "${mod}+space" = "exec --no-startup-id rofi -show drun -modi drun";
               "${mod}+w" = "exec --no-startup-id rofi -show window -modi window";
               "${mod}+x" = "exec --no-startup-id rofi -show combi -modi combi";
-              "${mod}+c" = "exec --no-startup-id rofi -show calc -modi calc -no-show-match -no-sort -calc-command 'echo {result}' | xclip -selection clipboard";
+              "${mod}+c" =
+                "exec --no-startup-id rofi -show calc -modi calc -no-show-match -no-sort -calc-command 'echo {result}' | xclip -selection clipboard";
               "${mod}+p" = "exec --no-startup-id rofi -show p:rofi-power-menu";
-              "${mod}+semicolon" = "exec --no-startup-id rofi -show emoji -modi emoji -emoji-format '{emoji}: {name}'";
+              "${mod}+semicolon" =
+                "exec --no-startup-id rofi -show emoji -modi emoji -emoji-format '{emoji}: {name}'";
               "${mod}+Shift+s" = "exec --no-startup-id flameshot gui";
               "${mod}+d" = "exec --no-startup-id emacsclient --eval '(emacs-everywhere)'";
 

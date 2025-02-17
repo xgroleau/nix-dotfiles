@@ -25,7 +25,6 @@ in
   config = {
     nixpkgs.overlays = [
       overlays.unstable-packages
-      overlays.roam
     ];
 
     stylix = {

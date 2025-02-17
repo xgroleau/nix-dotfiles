@@ -30,7 +30,6 @@ in
       };
       overlays = [
         overlays.unstable-packages
-        overlays.roam
       ];
     };
 
