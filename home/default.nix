@@ -34,7 +34,7 @@ in
       base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
       fonts = {
         monospace = {
-          package = (pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; });
+          package = pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; };
           name = "FiraCode Nerd Font";
         };
 
