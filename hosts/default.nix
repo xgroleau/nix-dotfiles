@@ -33,6 +33,7 @@
   vaermina = {
     system = "x86_64-linux";
     cfg = import ./vaermina;
+    useUnstable = true;
   };
 
   wsl = {

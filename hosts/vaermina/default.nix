@@ -9,16 +9,9 @@
 
   config = {
 
-    # Custom modules
+    #Custom modules
     modules = {
       ssh.enable = true;
-      secrets.enable = true;
-      kdeconnect.enable = true;
-      home = {
-        enable = true;
-        username = "xgroleau";
-        profile = "minimal";
-      };
     };
 
     hardware = {
@@ -26,8 +19,16 @@
       xpadneo.enable = true;
       uinput.enable = true;
       steam-hardware.enable = true;
+
     };
 
+    jovian = {
+      decky-loader.enable = true;
+      steam.autoStart = true;
+      steam.desktopSession = "plasma";
+      steam.enable = true;
+      steam.user = "console";
+    };
     # Other services
     services = {
       libinput.enable = true;
@@ -38,33 +39,18 @@
         KERNEL=="event*", ATTRS{id/product}=="9400", ATTRS{id/vendor}=="18d1", MODE="0660", GROUP="plugdev", SYMLINK+="input/by-id/stadia-controller-$kernel"
       '';
 
-      displayManager = {
-        autoLogin = {
-          enable = true;
-          user = "console";
-        };
-        defaultSession = "RetroArch";
-      };
-      xserver = {
-        enable = true;
-        displayManager.lightdm.enable = true;
-        desktopManager = {
-          retroarch = {
-            enable = true;
-            package = pkgs.retroarchFull;
-          };
-          xfce.enable = true;
-        };
-      };
     };
 
     environment = {
       # Couple of packages
       systemPackages = with pkgs; [
+        retroarchFull
+        firefox
+        glxinfo
+        mangohud
+        vulkan-tools
         wine
         winetricks
-        glxinfo
-        vulkan-tools
       ];
     };
 
