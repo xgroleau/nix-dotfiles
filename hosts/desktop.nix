@@ -16,7 +16,7 @@
       enable = true;
       extraPortals = with pkgs; [
         xdg-desktop-portal-gtk
-        xdg-desktop-portal-kde
+        kdePackages.xdg-desktop-portal-kde
         xdg-desktop-portal-wlr
       ];
       config.common.default = "*";
@@ -47,7 +47,6 @@
 
     services = {
       flatpak.enable = true;
-      desktopManager.plasma6.enable = true;
 
       gnome.gnome-keyring.enable = true;
       passSecretService.enable = true;

@@ -14,14 +14,16 @@
       ssh.enable = true;
     };
 
+    # Support for the controllers and more
     hardware = {
-      xone.enable = true; # support for the xbox controller USB dongle
+      xone.enable = true;
       xpadneo.enable = true;
       uinput.enable = true;
       steam-hardware.enable = true;
 
     };
 
+    # Steam deck experience
     jovian = {
       decky-loader.enable = true;
       steam.autoStart = true;
@@ -29,8 +31,10 @@
       steam.enable = true;
       steam.user = "console";
     };
+
     # Other services
     services = {
+      desktopManager.plasma6.enable = true;
       libinput.enable = true;
       joycond.enable = true;
 
