@@ -27,7 +27,7 @@ in
         with pkgs;
         [
           # Emacs
-          ((emacsPackagesFor emacs29).emacsWithPackages (epkgs: [
+          ((emacsPackagesFor emacs).emacsWithPackages (epkgs: [
             epkgs.editorconfig
             epkgs.vterm
             epkgs.xclip
