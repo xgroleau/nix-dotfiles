@@ -200,7 +200,7 @@ in
 
           ocis-collabora = {
             autoStart = true;
-            image = "collabora/code:24.04.11.2.1@sha256:1cf62aa5db7f7e94d0b286f5acdd2ff823f1ef87fedffef1f487abcec5d30e9a";
+            image = "collabora/code:24.04.13.2.1@sha256:01dc4ab83977edf0f2eb35c07973ac267ebccf4917d3311efa9b9e336709f608";
             volumes = [
               "/etc/localtime:/etc/localtime:ro"
             ];
