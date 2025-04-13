@@ -95,7 +95,7 @@ in
 
           # opencloud-tika = {
           #   autoStart = true;
-          #   image = "apache/tika:2.9.2.1-full@sha256:ae0b86d3c4d06d8997407fcb08f31a7259fff91c43e0c1d7fffdad1e9ade3fe8";
+          #   image = "apache/tika:3.1.0.0-full@sha256:1221afa48af9158e14b8d005bbcfa49f3d7fc4e5113db48cad586955bc64992b";
           #   extraOptions = [ "--network=opencloud-bridge" ];
           # };
         }
