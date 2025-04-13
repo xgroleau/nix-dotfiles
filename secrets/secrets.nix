@@ -43,7 +43,7 @@ with keys;
     users.xgroleau
     machines.sheogorath
   ];
-  "ocis-env.age".publicKeys = [
+  "opencloud-env.age".publicKeys = [
     users.xgroleau
     machines.sheogorath
   ];

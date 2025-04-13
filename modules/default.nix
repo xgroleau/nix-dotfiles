@@ -23,7 +23,7 @@
     ./minecraft
     ./monitoring
     ./msmtp
-    ./ocis
+    ./opencloud
     ./palworld
     ./ssh
     ./tailscale

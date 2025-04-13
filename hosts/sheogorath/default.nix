@@ -75,7 +75,7 @@ in
           "immich.${domain}" = "localhost:10300";
           "mealie.${domain}" = "localhost:10400";
 
-          "ocis.${domain}" = "localhost:11200";
+          "opencloud.${domain}" = "localhost:11200";
           "wopi.${domain}" = "localhost:11210";
           "collabora.${domain}" = "localhost:11220";
 
@@ -126,12 +126,12 @@ in
         ovpnFile = config.age.secrets.piaOvpn.path;
       };
 
-      ocis = {
+      opencloud = {
         enable = true;
         port = 11200;
-        configDir = "/vault/ocis";
-        dataDir = "/documents/ocis";
-        environmentFiles = [ config.age.secrets.ocisEnv.path ];
+        configDir = "/vault/opencloud";
+        dataDir = "/documents/opencloud";
+        environmentFiles = [ config.age.secrets.opencloudEnv.path ];
         domain = "ocis.${domain}";
       };
 

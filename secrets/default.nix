@@ -35,7 +35,7 @@ let
     gmxPass.file = ./gmx-pass.age;
     immichEnv.file = ./immich-env.age;
     mealieEnv.file = ./mealie-env.age;
-    ocisEnv.file = ./ocis-env.age;
+    opencloudEnv.file = ./opencloud-env.age;
     piaOvpn.file = ./pia-ovpn.age;
   };
 
