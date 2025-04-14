@@ -132,7 +132,7 @@ in
         configDir = "/vault/opencloud";
         dataDir = "/documents/opencloud";
         environmentFiles = [ config.age.secrets.opencloudEnv.path ];
-        domain = "ocis.${domain}";
+        domain = "opencloud.${domain}";
       };
 
       mealie = {
