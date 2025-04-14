@@ -58,6 +58,7 @@ in
             volumes = [
               "/etc/localtime:/etc/localtime:ro"
               "${cfg.configDir}:/etc/opencloud"
+              "${./csp.yaml}:/etc/opencloud/csp.yaml"
               "${cfg.dataDir}:/var/lib/opencloud"
             ];
 
