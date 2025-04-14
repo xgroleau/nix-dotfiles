@@ -53,7 +53,7 @@ in
         {
           opencloud = {
             autoStart = true;
-            image = "docker pull opencloudeu/opencloud:2.0.0";
+            image = "opencloudeu/opencloud:2.0.0";
             ports = [ "${toString cfg.port}:9200" ];
             volumes = [
               "/etc/localtime:/etc/localtime:ro"
@@ -84,7 +84,13 @@ in
             };
 
             environmentFiles = cfg.environmentFiles;
+
+            entrypoint = "/bin/sh";
             extraOptions = [ "--network=opencloud-bridge" ];
+            cmd = [
+              "-c"
+              "opencloud init | true; opencloud server"
+            ];
           };
 
           # opencloud-tika = {
