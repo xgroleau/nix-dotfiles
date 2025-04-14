@@ -84,13 +84,7 @@ in
             };
 
             environmentFiles = cfg.environmentFiles;
-
-            entrypoint = "/bin/sh";
             extraOptions = [ "--network=opencloud-bridge" ];
-            cmd = [
-              "-c"
-              "opencloud init | true; opencloud server"
-            ];
           };
 
           # opencloud-tika = {
