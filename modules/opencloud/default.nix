@@ -53,7 +53,7 @@ in
         {
           opencloud = {
             autoStart = true;
-            image = "opencloudeu/opencloud:2.0.0";
+            image = "opencloudeu/opencloud-rolling";
             ports = [ "${toString cfg.port}:9200" ];
             volumes = [
               "/etc/localtime:/etc/localtime:ro"
