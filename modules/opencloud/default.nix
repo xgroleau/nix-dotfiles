@@ -59,6 +59,7 @@ in
               "/etc/localtime:/etc/localtime:ro"
               "${cfg.configDir}:/etc/opencloud"
               "${./csp.yaml}:/etc/opencloud/csp.yaml"
+              "${./proxy.yaml}:/etc/opencloud/proxy.yaml"
               "${cfg.dataDir}:/var/lib/opencloud"
             ];
 
