@@ -56,7 +56,7 @@ in
                 packHash = "sha256-cCnFYUSQTGXSM7Ed+G6YiKnStiD9+CKGD+FpHK/rxaI=";
               };
               mcVersion = modpack.manifest.versions.minecraft;
-              fabricVersion = modpack.manifest.versions.fabric;
+              forgeVersion = modpack.manifest.versions.forge;
               serverVersion = lib.replaceStrings [ "." ] [ "_" ] "forge-${mcVersion}";
             in
             {
@@ -66,7 +66,7 @@ in
               restart = "always";
               openFirewall = cfg.openFirewall;
 
-              package = pkgs.fabricServers.${serverVersion}.override { loaderVersion = fabricVersion; };
+              package = pkgs.forgeServers.${serverVersion}.override { loaderVersion = forgeVersion; };
               symlinks = {
                 "mods" = "${modpack}/mods";
               };
