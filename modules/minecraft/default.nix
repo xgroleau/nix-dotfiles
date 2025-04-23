@@ -52,7 +52,7 @@ in
           servers."${cfg.name}" =
             let
               modpack = pkgs.fetchPackwizModpack {
-                url = "https://gitlab.com/xavgroleau/yofo-mc-mods/-/raw/v1.0.1/pack.toml?ref_type=tags&inline=false";
+                url = "https://raw.githubusercontent.com/xgroleau/yofo-modpack/refs/heads/main/pack.toml";
                 packHash = "sha256-i9UqnjWDZKvVF0BCB2xpDIw7QzMa4/XwgQConUH+63o=";
               };
               mcVersion = modpack.manifest.versions.minecraft;
