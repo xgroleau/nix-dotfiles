@@ -57,7 +57,7 @@ in
               };
               mcVersion = modpack.manifest.versions.minecraft;
               fabricVersion = modpack.manifest.versions.fabric;
-              serverVersion = lib.replaceStrings [ "." ] [ "_" ] "fabric-${mcVersion}";
+              serverVersion = lib.replaceStrings [ "." ] [ "_" ] "forge-${mcVersion}";
             in
             {
 
