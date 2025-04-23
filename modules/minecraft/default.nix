@@ -53,7 +53,7 @@ in
             let
               modpack = pkgs.fetchPackwizModpack {
                 url = "https://raw.githubusercontent.com/xgroleau/yofo-modpack/refs/tags/v1.0.4/pack.toml";
-                packHash = "sha256-0px46y80lnvccilgys9vffgzvvwyqr7cmpmmh0kjag7k8fv5lcvl";
+                packHash = "sha256-i9UqnjWDZKvVF0BCB2xpDIw7QzMa4/XwgQConUH+63o=";
               };
               mcVersion = modpack.manifest.versions.minecraft;
               fabricVersion = modpack.manifest.versions.fabric;
