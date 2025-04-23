@@ -10,4 +10,4 @@ role_assignment:
       - role_name: user
         claim_value: cloud
       - role_name: guest
-        claim_value: guest
+        claim_value: user

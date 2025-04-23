@@ -53,13 +53,14 @@ in
         {
           opencloud = {
             autoStart = true;
-            image = "opencloudeu/opencloud:2.0.0";
+            image = "opencloudeu/opencloud:2.0.0@sha256:71896d1e11f3ed431ecf611219a27248b7483e4c96b5b2a972a67f61df8df4e5";
             ports = [ "${toString cfg.port}:9200" ];
             volumes = [
               "/etc/localtime:/etc/localtime:ro"
               "${cfg.configDir}:/etc/opencloud"
               "${./csp.yaml}:/etc/opencloud/csp.yaml"
               "${./proxy.yaml}:/etc/opencloud/proxy.yaml"
+              "${./app-registry.yaml}:/etc/opencloud/app-registry.yaml"
               "${cfg.dataDir}:/var/lib/opencloud"
             ];
 
@@ -73,17 +74,17 @@ in
               OC_INSECURE = "false";
               OC_URL = "https://${cfg.domain}";
               OC_LOG_LEVEL = "info";
-              PROXY_CSP_CONFIG_FILE_LOCATION = "/etc/opencloud/csp.yaml";
 
+              STORAGE_USERS_POSIX_WATCH_FS = "true";
               GATEWAY_GRPC_ADDR = "0.0.0.0:9142";
               MICRO_REGISTRY_ADDRESS = "127.0.0.1:9233";
               NATS_NATS_HOST = "0.0.0.0";
               NATS_NATS_PORT = "9233";
 
-              # #Tika
-              # SEARCH_EXTRACTOR_TYPE = "tika";
-              # SEARCH_EXTRACTOR_TIKA_TIKA_URL = "http://opencloud-tika:9998";
-              # FRONTEND_FULL_TEXT_SEARCH_ENABLED = "true";
+              #Tika
+              SEARCH_EXTRACTOR_TYPE = "tika";
+              SEARCH_EXTRACTOR_TIKA_TIKA_URL = "http://tika:9998";
+              FRONTEND_FULL_TEXT_SEARCH_ENABLED = "true";
             };
 
             environmentFiles = cfg.environmentFiles;
@@ -96,11 +97,11 @@ in
             ];
           };
 
-          # opencloud-tika = {
-          #   autoStart = true;
-          #   image = "apache/tika:2.9.2.1-full@sha256:ae0b86d3c4d06d8997407fcb08f31a7259fff91c43e0c1d7fffdad1e9ade3fe8";
-          #   extraOptions = [ "--network=opencloud-bridge" ];
-          # };
+          opencloud-tika = {
+            autoStart = true;
+            image = "apache/tika:3.1.0.0-full@sha256:1221afa48af9158e14b8d005bbcfa49f3d7fc4e5113db48cad586955bc64992b";
+            extraOptions = [ "--network=opencloud-bridge" ];
+          };
         }
       ];
     };
@@ -118,7 +119,7 @@ in
         if [ -z "$check" ]; then
           ${containerBackend} network create opencloud-bridge
         else
-             echo "opencloud-bridge already exists in docker"
+             echo "opencloud-bridge already exists"
          fi
       '';
     };
