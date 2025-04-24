@@ -53,7 +53,7 @@ in
         };
 
         volumes = [
-          "${cfg.dataDir}/world:/data"
+          "${cfg.dataDir}:/data"
         ];
       };
 
