@@ -36,82 +36,49 @@ in
 
   };
 
-  config =
-    lib.mkIf cfg.enable
-
-      {
-        services.minecraft-servers = {
-          enable = true;
-          dataDir = "${cfg.dataDir}/data";
-          eula = true;
-
-          managementSystem.systemd-socket = {
-            enable = true;
-          };
-
-          servers."${cfg.name}" =
-            let
-              modpack = pkgs.fetchPackwizModpack {
-                url = "https://raw.githubusercontent.com/xgroleau/yofo-modpack/refs/tags/v1.0.5/pack.toml";
-                packHash = "sha256-cCnFYUSQTGXSM7Ed+G6YiKnStiD9+CKGD+FpHK/rxaI=";
-              };
-              mcVersion = modpack.manifest.versions.minecraft;
-              forgeVersion = modpack.manifest.versions.forge;
-              serverVersion = lib.replaceStrings [ "." ] [ "_" ] "forge-${mcVersion}";
-            in
-            {
-
-              enable = true;
-              autoStart = true;
-              restart = "always";
-              openFirewall = cfg.openFirewall;
-
-              package = pkgs.forgeServers.${serverVersion}.override { loaderVersion = forgeVersion; };
-              symlinks = {
-                "mods" = "${modpack}/mods";
-              };
-
-              serverProperties = {
-                enable-command-block = true;
-                enforce-whitelist = true;
-                gamemode = "survival";
-                generate-structures = "true";
-                hide-online-players = false;
-                initial-enabled-packs = "vanilla";
-                level-name = cfg.name;
-                motd = "${cfg.name} server :)";
-                online-mode = false;
-                pvp = true;
-                require-resource-pack = false;
-                # resource-pack=
-                # resource-pack-id=
-                # resource-pack-prompt=
-                # resource-pack-sha1=
-                server-port = cfg.port;
-                white-list = false;
-              };
-            };
-
-        };
-        # Create the folder if it doesn't exist
-        systemd.tmpfiles.settings."mineraft-${cfg.name}" = {
-          "${cfg.dataDir}" = {
-            d = {
-              user = "minecraft";
-              group = "minecraft";
-              mode = "755";
-            };
-          };
-
-          "${cfg.dataDir}/data" = {
-            d = {
-              user = "minecraft";
-              group = "minecraft";
-              mode = "755";
-            };
-          };
+  config = lib.mkIf cfg.enable {
+    virtualisation.oci-containers = {
+      containers.pixelmon = {
+        autoStart = true;
+        image = "itzg/minecraft-server";
+        ports = [ "${toString cfg.port}:25565" ];
+        environment = {
+          EULA = "TRUE";
+          PACKWIZ_URL = "https://raw.githubusercontent.com/xgroleau/yofo-modpack/refs/tags/v1.0.5/pack.toml";
+          ONLINE_MODE = "FALSE";
+          MOTD = "${cfg.name} server :)";
+          SERVER_NAME = "${cfg.name}";
+          TYPE = "FORGE";
+          VERSION = "1.20.2";
         };
 
+        volumes = [
+          "${cfg.data}/world:/data"
+        ];
       };
+
+      networking.firewall = lib.mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ]; };
+
+      # Create the folder if it doesn't exist
+      systemd.tmpfiles.settings."mineraft-${cfg.name}" = {
+        "${cfg.dataDir}" = {
+          d = {
+            user = "minecraft";
+            group = "minecraft";
+            mode = "755";
+          };
+        };
+
+        "${cfg.dataDir}/data" = {
+          d = {
+            user = "minecraft";
+            group = "minecraft";
+            mode = "755";
+          };
+        };
+      };
+
+    };
+  };
 
 }
