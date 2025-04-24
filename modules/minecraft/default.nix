@@ -57,27 +57,27 @@ in
         ];
       };
 
-      networking.firewall = lib.mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ]; };
+    };
 
-      # Create the folder if it doesn't exist
-      systemd.tmpfiles.settings."mineraft-${cfg.name}" = {
-        "${cfg.dataDir}" = {
-          d = {
-            user = "minecraft";
-            group = "minecraft";
-            mode = "755";
-          };
-        };
+    networking.firewall = lib.mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ]; };
 
-        "${cfg.dataDir}/data" = {
-          d = {
-            user = "minecraft";
-            group = "minecraft";
-            mode = "755";
-          };
+    # Create the folder if it doesn't exist
+    systemd.tmpfiles.settings."mineraft-${cfg.name}" = {
+      "${cfg.dataDir}" = {
+        d = {
+          user = "minecraft";
+          group = "minecraft";
+          mode = "755";
         };
       };
 
+      "${cfg.dataDir}/data" = {
+        d = {
+          user = "minecraft";
+          group = "minecraft";
+          mode = "755";
+        };
+      };
     };
   };
 
