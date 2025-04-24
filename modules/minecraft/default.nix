@@ -53,7 +53,7 @@ in
         };
 
         volumes = [
-          "${cfg.data}/world:/data"
+          "${cfg.dataDir}/world:/data"
         ];
       };
 
@@ -64,14 +64,6 @@ in
     # Create the folder if it doesn't exist
     systemd.tmpfiles.settings."mineraft-${cfg.name}" = {
       "${cfg.dataDir}" = {
-        d = {
-          user = "minecraft";
-          group = "minecraft";
-          mode = "755";
-        };
-      };
-
-      "${cfg.dataDir}/data" = {
         d = {
           user = "minecraft";
           group = "minecraft";
