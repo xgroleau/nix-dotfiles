@@ -54,7 +54,6 @@ in
 
   config = lib.mkIf cfg.enable {
     services.mealie = {
-      package = pkgs.unstable.mealie;
       enable = true;
       port = cfg.port;
       credentialsFile = cfg.credentialsFile;
@@ -79,8 +78,8 @@ in
     systemd.tmpfiles.settings.mealie = {
       "${cfg.dataDir}" = {
         d = {
-          mode = "0755";
-          user = "mealie";
+          mode = "0777";
+          user = "root";
         };
       };
     };
