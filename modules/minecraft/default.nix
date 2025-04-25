@@ -66,7 +66,7 @@ in
           MOTD = "${cfg.name} server :)";
           SERVER_NAME = cfg.name;
           TYPE = cfg.type;
-          VERSION = cfg.verison;
+          VERSION = cfg.version;
           PACKWIZ_URL = cfg.packwizPackUrl;
         };
 
