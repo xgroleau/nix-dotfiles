@@ -34,22 +34,40 @@ in
       description = "Where on disk to store your minecraft directory";
     };
 
+    type = lib.mkOption {
+      type = lib.types.str;
+      default = "FABRIC";
+      description = "Type of minecraft server";
+    };
+
+    version = lib.mkOption {
+      type = lib.types.str;
+      default = "LATEST";
+      description = "Version of the minecraft server";
+    };
+
+    packwizPackUrl = lib.mkOption {
+      type = lib.types.nullOr lib.types.str;
+      example = "https://raw.githubusercontent.com/USER/REPO/tags/x.y.z/pack.toml";
+      description = "PackWiz url, need to point to a pack.toml file";
+    };
+
   };
 
   config = lib.mkIf cfg.enable {
     virtualisation.oci-containers = {
-      containers.pixelmon = {
+      containers."minecraft-${cfg.name}" = {
         autoStart = true;
         image = "itzg/minecraft-server";
         ports = [ "${toString cfg.port}:25565" ];
         environment = {
           EULA = "TRUE";
-          PACKWIZ_URL = "https://raw.githubusercontent.com/xgroleau/yofo-modpack/refs/tags/v1.0.5/pack.toml";
           ONLINE_MODE = "FALSE";
           MOTD = "${cfg.name} server :)";
-          SERVER_NAME = "${cfg.name}";
-          TYPE = "FORGE";
-          VERSION = "1.20.2";
+          SERVER_NAME = cfg.name;
+          TYPE = cfg.type;
+          VERSION = cfg.verison;
+          PACKWIZ_URL = cfg.packwizPackUrl;
         };
 
         volumes = [
@@ -65,9 +83,9 @@ in
     systemd.tmpfiles.settings."mineraft-${cfg.name}" = {
       "${cfg.dataDir}" = {
         d = {
-          user = "minecraft";
-          group = "minecraft";
-          mode = "755";
+          user = "root";
+          group = "root";
+          mode = "777";
         };
       };
     };

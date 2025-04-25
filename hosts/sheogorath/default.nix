@@ -153,9 +153,13 @@ in
       minecraft = {
         enable = true;
         port = 25665;
-        name = "Yofo";
         openFirewall = true;
-        dataDir = "/data/minecraft";
+
+        name = "Yofo";
+        type = "FORGE";
+        version = "1.20.2";
+        dataDir = "/data/minecraft/yofo";
+        packwizPackUrl = "https://raw.githubusercontent.com/xgroleau/yofo-modpack/refs/tags/v1.0.5/pack.toml";
       };
 
       # arkSurvivalAscended = {
