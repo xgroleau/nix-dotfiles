@@ -78,8 +78,8 @@ in
     systemd.tmpfiles.settings.mealie = {
       "${cfg.dataDir}" = {
         d = {
-          mode = "0777";
-          user = "root";
+          mode = "0755";
+          user = "mealie";
         };
       };
     };
