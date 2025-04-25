@@ -54,6 +54,7 @@ in
 
   config = lib.mkIf cfg.enable {
     services.mealie = {
+      package = pkgs.unstable.mealie;
       enable = true;
       port = cfg.port;
       credentialsFile = cfg.credentialsFile;
@@ -62,6 +63,7 @@ in
         ALLOW_SIGNUP = "false";
         MAX_WORKERS = "1";
         WEB_CONCURRENCY = "1";
+        NLTK_DATA = pkgs.unstable.nltk-data.averaged_perceptron_tagger_eng;
       } // cfg.settings;
 
     };
