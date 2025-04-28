@@ -42,6 +42,7 @@ in
       attic = {
         enable = true;
         port = 15000;
+        openFirewall = true;
         dataDir = "/data/attic";
         environmentFile = config.age.secrets.atticEnv.path;
       };

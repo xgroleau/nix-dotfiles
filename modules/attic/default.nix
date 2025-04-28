@@ -18,6 +18,8 @@ in
       description = "The port to use";
     };
 
+    openFirewall = lib.mkEnableOption "Open the required ports in the firewall";
+
     dataDir = lib.mkOption {
       type = lib.types.str;
       description = "Path where the data and the sklite will be stored";
@@ -41,6 +43,12 @@ in
   config = lib.mkIf cfg.enable {
 
     environment.systemPackages = with pkgs; [ attic-server ];
+
+    networking.firewall = lib.mkIf cfg.openFirewall {
+      allowedTCPPorts = [
+        cfg.port
+      ];
+    };
 
     services.atticd = {
 
