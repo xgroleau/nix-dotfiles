@@ -53,7 +53,7 @@ in
         {
           opencloud = {
             autoStart = true;
-            image = "opencloudeu/opencloud:2.0.1@sha256:445aac85c784d63f51aea2487cd39234996191479c78c3337c2ef7c5a8d03321";
+            image = "opencloudeu/opencloud:2.0.2@sha256:0972f604d600359d5836d271407d59e713ecc2072966c7340bf679de268f71d0";
             ports = [ "${toString cfg.port}:9200" ];
             volumes = [
               "/etc/localtime:/etc/localtime:ro"
