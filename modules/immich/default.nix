@@ -62,7 +62,7 @@ in
     virtualisation.oci-containers.containers = {
       immich-server = {
         autoStart = true;
-        image = "ghcr.io/imagegenius/immich:1.132.3@sha256:7951c1fb8743f28ce51db4be7b278abf98c84316766cf1dddfda89488ac80fcf";
+        image = "ghcr.io/imagegenius/immich:1.133.0@sha256:401202a4b677fc843ab71597375a21087880f1cb050ca600ff6909a9cc8d2374";
         volumes = [
           "/etc/localtime:/etc/localtime:ro"
           "${cfg.configDir}:/config"
@@ -106,7 +106,7 @@ in
 
       immich-postgres = {
         autoStart = true;
-        image = "tensorchord/pgvecto-rs:pg16-v0.2.0@sha256:b33e0490b24fad3925294ee8d9e87b52ae64445e8772ad30f9f80091523795a5";
+        image = "ghcr.io/immich-app/postgres:16-vectorchord0.3.0-pgvectors0.2.1@sha256:c22a910d16c2ef48dd5a2a5108b219ababcd4b60185b188cc924ab49a5ee0944";
 
         volumes = [
           "/etc/localtime:/etc/localtime:ro"
@@ -116,6 +116,7 @@ in
         environment = {
           POSTGRES_USER = "postgres";
           POSTGRES_DB = "immich";
+          DB_STORAGE_TYPE = "HDD";
         };
 
         environmentFiles = [ cfg.envFile ];
